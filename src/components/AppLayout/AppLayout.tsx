@@ -30,6 +30,7 @@ export type SideProps = {
 }
 
 function Side({ children }: SideProps) {
+  const test = 0
   return <SidebarStyle>{children}</SidebarStyle>
 }
 
