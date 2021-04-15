@@ -4,6 +4,78 @@ import emotionReset from 'emotion-reset'
 const globalStyle = css`
   ${emotionReset}
 
+  @font-face {
+    font-family: 'Noto Sans KR';
+    font-weight: 100;
+    src: url('/fonts/NotoSansKR-Thin.otf') format('opentype');
+  }
+
+  @font-face {
+    font-family: 'Noto Sans KR';
+    font-weight: 200;
+    src: url('/fonts/NotoSansKR-Light.otf') format('opentype');
+  }
+
+  @font-face {
+    font-family: 'Noto Sans KR';
+    font-weight: 400;
+    src: url('/fonts/NotoSansKR-Regular.otf') format('opentype');
+  }
+
+  @font-face {
+    font-family: 'Noto Sans KR';
+    font-weight: 500;
+    src: url('/fonts/NotoSansKR-Medium.otf') format('opentype');
+  }
+
+  @font-face {
+    font-family: 'Noto Sans KR';
+    font-weight: 700;
+    src: url('/fonts/NotoSansKR-Bold.otf') format('opentype');
+  }
+
+  @font-face {
+    font-family: 'Noto Sans KR';
+    font-weight: 900;
+    src: url('/fonts/Roboto-Black.otf') format('opentype');
+  }
+
+  @font-face {
+    font-family: 'Roboto';
+    font-weight: 100;
+    src: url('/fonts/Roboto-Thin.ttf') format('truetype');
+  }
+
+  @font-face {
+    font-family: 'Roboto';
+    font-weight: 200;
+    src: url('/fonts/Roboto-Light.ttf') format('truetype');
+  }
+
+  @font-face {
+    font-family: 'Roboto';
+    font-weight: 400;
+    src: url('/fonts/Roboto-Regular.ttf') format('truetype');
+  }
+
+  @font-face {
+    font-family: 'Roboto';
+    font-weight: 500;
+    src: url('/fonts/Roboto-Medium.ttf') format('truetype');
+  }
+
+  @font-face {
+    font-family: 'Roboto';
+    font-weight: 700;
+    src: url('/fonts/Roboto-Bold.ttf') format('truetype');
+  }
+
+  @font-face {
+    font-family: 'Roboto';
+    font-weight: 900;
+    src: url('/fonts/Roboto-Black.ttf') format('truetype');
+  }
+
   *,
   *::after,
   *::before {
@@ -13,9 +85,19 @@ const globalStyle = css`
     font-smoothing: antialiased;
   }
 
-  h1 {
-    font-size: 48px;
-    font-weight: bold;
+  html {
+    font-size: 62.5%;
+  }
+
+  html * {
+    margin: 0;
+    padding: 0;
+    font-family: Noto Sans KR;
+
+    h1 {
+      font-size: 4.8rem;
+      font-weight: bold;
+    }
   }
 `
 

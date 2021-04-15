@@ -1,6 +1,15 @@
+import React from 'react'
 import styled from '@emotion/styled'
-import Logo from '../../assets/images/svg/Logo'
-import SearchIcon from '../../assets/images/svg/SearchIcon'
+import Logo from '../../assets/svg/Logo'
+import { LoginButton, SignUpButton } from '../../mds/theme/buttons'
+import SignUpForm from '../Form/SignUpForm'
+import LoginForm from '../Form/LoginForm'
+import Modal from '../../mds/Modal'
+import { useRootState } from '../../hooks/useRootState'
+import viewSlice from '../../reducers/Slices/view'
+import { useDispatch } from 'react-redux'
+import { useHistory } from 'react-router'
+import SerchBar from '../SearchBar'
 
 const Wrapper = styled.div`
   width: 100%;
@@ -8,117 +17,83 @@ const Wrapper = styled.div`
 `
 
 const HeaderWrapper = styled.nav`
-  width: 1140px;
-  height: 117px;
+  width: 144rem;
+  height: 11.7rem;
   display: flex;
   justify-content: space-between;
   align-items: center;
-  padding: 0 20px;
+  padding: 0 2.5rem;
   margin: 0 auto;
-
-  @media screen and (max-width: 1140px) {
-    padding: 0 180px;
-  }
-`
-
-const SerchBar = styled.div`
-  width: 330px;
-  height: 40px;
-  position: relative;
-`
-
-const IconWrapper = styled.div`
-  position: absolute;
-  z-index: 2;
-  top: 13px;
-  left: 14px;
-`
-
-const SearchInput = styled.input`
-  position: absolute;
-  top: 0;
-  left: 0;
-  width: 100%;
-  padding: 10px 40px 8px 40px;
-  font-size: 16px;
-  font-weight: 500;
-  line-height: 22px;
-
-  background: #ffffff;
-  border: 1px solid #bbbbbb;
-  box-sizing: border-box;
-  border-radius: 3px;
-
-  color: #202020;
-
-  ::placeholder {
-    color: #aeaeae;
-  }
 `
 
 const LogoWrapper = styled.div`
   display: flex;
   align-items: center;
+  cursor: pointer;
 `
 
 const LogoTitle = styled.div`
   font-family: Roboto;
   font-style: normal;
   font-weight: 900;
-  font-size: 24px;
-  line-height: 28px;
-  padding: 3px;
+  font-size: 2.4rem;
+  line-height: 2.8rem;
+  padding: 0.3rem;
 
   color: #202020;
 `
 
 const ButtonWrapper = styled.div``
 
-const LoginButton = styled.button`
-  width: 95px;
-  height: 40px;
-  margin-left: 16px;
-  padding: 10px;
-
-  background: #fafafa;
-  color: #1942e0;
-  border: 1px solid #1942e0;
-  border-radius: 5px;
-
-  font-family: Noto Sans;
-  font-weight: 600;
-  font-size: 16px;
-  line-height: 22px;
+const NewLoginButton = styled(LoginButton)`
+  margin-left: 1.6rem;
 `
 
-const SignUpButton = styled(LoginButton)`
-  background: #1942e0;
-  color: #fafafa;
-  border: 1px solid #1942e0;
+const NewSignUpButton = styled(SignUpButton)`
+  margin-left: 1.6rem;
 `
 
 export type HeaderProps = {}
 
 function Header({}: HeaderProps) {
+  const { setIsOpenLoginForm, setIsOpenSignUpForm } = viewSlice.actions
+  const { isOpenLoginForm, isOpenSignUpForm } = useRootState(
+    (state) => state.view
+  )
+  const dispatch = useDispatch()
+  const history = useHistory()
+
   return (
     <Wrapper>
       <HeaderWrapper>
-        <LogoWrapper>
+        <LogoWrapper onClick={() => history.push('/')}>
           <Logo />
           <LogoTitle>앤트빌</LogoTitle>
         </LogoWrapper>
-        <SerchBar>
-          <IconWrapper>
-            <SearchIcon />
-          </IconWrapper>
-          <SearchInput
-            name="search"
-            placeholder="키워드 혹은 @닉네임을 입력해주세요."
-          />
-        </SerchBar>
+        <SerchBar />
         <ButtonWrapper>
-          <LoginButton>로그인</LoginButton>
-          <SignUpButton>가입하기</SignUpButton>
+          <NewLoginButton onClick={() => dispatch(setIsOpenLoginForm(true))}>
+            로그인
+          </NewLoginButton>
+          <Modal
+            isOpen={isOpenLoginForm}
+            width="44.7rem"
+            height="54.1rem"
+            setOpen={setIsOpenLoginForm}
+          >
+            <LoginForm />
+          </Modal>
+          <NewSignUpButton onClick={() => dispatch(setIsOpenSignUpForm(true))}>
+            가입하기
+          </NewSignUpButton>
+          <Modal
+            isOpen={isOpenSignUpForm}
+            width="44.7rem"
+            height="77.4rem"
+            setOpen={setIsOpenSignUpForm}
+          >
+            <SignUpForm />
+          </Modal>
         </ButtonWrapper>
       </HeaderWrapper>
     </Wrapper>
