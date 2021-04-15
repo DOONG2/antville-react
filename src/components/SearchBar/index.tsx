@@ -2,6 +2,7 @@ import styled from '@emotion/styled'
 import React from 'react'
 import { useDispatch } from 'react-redux'
 import SearchIcon from '../../assets/svg/SearchIcon'
+import useStockPopularQuery from '../../hooks/query/useStockPopularQuery'
 import { useRootState } from '../../hooks/useRootState'
 import viewSlice from '../../reducers/Slices/view'
 
@@ -40,10 +41,11 @@ const SearchInput = styled.input`
   }
 `
 
-const HotStockList = styled.div`
+const HotStockList = styled.div<{ isOpen: boolean }>`
   position: absolute;
   display: flex;
   flex-direction: column;
+  visibility: ${(props) => (props.isOpen ? 'visible' : 'hidden')};
 
   width: 32.8rem;
   top: 5.2rem;
@@ -69,6 +71,8 @@ const ListTitle = styled.div`
 const Items = styled.div`
   display: grid;
   padding: 1rem;
+
+  border-bottom: 0.5px solid #f0f0f0;
 `
 
 const Item = styled.div`
@@ -123,6 +127,10 @@ const SearchBar = () => {
   const dispatch = useDispatch()
   const { isFocusSearchBar } = useRootState((state) => state.view)
   const { setIsFocusSearchBar } = viewSlice.actions
+
+  const { isLoading, error, data, isFetching } = useStockPopularQuery()
+  console.log()
+
   return (
     <SerchBar>
       <IconWrapper>
@@ -134,21 +142,27 @@ const SearchBar = () => {
         onFocus={() => dispatch(setIsFocusSearchBar(true))}
         onBlur={() => dispatch(setIsFocusSearchBar(false))}
       />
-      <HotStockList>
-        <ListTitle>실시간 인기 종목</ListTitle>
-        <Items>
-          <Item>
-            <StockName>TSLA</StockName>
-            <StockPrice>$676.88 </StockPrice>
-          </Item>
-          <Item>
-            <CompanyName>Tesla,Inc.</CompanyName>
-            <UpDownRate>
-              <UpDownIcon>*</UpDownIcon>20.21 (-2.91%)
-            </UpDownRate>
-          </Item>
-        </Items>
-      </HotStockList>
+      {isLoading ? (
+        ''
+      ) : (
+        <HotStockList isOpen={isFocusSearchBar}>
+          <ListTitle>실시간 인기 종목</ListTitle>
+          {data?.stocks.map((stock) => (
+            <Items key={`${stock.id}-stock-popular`}>
+              <Item>
+                <StockName>{stock.krName}</StockName>
+                <StockPrice>₩64,551,100</StockPrice>
+              </Item>
+              <Item>
+                <CompanyName>{stock.symbol}/KRW</CompanyName>
+                <UpDownRate>
+                  <UpDownIcon>*</UpDownIcon>20.21 (-2.91%)
+                </UpDownRate>
+              </Item>
+            </Items>
+          ))}
+        </HotStockList>
+      )}
     </SerchBar>
   )
 }
