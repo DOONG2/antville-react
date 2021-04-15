@@ -40,27 +40,116 @@ const SearchInput = styled.input`
   }
 `
 
-const HotStockList = styled.div``
+const HotStockList = styled.div`
+  position: absolute;
+  display: flex;
+  flex-direction: column;
+
+  width: 32.8rem;
+  top: 5.2rem;
+
+  background: #ffffff;
+  box-shadow: 0px 4px 14px rgba(32, 32, 32, 0.12),
+    0px 1.6711px 5.84887px rgba(32, 32, 32, 0.0862625),
+    0px 0.893452px 3.12708px rgba(32, 32, 32, 0.0715329),
+    0px 0.500862px 1.75302px rgba(32, 32, 32, 0.06),
+    0px 0.266004px 0.931014px rgba(32, 32, 32, 0.0484671),
+    0px 0.11069px 0.387416px rgba(32, 32, 32, 0.0337375);
+`
+
+const ListTitle = styled.div`
+  color: #202020;
+  font-weight: bold;
+  font-size: 13px;
+  line-height: 18px;
+  padding: 1rem;
+  border-bottom: 0.5px solid #0076e1;
+`
+
+const Items = styled.div`
+  display: grid;
+  padding: 1rem;
+`
+
+const Item = styled.div`
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+`
+
+const StockName = styled.div`
+  font-family: Roboto;
+  font-weight: 500;
+  font-size: 13px;
+  line-height: 15px;
+
+  color: #202020;
+`
+
+const StockPrice = styled.div`
+  font-family: Roboto;
+  font-weight: 500;
+  font-size: 13px;
+  line-height: 15px;
+  text-align: right;
+
+  color: #424242;
+`
+
+const CompanyName = styled.div`
+  font-family: Roboto;
+  font-weight: normal;
+  font-size: 10px;
+  line-height: 12px;
+
+  color: #757575;
+`
+
+const UpDownRate = styled.div`
+  font-family: Roboto;
+  font-style: normal;
+  font-weight: 500;
+  font-size: 10px;
+  line-height: 12px;
+
+  color: #3082f5;
+`
+
+const UpDownIcon = styled.div`
+  display: inline;
+`
 
 const SearchBar = () => {
   const dispatch = useDispatch()
   const { isFocusSearchBar } = useRootState((state) => state.view)
   const { setIsFocusSearchBar } = viewSlice.actions
   return (
-    <>
-      <SerchBar>
-        <IconWrapper>
-          <SearchIcon />
-        </IconWrapper>
-        <SearchInput
-          type="search"
-          placeholder="키워드 혹은 @닉네임을 입력해주세요."
-          onFocus={() => dispatch(setIsFocusSearchBar(true))}
-          onBlur={() => dispatch(setIsFocusSearchBar(false))}
-        />
-      </SerchBar>
-      <HotStockList></HotStockList>
-    </>
+    <SerchBar>
+      <IconWrapper>
+        <SearchIcon />
+      </IconWrapper>
+      <SearchInput
+        type="search"
+        placeholder="키워드 혹은 @닉네임을 입력해주세요."
+        onFocus={() => dispatch(setIsFocusSearchBar(true))}
+        onBlur={() => dispatch(setIsFocusSearchBar(false))}
+      />
+      <HotStockList>
+        <ListTitle>실시간 인기 종목</ListTitle>
+        <Items>
+          <Item>
+            <StockName>TSLA</StockName>
+            <StockPrice>$676.88 </StockPrice>
+          </Item>
+          <Item>
+            <CompanyName>Tesla,Inc.</CompanyName>
+            <UpDownRate>
+              <UpDownIcon>*</UpDownIcon>20.21 (-2.91%)
+            </UpDownRate>
+          </Item>
+        </Items>
+      </HotStockList>
+    </SerchBar>
   )
 }
 
