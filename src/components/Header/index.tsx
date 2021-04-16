@@ -1,6 +1,5 @@
 import React from 'react'
 import styled from '@emotion/styled'
-import Logo from '../../assets/svg/Logo'
 import { LoginButton, SignUpButton } from '../../mds/theme/buttons'
 import SignUpForm from '../Form/SignUpForm'
 import LoginForm from '../Form/LoginForm'
