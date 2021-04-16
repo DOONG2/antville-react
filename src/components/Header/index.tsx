@@ -1,6 +1,5 @@
 import React from 'react'
 import styled from '@emotion/styled'
-import Logo from '../../assets/svg/Logo'
 import { LoginButton, SignUpButton } from '../../mds/theme/buttons'
 import SignUpForm from '../Form/SignUpForm'
 import LoginForm from '../Form/LoginForm'
@@ -10,6 +9,7 @@ import viewSlice from '../../reducers/Slices/view'
 import { useDispatch } from 'react-redux'
 import { useHistory } from 'react-router'
 import SerchBar from '../SearchBar'
+import LogoWithIcon from '../../assets/svg/LogoWithIcon'
 
 const Wrapper = styled.div`
   width: 100%;
@@ -67,8 +67,7 @@ function Header({}: HeaderProps) {
     <Wrapper>
       <HeaderWrapper>
         <LogoWrapper onClick={() => history.push('/')}>
-          <Logo />
-          <LogoTitle>앤트빌</LogoTitle>
+          <LogoWithIcon />
         </LogoWrapper>
         <SerchBar />
         <ButtonWrapper>
