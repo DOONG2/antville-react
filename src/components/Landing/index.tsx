@@ -1,5 +1,6 @@
 import styled from '@emotion/styled'
 import { useDispatch } from 'react-redux'
+import MemoLogoOnlyText from '../../assets/svg/LogoOnlyText'
 import AppleStoreButton from '../../mds/Button/AppleStoreButton'
 import GooglePlayButton from '../../mds/Button/GooglePlayButton'
 
@@ -72,7 +73,9 @@ const Landing = () => {
   return (
     <Wrapper>
       <ContentsWrapper>
-        <Title>ANTVILLE</Title>
+        <Title>
+          <MemoLogoOnlyText />
+        </Title>
         <Description>
           앤트빌의 주민이 되어
           <br />
