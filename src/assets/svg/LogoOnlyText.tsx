@@ -8,8 +8,8 @@ function LogoOnlyText(props: any) {
         <pattern
           id="LogoOnlyText1"
           patternContentUnits="objectBoundingBox"
-          width={1}
-          height={1}
+          width={2}
+          height={2}
         >
           <use
             xlinkHref="#LogoOnlyText2"
