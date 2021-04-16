@@ -1,4 +1,5 @@
 import styled from '@emotion/styled'
+import { RefObject } from 'react'
 import { useDispatch } from 'react-redux'
 import CloseIcon from '../../assets/svg/CloseIcon'
 
@@ -8,6 +9,7 @@ interface ModalProps {
   width: string
   height: string
   setOpen: (checked: boolean) => void
+  ref: RefObject<HTMLElement>
 }
 
 const ModalOverlay = styled.div<{ isOpen: boolean }>`

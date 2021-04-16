@@ -1,4 +1,4 @@
-import React from 'react'
+import React, { useRef } from 'react'
 import styled from '@emotion/styled'
 import { LoginButton, SignUpButton } from '../../mds/theme/buttons'
 import SignUpForm from '../Form/SignUpForm'
@@ -10,6 +10,7 @@ import { useDispatch } from 'react-redux'
 import { useHistory } from 'react-router'
 import SerchBar from '../SearchBar'
 import LogoWithIcon from '../../assets/svg/LogoWithIcon'
+import useHandleClickOutside from '../../hooks/useHandleClickOutside'
 
 const Wrapper = styled.div`
   width: 100%;
@@ -63,6 +64,12 @@ function Header({}: HeaderProps) {
   const dispatch = useDispatch()
   const history = useHistory()
 
+  const loginRef = useRef<HTMLElement>(null)
+  const signUpRef = useRef<HTMLElement>(null)
+
+  useHandleClickOutside(loginRef)
+  useHandleClickOutside(signUpRef)
+
   return (
     <Wrapper>
       <HeaderWrapper>
@@ -79,6 +86,7 @@ function Header({}: HeaderProps) {
             width="44.7rem"
             height="54.1rem"
             setOpen={setIsOpenLoginForm}
+            ref={loginRef}
           >
             <LoginForm />
           </Modal>
@@ -90,6 +98,7 @@ function Header({}: HeaderProps) {
             width="44.7rem"
             height="77.4rem"
             setOpen={setIsOpenSignUpForm}
+            ref={signUpRef}
           >
             <SignUpForm />
           </Modal>
