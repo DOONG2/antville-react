@@ -98,6 +98,9 @@ const globalStyle = css`
       font-size: 4.8rem;
       font-weight: bold;
     }
+    input {
+      padding-bottom: 5px;
+    }
   }
 `
 
