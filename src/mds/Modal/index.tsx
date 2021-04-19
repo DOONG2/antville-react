@@ -1,19 +1,16 @@
 import styled from '@emotion/styled'
-import { RefObject } from 'react'
-import { useDispatch } from 'react-redux'
 import CloseIcon from '../../assets/svg/CloseIcon'
 
 interface ModalProps {
   children: React.ReactNode
-  isOpen: boolean
+  shown: boolean
   width: string
   height: string
-  setOpen: (checked: boolean) => void
-  ref: RefObject<HTMLElement>
+  close: (event: React.MouseEvent<HTMLDivElement, MouseEvent>) => void
 }
 
-const ModalOverlay = styled.div<{ isOpen: boolean }>`
-  display: ${(props) => (props.isOpen ? 'block' : 'none')};
+const ModalOverlay = styled.div<{ shown: boolean }>`
+  display: ${(props) => (props.shown ? 'block' : 'none')};
   position: fixed;
   top: 0;
   left: 0;
@@ -24,7 +21,7 @@ const ModalOverlay = styled.div<{ isOpen: boolean }>`
   z-index: 999;
 `
 
-const Wrapper = styled.div<{ isOpen: boolean }>`
+const Wrapper = styled.div<{ shown: boolean }>`
   position: fixed;
   top: 50%;
   left: 50%;
@@ -44,7 +41,7 @@ const Wrapper = styled.div<{ isOpen: boolean }>`
 
   border-radius: 10px;
 
-  display: ${(props) => (props.isOpen ? 'block' : 'none')};
+  display: ${(props) => (props.shown ? 'block' : 'none')};
 `
 
 const ModalInner = styled.div<{ width: string; height: string }>`
@@ -66,15 +63,14 @@ const NewCloseIcon = styled(CloseIcon)`
   cursor: pointer;
 `
 
-const Modal = ({ children, isOpen, width, height, setOpen }: ModalProps) => {
-  const dispatch = useDispatch()
+const Modal = ({ children, shown, width, height, close }: ModalProps) => {
   return (
     <>
-      <ModalOverlay isOpen={isOpen} />
-      <Wrapper isOpen={isOpen} tabIndex={-1}>
+      <ModalOverlay shown={shown} onClick={close} />
+      <Wrapper shown={shown} tabIndex={-1} onClick={(e) => e.stopPropagation()}>
         <ModalInner width={width} height={height}>
           <LeftItem>
-            <NewCloseIcon onClick={() => dispatch(setOpen(false))} />
+            <NewCloseIcon onClick={close} />
           </LeftItem>
           {children}
         </ModalInner>
