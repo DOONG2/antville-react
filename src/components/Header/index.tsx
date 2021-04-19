@@ -32,17 +32,6 @@ const LogoWrapper = styled.div`
   cursor: pointer;
 `
 
-const LogoTitle = styled.div`
-  font-family: Roboto;
-  font-style: normal;
-  font-weight: 900;
-  font-size: 2.4rem;
-  line-height: 2.8rem;
-  padding: 0.3rem;
-
-  color: #202020;
-`
-
 const ButtonWrapper = styled.div``
 
 const NewLoginButton = styled(LoginButton)`
@@ -75,10 +64,10 @@ function Header({}: HeaderProps) {
             로그인
           </NewLoginButton>
           <Modal
-            isOpen={isOpenLoginForm}
+            shown={isOpenLoginForm}
             width="44.7rem"
             height="54.1rem"
-            setOpen={setIsOpenLoginForm}
+            close={() => dispatch(setIsOpenLoginForm(false))}
           >
             <LoginForm />
           </Modal>
@@ -86,10 +75,10 @@ function Header({}: HeaderProps) {
             가입하기
           </NewSignUpButton>
           <Modal
-            isOpen={isOpenSignUpForm}
+            shown={isOpenSignUpForm}
             width="44.7rem"
             height="77.4rem"
-            setOpen={setIsOpenSignUpForm}
+            close={() => dispatch(setIsOpenSignUpForm(false))}
           >
             <SignUpForm />
           </Modal>
