@@ -1,8 +1,11 @@
 import { Formik } from 'formik'
 import styled from '@emotion/styled'
-import { FontBlue, SubDescription } from '../../mds/theme/fonts'
+import { FontBlue, SubDescription, ValidatorLabel } from '../../mds/theme/fonts'
 import { SignUpButton } from '../../mds/theme/buttons'
-import { grey050, navy040 } from '../../mds/theme/colors'
+import { grey010, grey050, grey060, navy040 } from '../../mds/theme/colors'
+import CompleteCheckIcon from '../../assets/svg/CompleteCheckIcon'
+import QuestionIcon from '../../assets/svg/QuestionIcon'
+import NoticeGridIcons from '../../assets/svg/NoticeGridIcons'
 
 const Wrapper = styled.div`
   height: 100%;
@@ -21,8 +24,11 @@ const Title = styled.div`
 `
 
 const Item = styled.div`
+  position: relative;
   margin-top: 5rem;
-
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
   border-bottom: 0.5px solid #e0e0e0;
 `
 
@@ -59,7 +65,6 @@ const NewSubDescription = styled(SubDescription)`
 `
 
 const Input = styled.input`
-  width: 100%;
   font-size: 1.6rem;
   line-height: 2.2rem;
   outline: none;
@@ -89,6 +94,51 @@ const WarningLabel = styled(SubDescription)`
   align-self: center;
   margin-top: auto;
   font-weight: 400;
+`
+
+const NewCompleteCheckIcon = styled(CompleteCheckIcon)`
+  margin-right: 10px;
+`
+
+const NewValidatorLabel = styled(ValidatorLabel)`
+  position: absolute;
+  right: 0;
+  top: 30px;
+`
+
+const NewQuestionIcon = styled(QuestionIcon)`
+  margin-right: 10px;
+  cursor: pointer;
+`
+const HiddenAnswerForm = styled.div`
+  position: absolute;
+  right: 0;
+  top: 30px;
+  padding: 13px;
+
+  font-family: Roboto;
+  font-size: 13px;
+  line-height: 15px;
+  color: ${grey060};
+  background-color: ${grey010};
+  border: 1px solid #bdbdbd;
+  border-radius: 8px;
+
+  z-index: 2;
+`
+
+const Group = styled.div`
+  display: grid;
+  row-gap: 9px;
+`
+
+const Row = styled.div`
+  display: flex;
+  align-items: center;
+`
+
+const NewNoticeGridIcons = styled(NoticeGridIcons)`
+  margin-right: 7px;
 `
 
 const SignUpForm = () => {
@@ -121,14 +171,17 @@ const SignUpForm = () => {
                   e.preventDefault()
                 }}
               />
+              <ValidatorLabel>이미 존재하는 아이디 입니다.</ValidatorLabel>
             </Item>
             <Item>
               <Input
+                type="password"
                 name="password"
                 value={values.password}
                 onChange={handleChange}
                 placeholder={'비밀번호'}
               />
+              <ValidatorLabel>올바른 비밀번호가 아닙니다.</ValidatorLabel>
             </Item>
             <Item>
               <Input
@@ -137,6 +190,7 @@ const SignUpForm = () => {
                 onChange={handleChange}
                 placeholder={'비밀번호 확인'}
               />
+              <ValidatorLabel>비밀번호가 일치하지 않습니다.</ValidatorLabel>
             </Item>
             <Item>
               <Input
@@ -145,6 +199,32 @@ const SignUpForm = () => {
                 onChange={handleChange}
                 placeholder={'닉네임'}
               />
+              <NewQuestionIcon />
+              <HiddenAnswerForm>
+                <Group>
+                  <Row>
+                    <NewNoticeGridIcons />
+                    영어 3-29자, 한글 2014자 이내
+                  </Row>
+                  <Row>
+                    <NewNoticeGridIcons />
+                    특수문자는 마침표와 밑줄만 사용가능
+                  </Row>
+                  <Row>
+                    <NewNoticeGridIcons />
+                    마침표 2개 이상 사용 불가
+                  </Row>
+                  <Row>
+                    <NewNoticeGridIcons />
+                    닉네임 시작과 끝에는 마침표 사용 불가
+                  </Row>
+                  <Row>
+                    <NewNoticeGridIcons />
+                    한글 사용시 자음/모음 단독 사용 불가
+                  </Row>
+                </Group>
+              </HiddenAnswerForm>
+              <NewValidatorLabel>사용 불가능한 닉네임입니다.</NewValidatorLabel>
             </Item>
             <CheckBoxWrapper>
               <SaveIdCheckBox

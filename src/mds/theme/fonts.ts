@@ -1,4 +1,5 @@
 import styled from '@emotion/styled'
+import { red050 } from './colors'
 
 export const FontBlue = styled.div`
   display: inline;
@@ -11,4 +12,12 @@ export const SubDescription = styled.div`
   font-weight: 400;
 
   color: #202020;
+`
+
+export const ValidatorLabel = styled.div`
+  font-family: Roboto;
+  display: inline;
+  font-size: 13px;
+  line-height: 16px;
+  color: ${red050};
 `

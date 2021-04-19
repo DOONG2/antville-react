@@ -1,8 +1,9 @@
 import styled from '@emotion/styled'
 import { Formik } from 'formik'
 import { LoginButton } from '../../mds/theme/buttons'
-import { FontBlue, SubDescription } from '../../mds/theme/fonts'
+import { FontBlue, SubDescription, ValidatorLabel } from '../../mds/theme/fonts'
 import { navy040 } from '../../mds/theme/colors'
+import CompleteCheckIcon from '../../assets/svg/CompleteCheckIcon'
 
 const Title = styled.div`
   font-weight: bold;
@@ -15,6 +16,9 @@ const Title = styled.div`
 `
 
 const Item = styled.div`
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
   margin-top: 5rem;
 
   border-bottom: 0.5px solid #e0e0e0;
@@ -77,6 +81,20 @@ const SaveIdCheckBox = styled.input`
   cursor: pointer;
 `
 
+const NewCompleteCheckIcon = styled(CompleteCheckIcon)`
+  margin-right: 10px;
+`
+
+const NewValidatorLabel = styled(ValidatorLabel)`
+  position: absolute;
+  top: 1.4rem;
+  left: 102px;
+`
+
+const ButtonWrapper = styled.div`
+  position: relative;
+`
+
 const LoginForm = () => {
   return (
     <>
@@ -101,14 +119,21 @@ const LoginForm = () => {
                   e.preventDefault()
                 }}
               />
+              {true ? (
+                <NewCompleteCheckIcon />
+              ) : (
+                <ValidatorLabel>이메일 형식이 아닙니다.</ValidatorLabel>
+              )}
             </Item>
             <Item>
               <Input
+                type="password"
                 name="password"
                 value={values.password}
                 onChange={handleChange}
                 placeholder={'비밀번호'}
               />
+              <ValidatorLabel>올바른 비밀번호가 아닙니다.</ValidatorLabel>
             </Item>
             <CheckBoxWrapper>
               <SaveIdCheckBox
@@ -119,9 +144,15 @@ const LoginForm = () => {
               />
               <CheckBoxLabel>계정 정보 기억하기</CheckBoxLabel>
             </CheckBoxWrapper>
-            <NewLoginButton type="submit" disabled={isSubmitting}>
-              로그인
-            </NewLoginButton>
+
+            <ButtonWrapper>
+              <NewLoginButton type="submit" disabled={isSubmitting}>
+                로그인
+              </NewLoginButton>
+              <NewValidatorLabel>
+                가입되지 않은 아이디거나, 잘못된 비밀번호 입니다.
+              </NewValidatorLabel>
+            </ButtonWrapper>
           </form>
         )}
       </Formik>
