@@ -1,11 +1,12 @@
-import { Formik } from 'formik'
-import styled from '@emotion/styled'
-import { FontBlue, SubDescription, ValidatorLabel } from '../../mds/theme/fonts'
+import styled from '@emotion/styled/macro'
+import { FontBlue, SubDescription, ValidatorLabel } from '../../mds/theme/texts'
 import { SignUpButton } from '../../mds/theme/buttons'
-import { grey010, grey050, grey060, navy040 } from '../../mds/theme/colors'
+import { grey050, navy040 } from '../../mds/theme/colors'
 import CompleteCheckIcon from '../../assets/svg/CompleteCheckIcon'
-import QuestionIcon from '../../assets/svg/QuestionIcon'
-import NoticeGridIcons from '../../assets/svg/NoticeGridIcons'
+import useSignUpFormik from '../../hooks/useSignUpFormik'
+import { useRootState } from '../../hooks/useRootState'
+import { useEffect } from 'react'
+import NickNameRuleLabel from './NickNameRuleLabel'
 
 const Wrapper = styled.div`
   height: 100%;
@@ -38,10 +39,12 @@ const CheckBoxWrapper = styled.div`
   align-items: center;
 `
 
-const NewSignUpButton = styled(SignUpButton)`
+const NewSignUpButton = styled(SignUpButton)<{ disabled: boolean }>`
   margin-top: 1.4rem;
-  border: 1px solid ${grey050};
-  background: ${grey050};
+  border: ${(props) =>
+    props.disabled ? `1px solid ${grey050}` : '1px solid #1942e0'};
+  background: ${(props) => (props.disabled ? `${grey050}` : '#1942e0')};
+  cursor: ${(props) => (props.disabled ? 'default' : 'pointer')};
   color: #fff;
 `
 
@@ -65,6 +68,7 @@ const NewSubDescription = styled(SubDescription)`
 `
 
 const Input = styled.input`
+  width: 100%;
   font-size: 1.6rem;
   line-height: 2.2rem;
   outline: none;
@@ -106,141 +110,106 @@ const NewValidatorLabel = styled(ValidatorLabel)`
   top: 30px;
 `
 
-const NewQuestionIcon = styled(QuestionIcon)`
-  margin-right: 10px;
-  cursor: pointer;
-`
-const HiddenAnswerForm = styled.div`
-  position: absolute;
-  right: 0;
-  top: 30px;
-  padding: 13px;
-
-  font-family: Roboto;
-  font-size: 13px;
-  line-height: 15px;
-  color: ${grey060};
-  background-color: ${grey010};
-  border: 1px solid #bdbdbd;
-  border-radius: 8px;
-
-  z-index: 2;
-`
-
-const Group = styled.div`
-  display: grid;
-  row-gap: 9px;
-`
-
-const Row = styled.div`
-  display: flex;
-  align-items: center;
-`
-
-const NewNoticeGridIcons = styled(NoticeGridIcons)`
-  margin-right: 7px;
-`
-
 const SignUpForm = () => {
+  const formik = useSignUpFormik()
+  const {
+    isValid,
+    dirty,
+    values,
+    handleChange,
+    handleSubmit,
+    errors,
+    touched,
+    getFieldProps,
+    resetForm,
+  } = formik
+
+  const { isOpenSignUpForm } = useRootState((state) => state.view)
+
+  useEffect(() => {
+    resetForm()
+  }, [isOpenSignUpForm, resetForm])
+
   return (
     <Wrapper>
       <Title>회원가입</Title>
-      <Formik
-        initialValues={{
-          userId: '',
-          password: '',
-          saveId: false,
-          passwordCheck: '',
-          nickname: '',
-        }}
-        onSubmit={(data, { setSubmitting }) => {
-          setSubmitting(true)
-          console.log(data)
-          setSubmitting(false)
-        }}
-      >
-        {({ values, handleChange, handleBlur, handleSubmit, isSubmitting }) => (
-          <form onSubmit={handleSubmit}>
-            <Item>
-              <Input
-                name="userId"
-                value={values.userId}
-                onChange={handleChange}
-                placeholder={'아이디 (이메일 형식)'}
-                onClick={(e) => {
-                  e.preventDefault()
-                }}
-              />
-              <ValidatorLabel>이미 존재하는 아이디 입니다.</ValidatorLabel>
-            </Item>
-            <Item>
-              <Input
-                type="password"
-                name="password"
-                value={values.password}
-                onChange={handleChange}
-                placeholder={'비밀번호'}
-              />
-              <ValidatorLabel>올바른 비밀번호가 아닙니다.</ValidatorLabel>
-            </Item>
-            <Item>
-              <Input
-                name="passwordCheck"
-                value={values.passwordCheck}
-                onChange={handleChange}
-                placeholder={'비밀번호 확인'}
-              />
-              <ValidatorLabel>비밀번호가 일치하지 않습니다.</ValidatorLabel>
-            </Item>
-            <Item>
-              <Input
-                name="nickname"
-                value={values.nickname}
-                onChange={handleChange}
-                placeholder={'닉네임'}
-              />
-              <NewQuestionIcon />
-              <HiddenAnswerForm>
-                <Group>
-                  <Row>
-                    <NewNoticeGridIcons />
-                    영어 3-29자, 한글 2014자 이내
-                  </Row>
-                  <Row>
-                    <NewNoticeGridIcons />
-                    특수문자는 마침표와 밑줄만 사용가능
-                  </Row>
-                  <Row>
-                    <NewNoticeGridIcons />
-                    마침표 2개 이상 사용 불가
-                  </Row>
-                  <Row>
-                    <NewNoticeGridIcons />
-                    닉네임 시작과 끝에는 마침표 사용 불가
-                  </Row>
-                  <Row>
-                    <NewNoticeGridIcons />
-                    한글 사용시 자음/모음 단독 사용 불가
-                  </Row>
-                </Group>
-              </HiddenAnswerForm>
-              <NewValidatorLabel>사용 불가능한 닉네임입니다.</NewValidatorLabel>
-            </Item>
-            <CheckBoxWrapper>
-              <SaveIdCheckBox
-                name="saveId"
-                type="checkbox"
-                checked={values.saveId}
-                onChange={handleChange}
-              />
-              <CheckBoxLabel>앤트빌 뉴스레터 수신 동의 (선택)</CheckBoxLabel>
-            </CheckBoxWrapper>
-            <NewSignUpButton type="submit" disabled={isSubmitting}>
-              가입하기
-            </NewSignUpButton>
-          </form>
-        )}
-      </Formik>
+      <form onSubmit={handleSubmit}>
+        <Item>
+          <Input
+            id="userId"
+            {...getFieldProps('userId')}
+            placeholder={'아이디 (이메일 형식)'}
+          />
+          {touched.userId && (
+            <ValidatorLabel>
+              {errors.userId ? errors.userId : <NewCompleteCheckIcon />}
+            </ValidatorLabel>
+          )}
+        </Item>
+        <Item>
+          <Input
+            type="password"
+            id="password"
+            {...getFieldProps('password')}
+            placeholder={'비밀번호'}
+          />
+          {touched.password && (
+            <ValidatorLabel>
+              {errors.password ? errors.password : <NewCompleteCheckIcon />}
+            </ValidatorLabel>
+          )}
+        </Item>
+        <Item>
+          <Input
+            type="password"
+            id="passwordCheck"
+            {...getFieldProps('passwordCheck')}
+            placeholder={'비밀번호 확인'}
+          />
+
+          {touched.passwordCheck && (
+            <ValidatorLabel>
+              {errors.passwordCheck ? (
+                errors.passwordCheck
+              ) : (
+                <NewCompleteCheckIcon />
+              )}
+            </ValidatorLabel>
+          )}
+        </Item>
+        <Item>
+          <Input
+            id="nickname"
+            {...getFieldProps('nickname')}
+            placeholder={'닉네임'}
+          />
+
+          {touched.nickname && (
+            <>
+              <ValidatorLabel>
+                {errors.nickname ? (
+                  <NickNameRuleLabel />
+                ) : (
+                  <NewCompleteCheckIcon />
+                )}
+              </ValidatorLabel>
+              <NewValidatorLabel>{errors.nickname}</NewValidatorLabel>{' '}
+            </>
+          )}
+        </Item>
+        <CheckBoxWrapper>
+          <SaveIdCheckBox
+            name="saveId"
+            type="checkbox"
+            checked={values.saveId}
+            onChange={handleChange}
+          />
+          <CheckBoxLabel>앤트빌 뉴스레터 수신 동의 (선택)</CheckBoxLabel>
+        </CheckBoxWrapper>
+        <NewSignUpButton type="submit" disabled={!(dirty && isValid)}>
+          가입하기
+        </NewSignUpButton>
+      </form>
       <NewSubDescription>
         이미 계정이 있으신가요? <NewFontBlue>로그인하기</NewFontBlue>
       </NewSubDescription>

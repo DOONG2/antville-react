@@ -1,9 +1,11 @@
 import styled from '@emotion/styled'
-import { Formik } from 'formik'
 import { LoginButton } from '../../mds/theme/buttons'
-import { FontBlue, SubDescription, ValidatorLabel } from '../../mds/theme/fonts'
-import { navy040 } from '../../mds/theme/colors'
+import { FontBlue, SubDescription, ValidatorLabel } from '../../mds/theme/texts'
+import { grey050, navy040 } from '../../mds/theme/colors'
 import CompleteCheckIcon from '../../assets/svg/CompleteCheckIcon'
+import useLoginFormik from '../../hooks/useLoginFormik'
+import { useEffect } from 'react'
+import { useRootState } from '../../hooks/useRootState'
 
 const Title = styled.div`
   font-weight: bold;
@@ -32,7 +34,10 @@ const CheckBoxWrapper = styled.div`
 
 const NewLoginButton = styled(LoginButton)`
   margin-top: 1.4rem;
-  background: #1942e0;
+  border: ${(props) =>
+    props.disabled ? `1px solid ${grey050}` : '1px solid #1942e0'};
+  background: ${(props) => (props.disabled ? `${grey050}` : '#1942e0')};
+  cursor: ${(props) => (props.disabled ? 'default' : 'pointer')};
   color: #fff;
 `
 
@@ -56,6 +61,7 @@ const NewSubDescription = styled(SubDescription)`
 `
 
 const Input = styled.input`
+  width: 100%;
   font-size: 1.6rem;
   line-height: 2.2rem;
   outline: none;
@@ -96,66 +102,72 @@ const ButtonWrapper = styled.div`
 `
 
 const LoginForm = () => {
+  const {
+    dirty,
+    isValid,
+    values,
+    errors,
+    handleChange,
+    handleSubmit,
+    resetForm,
+  } = useLoginFormik()
+
+  const { isOpenLoginForm } = useRootState((state) => state.view)
+
+  useEffect(() => {
+    resetForm()
+  }, [isOpenLoginForm, resetForm])
+
   return (
     <>
       <Title>로그인</Title>
-      <Formik
-        initialValues={{ userId: '', password: '', saveId: false }}
-        onSubmit={(data, { setSubmitting }) => {
-          setSubmitting(true)
-          console.log(data)
-          setSubmitting(false)
-        }}
-      >
-        {({ values, handleChange, handleBlur, handleSubmit, isSubmitting }) => (
-          <form onSubmit={handleSubmit}>
-            <Item>
-              <Input
-                name="userId"
-                value={values.userId}
-                onChange={handleChange}
-                placeholder={'아이디 (이메일 형식)'}
-                onClick={(e) => {
-                  e.preventDefault()
-                }}
-              />
-              {true ? (
-                <NewCompleteCheckIcon />
-              ) : (
-                <ValidatorLabel>이메일 형식이 아닙니다.</ValidatorLabel>
-              )}
-            </Item>
-            <Item>
-              <Input
-                type="password"
-                name="password"
-                value={values.password}
-                onChange={handleChange}
-                placeholder={'비밀번호'}
-              />
-              <ValidatorLabel>올바른 비밀번호가 아닙니다.</ValidatorLabel>
-            </Item>
-            <CheckBoxWrapper>
-              <SaveIdCheckBox
-                name="saveId"
-                type="checkbox"
-                checked={values.saveId}
-                onChange={handleChange}
-              />
-              <CheckBoxLabel>계정 정보 기억하기</CheckBoxLabel>
-            </CheckBoxWrapper>
+      <form onSubmit={handleSubmit}>
+        <Item>
+          <Input
+            name="userId"
+            value={values.userId}
+            onChange={handleChange}
+            placeholder={'아이디 (이메일 형식)'}
+          />
+          {false ? (
+            <NewCompleteCheckIcon />
+          ) : (
+            <ValidatorLabel>{errors.userId}</ValidatorLabel>
+          )}
+        </Item>
+        <Item>
+          <Input
+            type="password"
+            name="password"
+            value={values.password}
+            onChange={handleChange}
+            placeholder={'비밀번호'}
+          />
+          <ValidatorLabel>{errors.password}</ValidatorLabel>
+        </Item>
+        <CheckBoxWrapper>
+          <SaveIdCheckBox
+            name="saveId"
+            type="checkbox"
+            checked={values.saveId}
+            onChange={handleChange}
+          />
+          <CheckBoxLabel>계정 정보 기억하기</CheckBoxLabel>
+        </CheckBoxWrapper>
 
-            <ButtonWrapper>
-              <NewLoginButton type="submit" disabled={isSubmitting}>
-                로그인
-              </NewLoginButton>
-              <NewValidatorLabel>
-                가입되지 않은 아이디거나, 잘못된 비밀번호 입니다.
-              </NewValidatorLabel>
-            </ButtonWrapper>
-          </form>
-        )}
-      </Formik>
+        <ButtonWrapper>
+          <NewLoginButton type="submit" disabled={!(dirty && isValid)}>
+            로그인
+          </NewLoginButton>
+          {!(dirty && !isValid) ? (
+            ''
+          ) : (
+            <NewValidatorLabel>
+              가입되지 않은 아이디거나, 잘못된 비밀번호 입니다.
+            </NewValidatorLabel>
+          )}
+        </ButtonWrapper>
+      </form>
       <NewSubDescription>
         비밀번호를 잊으셨나요? <NewFontBlue>비밀번호 찾기</NewFontBlue>
       </NewSubDescription>
