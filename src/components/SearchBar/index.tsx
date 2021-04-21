@@ -129,7 +129,6 @@ const SearchBar = () => {
   const { setIsFocusSearchBar } = viewSlice.actions
 
   const { isLoading, error, data, isFetching } = useStockPopularQuery()
-  console.log()
 
   return (
     <SerchBar>

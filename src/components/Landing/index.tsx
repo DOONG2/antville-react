@@ -5,7 +5,7 @@ import AppleStoreButton from '../../mds/Button/AppleStoreButton'
 import GooglePlayButton from '../../mds/Button/GooglePlayButton'
 
 import { SignUpButton } from '../../mds/theme/buttons'
-import { FontBlue, SubDescription } from '../../mds/theme/fonts'
+import { FontBlue, SubDescription } from '../../mds/theme/texts'
 import viewSlice from '../../reducers/Slices/view'
 
 const Wrapper = styled.div`
