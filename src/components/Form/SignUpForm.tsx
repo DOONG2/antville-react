@@ -1,4 +1,4 @@
-import styled from '@emotion/styled/macro'
+import styled from '@emotion/styled'
 import { FontBlue, SubDescription, ValidatorLabel } from '../../mds/theme/texts'
 import { SignUpButton } from '../../mds/theme/buttons'
 import { grey050, navy040 } from '../../mds/theme/colors'
@@ -111,18 +111,16 @@ const NewValidatorLabel = styled(ValidatorLabel)`
 `
 
 const SignUpForm = () => {
-  const formik = useSignUpFormik()
   const {
-    isValid,
     dirty,
+    isValid,
     values,
-    handleChange,
-    handleSubmit,
     errors,
     touched,
-    getFieldProps,
+    handleSubmit,
     resetForm,
-  } = formik
+    getFieldProps,
+  } = useSignUpFormik()
 
   const { isOpenSignUpForm } = useRootState((state) => state.view)
 
@@ -136,41 +134,15 @@ const SignUpForm = () => {
       <form onSubmit={handleSubmit}>
         <Item>
           <Input
-            id="userId"
-            {...getFieldProps('userId')}
+            id="email_signup"
+            type="email"
+            {...getFieldProps('email_signup')}
             placeholder={'아이디 (이메일 형식)'}
           />
-          {touched.userId && (
+          {touched.email_signup && (
             <ValidatorLabel>
-              {errors.userId ? errors.userId : <NewCompleteCheckIcon />}
-            </ValidatorLabel>
-          )}
-        </Item>
-        <Item>
-          <Input
-            type="password"
-            id="password"
-            {...getFieldProps('password')}
-            placeholder={'비밀번호'}
-          />
-          {touched.password && (
-            <ValidatorLabel>
-              {errors.password ? errors.password : <NewCompleteCheckIcon />}
-            </ValidatorLabel>
-          )}
-        </Item>
-        <Item>
-          <Input
-            type="password"
-            id="passwordCheck"
-            {...getFieldProps('passwordCheck')}
-            placeholder={'비밀번호 확인'}
-          />
-
-          {touched.passwordCheck && (
-            <ValidatorLabel>
-              {errors.passwordCheck ? (
-                errors.passwordCheck
+              {errors.email_signup ? (
+                errors.email_signup
               ) : (
                 <NewCompleteCheckIcon />
               )}
@@ -179,30 +151,66 @@ const SignUpForm = () => {
         </Item>
         <Item>
           <Input
-            id="nickname"
-            {...getFieldProps('nickname')}
+            id="password_signup"
+            type="password"
+            {...getFieldProps('password_signup')}
+            placeholder={'비밀번호'}
+          />
+          {touched.password_signup && (
+            <ValidatorLabel>
+              {errors.password_signup ? (
+                errors.password_signup
+              ) : (
+                <NewCompleteCheckIcon />
+              )}
+            </ValidatorLabel>
+          )}
+        </Item>
+        <Item>
+          <Input
+            id="passwordCheck_signup"
+            type="password"
+            {...getFieldProps('passwordCheck_signup')}
+            placeholder={'비밀번호 확인'}
+          />
+
+          {touched.passwordCheck_signup && (
+            <ValidatorLabel>
+              {errors.passwordCheck_signup ? (
+                errors.passwordCheck_signup
+              ) : (
+                <NewCompleteCheckIcon />
+              )}
+            </ValidatorLabel>
+          )}
+        </Item>
+        <Item>
+          <Input
+            id="nickname_signup"
+            type="text"
+            {...getFieldProps('nickname_signup')}
             placeholder={'닉네임'}
           />
 
-          {touched.nickname && (
+          {touched.nickname_signup && (
             <>
               <ValidatorLabel>
-                {errors.nickname ? (
+                {errors.nickname_signup ? (
                   <NickNameRuleLabel />
                 ) : (
                   <NewCompleteCheckIcon />
                 )}
               </ValidatorLabel>
-              <NewValidatorLabel>{errors.nickname}</NewValidatorLabel>{' '}
+              <NewValidatorLabel>{errors.nickname_signup}</NewValidatorLabel>{' '}
             </>
           )}
         </Item>
         <CheckBoxWrapper>
           <SaveIdCheckBox
-            name="saveId"
+            id="subscribeNewsLetter_signup"
             type="checkbox"
-            checked={values.saveId}
-            onChange={handleChange}
+            {...getFieldProps('subscribeNewsLetter_signup')}
+            checked={values.subscribeNewsLetter_signup}
           />
           <CheckBoxLabel>앤트빌 뉴스레터 수신 동의 (선택)</CheckBoxLabel>
         </CheckBoxWrapper>

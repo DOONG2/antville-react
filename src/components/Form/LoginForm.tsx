@@ -6,6 +6,8 @@ import CompleteCheckIcon from '../../assets/svg/CompleteCheckIcon'
 import useLoginFormik from '../../hooks/useLoginFormik'
 import { useEffect } from 'react'
 import { useRootState } from '../../hooks/useRootState'
+import { useDispatch } from 'react-redux'
+import viewSlice from '../../reducers/Slices/view'
 
 const Title = styled.div`
   font-weight: bold;
@@ -68,6 +70,7 @@ const Input = styled.input`
   border: none;
 
   color: #202020;
+  background-color: #fff;
 
   ::placeholder {
     color: #aeaeae;
@@ -107,16 +110,30 @@ const LoginForm = () => {
     isValid,
     values,
     errors,
-    handleChange,
+    touched,
+    isValidating,
+    submitCount,
     handleSubmit,
     resetForm,
+    getFieldProps,
   } = useLoginFormik()
+  const dispatch = useDispatch()
+  const { setIsFailLoginSubmit } = viewSlice.actions
 
-  const { isOpenLoginForm } = useRootState((state) => state.view)
+  const { isOpenLoginForm, isFailLoginSubmit } = useRootState(
+    (state) => state.view
+  )
 
   useEffect(() => {
     resetForm()
   }, [isOpenLoginForm, resetForm])
+
+  useEffect(() => {
+    if (isValidating && submitCount > 0) {
+      console.log('done')
+      dispatch(setIsFailLoginSubmit(false))
+    }
+  }, [dispatch, isValidating, setIsFailLoginSubmit, submitCount])
 
   return (
     <>
@@ -124,44 +141,55 @@ const LoginForm = () => {
       <form onSubmit={handleSubmit}>
         <Item>
           <Input
-            name="userId"
-            value={values.userId}
-            onChange={handleChange}
+            id="email_login"
+            type="email"
+            {...getFieldProps('email_login')}
             placeholder={'아이디 (이메일 형식)'}
           />
-          {false ? (
-            <NewCompleteCheckIcon />
-          ) : (
-            <ValidatorLabel>{errors.userId}</ValidatorLabel>
+          {touched.email_login && (
+            <ValidatorLabel>
+              {errors.email_login ? (
+                errors.email_login
+              ) : (
+                <NewCompleteCheckIcon />
+              )}
+            </ValidatorLabel>
           )}
         </Item>
         <Item>
           <Input
+            id="password_login"
             type="password"
-            name="password"
-            value={values.password}
-            onChange={handleChange}
+            {...getFieldProps('password_login')}
             placeholder={'비밀번호'}
           />
-          <ValidatorLabel>{errors.password}</ValidatorLabel>
+          {touched.password_login && (
+            <ValidatorLabel>
+              {errors.password_login ? (
+                errors.password_login
+              ) : (
+                <NewCompleteCheckIcon />
+              )}
+            </ValidatorLabel>
+          )}
         </Item>
         <CheckBoxWrapper>
           <SaveIdCheckBox
-            name="saveId"
             type="checkbox"
-            checked={values.saveId}
-            onChange={handleChange}
+            checked={values.saveId_login}
+            {...getFieldProps('saveId_login')}
           />
           <CheckBoxLabel>계정 정보 기억하기</CheckBoxLabel>
         </CheckBoxWrapper>
 
         <ButtonWrapper>
-          <NewLoginButton type="submit" disabled={!(dirty && isValid)}>
+          <NewLoginButton
+            type="submit"
+            disabled={!(dirty && isValid) || isFailLoginSubmit}
+          >
             로그인
           </NewLoginButton>
-          {!(dirty && !isValid) ? (
-            ''
-          ) : (
+          {isFailLoginSubmit && (
             <NewValidatorLabel>
               가입되지 않은 아이디거나, 잘못된 비밀번호 입니다.
             </NewValidatorLabel>
