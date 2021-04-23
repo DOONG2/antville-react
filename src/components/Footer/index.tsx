@@ -16,9 +16,7 @@ const Item = styled.div`
   color: #202020;
 `
 
-export type FooterProps = {}
-
-function Footer({}: FooterProps) {
+function Footer() {
   return (
     <>
       <Wrapper>

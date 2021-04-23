@@ -1,4 +1,4 @@
-import { isError, useQuery } from 'react-query'
+import { useQuery } from 'react-query'
 import getStockPopular from '../../api/stock/getStockPopular'
 
 const useStockPopularQuery = () => {
