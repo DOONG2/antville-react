@@ -72,7 +72,7 @@ const Input = styled.input`
   color: #202020;
   background-color: #fff;
 
-  ::placeholder {
+  &::placeholder {
     color: #aeaeae;
   }
 `
@@ -118,7 +118,7 @@ const LoginForm = () => {
     getFieldProps,
   } = useLoginFormik()
   const dispatch = useDispatch()
-  const { setIsFailLoginSubmit } = viewSlice.actions
+  const { setIsFailLoginSubmit, setIsOpenFindPasswordForm } = viewSlice.actions
 
   const { isOpenLoginForm, isFailLoginSubmit } = useRootState(
     (state) => state.view
@@ -197,7 +197,10 @@ const LoginForm = () => {
         </ButtonWrapper>
       </form>
       <NewSubDescription>
-        비밀번호를 잊으셨나요? <NewFontBlue>비밀번호 찾기</NewFontBlue>
+        비밀번호를 잊으셨나요?{' '}
+        <NewFontBlue onClick={() => dispatch(setIsOpenFindPasswordForm(true))}>
+          비밀번호 찾기
+        </NewFontBlue>
       </NewSubDescription>
     </>
   )

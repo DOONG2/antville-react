@@ -36,7 +36,7 @@ const SearchInput = styled.input`
 
   color: #202020;
 
-  ::placeholder {
+  &::placeholder {
     color: #aeaeae;
   }
 `
