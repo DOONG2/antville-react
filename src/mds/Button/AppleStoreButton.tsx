@@ -5,10 +5,16 @@ import { SocialStoreButton } from '../theme/buttons'
 
 const Wrapper = styled(SocialStoreButton)``
 
+const LogoWrapper = styled.div`
+  height: 2.4rem;
+`
+
 const AppleStoreButton = () => {
   return (
     <Wrapper>
-      <AppleStoreLogo />
+      <LogoWrapper>
+        <AppleStoreLogo />
+      </LogoWrapper>
       <AppleStoreLabel />
     </Wrapper>
   )

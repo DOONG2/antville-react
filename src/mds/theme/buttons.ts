@@ -24,22 +24,24 @@ export const SignUpButton = styled(LoginButton)`
 `
 
 export const SocialStoreButton = styled.button`
-  width: 12rem;
-  height: 4rem;
+  width: 13.5rem;
+  height: 4.8rem;
 
   padding: 0 0.8rem;
   color: #1942e0;
-  background: #ffffff;
+  background: #fafafa;
   font-weight: 600;
   mix-blend-mode: normal;
 
-  border: 1px solid #1942e0;
+  border: 1px solid #a6a6a6;
   box-sizing: border-box;
   border-radius: 7px;
 
   display: flex;
-  justify-content: space-between;
+  justify-content: center;
   align-items: center;
+  flex-wrap: wrap;
+  gap: 0px 8px;
 
   cursor: pointer;
 `
