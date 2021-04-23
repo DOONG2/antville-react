@@ -128,8 +128,7 @@ const SearchBar = () => {
   const { isFocusSearchBar } = useRootState((state) => state.view)
   const { setIsFocusSearchBar } = viewSlice.actions
 
-  const { isLoading, error, data, isFetching } = useStockPopularQuery()
-  console.log()
+  const { isLoading, data } = useStockPopularQuery()
 
   return (
     <SerchBar>

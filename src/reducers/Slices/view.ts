@@ -4,12 +4,14 @@ type ViewState = {
   isOpenLoginForm: boolean
   isOpenSignUpForm: boolean
   isFocusSearchBar: boolean
+  isFailLoginSubmit: boolean
 }
 
 const initialState: ViewState = {
   isOpenLoginForm: false,
   isOpenSignUpForm: false,
   isFocusSearchBar: false,
+  isFailLoginSubmit: false,
 }
 
 const viewSlice = createSlice({
@@ -26,6 +28,9 @@ const viewSlice = createSlice({
     },
     setIsFocusSearchBar(state, action: PayloadAction<boolean>) {
       state.isFocusSearchBar = action.payload
+    },
+    setIsFailLoginSubmit(state, action: PayloadAction<boolean>) {
+      state.isFailLoginSubmit = action.payload
     },
   },
 })

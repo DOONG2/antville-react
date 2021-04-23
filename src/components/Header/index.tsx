@@ -1,4 +1,3 @@
-import React from 'react'
 import styled from '@emotion/styled'
 import { LoginButton, SignUpButton } from '../../mds/theme/buttons'
 import SignUpForm from '../Form/SignUpForm'
@@ -42,9 +41,7 @@ const NewSignUpButton = styled(SignUpButton)`
   margin-left: 1.6rem;
 `
 
-export type HeaderProps = {}
-
-function Header({}: HeaderProps) {
+function Header() {
   const { setIsOpenLoginForm, setIsOpenSignUpForm } = viewSlice.actions
   const { isOpenLoginForm, isOpenSignUpForm } = useRootState(
     (state) => state.view
@@ -67,7 +64,9 @@ function Header({}: HeaderProps) {
             shown={isOpenLoginForm}
             width="44.7rem"
             height="54.1rem"
-            close={() => dispatch(setIsOpenLoginForm(false))}
+            close={() => {
+              dispatch(setIsOpenLoginForm(false))
+            }}
           >
             <LoginForm />
           </Modal>
@@ -78,7 +77,9 @@ function Header({}: HeaderProps) {
             shown={isOpenSignUpForm}
             width="44.7rem"
             height="77.4rem"
-            close={() => dispatch(setIsOpenSignUpForm(false))}
+            close={() => {
+              dispatch(setIsOpenSignUpForm(false))
+            }}
           >
             <SignUpForm />
           </Modal>
