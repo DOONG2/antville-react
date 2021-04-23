@@ -28,13 +28,25 @@ export interface StockCount {
 }
 
 export type User = {
-  id: number
+  id?: number
   email: string
-  username: string
-  display_name: string
-  photo_url: string | null
-  created_at: string
-  is_certified: boolean
+  nickname: string
+  password: string
+  subscribeNewsLetter: boolean
 }
 
-export type UserSerialized = Omit<User, 'email' | 'created_at' | 'is_certified'>
+export interface Error {
+  errorCode: number
+  message: string
+  statusCode: number
+}
+
+export type ResponseError = {
+  data: Data
+}
+
+export interface Data {
+  statusCode: number
+  message: string
+  errorCode: number
+}
