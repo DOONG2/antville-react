@@ -24,7 +24,7 @@ const SearchInput = styled.input`
   top: 0;
   left: 0;
   width: 100%;
-  padding: 1rem 4rem 0.8rem 4rem;
+  padding: 1rem 2rem 0.8rem 3.8rem;
   font-size: 1.6rem;
   font-weight: 500;
   line-height: 2.2rem;
@@ -36,7 +36,7 @@ const SearchInput = styled.input`
 
   color: #202020;
 
-  ::placeholder {
+  &::placeholder {
     color: #aeaeae;
   }
 `

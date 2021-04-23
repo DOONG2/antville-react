@@ -2,6 +2,7 @@ import styled from '@emotion/styled'
 import { LoginButton, SignUpButton } from '../../mds/theme/buttons'
 import SignUpForm from '../Form/SignUpForm'
 import LoginForm from '../Form/LoginForm'
+import FindPasswordForm from '../Form/FindPasswordForm'
 import Modal from '../../mds/Modal'
 import { useRootState } from '../../hooks/useRootState'
 import viewSlice from '../../reducers/Slices/view'
@@ -42,10 +43,16 @@ const NewSignUpButton = styled(SignUpButton)`
 `
 
 function Header() {
-  const { setIsOpenLoginForm, setIsOpenSignUpForm } = viewSlice.actions
-  const { isOpenLoginForm, isOpenSignUpForm } = useRootState(
-    (state) => state.view
-  )
+  const {
+    setIsOpenLoginForm,
+    setIsOpenSignUpForm,
+    setIsOpenFindPasswordForm,
+  } = viewSlice.actions
+  const {
+    isOpenLoginForm,
+    isOpenSignUpForm,
+    isOpenFindPasswordForm,
+  } = useRootState((state) => state.view)
   const dispatch = useDispatch()
   const history = useHistory()
 
@@ -82,6 +89,16 @@ function Header() {
             }}
           >
             <SignUpForm />
+          </Modal>
+          <Modal
+            shown={isOpenFindPasswordForm}
+            width="44.7rem"
+            height="46.8rem"
+            close={() => {
+              dispatch(setIsOpenFindPasswordForm(false))
+            }}
+          >
+            <FindPasswordForm />
           </Modal>
         </ButtonWrapper>
       </HeaderWrapper>

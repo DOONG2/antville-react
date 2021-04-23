@@ -7,6 +7,8 @@ import useSignUpFormik from '../../hooks/useSignUpFormik'
 import { useRootState } from '../../hooks/useRootState'
 import { useEffect } from 'react'
 import NickNameRuleLabel from './NickNameRuleLabel'
+import { useDispatch } from 'react-redux'
+import viewSlice from '../../reducers/Slices/view'
 
 const Wrapper = styled.div`
   height: 100%;
@@ -76,7 +78,7 @@ const Input = styled.input`
 
   color: #202020;
 
-  ::placeholder {
+  &::placeholder {
     color: #aeaeae;
   }
 `
@@ -123,6 +125,9 @@ const SignUpForm = () => {
   } = useSignUpFormik()
 
   const { isOpenSignUpForm } = useRootState((state) => state.view)
+  const { setIsOpenLoginForm } = viewSlice.actions
+
+  const dispatch = useDispatch()
 
   useEffect(() => {
     resetForm()
@@ -219,7 +224,10 @@ const SignUpForm = () => {
         </NewSignUpButton>
       </form>
       <NewSubDescription>
-        이미 계정이 있으신가요? <NewFontBlue>로그인하기</NewFontBlue>
+        이미 계정이 있으신가요?{' '}
+        <NewFontBlue onClick={() => dispatch(setIsOpenLoginForm(true))}>
+          로그인하기
+        </NewFontBlue>
       </NewSubDescription>
       <WarningLabel>
         회원가입 시, 앤트빌 <FontBlue>운영정책</FontBlue>과{' '}
