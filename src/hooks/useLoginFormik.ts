@@ -9,24 +9,24 @@ const useLoginFormik = () => {
   const dispatch = useDispatch()
 
   const formik = useFormik({
-    initialValues: { email_login: '', password_login: '', saveId_login: true },
+    initialValues: { emailLogin: '', passwordLogin: '', saveIdLogin: true },
     validationSchema: Yup.object().shape({
-      email_login: Yup.string()
+      emailLogin: Yup.string()
         .required('아이디를 입력하세요.')
         .email('이메일 형식이 아닙니다.'),
-      password_login: Yup.string()
+      passwordLogin: Yup.string()
         .min(6, '비밀번호는 6자 이상이어야 합니다.')
         .required('비밀번호를 입력하세요.'),
     }),
     onSubmit: async (
-      { email_login, password_login, saveId_login },
+      { emailLogin, passwordLogin, saveIdLogin },
       { setSubmitting, resetForm }
     ) => {
       setSubmitting(true)
       try {
         await postLogin({
-          email: email_login,
-          password: password_login,
+          email: emailLogin,
+          password: passwordLogin,
         })
         resetForm()
       } catch (error) {

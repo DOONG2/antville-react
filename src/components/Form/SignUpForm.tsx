@@ -139,15 +139,15 @@ const SignUpForm = () => {
       <form onSubmit={handleSubmit}>
         <Item>
           <Input
-            id="email_signup"
+            id="emailSignup"
             type="email"
-            {...getFieldProps('email_signup')}
+            {...getFieldProps('emailSignup')}
             placeholder={'아이디 (이메일 형식)'}
           />
-          {touched.email_signup && (
+          {touched.emailSignup && (
             <ValidatorLabel>
-              {errors.email_signup ? (
-                errors.email_signup
+              {errors.emailSignup ? (
+                errors.emailSignup
               ) : (
                 <NewCompleteCheckIcon />
               )}
@@ -156,15 +156,15 @@ const SignUpForm = () => {
         </Item>
         <Item>
           <Input
-            id="password_signup"
+            id="passwordSignup"
             type="password"
-            {...getFieldProps('password_signup')}
+            {...getFieldProps('passwordSignup')}
             placeholder={'비밀번호'}
           />
-          {touched.password_signup && (
+          {touched.passwordSignup && (
             <ValidatorLabel>
-              {errors.password_signup ? (
-                errors.password_signup
+              {errors.passwordSignup ? (
+                errors.passwordSignup
               ) : (
                 <NewCompleteCheckIcon />
               )}
@@ -173,16 +173,16 @@ const SignUpForm = () => {
         </Item>
         <Item>
           <Input
-            id="passwordCheck_signup"
+            id="passwordCheckSignup"
             type="password"
-            {...getFieldProps('passwordCheck_signup')}
+            {...getFieldProps('passwordCheckSignup')}
             placeholder={'비밀번호 확인'}
           />
 
-          {touched.passwordCheck_signup && (
+          {touched.passwordCheckSignup && (
             <ValidatorLabel>
-              {errors.passwordCheck_signup ? (
-                errors.passwordCheck_signup
+              {errors.passwordCheckSignup ? (
+                errors.passwordCheckSignup
               ) : (
                 <NewCompleteCheckIcon />
               )}
@@ -191,31 +191,31 @@ const SignUpForm = () => {
         </Item>
         <Item>
           <Input
-            id="nickname_signup"
+            id="nicknameSignup"
             type="text"
-            {...getFieldProps('nickname_signup')}
+            {...getFieldProps('nicknameSignup')}
             placeholder={'닉네임'}
           />
 
-          {touched.nickname_signup && (
+          {touched.nicknameSignup && (
             <>
               <ValidatorLabel>
-                {errors.nickname_signup ? (
+                {errors.nicknameSignup ? (
                   <NickNameRuleLabel />
                 ) : (
                   <NewCompleteCheckIcon />
                 )}
               </ValidatorLabel>
-              <NewValidatorLabel>{errors.nickname_signup}</NewValidatorLabel>{' '}
+              <NewValidatorLabel>{errors.nicknameSignup}</NewValidatorLabel>{' '}
             </>
           )}
         </Item>
         <CheckBoxWrapper>
           <SaveIdCheckBox
-            id="subscribeNewsLetter_signup"
+            id="subscribeNewsLetterSignup"
             type="checkbox"
-            {...getFieldProps('subscribeNewsLetter_signup')}
-            checked={values.subscribeNewsLetter_signup}
+            {...getFieldProps('subscribeNewsLetterSignup')}
+            checked={values.subscribeNewsLetterSignup}
           />
           <CheckBoxLabel>앤트빌 뉴스레터 수신 동의 (선택)</CheckBoxLabel>
         </CheckBoxWrapper>
