@@ -130,7 +130,6 @@ const LoginForm = () => {
 
   useEffect(() => {
     if (isValidating && submitCount > 0) {
-      console.log('done')
       dispatch(setIsFailLoginSubmit(false))
     }
   }, [dispatch, isValidating, setIsFailLoginSubmit, submitCount])
@@ -141,32 +140,28 @@ const LoginForm = () => {
       <form onSubmit={handleSubmit}>
         <Item>
           <Input
-            id="email_login"
+            id="emailLogin"
             type="email"
-            {...getFieldProps('email_login')}
+            {...getFieldProps('emailLogin')}
             placeholder={'아이디 (이메일 형식)'}
           />
-          {touched.email_login && (
+          {touched.emailLogin && (
             <ValidatorLabel>
-              {errors.email_login ? (
-                errors.email_login
-              ) : (
-                <NewCompleteCheckIcon />
-              )}
+              {errors.emailLogin ? errors.emailLogin : <NewCompleteCheckIcon />}
             </ValidatorLabel>
           )}
         </Item>
         <Item>
           <Input
-            id="password_login"
+            id="passwordLogin"
             type="password"
-            {...getFieldProps('password_login')}
+            {...getFieldProps('passwordLogin')}
             placeholder={'비밀번호'}
           />
-          {touched.password_login && (
+          {touched.passwordLogin && (
             <ValidatorLabel>
-              {errors.password_login ? (
-                errors.password_login
+              {errors.passwordLogin ? (
+                errors.passwordLogin
               ) : (
                 <NewCompleteCheckIcon />
               )}
@@ -176,8 +171,8 @@ const LoginForm = () => {
         <CheckBoxWrapper>
           <SaveIdCheckBox
             type="checkbox"
-            checked={values.saveId_login}
-            {...getFieldProps('saveId_login')}
+            checked={values.saveIdLogin}
+            {...getFieldProps('saveIdLogin')}
           />
           <CheckBoxLabel>계정 정보 기억하기</CheckBoxLabel>
         </CheckBoxWrapper>

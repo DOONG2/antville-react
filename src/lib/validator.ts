@@ -9,7 +9,7 @@ export const check_kor = /[ㄱ-ㅎ|ㅏ-ㅣ|가-힣]/
 
 export const check_nickname = /^(?!.*\.\.)(?!.*\.$)[0-9a-zA-Z_가-힣][a-zA-Z0-9_.가-힣]{1,27}/g
 
-export const checkNicknameLenght = (nickname: string | undefined) => {
+export const checkNicknameLength = (nickname: string | undefined) => {
   if (nickname === undefined) return false
   let nickLength = 0
   for (let i = 0; i < nickname.length; i++) {
@@ -27,14 +27,15 @@ export const checkNicknameLenght = (nickname: string | undefined) => {
   }
 }
 
-const debounceNickNameCheck = debounce((email: string) => {
-  checkNickname(email)
-}, 500)
+const debounceNickNameCheck = debounce(
+  (nickname: string) => checkNickname(nickname),
+  500
+)
 
-export const isTakenNickName = (nickname: string | undefined) => {
+export const isTakenNickName = async (nickname: string | undefined) => {
   if (nickname === undefined) return true
   try {
-    debounceNickNameCheck(nickname)
+    await debounceNickNameCheck(nickname)
     return true
   } catch (error) {
     if (error.data.errorCode === 601) return false
@@ -42,8 +43,6 @@ export const isTakenNickName = (nickname: string | undefined) => {
 
   return true
 }
-
-export const isTakenNickNameDebounced = debounce(isTakenNickName, 500)
 
 const debounceEmailCheck = debounce((email: string) => checkEmail(email), 500)
 
