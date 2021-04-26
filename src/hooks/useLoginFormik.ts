@@ -32,7 +32,7 @@ const useLoginFormik = () => {
       } catch (error) {
         if (error.data.errorCode === 602 || error.data.errorCode === 603) {
           dispatch(setIsFailLoginSubmit(true))
-          console.log(error.data)
+          console.log(error.data.message)
         }
       }
       setSubmitting(false)
