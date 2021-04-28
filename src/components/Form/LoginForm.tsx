@@ -126,7 +126,8 @@ const LoginForm = () => {
 
   useEffect(() => {
     resetForm()
-  }, [isOpenLoginForm, resetForm])
+    dispatch(setIsFailLoginSubmit(false))
+  }, [isOpenLoginForm, resetForm, setIsFailLoginSubmit, dispatch])
 
   useEffect(() => {
     if (isValidating && submitCount > 0) {

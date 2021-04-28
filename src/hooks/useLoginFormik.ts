@@ -1,12 +1,18 @@
 import { useFormik } from 'formik'
 import { useDispatch } from 'react-redux'
 import * as Yup from 'yup'
-import postLogin from '../api/user/postLogin'
+import client from '../api/client'
+import { getCurrentUser } from '../api/auth/getCurrentUser'
+import postLogin from '../api/auth/postLogin'
 import viewSlice from '../reducers/Slices/view'
+import useAuth from './useAuth'
+import authSlice from '../reducers/Slices/auth'
 
 const useLoginFormik = () => {
-  const { setIsFailLoginSubmit } = viewSlice.actions
+  const { setIsFailLoginSubmit, setIsOpenLoginForm } = viewSlice.actions
+  const { setAuthState } = authSlice.actions
   const dispatch = useDispatch()
+  const { authorize } = useAuth()
 
   const formik = useFormik({
     initialValues: { emailLogin: '', passwordLogin: '', saveIdLogin: true },
@@ -24,10 +30,15 @@ const useLoginFormik = () => {
     ) => {
       setSubmitting(true)
       try {
-        await postLogin({
+        const { accessToken, refreshToken } = await postLogin({
           email: emailLogin,
           password: passwordLogin,
         })
+        dispatch(setAuthState({ accessToken, refreshToken }))
+        client.defaults.headers.common.Authorization = `Bearer ${accessToken}`
+        const user = await getCurrentUser()
+        authorize(user)
+        dispatch(setIsOpenLoginForm(false))
         resetForm()
       } catch (error) {
         if (error.data.errorCode === 602 || error.data.errorCode === 603) {

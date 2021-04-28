@@ -1,4 +1,5 @@
 import { useFormik } from 'formik'
+import { useDispatch } from 'react-redux'
 import * as Yup from 'yup'
 import postSignUp from '../api/user/postSignUp'
 import {
@@ -7,8 +8,11 @@ import {
   isTakenEmail,
   isTakenNickName,
 } from '../lib/validator'
+import viewSlice from '../reducers/Slices/view'
 
 const useSignUpFormik = () => {
+  const { setIsOpenSignUpForm } = viewSlice.actions
+  const dispatch = useDispatch()
   const formik = useFormik({
     initialValues: {
       emailSignup: '',
@@ -58,6 +62,7 @@ const useSignUpFormik = () => {
           nickname: nicknameSignup,
           subscribeNewsLetter: subscribeNewsLetterSignup,
         })
+        dispatch(setIsOpenSignUpForm(false))
         resetForm()
       } catch (error) {
         if (error.data.errorCode === 600) {
