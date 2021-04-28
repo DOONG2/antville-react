@@ -1,6 +1,12 @@
 import { combineReducers } from 'redux'
-import view from './Slices/view'
+import viewSlice from './Slices/view'
+import userSlice from './Slices/user'
+import authSlice from './Slices/auth'
 
-const rootReducer = combineReducers({ view: view.reducer })
+const rootReducer = combineReducers({
+  view: viewSlice.reducer,
+  user: userSlice.reducer,
+  auth: authSlice.reducer,
+})
 
 export default rootReducer

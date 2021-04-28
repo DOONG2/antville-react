@@ -1,6 +1,6 @@
 import { createSlice, PayloadAction } from '@reduxjs/toolkit'
 
-type ViewState = {
+interface ViewState {
   isOpenLoginForm: boolean
   isOpenSignUpForm: boolean
   isOpenFindPasswordForm: boolean
