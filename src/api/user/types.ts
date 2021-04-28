@@ -1,4 +1,7 @@
-export interface postLoginRequest {
-  email: string
-  password: string
+export interface postSignUpRequest {
+  id?: number | null
+  email: string | null
+  nickname: string | null
+  password: string | null
+  subscribeNewsLetter: boolean | null
 }
