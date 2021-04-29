@@ -1,6 +1,6 @@
 import { useFormik } from 'formik'
 import * as Yup from 'yup'
-import { isTakenEmail } from '../lib/validator'
+// import { isTakenEmail } from '../lib/validator'
 // import { useDispatch } from 'react-redux'
 // import viewSlice from '../reducers/Slices/view'
 

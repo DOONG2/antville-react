@@ -1,7 +1,6 @@
 import { useFormik } from 'formik'
 import { useDispatch } from 'react-redux'
 import * as Yup from 'yup'
-import client from '../api/client'
 import { getCurrentUser } from '../api/auth/getCurrentUser'
 import postLogin from '../api/auth/postLogin'
 import viewSlice from '../reducers/Slices/view'

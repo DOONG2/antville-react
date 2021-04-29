@@ -1,4 +1,3 @@
-import React from 'react'
 import userStorage from '../lib/userStorage'
 
 const useCheckLogin = () => {
