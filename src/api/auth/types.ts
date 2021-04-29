@@ -11,3 +11,7 @@ export interface postLoginResponse {
 }
 
 export interface getCurrentUserResponse extends User {}
+
+export interface refreshTokenResponse {
+  accessToken: string
+}
