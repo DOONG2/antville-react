@@ -12,7 +12,7 @@ import SerchBar from '../SearchBar'
 import LogoWithIcon from '../../assets/svg/LogoWithIcon'
 
 const Wrapper = styled.div`
-  width: 100%;
+  min-width: 144rem;
   border-bottom: 0.5px solid #e0e0e0;
 `
 
