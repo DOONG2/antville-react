@@ -3,13 +3,15 @@ import React from 'react'
 import { useDispatch } from 'react-redux'
 import SearchIcon from '../../assets/svg/SearchIcon'
 import useStockPopularQuery from '../../hooks/query/useStockPopularQuery'
+import useCheckLogin from '../../hooks/useCheckLogin'
 import { useRootState } from '../../hooks/useRootState'
 import viewSlice from '../../reducers/Slices/view'
 
-const SerchBar = styled.div`
+const SerchBar = styled.div<{ isLoggedIn: boolean }>`
   width: 33rem;
   height: 4rem;
   position: relative;
+  margin-left: ${(props) => (props.isLoggedIn ? 'auto' : '0')};
 `
 
 const IconWrapper = styled.div`
@@ -129,9 +131,10 @@ const SearchBar = () => {
   const { setIsFocusSearchBar } = viewSlice.actions
 
   const { isLoading, data } = useStockPopularQuery()
+  const isLoggedIn = useCheckLogin()
 
   return (
-    <SerchBar>
+    <SerchBar isLoggedIn={isLoggedIn}>
       <IconWrapper>
         <SearchIcon />
       </IconWrapper>
