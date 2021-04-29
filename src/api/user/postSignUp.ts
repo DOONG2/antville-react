@@ -1,10 +1,8 @@
-import { AxiosResponse } from 'axios'
 import client from '../client'
-import { User } from '../types'
+import { postSignUpRequest } from './types'
 
-const postSignUp = async (input: User): Promise<AxiosResponse<any>> => {
-  const response = await client.post('/user/signUp', input)
-  return response.data
+const postSignUp = async (input: postSignUpRequest) => {
+  await client.post('/user/signUp', input)
 }
 
 export default postSignUp
