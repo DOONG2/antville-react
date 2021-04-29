@@ -4,12 +4,16 @@ import userStorage from '../lib/userStorage'
 import useAuth from './useAuth'
 
 export default function useCheckUserEffect() {
-  const { logout } = useAuth()
+  const { logout, authorize } = useAuth()
   useEffect(() => {
     const storedUser = userStorage.get()
     if (!storedUser) return
-    getCurrentUser().catch(() => {
-      logout()
-    })
-  }, [logout])
+    getCurrentUser()
+      .then((res) => {
+        authorize(res)
+      })
+      .catch(() => {
+        logout()
+      })
+  }, [logout, authorize])
 }

@@ -1,7 +1,9 @@
 import axios, { AxiosError } from 'axios'
+import authStorage from '../lib/authStorage'
 
 const client = axios.create()
 
+//client.defaults.withCredentials = true
 client.defaults.baseURL =
   process.env.NODE_ENV === 'development'
     ? 'http://localhost:3000'
@@ -18,5 +20,11 @@ client.interceptors.response.use(
     return Promise.reject(error)
   }
 )
+
+client.interceptors.request.use((config) => {
+  const token = authStorage.get()
+  config.headers.Authorization = token ? `Bearer ${token.accessToken}` : null
+  return config
+})
 
 export default client

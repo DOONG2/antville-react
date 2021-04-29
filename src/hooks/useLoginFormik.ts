@@ -7,6 +7,7 @@ import postLogin from '../api/auth/postLogin'
 import viewSlice from '../reducers/Slices/view'
 import useAuth from './useAuth'
 import authSlice from '../reducers/Slices/auth'
+import authStorage from '../lib/authStorage'
 
 const useLoginFormik = () => {
   const { setIsFailLoginSubmit, setIsOpenLoginForm } = viewSlice.actions
@@ -34,8 +35,8 @@ const useLoginFormik = () => {
           email: emailLogin,
           password: passwordLogin,
         })
+        authStorage.set({ accessToken, refreshToken })
         dispatch(setAuthState({ accessToken, refreshToken }))
-        client.defaults.headers.common.Authorization = `Bearer ${accessToken}`
         const user = await getCurrentUser()
         authorize(user)
         dispatch(setIsOpenLoginForm(false))
