@@ -150,7 +150,7 @@ const SearchBar = () => {
         <HotStockList isOpen={isFocusSearchBar}>
           <ListTitle>실시간 인기 종목</ListTitle>
           {data?.stocks.map((stock) => (
-            <Items key={`${stock.id}-stock-popular`}>
+            <Items key={`${stock.id}-search-bar`}>
               <Item>
                 <StockName>{stock.krName}</StockName>
                 <StockPrice>₩64,551,100</StockPrice>
