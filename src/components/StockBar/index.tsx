@@ -62,24 +62,27 @@ const RateLabel = styled.div<{ isUp: boolean }>`
 
 const StockBar = () => {
   const { isLoading, data } = useStockPopularQuery()
-  console.log(data)
 
   return (
     <Wrapper>
       <BarWrapper>
         <Label>실시간 인기 종목</Label>
         <Polygon />
-        <Group>
-          {data?.stocks.map((stock) => (
-            <Item key={`${stock.id}-stock-bar`}>
-              <TickerLabel>{stock.symbol}</TickerLabel>
-              <UpDownIconWrapper>
-                {true ? <PolygonUp /> : <PolygonDown />}
-              </UpDownIconWrapper>
-              <RateLabel isUp={true}>3.17%</RateLabel>
-            </Item>
-          ))}
-        </Group>
+        {isLoading ? (
+          ''
+        ) : (
+          <Group>
+            {data?.stocks.map((stock) => (
+              <Item key={`${stock.id}-stock-bar`}>
+                <TickerLabel>{stock.symbol}</TickerLabel>
+                <UpDownIconWrapper>
+                  {true ? <PolygonUp /> : <PolygonDown />}
+                </UpDownIconWrapper>
+                <RateLabel isUp={true}>3.17%</RateLabel>
+              </Item>
+            ))}
+          </Group>
+        )}
       </BarWrapper>
     </Wrapper>
   )
