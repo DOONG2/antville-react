@@ -6,8 +6,9 @@ import StockDownButton from '../../assets/svg/StockDownButton'
 import StockUpButton from '../../assets/svg/StockUpButton'
 import UserIcon from '../../assets/svg/UserIcon'
 import usePostFormik from '../../hooks/usePostFormik'
-import { grey010, grey020 } from '../../mds/theme/colors'
+import { grey010 } from '../../mds/theme/colors'
 import SideBar from '../SideBar'
+import FeedSection from './FeedSection'
 
 const Wrapper = styled.div`
   min-width: 144rem;
@@ -24,7 +25,7 @@ const BarWrapper = styled.div`
   position: relative;
 `
 
-const FeedWrapper = styled.div`
+const PostWrapper = styled.div`
   width: 68.4rem;
   margin: 0 auto;
   position: relative;
@@ -93,8 +94,6 @@ const FeedTapWraaper = styled.div`
   padding: 15px 21px;
   display: flex;
   column-gap: 44px;
-
-  border-bottom: 1px solid #ececec;
 `
 
 const TabItem = styled.div`
@@ -125,8 +124,7 @@ const Feed = () => {
     <Wrapper>
       <BarWrapper>
         <SideBar />
-
-        <FeedWrapper>
+        <PostWrapper>
           <Form onSubmit={handleSubmit}>
             <FormInner>
               <UserIcon />
@@ -162,8 +160,9 @@ const Feed = () => {
               <TabItem>관심종목</TabItem>
               <TabItem>팔로잉</TabItem>
             </FeedTapWraaper>
+            <FeedSection />
           </Form>
-        </FeedWrapper>
+        </PostWrapper>
       </BarWrapper>
     </Wrapper>
   )
