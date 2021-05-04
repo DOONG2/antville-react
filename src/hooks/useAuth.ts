@@ -17,6 +17,7 @@ export default function useAuth() {
   const logout = () => {
     dispatch(setUserState(null))
     userStorage.clear()
+    authStorage.clear()
   }
 
   return {

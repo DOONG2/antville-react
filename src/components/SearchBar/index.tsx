@@ -59,6 +59,8 @@ const HotStockList = styled.div<{ isOpen: boolean }>`
     0px 0.500862px 1.75302px rgba(32, 32, 32, 0.06),
     0px 0.266004px 0.931014px rgba(32, 32, 32, 0.0484671),
     0px 0.11069px 0.387416px rgba(32, 32, 32, 0.0337375);
+
+  z-index: 2;
 `
 
 const ListTitle = styled.div`
@@ -150,7 +152,7 @@ const SearchBar = () => {
         <HotStockList isOpen={isFocusSearchBar}>
           <ListTitle>실시간 인기 종목</ListTitle>
           {data?.stocks.map((stock) => (
-            <Items key={`${stock.id}-stock-popular`}>
+            <Items key={`${stock.id}-search-bar`}>
               <Item>
                 <StockName>{stock.krName}</StockName>
                 <StockPrice>₩64,551,100</StockPrice>
