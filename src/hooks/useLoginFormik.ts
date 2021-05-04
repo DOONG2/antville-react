@@ -7,11 +7,13 @@ import viewSlice from '../reducers/Slices/view'
 import useAuth from './useAuth'
 import authSlice from '../reducers/Slices/auth'
 import authStorage from '../lib/authStorage'
+import { useHistory } from 'react-router'
 
 const useLoginFormik = () => {
   const { setIsFailLoginSubmit, setIsOpenLoginForm } = viewSlice.actions
   const { setAuthState } = authSlice.actions
   const dispatch = useDispatch()
+  const history = useHistory()
   const { authorize } = useAuth()
 
   const formik = useFormik({
@@ -40,6 +42,7 @@ const useLoginFormik = () => {
         authorize(user)
         dispatch(setIsOpenLoginForm(false))
         resetForm()
+        history.push('/feed')
       } catch (error) {
         if (error.data.errorCode === 602 || error.data.errorCode === 603) {
           dispatch(setIsFailLoginSubmit(true))

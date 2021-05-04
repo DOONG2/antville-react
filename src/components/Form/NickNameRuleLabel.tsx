@@ -23,7 +23,7 @@ const HiddenAnswerForm = styled.div`
 
 const Group = styled.div`
   display: grid;
-  row-gap: 9px;
+  row-gap: 0.9rem;
 `
 
 const Row = styled.div`
