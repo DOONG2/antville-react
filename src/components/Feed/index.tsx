@@ -64,14 +64,14 @@ const PostInput = styled.input`
   }
 `
 
-const UploadButtonsWrapper = styled.div`
+const PostInnerButtonsWrapper = styled.div`
   display: flex;
   justify-content: center;
   align-items: center;
   column-gap: 2px;
 `
 
-const Item = styled.div``
+const PostItem = styled.div``
 
 const SubmitButton = styled.button`
   width: 55px;
@@ -86,6 +86,26 @@ const SubmitButton = styled.button`
   line-height: 16px;
 
   color: ${grey010};
+`
+
+const FeedTapWraaper = styled.div`
+  margin-top: 36px;
+  padding: 15px 21px;
+  display: flex;
+  column-gap: 44px;
+
+  border-bottom: 1px solid #ececec;
+`
+
+const TabItem = styled.div`
+  font-weight: 400;
+  font-size: 13px;
+  line-height: 18px;
+  padding-bottom: 3px;
+
+  color: #000000;
+
+  border-bottom: 1px solid #1942e0;
 `
 
 const Feed = () => {
@@ -119,24 +139,29 @@ const Feed = () => {
                     '당신의 생각을 공유해주세요! ($ 태그 사용 후, 종목  입력) '
                   }
                 />
-                <UploadButtonsWrapper>
-                  <Item>
+                <PostInnerButtonsWrapper>
+                  <PostItem>
                     <StockUpButton />
-                  </Item>
-                  <Item>
+                  </PostItem>
+                  <PostItem>
                     <StockDownButton />
-                  </Item>
-                  <Item>
+                  </PostItem>
+                  <PostItem>
                     <PictureUploadButton />
-                  </Item>
-                  <Item>
+                  </PostItem>
+                  <PostItem>
                     <GifUploadButton />
-                  </Item>
-                </UploadButtonsWrapper>
+                  </PostItem>
+                </PostInnerButtonsWrapper>
               </InputWrapper>
 
               <SubmitButton type="submit">게시</SubmitButton>
             </FormInner>
+            <FeedTapWraaper>
+              <TabItem>전체</TabItem>
+              <TabItem>관심종목</TabItem>
+              <TabItem>팔로잉</TabItem>
+            </FeedTapWraaper>
           </Form>
         </FeedWrapper>
       </BarWrapper>
