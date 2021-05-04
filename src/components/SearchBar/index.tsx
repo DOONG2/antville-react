@@ -59,6 +59,8 @@ const HotStockList = styled.div<{ isOpen: boolean }>`
     0px 0.500862px 1.75302px rgba(32, 32, 32, 0.06),
     0px 0.266004px 0.931014px rgba(32, 32, 32, 0.0484671),
     0px 0.11069px 0.387416px rgba(32, 32, 32, 0.0337375);
+
+  z-index: 2;
 `
 
 const ListTitle = styled.div`
