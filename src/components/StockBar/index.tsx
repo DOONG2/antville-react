@@ -62,7 +62,6 @@ const RateLabel = styled.div<{ isUp: boolean }>`
 
 const StockBar = () => {
   const { isLoading, data } = useStockPopularQuery()
-  console.log(data)
 
   return (
     <Wrapper>
