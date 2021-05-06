@@ -13,6 +13,12 @@ import LogoWithIcon from '../../assets/svg/LogoWithIcon'
 import useCheckLogin from '../../hooks/useCheckLogin'
 import NoticeIcon from '../../assets/svg/NoticeIcon'
 import ProfileIcon from '../../assets/svg/ProfileIcon'
+import DropDown from '../../mds/DropDown'
+import useOnClickOutside from '../../hooks/useOnClickOutside'
+import useElementSize from '../../hooks/useElementSize'
+import React, { useRef } from 'react'
+import ProfileDropDown from '../DropDown/ProfileDropDown'
+import NoticeDropDown from '../DropDown/NoticeDropDown'
 
 const Wrapper = styled.div`
   min-width: 144rem;
@@ -49,14 +55,18 @@ const NewSignUpButton = styled(SignUpButton)`
 const IconWrapper = styled.div`
   display: flex;
   align-items: center;
+
+  position: relative;
 `
 
 const NoticeWrapper = styled.div`
   margin-left: 2.6rem;
+  cursor: pointer;
 `
 
 const ProfileWrapper = styled.div`
   margin-left: 2.6rem;
+  cursor: pointer;
 `
 
 function Header() {
@@ -64,15 +74,36 @@ function Header() {
     setIsOpenLoginForm,
     setIsOpenSignUpForm,
     setIsOpenFindPasswordForm,
+    setIsOpenProfileDropDown,
+    setIsOpenNoticeDropDown,
   } = viewSlice.actions
   const {
     isOpenLoginForm,
     isOpenSignUpForm,
     isOpenFindPasswordForm,
+    isOpenProfileDropDown,
+    isOpenNoticeDropDown,
   } = useRootState((state) => state.view)
   const dispatch = useDispatch()
   const history = useHistory()
   const isLoggedIn = useCheckLogin()
+
+  const ProfileRef = useOnClickOutside({
+    close: () => {
+      if (isOpenProfileDropDown) dispatch(setIsOpenProfileDropDown(false))
+    },
+    isOpen: isOpenProfileDropDown,
+  })
+  const NoticeRef = useOnClickOutside({
+    close: () => {
+      if (isOpenNoticeDropDown) dispatch(setIsOpenNoticeDropDown(false))
+    },
+    isOpen: isOpenNoticeDropDown,
+  })
+
+  const IconWrapperRef = useRef<HTMLDivElement>(null)
+
+  const { height } = useElementSize(IconWrapperRef)
 
   return (
     <Wrapper>
@@ -83,12 +114,42 @@ function Header() {
         <SerchBar />
         <ButtonWrapper>
           {isLoggedIn ? (
-            <IconWrapper>
-              <NoticeWrapper>
+            <IconWrapper ref={IconWrapperRef}>
+              <NoticeWrapper
+                onClick={() =>
+                  dispatch(setIsOpenNoticeDropDown(!isOpenNoticeDropDown))
+                }
+                ref={NoticeRef}
+              >
                 <NoticeIcon />
+                <DropDown
+                  shown={isOpenNoticeDropDown}
+                  parentHeight={height}
+                  placement={'Right'}
+                  close={() => {
+                    dispatch(setIsOpenNoticeDropDown(false))
+                  }}
+                >
+                  <NoticeDropDown />
+                </DropDown>
               </NoticeWrapper>
-              <ProfileWrapper>
+              <ProfileWrapper
+                onClick={() =>
+                  dispatch(setIsOpenProfileDropDown(!isOpenProfileDropDown))
+                }
+                ref={ProfileRef}
+              >
                 <ProfileIcon />
+                <DropDown
+                  shown={isOpenProfileDropDown}
+                  parentHeight={height}
+                  placement={'Right'}
+                  close={() => {
+                    dispatch(setIsOpenProfileDropDown(false))
+                  }}
+                >
+                  <ProfileDropDown />
+                </DropDown>
               </ProfileWrapper>
             </IconWrapper>
           ) : (
