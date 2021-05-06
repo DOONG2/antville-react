@@ -16,7 +16,7 @@ const Wrapper = styled.div<{
   position: absolute;
   right: ${(p) => (p.placement === 'Right' ? 0 : '')};
   left: ${(p) => (p.placement === 'Left' ? 0 : '')};
-  top: ${(p) => `${p.parentHeight + 5}px`};
+  top: ${(p) => `${p.parentHeight + 10}px`};
   display: ${(props) => (props.shown ? 'block' : 'none')};
 
   background: #fafafa;
