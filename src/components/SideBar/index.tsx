@@ -1,6 +1,6 @@
 import styled from '@emotion/styled'
 import useWatchListQuery from '../../hooks/query/useWatchListQuery'
-import { grey040 } from '../../mds/styled/colors'
+import { grey040, grey050 } from '../../mds/styled/colors'
 import {
   StockListWrapper,
   StockListHeader,
@@ -57,8 +57,15 @@ const NewStockListWrapper = styled(StockListWrapper)`
 `
 
 const ScrollBar = styled.div`
-  overflow: scroll;
+  overflow: auto;
   height: 459px;
+  ::-webkit-scrollbar {
+    width: 5px; /*스크롤바의 너비*/
+  }
+  ::-webkit-scrollbar-thumb {
+    background-color: ${grey050}; /*스크롤바의 색상*/
+    border-radius: 7px;
+  }
 `
 
 function SideBar() {
