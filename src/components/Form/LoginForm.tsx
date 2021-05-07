@@ -1,7 +1,11 @@
 import styled from '@emotion/styled'
-import { LoginButton } from '../../mds/theme/buttons'
-import { FontBlue, SubDescription, ValidatorLabel } from '../../mds/theme/texts'
-import { grey050, navy040 } from '../../mds/theme/colors'
+import { LoginButton } from '../../mds/styled/buttons'
+import {
+  FontBlue,
+  SubDescription,
+  ValidatorLabel,
+} from '../../mds/styled/texts'
+import { grey050, navy040 } from '../../mds/styled/colors'
 import CompleteCheckIcon from '../../assets/svg/CompleteCheckIcon'
 import useLoginFormik from '../../hooks/useLoginFormik'
 import { useEffect } from 'react'

@@ -1,5 +1,5 @@
 import styled from '@emotion/styled'
-import { LoginButton, SignUpButton } from '../../mds/theme/buttons'
+import { LoginButton, SignUpButton } from '../../mds/styled/buttons'
 import SignUpForm from '../Form/SignUpForm'
 import LoginForm from '../Form/LoginForm'
 import FindPasswordForm from '../Form/FindPasswordForm'

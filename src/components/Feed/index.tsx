@@ -6,7 +6,7 @@ import StockDownButton from '../../assets/svg/StockDownButton'
 import StockUpButton from '../../assets/svg/StockUpButton'
 import UserIcon from '../../assets/svg/UserIcon'
 import usePostFormik from '../../hooks/usePostFormik'
-import { grey010 } from '../../mds/theme/colors'
+import { grey010 } from '../../mds/styled/colors'
 import SideBar from '../SideBar'
 import FeedSection from './FeedSection'
 

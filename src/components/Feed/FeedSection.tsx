@@ -4,7 +4,7 @@ import HeartIcon from '../../assets/svg/HeartIcon'
 import StockUpIcon from '../../assets/svg/StockUpIcon'
 import TalkIcon from '../../assets/svg/TalkIcon'
 import ThreeDot from '../../assets/svg/ThreeDot'
-import { blue040, grey060, grey080 } from '../../mds/theme/colors'
+import { blue040, grey060, grey080 } from '../../mds/styled/colors'
 
 const FeedWrapper = styled.div``
 

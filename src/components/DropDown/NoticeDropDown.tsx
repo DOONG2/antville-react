@@ -1,5 +1,5 @@
 import styled from '@emotion/styled'
-import { grey040, grey050 } from '../../mds/theme/colors'
+import { grey040, grey050 } from '../../mds/styled/colors'
 import NoticeIconLarge from '../../assets/svg/NoticeIconLarge'
 
 const Group = styled.div`

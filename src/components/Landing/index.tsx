@@ -4,8 +4,8 @@ import MemoLogoOnlyText from '../../assets/svg/LogoOnlyText'
 import AppleStoreButton from '../../mds/Button/AppleStoreButton'
 import GooglePlayButton from '../../mds/Button/GooglePlayButton'
 
-import { SignUpButton } from '../../mds/theme/buttons'
-import { FontBlue, SubDescription } from '../../mds/theme/texts'
+import { SignUpButton } from '../../mds/styled/buttons'
+import { FontBlue, SubDescription } from '../../mds/styled/texts'
 import viewSlice from '../../reducers/Slices/view'
 
 const Wrapper = styled.div`
