@@ -1,34 +1,21 @@
 import styled from '@emotion/styled'
-import { grey040 } from '../../mds/theme/colors'
+import useWatchListQuery from '../../hooks/query/useWatchListQuery'
+import { grey040 } from '../../mds/styled/colors'
+import {
+  StockListWrapper,
+  StockListHeader,
+  StockName,
+  StockPrice,
+  CompanyName,
+  UpDownRate,
+  UpDownIcon,
+  StockListGroup,
+  StockListItem,
+} from '../../mds/styled/stockList'
 
 const Wrapper = styled.div`
   position: absolute;
   left: 2.4rem;
-`
-
-const Card = styled.div`
-  background: #ffffff;
-  box-shadow: 0px 4px 14px rgba(32, 32, 32, 0.12),
-    0px 1.6711px 5.84887px rgba(32, 32, 32, 0.0862625),
-    0px 0.893452px 3.12708px rgba(32, 32, 32, 0.0715329),
-    0px 0.500862px 1.75302px rgba(32, 32, 32, 0.06),
-    0px 0.266004px 0.931014px rgba(32, 32, 32, 0.0484671),
-    0px 0.11069px 0.387416px rgba(32, 32, 32, 0.0337375);
-`
-
-const Title = styled.div`
-  display: flex;
-  width: 29.7rem;
-  padding: 1rem 1.2rem;
-  height: 4.1rem;
-
-  font-weight: 700;
-  font-size: 13px;
-  line-height: 18px;
-
-  color: #202020;
-
-  border-bottom: 0.5px solid #1942e0;
 `
 
 const Main = styled.div`
@@ -65,20 +52,50 @@ const Item = styled.div`
   line-height: 1.8rem;
 `
 
+const NewStockListWrapper = styled(StockListWrapper)`
+  width: 297px;
+`
+
+const ScrollBar = styled.div`
+  overflow: scroll;
+  height: 459px;
+`
+
 function SideBar() {
+  const { isLoading, data, error, isFetching } = useWatchListQuery()
+  console.log(data)
   return (
     <>
       <Wrapper>
-        <Card>
-          <Title>관심 종목</Title>
-          <Main>
-            <MainLabel>
-              원하는 종목을 검색하고
-              <br />
-              관심 종목 리스트에 등록해보세요!
-            </MainLabel>
-          </Main>
-        </Card>
+        <NewStockListWrapper>
+          <StockListHeader>관심 종목</StockListHeader>
+          {data ? (
+            <ScrollBar>
+              {data?.stocks.map((stock) => (
+                <StockListGroup key={`${stock.id}-side-bar`}>
+                  <StockListItem>
+                    <StockName>{stock.krName}</StockName>
+                    <StockPrice>₩64,551,100</StockPrice>
+                  </StockListItem>
+                  <StockListItem>
+                    <CompanyName>{stock.symbol}/KRW</CompanyName>
+                    <UpDownRate>
+                      <UpDownIcon>*</UpDownIcon>20.21 (-2.91%)
+                    </UpDownRate>
+                  </StockListItem>
+                </StockListGroup>
+              ))}
+            </ScrollBar>
+          ) : (
+            <Main>
+              <MainLabel>
+                원하는 종목을 검색하고
+                <br />
+                관심 종목 리스트에 등록해보세요!
+              </MainLabel>
+            </Main>
+          )}
+        </NewStockListWrapper>
         <Footer>
           <Group>
             <Item>약관</Item>
