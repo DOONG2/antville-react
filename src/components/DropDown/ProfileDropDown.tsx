@@ -1,4 +1,9 @@
 import styled from '@emotion/styled'
+import useAuth from '../../hooks/useAuth'
+
+interface Props {
+  close: (event: React.MouseEvent<HTMLDivElement, MouseEvent>) => void
+}
 
 const Group = styled.div`
   width: 118px;
@@ -23,14 +28,22 @@ const FontRed = styled.div`
   color: #fa4a61;
 `
 
-const ProfileDropDown = () => {
+const ProfileDropDown = ({ close }: Props) => {
+  const { logout } = useAuth()
+
   return (
-    <Group>
+    <Group onClick={close}>
       <Item>프로필 보기</Item>
       <Item>프로필 편집</Item>
       <Item>사용자 설정</Item>
       <Item>
-        <FontRed>로그아웃</FontRed>
+        <FontRed
+          onClick={() => {
+            logout()
+          }}
+        >
+          로그아웃
+        </FontRed>
       </Item>
     </Group>
   )

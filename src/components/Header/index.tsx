@@ -126,9 +126,6 @@ function Header() {
                   shown={isOpenNoticeDropDown}
                   parentHeight={height}
                   placement={'Right'}
-                  close={() => {
-                    dispatch(setIsOpenNoticeDropDown(false))
-                  }}
                 >
                   <NoticeDropDown />
                 </DropDown>
@@ -144,11 +141,12 @@ function Header() {
                   shown={isOpenProfileDropDown}
                   parentHeight={height}
                   placement={'Right'}
-                  close={() => {
-                    dispatch(setIsOpenProfileDropDown(false))
-                  }}
                 >
-                  <ProfileDropDown />
+                  <ProfileDropDown
+                    close={() => {
+                      dispatch(setIsOpenProfileDropDown(false))
+                    }}
+                  />
                 </DropDown>
               </ProfileWrapper>
             </IconWrapper>

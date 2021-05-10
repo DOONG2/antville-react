@@ -5,7 +5,6 @@ interface DropDownProps {
   shown: boolean
   parentHeight: number
   placement: string
-  close: (event: React.MouseEvent<HTMLDivElement, MouseEvent>) => void
 }
 
 const Wrapper = styled.div<{
@@ -37,7 +36,6 @@ const Group = styled.div<{ shown: boolean }>`
 const DropDown = ({
   children,
   shown,
-  close,
 
   parentHeight,
   placement,

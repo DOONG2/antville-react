@@ -1,7 +1,4 @@
-import { RefObject, useState, useEffect, useCallback } from 'react'
-
-// See: https://usehooks-typescript.com/react-hook/use-event-listener
-import useEventListener from './useEventListener'
+import { RefObject, useState, useEffect } from 'react'
 
 interface Size {
   width: number
@@ -16,24 +13,18 @@ function useElementSize<T extends HTMLElement = HTMLDivElement>(
     height: 0,
   })
 
-  // Prevent too many rendering using useCallback
-  const updateSize = useCallback(() => {
-    const node = elementRef?.current
-    if (node) {
-      setSize({
-        width: node.offsetWidth || 0,
-        height: node.offsetHeight || 0,
-      })
-    }
-  }, [elementRef])
-
-  // Initial size on mount
   useEffect(() => {
+    const updateSize = () => {
+      const node = elementRef?.current
+      if (node) {
+        setSize({
+          width: node.offsetWidth,
+          height: node.offsetHeight,
+        })
+      }
+    }
     updateSize()
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [])
-
-  useEventListener('resize', updateSize)
+  }, [elementRef.current])
 
   return size
 }
