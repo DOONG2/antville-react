@@ -1,5 +1,6 @@
 import styled from '@emotion/styled'
-import useWatchListQuery from '../../hooks/query/useWatchListQuery'
+
+import { useRootState } from '../../hooks/useRootState'
 import { grey040, grey050 } from '../../mds/styled/colors'
 import {
   StockListWrapper,
@@ -69,16 +70,16 @@ const ScrollBar = styled.div`
 `
 
 function SideBar() {
-  const { isLoading, data, error, isFetching } = useWatchListQuery()
-  console.log(data)
+  const { watchList } = useRootState((state) => state)
+
   return (
     <>
       <Wrapper>
         <NewStockListWrapper>
           <StockListHeader>관심 종목</StockListHeader>
-          {data ? (
+          {watchList ? (
             <ScrollBar>
-              {data?.stocks.map((stock) => (
+              {watchList?.stocks.map((stock) => (
                 <StockListGroup key={`${stock.id}-side-bar`}>
                   <StockListItem>
                     <StockName>{stock.krName}</StockName>
