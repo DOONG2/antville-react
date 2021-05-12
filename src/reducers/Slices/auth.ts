@@ -9,7 +9,7 @@ const authSlice = createSlice({
   name: 'auth',
   initialState,
   reducers: {
-    setAuthState(state, action: PayloadAction<AuthState | null>) {
+    setAuthState(state, action: PayloadAction<AuthState>) {
       if (action.payload === null) {
         return (state = null)
       } else {
