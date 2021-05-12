@@ -1,7 +1,7 @@
 import styled from '@emotion/styled'
 import React, { useRef, useState } from 'react'
 import usePostFormik from '../../hooks/usePostFormik'
-import { grey010, grey030, grey080 } from '../../mds/styled/colors'
+import { grey010, grey030, grey050, grey080 } from '../../mds/styled/colors'
 import GifUploadButton from '../../assets/svg/GifUploadButton'
 import PictureUploadButton from '../../assets/svg/PictureUploadButton'
 import StockDownButton from '../../assets/svg/StockDownButton'
@@ -11,6 +11,11 @@ import useElementSize from '../../hooks/useElementSize'
 import FeedSection from '../Feed/FeedSection'
 import { useRootState } from '../../hooks/useRootState'
 import { FontBlue } from '../../mds/styled/texts'
+import postSlice from '../../reducers/Slices/post'
+import { useDispatch } from 'react-redux'
+import StockUpButtonClicked from '../../assets/svg/StockUpButtonClicked'
+import StockDownButtonClicked from '../../assets/svg/StockDownButtonClicked'
+import viewSlice from '../../reducers/Slices/view'
 
 const Form = styled.form`
   position: relative;
@@ -70,6 +75,8 @@ const PostItem = styled.div`
   display: flex;
   justify-content: center;
   align-items: center;
+
+  cursor: pointer;
 `
 
 const SubmitButton = styled.button`
@@ -126,6 +133,16 @@ const NewFontBlue = styled(FontBlue)`
   cursor: pointer;
 `
 
+const LockedLabel = styled.div`
+  align-self: center;
+  width: 100%;
+  font-weight: 400;
+  font-size: 16px;
+  line-height: 22px;
+
+  color: ${grey050};
+`
+
 const PostForm = () => {
   const {
     dirty,
@@ -139,13 +156,17 @@ const PostForm = () => {
     resetForm,
     getFieldProps,
   } = usePostFormik()
+  const {
+    user,
+    post: { isUp, isDown },
+  } = useRootState((state) => state)
+  const { setIsUp, setIsDown } = postSlice.actions
+  const { setIsOpenLoginForm } = viewSlice.actions
   const [isFocus, setIsFocus] = useState(false)
-
-  const { user } = useRootState((state) => state)
-
   const textRef = useRef<HTMLTextAreaElement>(null)
-
   const { scrollHeight } = useElementSize(textRef)
+
+  const dispatch = useDispatch()
 
   return (
     <Form onSubmit={handleSubmit}>
@@ -173,11 +194,15 @@ const PostForm = () => {
                     ref={textRef}
                   />
                   <PostInnerButtonsWrapper>
-                    <PostItem>
-                      <StockUpButton />
+                    <PostItem onClick={() => dispatch(setIsUp(true))}>
+                      {isUp ? <StockUpButtonClicked /> : <StockUpButton />}
                     </PostItem>
-                    <PostItem>
-                      <StockDownButton />
+                    <PostItem onClick={() => dispatch(setIsDown(true))}>
+                      {isDown ? (
+                        <StockDownButtonClicked />
+                      ) : (
+                        <StockDownButton />
+                      )}
                     </PostItem>
                     <PostItem>
                       <PictureUploadButton />
@@ -195,7 +220,27 @@ const PostForm = () => {
               )}
             </>
           ) : (
-            <EmailCheck>로그인 해주세요!</EmailCheck>
+            <>
+              <LockedLabel onClick={() => dispatch(setIsOpenLoginForm(true))}>
+                당신의 생각을 공유해주세요! ($ 태그 사용 후, 종목 입력)
+              </LockedLabel>
+              <PostInnerButtonsWrapper
+                onClick={() => dispatch(setIsOpenLoginForm(true))}
+              >
+                <PostItem>
+                  <StockUpButton />
+                </PostItem>
+                <PostItem>
+                  <StockDownButton />
+                </PostItem>
+                <PostItem>
+                  <PictureUploadButton />
+                </PostItem>
+                <PostItem>
+                  <GifUploadButton />
+                </PostItem>
+              </PostInnerButtonsWrapper>
+            </>
           )}
         </InputWrapper>
 
