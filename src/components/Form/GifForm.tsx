@@ -5,6 +5,7 @@ import getSearch from '../../api/tenor/getSearch'
 import BackIcon from '../../assets/svg/BackIcon'
 import SearchIcon from '../../assets/svg/SearchIcon'
 import { useRootState } from '../../hooks/useRootState'
+import { getGifSearch } from '../../lib/debounce'
 import randomColor from '../../lib/randomColor'
 import { IconWrapper, SearchInput, SerchBar } from '../../mds/styled/searchBar'
 import postSlice from '../../reducers/Slices/post'
@@ -83,8 +84,7 @@ const GifForm = () => {
   const dispatch = useDispatch()
 
   const searchApi = async (word: string) => {
-    const result = await getSearch(word)
-
+    const result = await getGifSearch(word)
     dispatch(setGifs(result))
   }
 
