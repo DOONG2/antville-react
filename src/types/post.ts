@@ -1,7 +1,9 @@
-import { getCategoriesResponse } from '../api/tenor/types'
+import { getCategoriesResponse, getSearchResponse } from '../api/tenor/types'
 
 export interface postOptions {
   isUp: boolean
   isDown: boolean
-  gif: getCategoriesResponse | null
+  categorys: getCategoriesResponse | null
+  gifs: getSearchResponse | null
+  query: string
 }

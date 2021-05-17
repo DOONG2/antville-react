@@ -13,19 +13,11 @@ const Wrapper = styled.div``
 
 const DefaultCursor = styled.div`
   cursor: default;
-
-  position: relative;
-`
-
-const SearchBar = styled.div`
-  position: absolute;
-  top: 0;
-  left: 0;
 `
 
 const GifUpload = () => {
   const { isOpenGifForm } = useRootState((state) => state.view)
-  const { setGif } = postSlice.actions
+  const { setCategorys, setGifs, setQuery } = postSlice.actions
   const { setIsOpenGifForm } = viewSlice.actions
 
   const dispatch = useDispatch()
@@ -35,11 +27,11 @@ const GifUpload = () => {
       const callApi = async () => {
         const data = await getCategories()
 
-        dispatch(setGif(data))
+        dispatch(setCategorys(data))
       }
       callApi()
     }
-  }, [isOpenGifForm, dispatch, setGif])
+  }, [isOpenGifForm, dispatch, setCategorys])
 
   return (
     <>
@@ -53,9 +45,10 @@ const GifUpload = () => {
           height="66rem"
           close={() => {
             dispatch(setIsOpenGifForm(false))
+            dispatch(setGifs(null))
+            dispatch(setQuery(''))
           }}
         >
-          <SearchBar>써치바</SearchBar>
           <GifForm />
         </Modal>
       </DefaultCursor>
