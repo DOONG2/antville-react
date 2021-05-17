@@ -147,18 +147,7 @@ const LockedLabel = styled.div`
 `
 
 const PostForm = () => {
-  const {
-    dirty,
-    isValid,
-    values,
-    errors,
-    touched,
-    isValidating,
-    submitCount,
-    handleSubmit,
-    resetForm,
-    getFieldProps,
-  } = usePostFormik()
+  const { dirty, isValid, handleSubmit, getFieldProps } = usePostFormik()
   const {
     user,
     post: { isUp, isDown },

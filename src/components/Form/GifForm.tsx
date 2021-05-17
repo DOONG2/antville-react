@@ -1,7 +1,6 @@
 import styled from '@emotion/styled'
-import React, { useEffect } from 'react'
+import React from 'react'
 import { useDispatch } from 'react-redux'
-import getSearch from '../../api/tenor/getSearch'
 import BackIcon from '../../assets/svg/BackIcon'
 import SearchIcon from '../../assets/svg/SearchIcon'
 import { useRootState } from '../../hooks/useRootState'
