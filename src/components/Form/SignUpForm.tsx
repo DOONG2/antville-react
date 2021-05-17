@@ -18,6 +18,7 @@ const Wrapper = styled.div`
   height: 100%;
   display: flex;
   flex-direction: column;
+  padding: 2.5rem;
 `
 
 const Title = styled.div`

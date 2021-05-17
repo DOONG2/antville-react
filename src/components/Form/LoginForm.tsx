@@ -13,6 +13,10 @@ import { useRootState } from '../../hooks/useRootState'
 import { useDispatch } from 'react-redux'
 import viewSlice from '../../reducers/Slices/view'
 
+const Wrapper = styled.div`
+  padding: 2.5rem;
+`
+
 const Title = styled.div`
   font-weight: bold;
   font-size: 2rem;
@@ -140,7 +144,7 @@ const LoginForm = () => {
   }, [dispatch, isValidating, setIsFailLoginSubmit, submitCount])
 
   return (
-    <>
+    <Wrapper>
       <Title>로그인</Title>
       <form onSubmit={handleSubmit}>
         <Item>
@@ -202,7 +206,7 @@ const LoginForm = () => {
           비밀번호 찾기
         </NewFontBlue>
       </NewSubDescription>
-    </>
+    </Wrapper>
   )
 }
 

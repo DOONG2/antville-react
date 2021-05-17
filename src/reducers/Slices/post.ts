@@ -1,4 +1,5 @@
 import { createSlice, PayloadAction } from '@reduxjs/toolkit'
+import { getCategoriesResponse } from '../../api/tenor/types'
 import { postOptions } from '../../types/post'
 
 type postState = postOptions
@@ -6,6 +7,7 @@ type postState = postOptions
 const initialState = {
   isUp: false,
   isDown: false,
+  gif: null,
 } as postState
 
 const postSlice = createSlice({
@@ -19,6 +21,9 @@ const postSlice = createSlice({
     setIsDown(state, action: PayloadAction<boolean>) {
       state.isUp = false
       state.isDown = action.payload
+    },
+    setGif(state, action: PayloadAction<getCategoriesResponse>) {
+      state.gif = action.payload
     },
   },
 })

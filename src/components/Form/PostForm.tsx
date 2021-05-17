@@ -16,6 +16,8 @@ import { useDispatch } from 'react-redux'
 import StockUpButtonClicked from '../../assets/svg/StockUpButtonClicked'
 import StockDownButtonClicked from '../../assets/svg/StockDownButtonClicked'
 import viewSlice from '../../reducers/Slices/view'
+import ImageUpload from '../Upload/ImageUpload'
+import GifUpload from '../Upload/GifUpload'
 
 const Form = styled.form`
   position: relative;
@@ -205,10 +207,10 @@ const PostForm = () => {
                       )}
                     </PostItem>
                     <PostItem>
-                      <PictureUploadButton />
+                      <ImageUpload />
                     </PostItem>
                     <PostItem>
-                      <GifUploadButton />
+                      <GifUpload />
                     </PostItem>
                   </PostInnerButtonsWrapper>
                 </>

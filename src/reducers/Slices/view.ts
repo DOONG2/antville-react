@@ -6,6 +6,7 @@ interface ViewState {
   isOpenFindPasswordForm: boolean
   isOpenProfileDropDown: boolean
   isOpenNoticeDropDown: boolean
+  isOpenGifForm: boolean
   isFocusSearchBar: boolean
   isFailLoginSubmit: boolean
   isFailFindPasswordSubmit: boolean
@@ -17,6 +18,7 @@ const initialState: ViewState = {
   isOpenFindPasswordForm: false,
   isOpenProfileDropDown: false,
   isOpenNoticeDropDown: false,
+  isOpenGifForm: false,
   isFocusSearchBar: false,
   isFailLoginSubmit: false,
   isFailFindPasswordSubmit: false,
@@ -46,6 +48,9 @@ const viewSlice = createSlice({
     },
     setIsOpenNoticeDropDown(state, action: PayloadAction<boolean>) {
       state.isOpenNoticeDropDown = action.payload
+    },
+    setIsOpenGifForm(state, action: PayloadAction<boolean>) {
+      state.isOpenGifForm = action.payload
     },
     setIsFocusSearchBar(state, action: PayloadAction<boolean>) {
       state.isFocusSearchBar = action.payload

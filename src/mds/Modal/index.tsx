@@ -49,7 +49,7 @@ const ModalInner = styled.div<{ width: string; height: string }>`
   height: ${(props) => props.height};
   position: relative;
   margin: 0 auto;
-  padding: 2.5rem;
+  padding-top: 2.5rem;
 
   display: flex;
   flex-direction: column;
@@ -61,6 +61,7 @@ const LeftItem = styled.div`
 
 const NewCloseIcon = styled(CloseIcon)`
   cursor: pointer;
+  margin-right: 2.5rem;
 `
 
 const Modal = ({ children, shown, width, height, close }: ModalProps) => {
