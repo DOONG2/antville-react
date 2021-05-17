@@ -6,6 +6,9 @@ import { BrowserRouter } from 'react-router-dom'
 import { Provider } from 'react-redux'
 import store from './store'
 import { HelmetProvider } from 'react-helmet-async'
+import * as dotenv from 'dotenv'
+
+dotenv.config()
 
 const queryClient = new QueryClient({
   defaultOptions: {
