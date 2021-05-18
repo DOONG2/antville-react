@@ -1,10 +1,11 @@
 import styled from '@emotion/styled'
-import React from 'react'
+import { debounce } from 'lodash'
+import React, { useCallback, useEffect, useState } from 'react'
 import { useDispatch } from 'react-redux'
+import getSearch from '../../api/tenor/getSearch'
 import BackIcon from '../../assets/svg/BackIcon'
 import SearchIcon from '../../assets/svg/SearchIcon'
 import { useRootState } from '../../hooks/useRootState'
-import { getGifSearch } from '../../lib/debounce'
 import randomColor from '../../lib/randomColor'
 import { IconWrapper, SearchInput, SerchBar } from '../../mds/styled/searchBar'
 import postSlice from '../../reducers/Slices/post'
@@ -79,13 +80,30 @@ const NewSerchBar = styled(SerchBar)`
 const GifForm = () => {
   const { categorys, gifs, query } = useRootState((state) => state.post)
   const { setGifs, setQuery } = postSlice.actions
+  const [isFocus, setIsFocus] = useState(false)
 
   const dispatch = useDispatch()
 
-  const searchApi = async (word: string) => {
-    const result = await getGifSearch(word)
+  //TODO : 아래 훅으로 빼기..
+  const searchApi = async (term: string) => {
+    const result = await getSearch(term)
     dispatch(setGifs(result))
   }
+
+  const debouncedSearch = useCallback(
+    debounce((term) => searchApi(term), 300),
+    []
+  )
+
+  useEffect(() => {
+    if (query !== '') {
+      if (isFocus === true) {
+        debouncedSearch(query)
+      } else {
+        searchApi(query)
+      }
+    }
+  }, [debouncedSearch, query])
 
   return (
     <>
@@ -100,10 +118,11 @@ const GifForm = () => {
               placeholder=""
               onChange={(e) => {
                 dispatch(setQuery(e.target.value))
-                if (e.target.value === '') return dispatch(setGifs(null))
-                searchApi(e.target.value)
+                if (query === '') return dispatch(setGifs(null))
               }}
               value={query}
+              onFocus={() => setIsFocus(true)}
+              onBlur={() => setIsFocus(false)}
             />
           </NewSerchBar>
         </SearchBarWrapper>
@@ -139,7 +158,6 @@ const GifForm = () => {
                 key={`${category.name}-gif-form`}
                 onClick={() => {
                   dispatch(setQuery(category.searchterm))
-                  searchApi(category.searchterm)
                 }}
               >
                 <GifImageBright
