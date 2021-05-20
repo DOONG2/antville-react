@@ -16,7 +16,10 @@ const DefaultCursor = styled.div`
 `
 
 const GifUpload = () => {
-  const { isOpenGifForm } = useRootState((state) => state.view)
+  const {
+    view: { isOpenGifForm },
+    post: { query },
+  } = useRootState((state) => state)
   const { setCategorys, setGifs, setQuery } = postSlice.actions
   const { setIsOpenGifForm } = viewSlice.actions
 
@@ -48,6 +51,7 @@ const GifUpload = () => {
             dispatch(setGifs(null))
             dispatch(setQuery(''))
           }}
+          scrollValue={query}
         >
           <GifForm />
         </Modal>

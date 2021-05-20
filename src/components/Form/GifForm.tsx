@@ -1,10 +1,11 @@
 import styled from '@emotion/styled'
 import { debounce } from 'lodash'
-import React, { useCallback, useEffect, useState } from 'react'
+import React, { useCallback, useEffect, useRef, useState } from 'react'
 import { useDispatch } from 'react-redux'
 import getSearch from '../../api/tenor/getSearch'
 import BackIcon from '../../assets/svg/BackIcon'
 import SearchIcon from '../../assets/svg/SearchIcon'
+import { useIntersectionObserver } from '../../hooks/useInfiniteScroll'
 import { useRootState } from '../../hooks/useRootState'
 import randomColor from '../../lib/randomColor'
 import { IconWrapper, SearchInput, SerchBar } from '../../mds/styled/searchBar'
@@ -21,10 +22,13 @@ const Item = styled.div<{ backGroundColor?: string }>`
 const Group = styled.div`
   display: grid;
   grid-template-columns: 1fr 1fr 1fr;
-  grid-auto-flow: row dense;
 
   position: relative;
   padding-top: 25px;
+`
+
+const NewGroup = styled(Group)`
+  padding-top: 0;
 `
 
 const GifImage = styled.img`
@@ -77,14 +81,44 @@ const NewSerchBar = styled(SerchBar)`
   width: 475px;
 `
 
+const Bottom = styled.div<{ isOpen: boolean }>`
+  display: ${(p) => (p.isOpen ? 'initial' : 'none')};
+  width: 100%;
+`
+
 const GifForm = () => {
   const { categorys, gifs, query } = useRootState((state) => state.post)
   const { setGifs, setQuery } = postSlice.actions
   const [isFocus, setIsFocus] = useState(false)
+  const [count, setCount] = useState(0)
+  const bottomRef = useRef<HTMLDivElement>(null)
 
   const dispatch = useDispatch()
 
-  //TODO : 아래 훅으로 빼기..
+  const isBottomVisible = useIntersectionObserver(
+    bottomRef,
+    {
+      threshold: 0,
+    },
+    false
+  )
+
+  const searchNextSetApi = async (next: string) => {
+    const result = await getSearch(query, next)
+    if (gifs === null) return
+    const newResults = [...gifs.results, ...result.results]
+    const newNext = result.next
+    dispatch(setGifs({ results: newResults, next: newNext }))
+  }
+
+  useEffect(() => {
+    if (gifs && isBottomVisible) {
+      setCount(count + 1)
+      searchNextSetApi(gifs.next)
+    }
+  }, [isBottomVisible])
+
+  //TODO : 아래로직 훅으로 빼기
   const searchApi = async (term: string) => {
     const result = await getSearch(term)
     dispatch(setGifs(result))
@@ -170,6 +204,16 @@ const GifForm = () => {
           </>
         )}
       </Group>
+      <Bottom
+        isOpen={gifs !== null && gifs.results.length < 200}
+        ref={bottomRef}
+      >
+        <NewGroup>
+          <Item backGroundColor={randomColor()} />
+          <Item backGroundColor={randomColor()} />
+          <Item backGroundColor={randomColor()} />
+        </NewGroup>
+      </Bottom>
     </>
   )
 }

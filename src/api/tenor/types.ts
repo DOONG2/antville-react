@@ -52,5 +52,5 @@ export interface getCategoriesResponse {
 
 export interface getSearchResponse {
   next: string
-  results: [GifObject]
+  results: [GifObject] | GifObject[]
 }
