@@ -1,14 +1,16 @@
 import styled from '@emotion/styled'
 import React from 'react'
+import { useDispatch } from 'react-redux'
 import CloseIconSmall from '../../assets/svg/CloseIconSmall'
 import { useRootState } from '../../hooks/useRootState'
 import { grey030 } from '../../mds/styled/colors'
+import postSlice from '../../reducers/Slices/post'
 
 const Wrapper = styled.div`
   margin: 10px 0;
 
   width: 100%;
-  height: 260px;
+  height: 100%;
 
   position: relative;
   display: flex;
@@ -44,12 +46,14 @@ const CloseButton = styled.div`
 
 export default function PreviewImage() {
   const { previewUrl } = useRootState((state) => state.post)
+  const { setPreviewUrl } = postSlice.actions
+  const dispatch = useDispatch()
   return (
     <>
       {previewUrl ? (
         <Wrapper>
           <Image src={previewUrl.toString()} alt={'upload-preview'}></Image>
-          <CloseButton>
+          <CloseButton onClick={() => dispatch(setPreviewUrl(null))}>
             <CloseIconSmall />
           </CloseButton>
         </Wrapper>

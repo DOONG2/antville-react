@@ -10,6 +10,7 @@ import { useRootState } from '../../hooks/useRootState'
 import randomColor from '../../lib/randomColor'
 import { IconWrapper, SearchInput, SerchBar } from '../../mds/styled/searchBar'
 import postSlice from '../../reducers/Slices/post'
+import viewSlice from '../../reducers/Slices/view'
 
 const Item = styled.div<{ backGroundColor?: string }>`
   position: relative;
@@ -88,7 +89,8 @@ const Bottom = styled.div<{ isOpen: boolean }>`
 
 const GifForm = () => {
   const { categorys, gifs, query } = useRootState((state) => state.post)
-  const { setGifs, setQuery } = postSlice.actions
+  const { setGifs, setQuery, setPreviewUrl } = postSlice.actions
+  const { setIsOpenGifForm } = viewSlice.actions
   const [isFocus, setIsFocus] = useState(false)
   const [count, setCount] = useState(0)
   const bottomRef = useRef<HTMLDivElement>(null)
@@ -174,7 +176,8 @@ const GifForm = () => {
               <Item
                 key={`${gif.id}-gif-form`}
                 onClick={() => {
-                  console.log(gif)
+                  dispatch(setPreviewUrl(gif.media[0].gif.preview))
+                  dispatch(setIsOpenGifForm(false))
                 }}
                 backGroundColor={randomColor()}
               >
