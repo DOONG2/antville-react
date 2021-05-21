@@ -10,6 +10,7 @@ const initialState = {
   categorys: null,
   gifs: null,
   query: '',
+  previewUrl: null,
 } as postState
 
 const postSlice = createSlice({
@@ -32,6 +33,9 @@ const postSlice = createSlice({
     },
     setQuery(state, action: PayloadAction<string>) {
       state.query = action.payload
+    },
+    setPreviewUrl(state, action: PayloadAction<string | ArrayBuffer | null>) {
+      state.previewUrl = action.payload
     },
   },
 })

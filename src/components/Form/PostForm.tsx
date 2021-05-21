@@ -1,5 +1,5 @@
 import styled from '@emotion/styled'
-import React, { useRef, useState } from 'react'
+import React, { useEffect, useRef, useState } from 'react'
 import usePostFormik from '../../hooks/usePostFormik'
 import { grey010, grey030, grey050, grey080 } from '../../mds/styled/colors'
 import GifUploadButton from '../../assets/svg/GifUploadButton'
@@ -18,6 +18,7 @@ import StockDownButtonClicked from '../../assets/svg/StockDownButtonClicked'
 import viewSlice from '../../reducers/Slices/view'
 import ImageUpload from '../Upload/ImageUpload'
 import GifUpload from '../Upload/GifUpload'
+import PreviewImage from './PreviewImage'
 
 const Form = styled.form`
   position: relative;
@@ -150,15 +151,19 @@ const PostForm = () => {
   const { dirty, isValid, handleSubmit, getFieldProps } = usePostFormik()
   const {
     user,
-    post: { isUp, isDown },
+    post: { isUp, isDown, previewUrl },
+    view: { isFocusPostInput },
   } = useRootState((state) => state)
   const { setIsUp, setIsDown } = postSlice.actions
-  const { setIsOpenLoginForm } = viewSlice.actions
-  const [isFocus, setIsFocus] = useState(false)
+  const { setIsOpenLoginForm, setIsFocusPostInput } = viewSlice.actions
   const textRef = useRef<HTMLTextAreaElement>(null)
   const { scrollHeight } = useElementSize(textRef)
 
   const dispatch = useDispatch()
+
+  useEffect(() => {
+    dispatch(setIsFocusPostInput(true))
+  }, [previewUrl])
 
   return (
     <Form onSubmit={handleSubmit}>
@@ -166,7 +171,7 @@ const PostForm = () => {
         <UserIconWrapper>
           <UserIcon />
         </UserIconWrapper>
-        <InputWrapper isFocus={isFocus}>
+        <InputWrapper isFocus={isFocusPostInput}>
           {user ? (
             <>
               {user.isEmailVerified ? (
@@ -179,12 +184,13 @@ const PostForm = () => {
                     }
                     autoComplete="off"
                     onFocus={() => {
-                      setIsFocus(true)
+                      setIsFocusPostInput(true)
                     }}
-                    isFocus={isFocus}
+                    isFocus={isFocusPostInput}
                     scrollHeight={scrollHeight}
                     ref={textRef}
                   />
+                  <PreviewImage />
                   <PostInnerButtonsWrapper>
                     <PostItem onClick={() => dispatch(setIsUp(true))}>
                       {isUp ? <StockUpButtonClicked /> : <StockUpButton />}

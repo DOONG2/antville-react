@@ -6,4 +6,5 @@ export interface postOptions {
   categorys: getCategoriesResponse | null
   gifs: getSearchResponse | null
   query: string
+  previewUrl: string | ArrayBuffer | null
 }
