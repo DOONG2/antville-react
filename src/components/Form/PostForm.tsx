@@ -184,7 +184,7 @@ const PostForm = () => {
                     }
                     autoComplete="off"
                     onFocus={() => {
-                      setIsFocusPostInput(true)
+                      dispatch(setIsFocusPostInput(true))
                     }}
                     isFocus={isFocusPostInput}
                     scrollHeight={scrollHeight}
