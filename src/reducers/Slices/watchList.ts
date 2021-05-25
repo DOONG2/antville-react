@@ -12,13 +12,11 @@ const watchListSlice = createSlice({
   name: 'watchList',
   initialState,
   reducers: {
-    setWatchListState(
-      state,
-      action: PayloadAction<WatchListState | undefined>
-    ) {
-      if (action.payload === undefined) {
+    setWatchListState(state, action: PayloadAction<WatchListState>) {
+      if (action.payload?.stocks === undefined) {
         return (state = null)
       } else {
+        if (action.payload.stocks.length < 1) return (state = null)
         return (state = action.payload)
       }
     },

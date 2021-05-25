@@ -162,7 +162,7 @@ const PostForm = () => {
   const dispatch = useDispatch()
 
   useEffect(() => {
-    dispatch(setIsFocusPostInput(true))
+    if (previewUrl !== null) dispatch(setIsFocusPostInput(true))
   }, [previewUrl])
 
   return (
