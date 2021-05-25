@@ -1,8 +1,8 @@
-import { useRootState } from './useRootState'
+import userStorage from '../lib/userStorage'
 
 const useCheckLogin = () => {
-  const { user } = useRootState((state) => state)
-  if (user) return true
+  const storedUser = userStorage.get()
+  if (storedUser) return true
   else return false
 }
 
