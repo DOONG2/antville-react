@@ -178,6 +178,8 @@ const GifForm = () => {
                 onClick={() => {
                   dispatch(setPreviewUrl(gif.media[0].gif.preview))
                   dispatch(setIsOpenGifForm(false))
+                  dispatch(setGifs(null))
+                  dispatch(setQuery(''))
                 }}
                 backGroundColor={randomColor()}
               >
