@@ -1,5 +1,5 @@
 import styled from '@emotion/styled'
-import React, { useEffect, useRef, useState } from 'react'
+import React, { useEffect, useRef } from 'react'
 import usePostFormik from '../../hooks/usePostFormik'
 import { grey010, grey030, grey050, grey080 } from '../../mds/styled/colors'
 import GifUploadButton from '../../assets/svg/GifUploadButton'
@@ -19,7 +19,8 @@ import viewSlice from '../../reducers/Slices/view'
 import ImageUpload from '../Upload/ImageUpload'
 import GifUpload from '../Upload/GifUpload'
 import PreviewImage from './PreviewImage'
-import usePostAllQuery from '../../hooks/query/usePostAllQuery'
+import usePostQuery from '../../hooks/query/usePostQuery'
+import FeedSlice from '../../reducers/Slices/feed'
 
 const Form = styled.form`
   position: relative;
@@ -111,7 +112,7 @@ const FeedTapWraaper = styled.div`
   column-gap: 44px;
 `
 
-const TabItem = styled.div`
+const TabItem = styled.div<{ isClicked: boolean }>`
   font-weight: 400;
   font-size: 13px;
   line-height: 18px;
@@ -119,7 +120,9 @@ const TabItem = styled.div`
 
   color: #000000;
 
-  border-bottom: 1px solid #1942e0;
+  cursor: pointer;
+
+  border-bottom: ${(p) => (p.isClicked ? '1px solid #1942e0' : 'none')};
 `
 
 const UserIconWrapper = styled.div`
@@ -154,12 +157,16 @@ const PostForm = () => {
     user,
     post: { isUp, isDown, previewUrl },
     view: { isFocusPostInput },
+    feed: { activatedTab },
   } = useRootState((state) => state)
   const { setIsUp, setIsDown } = postSlice.actions
   const { setIsOpenLoginForm, setIsFocusPostInput } = viewSlice.actions
+  const { setTabAll, setTabFollowing, setTabWatchList } = FeedSlice.actions
+
   const textRef = useRef<HTMLTextAreaElement>(null)
   const { scrollHeight } = useElementSize(textRef)
-  const { data, isLoading } = usePostAllQuery('15')
+
+  const { data, isLoading } = usePostQuery('15')
 
   const dispatch = useDispatch()
 
@@ -249,9 +256,24 @@ const PostForm = () => {
         </SubmitButton>
       </FormInner>
       <FeedTapWraaper>
-        <TabItem>전체</TabItem>
-        <TabItem>관심종목</TabItem>
-        <TabItem>팔로잉</TabItem>
+        <TabItem
+          isClicked={activatedTab === 'all'}
+          onClick={() => dispatch(setTabAll())}
+        >
+          전체
+        </TabItem>
+        <TabItem
+          isClicked={activatedTab === 'watchList'}
+          onClick={() => dispatch(setTabWatchList())}
+        >
+          관심종목
+        </TabItem>
+        <TabItem
+          isClicked={activatedTab === 'following'}
+          onClick={() => dispatch(setTabFollowing())}
+        >
+          팔로잉
+        </TabItem>
       </FeedTapWraaper>
       {isLoading ? '' : <FeedSection post={data} />}
     </Form>

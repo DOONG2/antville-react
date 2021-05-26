@@ -8,6 +8,7 @@ import StockUpIcon from '../../assets/svg/StockUpIcon'
 import TalkIcon from '../../assets/svg/TalkIcon'
 import ThreeDot from '../../assets/svg/ThreeDot'
 import { blue040, grey060, grey080 } from '../../mds/styled/colors'
+import MomentDateChage from './MomentDateChage'
 
 interface Props {
   post: Post[] | undefined
@@ -110,7 +111,9 @@ const FeedSection = ({ post: posts }: Props) => {
             <LeftItem>
               <FeedAvatar></FeedAvatar>
               <NickNameWrapper>{post.author.nickname}</NickNameWrapper>
-              <PostTime>3분 전</PostTime>
+              <PostTime>
+                <MomentDateChage time={post.createdAt} />
+              </PostTime>
               <IconWrapper>
                 {post.sentiment === 'UP' ? <StockUpIcon /> : <StockDownIcon />}
               </IconWrapper>
