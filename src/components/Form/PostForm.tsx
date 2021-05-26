@@ -19,7 +19,6 @@ import viewSlice from '../../reducers/Slices/view'
 import ImageUpload from '../Upload/ImageUpload'
 import GifUpload from '../Upload/GifUpload'
 import PreviewImage from './PreviewImage'
-import usePostQuery from '../../hooks/query/usePostQuery'
 import FeedSlice from '../../reducers/Slices/feed'
 
 const Form = styled.form`
@@ -110,6 +109,8 @@ const FeedTapWraaper = styled.div`
   padding: 15px 21px;
   display: flex;
   column-gap: 44px;
+
+  border-bottom: 1px solid #ececec;
 `
 
 const TabItem = styled.div<{ isClicked: boolean }>`
@@ -165,9 +166,6 @@ const PostForm = () => {
 
   const textRef = useRef<HTMLTextAreaElement>(null)
   const { scrollHeight } = useElementSize(textRef)
-
-  const { data, isLoading } = usePostQuery('15')
-
   const dispatch = useDispatch()
 
   useEffect(() => {
@@ -275,7 +273,7 @@ const PostForm = () => {
           팔로잉
         </TabItem>
       </FeedTapWraaper>
-      {isLoading ? '' : <FeedSection post={data} />}
+      <FeedSection />
     </Form>
   )
 }

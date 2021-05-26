@@ -1,20 +1,21 @@
 import styled from '@emotion/styled'
-import React from 'react'
-import { Post } from '../../api/types'
-
+import React, { useRef } from 'react'
 import HeartIcon from '../../assets/svg/HeartIcon'
 import StockDownIcon from '../../assets/svg/StockDownIcon'
 import StockUpIcon from '../../assets/svg/StockUpIcon'
 import TalkIcon from '../../assets/svg/TalkIcon'
 import ThreeDot from '../../assets/svg/ThreeDot'
+import { useIntersectionObserver } from '../../hooks/useInfiniteScroll'
+import usePostFeed from '../../hooks/usePostFeed'
+import { useRootState } from '../../hooks/useRootState'
 import { blue040, grey060, grey080 } from '../../mds/styled/colors'
+import FollowingEmpty from './FollowingEmpty'
 import MomentDateChage from './MomentDateChage'
+import WatchListEmpty from './WatchListEmpty'
 
-interface Props {
-  post: Post[] | undefined
-}
-
-const FeedWrapper = styled.div``
+const FeedWrapper = styled.div`
+  border-bottom: 1px solid #ececec;
+`
 
 const TopWrapper = styled.div`
   padding: 13px 24px;
@@ -22,8 +23,6 @@ const TopWrapper = styled.div`
   display: flex;
   align-items: center;
   justify-content: space-between;
-
-  border-top: 1px solid #ececec;
 `
 
 const FeedAvatar = styled.div`
@@ -101,10 +100,38 @@ const BottomItem = styled.div`
 
 const Count = styled.div``
 
-const FeedSection = ({ post: posts }: Props) => {
-  console.log(posts)
+const Bottom = styled.div<{ isScrolled: boolean }>`
+  width: 100%;
+  height: 300px;
+
+  display: ${(p) => (p.isScrolled ? 'none' : 'initial')};
+`
+
+const FeedSection = () => {
+  const { activatedTab, posts, isScrolled } = useRootState(
+    (state) => state.feed
+  )
+
+  const bottomRef = useRef<HTMLDivElement>(null)
+
+  const isBottomVisible = useIntersectionObserver(
+    bottomRef,
+    {
+      threshold: 0,
+    },
+    false
+  )
+
+  usePostFeed('15', isBottomVisible)
+
   return (
     <>
+      {posts && posts.length < 1 && activatedTab === 'watchList' && (
+        <WatchListEmpty />
+      )}
+      {posts && posts.length < 1 && activatedTab === 'following' && (
+        <FollowingEmpty />
+      )}
       {posts?.map((post) => (
         <FeedWrapper key={`${post.id}-feed-section`}>
           <TopWrapper>
@@ -135,6 +162,8 @@ const FeedSection = ({ post: posts }: Props) => {
           </BottomWrapper>
         </FeedWrapper>
       ))}
+
+      <Bottom ref={bottomRef} isScrolled={isScrolled} />
     </>
   )
 }
