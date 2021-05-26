@@ -1,6 +1,8 @@
 import styled from '@emotion/styled'
+import React from 'react'
 import PostForm from '../Form/PostForm'
 import SideBar from '../SideBar'
+import FeedSection from './FeedSection'
 
 const Wrapper = styled.div`
   min-width: 144rem;
@@ -26,6 +28,7 @@ const Feed = () => {
         <SideBar />
         <PostWrapper>
           <PostForm />
+          <FeedSection />
         </PostWrapper>
       </BarWrapper>
     </Wrapper>

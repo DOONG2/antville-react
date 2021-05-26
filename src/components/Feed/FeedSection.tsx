@@ -1,24 +1,27 @@
 import styled from '@emotion/styled'
 import React, { useRef } from 'react'
+import { useDispatch } from 'react-redux'
 import HeartIcon from '../../assets/svg/HeartIcon'
 import StockDownIcon from '../../assets/svg/StockDownIcon'
 import StockUpIcon from '../../assets/svg/StockUpIcon'
 import TalkIcon from '../../assets/svg/TalkIcon'
 import ThreeDot from '../../assets/svg/ThreeDot'
+import useCheckLogin from '../../hooks/useCheckLogin'
 import { useIntersectionObserver } from '../../hooks/useInfiniteScroll'
 import usePostFeed from '../../hooks/usePostFeed'
 import { useRootState } from '../../hooks/useRootState'
 import { blue040, grey060, grey080 } from '../../mds/styled/colors'
+import FeedSlice from '../../reducers/Slices/feed'
 import FollowingEmpty from './FollowingEmpty'
 import MomentDateChage from './MomentDateChage'
 import WatchListEmpty from './WatchListEmpty'
 
 const FeedWrapper = styled.div`
-  border-bottom: 1px solid #ececec;
+  border-top: 1px solid #ececec;
 `
 
 const TopWrapper = styled.div`
-  padding: 13px 24px;
+  padding: 13px 24px 0 24px;
 
   display: flex;
   align-items: center;
@@ -107,11 +110,34 @@ const Bottom = styled.div<{ isScrolled: boolean }>`
   display: ${(p) => (p.isScrolled ? 'none' : 'initial')};
 `
 
+const FeedTabWraaper = styled.div`
+  margin-top: 23px;
+  padding: 15px 21px;
+  display: flex;
+  column-gap: 44px;
+`
+
+const TabItem = styled.div<{ isClicked: boolean }>`
+  font-weight: 400;
+  font-size: 13px;
+  line-height: 18px;
+  padding-bottom: 3px;
+
+  color: #000000;
+
+  cursor: pointer;
+
+  border-bottom: ${(p) => (p.isClicked ? '1px solid #1942e0' : 'none')};
+`
+
 const FeedSection = () => {
+  const { setTabAll, setTabFollowing, setTabWatchList } = FeedSlice.actions
   const { activatedTab, posts, isScrolled } = useRootState(
     (state) => state.feed
   )
 
+  const isLoggedIn = useCheckLogin()
+  const dispatch = useDispatch()
   const bottomRef = useRef<HTMLDivElement>(null)
 
   const isBottomVisible = useIntersectionObserver(
@@ -126,6 +152,29 @@ const FeedSection = () => {
 
   return (
     <>
+      {isLoggedIn && (
+        <FeedTabWraaper>
+          <TabItem
+            isClicked={activatedTab === 'all'}
+            onClick={() => dispatch(setTabAll())}
+          >
+            전체
+          </TabItem>
+          <TabItem
+            isClicked={activatedTab === 'watchList'}
+            onClick={() => dispatch(setTabWatchList())}
+          >
+            관심종목
+          </TabItem>
+          <TabItem
+            isClicked={activatedTab === 'following'}
+            onClick={() => dispatch(setTabFollowing())}
+          >
+            팔로잉
+          </TabItem>
+        </FeedTabWraaper>
+      )}
+
       {posts && posts.length < 1 && activatedTab === 'watchList' && (
         <WatchListEmpty />
       )}

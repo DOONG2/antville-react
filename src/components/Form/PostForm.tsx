@@ -8,7 +8,6 @@ import StockDownButton from '../../assets/svg/StockDownButton'
 import StockUpButton from '../../assets/svg/StockUpButton'
 import UserIcon from '../../assets/svg/UserIcon'
 import useElementSize from '../../hooks/useElementSize'
-import FeedSection from '../Feed/FeedSection'
 import { useRootState } from '../../hooks/useRootState'
 import { FontBlue } from '../../mds/styled/texts'
 import postSlice from '../../reducers/Slices/post'
@@ -19,7 +18,6 @@ import viewSlice from '../../reducers/Slices/view'
 import ImageUpload from '../Upload/ImageUpload'
 import GifUpload from '../Upload/GifUpload'
 import PreviewImage from './PreviewImage'
-import FeedSlice from '../../reducers/Slices/feed'
 
 const Form = styled.form`
   position: relative;
@@ -30,6 +28,8 @@ const FormInner = styled.div`
   justify-content: space-between;
 
   column-gap: 1.4rem;
+
+  margin-bottom: 13px;
 `
 
 const InputWrapper = styled.div<{ isFocus: boolean }>`
@@ -104,28 +104,6 @@ const SubmitButton = styled.button`
   color: ${grey010};
 `
 
-const FeedTapWraaper = styled.div`
-  margin-top: 36px;
-  padding: 15px 21px;
-  display: flex;
-  column-gap: 44px;
-
-  border-bottom: 1px solid #ececec;
-`
-
-const TabItem = styled.div<{ isClicked: boolean }>`
-  font-weight: 400;
-  font-size: 13px;
-  line-height: 18px;
-  padding-bottom: 3px;
-
-  color: #000000;
-
-  cursor: pointer;
-
-  border-bottom: ${(p) => (p.isClicked ? '1px solid #1942e0' : 'none')};
-`
-
 const UserIconWrapper = styled.div`
   margin-top: 3px;
 `
@@ -158,11 +136,9 @@ const PostForm = () => {
     user,
     post: { isUp, isDown, previewUrl },
     view: { isFocusPostInput },
-    feed: { activatedTab },
   } = useRootState((state) => state)
   const { setIsUp, setIsDown } = postSlice.actions
   const { setIsOpenLoginForm, setIsFocusPostInput } = viewSlice.actions
-  const { setTabAll, setTabFollowing, setTabWatchList } = FeedSlice.actions
 
   const textRef = useRef<HTMLTextAreaElement>(null)
   const { scrollHeight } = useElementSize(textRef)
@@ -253,27 +229,6 @@ const PostForm = () => {
           게시
         </SubmitButton>
       </FormInner>
-      <FeedTapWraaper>
-        <TabItem
-          isClicked={activatedTab === 'all'}
-          onClick={() => dispatch(setTabAll())}
-        >
-          전체
-        </TabItem>
-        <TabItem
-          isClicked={activatedTab === 'watchList'}
-          onClick={() => dispatch(setTabWatchList())}
-        >
-          관심종목
-        </TabItem>
-        <TabItem
-          isClicked={activatedTab === 'following'}
-          onClick={() => dispatch(setTabFollowing())}
-        >
-          팔로잉
-        </TabItem>
-      </FeedTapWraaper>
-      <FeedSection />
     </Form>
   )
 }
