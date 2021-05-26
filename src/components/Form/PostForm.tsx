@@ -19,6 +19,7 @@ import viewSlice from '../../reducers/Slices/view'
 import ImageUpload from '../Upload/ImageUpload'
 import GifUpload from '../Upload/GifUpload'
 import PreviewImage from './PreviewImage'
+import usePostAllQuery from '../../hooks/query/usePostAllQuery'
 
 const Form = styled.form`
   position: relative;
@@ -158,6 +159,7 @@ const PostForm = () => {
   const { setIsOpenLoginForm, setIsFocusPostInput } = viewSlice.actions
   const textRef = useRef<HTMLTextAreaElement>(null)
   const { scrollHeight } = useElementSize(textRef)
+  const { data, isLoading } = usePostAllQuery('15')
 
   const dispatch = useDispatch()
 
@@ -251,7 +253,7 @@ const PostForm = () => {
         <TabItem>관심종목</TabItem>
         <TabItem>팔로잉</TabItem>
       </FeedTapWraaper>
-      <FeedSection />
+      {isLoading ? '' : <FeedSection post={data} />}
     </Form>
   )
 }

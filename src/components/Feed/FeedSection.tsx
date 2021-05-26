@@ -1,10 +1,17 @@
 import styled from '@emotion/styled'
 import React from 'react'
+import { Post } from '../../api/types'
+
 import HeartIcon from '../../assets/svg/HeartIcon'
+import StockDownIcon from '../../assets/svg/StockDownIcon'
 import StockUpIcon from '../../assets/svg/StockUpIcon'
 import TalkIcon from '../../assets/svg/TalkIcon'
 import ThreeDot from '../../assets/svg/ThreeDot'
 import { blue040, grey060, grey080 } from '../../mds/styled/colors'
+
+interface Props {
+  post: Post[] | undefined
+}
 
 const FeedWrapper = styled.div``
 
@@ -88,48 +95,43 @@ const BottomItem = styled.div`
   display: flex;
   align-items: center;
   column-gap: 6px;
+  padding-bottom: 13px;
 `
 
 const Count = styled.div``
 
-const FeedSection = () => {
+const FeedSection = ({ post: posts }: Props) => {
+  console.log(posts)
   return (
     <>
-      <FeedWrapper>
-        <TopWrapper>
-          <LeftItem>
-            <FeedAvatar></FeedAvatar>
-            <NickNameWrapper>Tony_Gony</NickNameWrapper>
-            <PostTime>3분 전</PostTime>
-            <IconWrapper>
-              <StockUpIcon />
-            </IconWrapper>
-          </LeftItem>
-          <RightItem>
-            <ThreeDot />
-          </RightItem>
-        </TopWrapper>
-        <MiddleWrapper>
-          $비트코인 여러분 버블은 곧 꺼집니다. 오늘 밤에 있었던 FOMC 금리 동결은
-          당장은 호재처럼 보일지 모르지만 호재 소멸로 인해 단기적인 반등 이후,
-          폭락을 보일 것입니다. 여러분 제가 누굽니까? 최정오입니다. 제 말 듣고
-          손해 보신 적 있으십니까? 다시 한번 말씀드리지만 저는 최정오입니다
-          여러분.. 저는 최근 $RBLX 와 $CPNG 주가 예측도 정확하게 예지해내는
-          모습을 보여드렸습니다. 그러니 달리 팀원들처럼 저만 믿고 따라오십쇼!
-          수익률의 단 40프로만 제게 제공해주시면 이 세상 모든 돈을 다
-          안겨드리겠습니다!
-        </MiddleWrapper>
-        <BottomWrapper>
-          <BottomItem>
-            <HeartIcon />
-            <Count>30</Count>
-          </BottomItem>
-          <BottomItem>
-            <TalkIcon />
-            <Count>5</Count>
-          </BottomItem>
-        </BottomWrapper>
-      </FeedWrapper>
+      {posts?.map((post) => (
+        <FeedWrapper key={`${post.id}-feed-section`}>
+          <TopWrapper>
+            <LeftItem>
+              <FeedAvatar></FeedAvatar>
+              <NickNameWrapper>{post.author.nickname}</NickNameWrapper>
+              <PostTime>3분 전</PostTime>
+              <IconWrapper>
+                {post.sentiment === 'UP' ? <StockUpIcon /> : <StockDownIcon />}
+              </IconWrapper>
+            </LeftItem>
+            <RightItem>
+              <ThreeDot />
+            </RightItem>
+          </TopWrapper>
+          <MiddleWrapper>{post.body}</MiddleWrapper>
+          <BottomWrapper>
+            <BottomItem>
+              <HeartIcon />
+              <Count>{post.postCount.likeCount}</Count>
+            </BottomItem>
+            <BottomItem>
+              <TalkIcon />
+              <Count>{post.postCount.commentCount}</Count>
+            </BottomItem>
+          </BottomWrapper>
+        </FeedWrapper>
+      ))}
     </>
   )
 }
