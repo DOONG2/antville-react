@@ -1,13 +1,21 @@
 import styled from '@emotion/styled'
-import { LoginButton } from '../../mds/theme/buttons'
-import { FontBlue, SubDescription, ValidatorLabel } from '../../mds/theme/texts'
-import { grey050, navy040 } from '../../mds/theme/colors'
+import { LoginButton } from '../../mds/styled/buttons'
+import {
+  FontBlue,
+  SubDescription,
+  ValidatorLabel,
+} from '../../mds/styled/texts'
+import { grey050, navy040 } from '../../mds/styled/colors'
 import CompleteCheckIcon from '../../assets/svg/CompleteCheckIcon'
 import useLoginFormik from '../../hooks/useLoginFormik'
 import { useEffect } from 'react'
 import { useRootState } from '../../hooks/useRootState'
 import { useDispatch } from 'react-redux'
 import viewSlice from '../../reducers/Slices/view'
+
+const Wrapper = styled.div`
+  padding: 2.5rem;
+`
 
 const Title = styled.div`
   font-weight: bold;
@@ -136,7 +144,7 @@ const LoginForm = () => {
   }, [dispatch, isValidating, setIsFailLoginSubmit, submitCount])
 
   return (
-    <>
+    <Wrapper>
       <Title>로그인</Title>
       <form onSubmit={handleSubmit}>
         <Item>
@@ -198,7 +206,7 @@ const LoginForm = () => {
           비밀번호 찾기
         </NewFontBlue>
       </NewSubDescription>
-    </>
+    </Wrapper>
   )
 }
 

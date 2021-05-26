@@ -1,7 +1,11 @@
 import styled from '@emotion/styled'
-import { FontBlue, SubDescription, ValidatorLabel } from '../../mds/theme/texts'
-import { SignUpButton } from '../../mds/theme/buttons'
-import { grey050, navy040 } from '../../mds/theme/colors'
+import {
+  FontBlue,
+  SubDescription,
+  ValidatorLabel,
+} from '../../mds/styled/texts'
+import { SignUpButton } from '../../mds/styled/buttons'
+import { grey050, navy040 } from '../../mds/styled/colors'
 import CompleteCheckIcon from '../../assets/svg/CompleteCheckIcon'
 import useSignUpFormik from '../../hooks/useSignUpFormik'
 import { useRootState } from '../../hooks/useRootState'
@@ -14,6 +18,7 @@ const Wrapper = styled.div`
   height: 100%;
   display: flex;
   flex-direction: column;
+  padding: 2.5rem;
 `
 
 const Title = styled.div`

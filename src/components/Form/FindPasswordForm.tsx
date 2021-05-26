@@ -2,10 +2,10 @@ import React, { useEffect } from 'react'
 import styled from '@emotion/styled/macro'
 import CompleteCheckIcon from '../../assets/svg/CompleteCheckIcon'
 import { useRootState } from '../../hooks/useRootState'
-import { LoginButton } from '../../mds/theme/buttons'
-import { ValidatorLabel } from '../../mds/theme/texts'
+import { LoginButton } from '../../mds/styled/buttons'
+import { ValidatorLabel } from '../../mds/styled/texts'
 import useFindPasswordFormik from '../../hooks/useFindPasswordFormik'
-import { grey050, grey080 } from '../../mds/theme/colors'
+import { grey050, grey080 } from '../../mds/styled/colors'
 
 const Title = styled.div`
   font-weight: bold;

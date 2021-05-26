@@ -1,7 +1,7 @@
 import styled from '@emotion/styled'
 import AppleStoreLogo from '../../assets/svg/AppleStoreLogo'
 import AppleStoreLabel from '../../assets/svg/AppleStoreLabel'
-import { SocialStoreButton } from '../theme/buttons'
+import { SocialStoreButton } from '../styled/buttons'
 
 const Wrapper = styled(SocialStoreButton)``
 

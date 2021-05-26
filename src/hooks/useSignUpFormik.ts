@@ -1,18 +1,25 @@
 import { useFormik } from 'formik'
 import { useDispatch } from 'react-redux'
 import * as Yup from 'yup'
+import { getCurrentUser } from '../api/auth/getCurrentUser'
+import postLogin from '../api/auth/postLogin'
 import postSignUp from '../api/user/postSignUp'
+import authStorage from '../lib/authStorage'
 import {
   checkNicknameLength,
   check_nickname,
   isTakenEmail,
   isTakenNickName,
 } from '../lib/validator'
+import authSlice from '../reducers/Slices/auth'
 import viewSlice from '../reducers/Slices/view'
+import useAuth from './useAuth'
 
 const useSignUpFormik = () => {
   const { setIsOpenSignUpForm } = viewSlice.actions
+  const { setAuthState } = authSlice.actions
   const dispatch = useDispatch()
+  const { authorize } = useAuth()
   const formik = useFormik({
     initialValues: {
       emailSignup: '',
@@ -47,7 +54,7 @@ const useSignUpFormik = () => {
         )
         .required('닉네임을 입력하세요.'),
     }),
-    onSubmit: async (submitData, { setSubmitting, resetForm }) => {
+    onSubmit: async (submitData, { setSubmitting }) => {
       setSubmitting(true)
       const {
         emailSignup,
@@ -62,15 +69,21 @@ const useSignUpFormik = () => {
           nickname: nicknameSignup,
           subscribeNewsLetter: subscribeNewsLetterSignup,
         })
+        const { accessToken, refreshToken } = await postLogin({
+          email: emailSignup,
+          password: passwordSignup,
+        })
+        authStorage.set({ accessToken, refreshToken })
+        dispatch(setAuthState({ accessToken, refreshToken }))
+        const user = await getCurrentUser()
+        authorize(user)
         dispatch(setIsOpenSignUpForm(false))
-        resetForm()
       } catch (error) {
         if (error.data.errorCode === 600) {
           console.log(error.data.message)
         } else if (error.data.errorCode === 601) {
           console.log(error.data.message)
         }
-        resetForm()
       }
       setSubmitting(false)
     },

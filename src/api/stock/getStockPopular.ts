@@ -1,10 +1,11 @@
 import client from '../client'
-import { StockPopularType } from '../types'
 
-const getStockPopular = async (): Promise<StockPopularType> => {
-  const { data } = await client.get('/stock/popular')
+import { getStockPopularResponse } from './types'
 
-  return data
+const getStockPopular = async () => {
+  const response = await client.get<getStockPopularResponse>('/stock/popular')
+
+  return response.data
 }
 
 export default getStockPopular

@@ -1,4 +1,5 @@
 import styled from '@emotion/styled'
+import { useEffect, useRef } from 'react'
 import CloseIcon from '../../assets/svg/CloseIcon'
 
 interface ModalProps {
@@ -7,6 +8,7 @@ interface ModalProps {
   width: string
   height: string
   close: (event: React.MouseEvent<HTMLDivElement, MouseEvent>) => void
+  scrollValue?: string
 }
 
 const ModalOverlay = styled.div<{ shown: boolean }>`
@@ -49,7 +51,7 @@ const ModalInner = styled.div<{ width: string; height: string }>`
   height: ${(props) => props.height};
   position: relative;
   margin: 0 auto;
-  padding: 2.5rem;
+  padding-top: 2.5rem;
 
   display: flex;
   flex-direction: column;
@@ -61,13 +63,32 @@ const LeftItem = styled.div`
 
 const NewCloseIcon = styled(CloseIcon)`
   cursor: pointer;
+  margin-right: 2.5rem;
 `
 
-const Modal = ({ children, shown, width, height, close }: ModalProps) => {
+const Modal = ({
+  children,
+  shown,
+  width,
+  height,
+  close,
+  scrollValue,
+}: ModalProps) => {
+  const scrollRef = useRef<HTMLDivElement>(null)
+
+  useEffect(() => {
+    scrollRef.current?.scrollTo(0, 0)
+  }, [shown, scrollValue])
+
   return (
     <>
       <ModalOverlay shown={shown} onClick={close} />
-      <Wrapper shown={shown} tabIndex={-1} onClick={(e) => e.stopPropagation()}>
+      <Wrapper
+        ref={scrollRef}
+        shown={shown}
+        tabIndex={-1}
+        onClick={(e) => e.stopPropagation()}
+      >
         <ModalInner width={width} height={height}>
           <LeftItem>
             <NewCloseIcon onClick={close} />

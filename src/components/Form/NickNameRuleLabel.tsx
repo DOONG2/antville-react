@@ -1,7 +1,7 @@
 import styled from '@emotion/styled/macro'
 import NoticeGridIcons from '../../assets/svg/NoticeGridIcons'
 import QuestionIcon from '../../assets/svg/QuestionIcon'
-import { grey010, grey060 } from '../../mds/theme/colors'
+import { grey010, grey060 } from '../../mds/styled/colors'
 
 const HiddenAnswerForm = styled.div`
   visibility: hidden;
