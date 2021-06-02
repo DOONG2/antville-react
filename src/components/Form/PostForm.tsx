@@ -1,23 +1,22 @@
 import styled from '@emotion/styled'
-import React, { useEffect, useRef } from 'react'
-import usePostFormik from '../../hooks/usePostFormik'
+import React, { useEffect } from 'react'
+import { useDispatch } from 'react-redux'
 import { grey010, grey030, grey050, grey080 } from '../../mds/styled/colors'
 import GifUploadButton from '../../assets/svg/GifUploadButton'
 import PictureUploadButton from '../../assets/svg/PictureUploadButton'
 import StockDownButton from '../../assets/svg/StockDownButton'
 import StockUpButton from '../../assets/svg/StockUpButton'
 import UserIcon from '../../assets/svg/UserIcon'
-import useElementSize from '../../hooks/useElementSize'
 import { useRootState } from '../../hooks/useRootState'
 import { FontBlue } from '../../mds/styled/texts'
 import postSlice from '../../reducers/Slices/post'
-import { useDispatch } from 'react-redux'
 import StockUpButtonClicked from '../../assets/svg/StockUpButtonClicked'
 import StockDownButtonClicked from '../../assets/svg/StockDownButtonClicked'
 import viewSlice from '../../reducers/Slices/view'
 import ImageUpload from '../Upload/ImageUpload'
 import GifUpload from '../Upload/GifUpload'
 import PreviewImage from './PreviewImage'
+import PostMentionInput from './PostMentionInput'
 
 const Form = styled.form`
   position: relative;
@@ -43,28 +42,6 @@ const InputWrapper = styled.div<{ isFocus: boolean }>`
   border-radius: 3px;
   display: flex;
   flex-direction: ${(p) => (p.isFocus ? 'column' : 'row')};
-`
-
-const PostInput = styled.textarea<{ isFocus: boolean; scrollHeight: number }>`
-  align-self: center;
-  width: 100%;
-  height: ${(p) => (p.isFocus ? `76px` : '22px')};
-  min-height: ${(p) => (p.isFocus ? `${p.scrollHeight}px` : '22px')};
-  font-size: 16px;
-  line-height: 2.2rem;
-  outline: none;
-  border: none;
-  resize: none;
-
-  padding: 0;
-
-  color: #202020;
-  background-color: #fff;
-
-  &::placeholder {
-    color: #aeaeae;
-    font-size: 16px;
-  }
 `
 
 const PostInnerButtonsWrapper = styled.div`
@@ -131,17 +108,19 @@ const LockedLabel = styled.div`
 `
 
 const PostForm = () => {
-  const { dirty, isValid, handleSubmit, getFieldProps } = usePostFormik()
   const {
     user,
-    post: { isUp, isDown, previewUrl },
+    post: {
+      isUp,
+      isDown,
+      previewUrl,
+      sumitData: { body },
+    },
     view: { isFocusPostInput },
   } = useRootState((state) => state)
   const { setIsUp, setIsDown } = postSlice.actions
   const { setIsOpenLoginForm, setIsFocusPostInput } = viewSlice.actions
 
-  const textRef = useRef<HTMLTextAreaElement>(null)
-  const { scrollHeight } = useElementSize(textRef)
   const dispatch = useDispatch()
 
   useEffect(() => {
@@ -149,7 +128,7 @@ const PostForm = () => {
   }, [previewUrl])
 
   return (
-    <Form onSubmit={handleSubmit}>
+    <Form onSubmit={() => {}}>
       <FormInner>
         <UserIconWrapper>
           <UserIcon />
@@ -159,20 +138,7 @@ const PostForm = () => {
             <>
               {user.isEmailVerified ? (
                 <>
-                  <PostInput
-                    id="postBody"
-                    {...getFieldProps('postBody')}
-                    placeholder={
-                      '당신의 생각을 공유해주세요! ($ 태그 사용 후, 종목  입력) '
-                    }
-                    autoComplete="off"
-                    onFocus={() => {
-                      dispatch(setIsFocusPostInput(true))
-                    }}
-                    isFocus={isFocusPostInput}
-                    scrollHeight={scrollHeight}
-                    ref={textRef}
-                  />
+                  <PostMentionInput />
                   <PreviewImage />
                   <PostInnerButtonsWrapper>
                     <PostItem onClick={() => dispatch(setIsUp(true))}>
@@ -225,7 +191,7 @@ const PostForm = () => {
           )}
         </InputWrapper>
 
-        <SubmitButton type="submit" disabled={!(dirty && isValid)}>
+        <SubmitButton type="submit" disabled={body.length < 1}>
           게시
         </SubmitButton>
       </FormInner>

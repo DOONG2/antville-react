@@ -11,6 +11,7 @@ const initialState = {
   gifs: null,
   query: '',
   previewUrl: null,
+  sumitData: { body: '' },
 } as postState
 
 const postSlice = createSlice({
@@ -36,6 +37,9 @@ const postSlice = createSlice({
     },
     setPreviewUrl(state, action: PayloadAction<string | ArrayBuffer | null>) {
       state.previewUrl = action.payload
+    },
+    setBody(state, action: PayloadAction<string>) {
+      state.sumitData.body = action.payload
     },
   },
 })

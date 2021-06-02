@@ -7,7 +7,10 @@ export const check_eng = /[a-zA-Z]/
 export const check_spc = /[~!@#$%^&*()_+|<>?:{}]/
 export const check_kor = /[ㄱ-ㅎ|ㅏ-ㅣ|가-힣]/
 
-export const check_nickname = /^(?!.*\.\.)(?!.*\.$)[0-9a-zA-Z_가-힣][a-zA-Z0-9_.가-힣]{1,27}/g
+export const check_nickname =
+  /^(?!.*\.\.)(?!.*\.$)[0-9a-zA-Z_가-힣][a-zA-Z0-9_.가-힣]{1,27}/g
+
+export const cacheTagRegex = /\$([a-zA-Z가-힣]{2,})/g
 
 export const checkNicknameLength = (nickname: string | undefined) => {
   if (nickname === undefined) return false

@@ -115,6 +115,8 @@ const FeedTabWraaper = styled.div`
   padding: 15px 21px;
   display: flex;
   column-gap: 44px;
+
+  border-bottom: 1px solid #ececec;
 `
 
 const TabItem = styled.div<{ isClicked: boolean }>`
@@ -185,7 +187,7 @@ const FeedSection = () => {
         <FeedWrapper key={`${post.id}-feed-section`}>
           <TopWrapper>
             <LeftItem>
-              <FeedAvatar></FeedAvatar>
+              <FeedAvatar />
               <NickNameWrapper>{post.author.nickname}</NickNameWrapper>
               <PostTime>
                 <MomentDateChage time={post.createdAt} />
