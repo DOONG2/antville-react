@@ -18,7 +18,6 @@ const ImageUpload = () => {
   const handleChange = (e: ChangeEvent<HTMLInputElement>) => {
     const fileUploaded = e.target.files?.[0]
     if (fileUploaded === undefined) return
-    console.log()
     dispatch(setPreviewUrl(URL.createObjectURL(fileUploaded)))
 
     console.log(fileUploaded)

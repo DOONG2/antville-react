@@ -10,7 +10,7 @@ const Wrapper = styled.div`
 
 const BarWrapper = styled.div`
   width: 144rem;
-  padding: 3rem 0;
+  padding: 3rem 0 0 0;
   margin: 0 auto;
   position: relative;
 `
@@ -18,6 +18,7 @@ const BarWrapper = styled.div`
 const PostWrapper = styled.div`
   width: 68.4rem;
   margin: 0 auto;
+  padding-bottom: 30px;
   position: relative;
 `
 

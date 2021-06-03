@@ -107,7 +107,7 @@ const Bottom = styled.div<{ isScrolled: boolean }>`
   width: 100%;
   height: 300px;
 
-  display: ${(p) => (p.isScrolled ? 'none' : 'initial')};
+  display: ${(p) => (p.isScrolled ? 'none' : 'block')};
 `
 
 const FeedTabWraaper = styled.div`
@@ -217,7 +217,7 @@ const FeedSection = () => {
         </FeedWrapper>
       ))}
 
-      <Bottom ref={bottomRef} isScrolled={isScrolled} />
+      <Bottom ref={bottomRef} isScrolled={isScrolled || posts === null} />
     </>
   )
 }
