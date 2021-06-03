@@ -1,7 +1,6 @@
 import styled from '@emotion/styled'
 import React, { useRef } from 'react'
 import { useDispatch } from 'react-redux'
-import HeartIcon from '../../assets/svg/HeartIcon'
 import StockDownIcon from '../../assets/svg/StockDownIcon'
 import StockUpIcon from '../../assets/svg/StockUpIcon'
 import TalkIcon from '../../assets/svg/TalkIcon'
@@ -13,6 +12,7 @@ import { useRootState } from '../../hooks/useRootState'
 import { blue040, grey060, grey080 } from '../../mds/styled/colors'
 import FeedSlice from '../../reducers/Slices/feed'
 import FollowingEmpty from './FollowingEmpty'
+import LikeComponent from './LikeComponent'
 import MomentDateChage from './MomentDateChage'
 import WatchListEmpty from './WatchListEmpty'
 
@@ -203,8 +203,11 @@ const FeedSection = () => {
           <MiddleWrapper>{post.body}</MiddleWrapper>
           <BottomWrapper>
             <BottomItem>
-              <HeartIcon />
-              <Count>{post.postCount.likeCount}</Count>
+              <LikeComponent
+                count={post.postCount.likeCount}
+                isLiked={post.isLikedSelf}
+                postId={post.id}
+              />
             </BottomItem>
             <BottomItem>
               <TalkIcon />
