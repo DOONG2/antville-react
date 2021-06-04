@@ -1,6 +1,7 @@
 import styled from '@emotion/styled'
 import React, { useRef } from 'react'
 import { useDispatch } from 'react-redux'
+import { useHistory } from 'react-router'
 import StockDownIcon from '../../assets/svg/StockDownIcon'
 import StockUpIcon from '../../assets/svg/StockUpIcon'
 import TalkIcon from '../../assets/svg/TalkIcon'
@@ -101,7 +102,9 @@ const BottomItem = styled.div`
   padding-bottom: 13px;
 `
 
-const Count = styled.div``
+const Count = styled.div`
+  user-select: none;
+`
 
 const Bottom = styled.div<{ isScrolled: boolean }>`
   width: 100%;
@@ -140,6 +143,7 @@ const FeedSection = () => {
 
   const isLoggedIn = useCheckLogin()
   const dispatch = useDispatch()
+  const history = useHistory()
   const bottomRef = useRef<HTMLDivElement>(null)
 
   const isBottomVisible = useIntersectionObserver(
@@ -210,7 +214,12 @@ const FeedSection = () => {
               />
             </BottomItem>
             <BottomItem>
-              <TalkIcon />
+              <TalkIcon
+                cursor={'pointer'}
+                onClick={() => {
+                  history.push(`/feed/detail/${post.id}`)
+                }}
+              />
               <Count>{post.postCount.commentCount}</Count>
             </BottomItem>
           </BottomWrapper>
