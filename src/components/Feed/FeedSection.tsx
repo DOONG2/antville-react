@@ -7,10 +7,16 @@ import StockUpIcon from '../../assets/svg/StockUpIcon'
 import TalkIcon from '../../assets/svg/TalkIcon'
 import ThreeDot from '../../assets/svg/ThreeDot'
 import useCheckLogin from '../../hooks/useCheckLogin'
+import useElementSize from '../../hooks/useElementSize'
 import { useIntersectionObserver } from '../../hooks/useInfiniteScroll'
+import useOnClickOutside from '../../hooks/useOnClickOutside'
 import usePostFeed from '../../hooks/usePostFeed'
 import { useRootState } from '../../hooks/useRootState'
+import DropDown from '../../mds/DropDown'
 import { blue040, grey060, grey080 } from '../../mds/styled/colors'
+import viewSlice from '../../reducers/Slices/view'
+import FeedOptionDropDown from '../DropDown/FeedOptionDropDown'
+import FeedOption from './FeedOption'
 import FeedTab from './FeedTab'
 import FollowingEmpty from './FollowingEmpty'
 import LikeComponent from './LikeComponent'
@@ -70,11 +76,6 @@ const LeftItem = styled.div`
   align-items: center;
 `
 
-const RightItem = styled.div`
-  padding: 5px 0;
-  cursor: pointer;
-`
-
 const MiddleWrapper = styled.div`
   padding-left: 97px;
   padding-right: 22px;
@@ -117,12 +118,12 @@ const Bottom = styled.div<{ isScrolled: boolean }>`
 `
 
 const FeedSection = () => {
-  const { activatedTab, posts, isScrolled } = useRootState(
-    (state) => state.feed
-  )
+  const {
+    feed: { activatedTab, posts, isScrolled },
+  } = useRootState((state) => state)
 
   const isLoggedIn = useCheckLogin()
-  const dispatch = useDispatch()
+
   const history = useHistory()
   const bottomRef = useRef<HTMLDivElement>(null)
 
@@ -159,9 +160,7 @@ const FeedSection = () => {
                 {post.sentiment === 'UP' ? <StockUpIcon /> : <StockDownIcon />}
               </IconWrapper>
             </LeftItem>
-            <RightItem>
-              <ThreeDot />
-            </RightItem>
+            <FeedOption />
           </TopWrapper>
           <MiddleWrapper>{post.body}</MiddleWrapper>
           <BottomWrapper>

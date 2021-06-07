@@ -1,4 +1,4 @@
-import { RefObject, useState, useEffect } from 'react'
+import { RefObject, useState, useEffect, useLayoutEffect } from 'react'
 import useEventListener from './useEventListener'
 
 interface Size {
@@ -28,7 +28,7 @@ function useElementSize<T extends HTMLElement = HTMLDivElement>(
       })
     }
   }
-  useEffect(() => {
+  useLayoutEffect(() => {
     updateSize()
   }, [elementRef.current, elementRef.current?.scrollHeight])
 
