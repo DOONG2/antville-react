@@ -128,7 +128,11 @@ const PostForm = () => {
   }, [previewUrl])
 
   return (
-    <Form onSubmit={() => {}}>
+    <Form
+      onSubmit={(e) => {
+        console.log(e.target)
+      }}
+    >
       <FormInner>
         <UserIconWrapper>
           <UserIcon />

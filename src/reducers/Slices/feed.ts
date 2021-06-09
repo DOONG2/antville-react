@@ -16,13 +16,16 @@ const FeedSlice = createSlice({
   reducers: {
     setTabAll(state) {
       state.activatedTab = 'all'
+      state.isScrolled = false
     },
     setTabWatchList(state) {
       state.activatedTab = 'watchList'
+      state.isScrolled = false
     },
 
     setTabFollowing(state) {
       state.activatedTab = 'following'
+      state.isScrolled = false
     },
     setPosts(state, action: PayloadAction<Post[] | null | undefined>) {
       if (action.payload === undefined) return

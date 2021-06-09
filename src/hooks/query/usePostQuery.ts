@@ -1,6 +1,6 @@
 import { useQuery } from 'react-query'
 import { useDispatch } from 'react-redux'
-import getPost from '../../api/post/getPost'
+import getPost from '../../api/post/getPostsByUrl'
 import FeedSlice from '../../reducers/Slices/feed'
 import { useRootState } from '../useRootState'
 

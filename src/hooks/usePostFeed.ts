@@ -1,6 +1,6 @@
 import { useEffect } from 'react'
 import { useDispatch } from 'react-redux'
-import getPost from '../api/post/getPost'
+import getPostsByUrl from '../api/post/getPostsByUrl'
 import FeedSlice from '../reducers/Slices/feed'
 import { useRootState } from './useRootState'
 
@@ -15,7 +15,7 @@ export default function usePostFeed(limit: string, isBottomVisible: boolean) {
   useEffect(() => {
     const getPostsApi = async () => {
       try {
-        const result = await getPost(activatedTab, limit)
+        const result = await getPostsByUrl(activatedTab, limit)
         dispatch(setPosts(result))
       } catch (error) {
         console.log(error)
@@ -31,7 +31,7 @@ export default function usePostFeed(limit: string, isBottomVisible: boolean) {
       if (posts === undefined || posts === null || posts.length < 1) return
 
       const cursor = posts[posts?.length - 1].id.toString()
-      const result = await getPost(activatedTab, limit, cursor)
+      const result = await getPostsByUrl(activatedTab, limit, cursor)
       const newResults = [...posts, ...result]
       dispatch(setPosts(newResults))
       if (result.length < Number(limit)) dispatch(setScrolled(true))

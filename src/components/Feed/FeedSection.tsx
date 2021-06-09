@@ -1,114 +1,33 @@
 import styled from '@emotion/styled'
 import React, { useRef } from 'react'
-import { useDispatch } from 'react-redux'
 import { useHistory } from 'react-router'
 import StockDownIcon from '../../assets/svg/StockDownIcon'
 import StockUpIcon from '../../assets/svg/StockUpIcon'
 import TalkIcon from '../../assets/svg/TalkIcon'
-import ThreeDot from '../../assets/svg/ThreeDot'
 import useCheckLogin from '../../hooks/useCheckLogin'
-import useElementSize from '../../hooks/useElementSize'
 import { useIntersectionObserver } from '../../hooks/useInfiniteScroll'
-import useOnClickOutside from '../../hooks/useOnClickOutside'
 import usePostFeed from '../../hooks/usePostFeed'
 import { useRootState } from '../../hooks/useRootState'
-import DropDown from '../../mds/DropDown'
-import { blue040, grey060, grey080 } from '../../mds/styled/colors'
-import viewSlice from '../../reducers/Slices/view'
-import FeedOptionDropDown from '../DropDown/FeedOptionDropDown'
+import {
+  BottomItem,
+  BottomWrapper,
+  Count,
+  FeedAvatar,
+  FeedWrapper,
+  IconWrapper,
+  LeftItem,
+  MiddleWrapper,
+  NickNameWrapper,
+  PostTime,
+  TopWrapper,
+} from '../../mds/styled/feed'
+import FeedBody from './FeedBody'
 import FeedOption from './FeedOption'
 import FeedTab from './FeedTab'
 import FollowingEmpty from './FollowingEmpty'
 import LikeComponent from './LikeComponent'
-import MomentDateChage from './MomentDateChage'
+import MomentDateChange from './MomentDateChange'
 import WatchListEmpty from './WatchListEmpty'
-
-const FeedWrapper = styled.div`
-  border-top: 1px solid #ececec;
-`
-
-const TopWrapper = styled.div`
-  padding: 13px 24px 0 24px;
-
-  display: flex;
-  align-items: center;
-  justify-content: space-between;
-`
-
-const FeedAvatar = styled.div`
-  width: 50px;
-  height: 50px;
-
-  background-color: ${blue040};
-
-  border-radius: 50px;
-`
-
-const NickNameWrapper = styled.div`
-  font-weight: 600;
-  font-size: 16px;
-  line-height: 22px;
-
-  color: ${grey080};
-
-  margin-left: 20px;
-  padding-bottom: 5px;
-`
-
-const PostTime = styled.div`
-  font-weight: 600;
-  font-size: 10px;
-  line-height: 14px;
-
-  color: ${grey060};
-
-  margin-left: 7px;
-`
-
-const IconWrapper = styled.div`
-  margin-left: 9px;
-  display: flex;
-  align-items: center;
-`
-
-const LeftItem = styled.div`
-  display: flex;
-  align-items: center;
-`
-
-const MiddleWrapper = styled.div`
-  padding-left: 97px;
-  padding-right: 22px;
-
-  font-size: 16px;
-  line-height: 150%;
-`
-const BottomWrapper = styled.div`
-  margin-top: 13px;
-  display: flex;
-  align-items: center;
-  padding-left: 97px;
-  column-gap: 30px;
-
-  font-family: Roboto;
-  font-style: normal;
-  font-weight: normal;
-  font-size: 12px;
-  line-height: 20px;
-
-  color: #757575;
-`
-
-const BottomItem = styled.div`
-  display: flex;
-  align-items: center;
-  column-gap: 6px;
-  padding-bottom: 13px;
-`
-
-const Count = styled.div`
-  user-select: none;
-`
 
 const Bottom = styled.div<{ isScrolled: boolean }>`
   width: 100%;
@@ -151,10 +70,12 @@ const FeedSection = () => {
         <FeedWrapper key={`${post.id}-feed-section`}>
           <TopWrapper>
             <LeftItem>
-              <FeedAvatar />
+              <FeedAvatar
+                onClick={() => history.push(`user/${post.author.id}/profile`)}
+              />
               <NickNameWrapper>{post.author.nickname}</NickNameWrapper>
               <PostTime>
-                <MomentDateChage time={post.createdAt} />
+                <MomentDateChange time={post.createdAt} />
               </PostTime>
               <IconWrapper>
                 {post.sentiment === 'UP' ? <StockUpIcon /> : <StockDownIcon />}
@@ -162,7 +83,9 @@ const FeedSection = () => {
             </LeftItem>
             <FeedOption />
           </TopWrapper>
-          <MiddleWrapper>{post.body}</MiddleWrapper>
+          <MiddleWrapper>
+            <FeedBody body={post.body} />
+          </MiddleWrapper>
           <BottomWrapper>
             <BottomItem>
               <LikeComponent

@@ -1,5 +1,5 @@
 import React from 'react'
-import { BarWrapper, PostWrapper, Wrapper } from '../../mds/styled/feed'
+import { BarWrapper, PostWrapper, Wrapper } from '../../mds/styled/wrapper'
 import PostForm from '../Form/PostForm'
 import SideBar from '../SideBar'
 import FeedDetailSection from './FeedDetailSection'

@@ -1,7 +1,7 @@
 import client from '../client'
 import { Post } from '../types'
 
-export default async function getPost(
+export default async function getPostsByUrl(
   url: string,
   limit: string,
   cursor?: string
