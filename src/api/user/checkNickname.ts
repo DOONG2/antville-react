@@ -1,11 +1,15 @@
 import client from '../client'
 
 const checkNickname = async (nickname: string) => {
-  await client.get('/user/nickname-available', {
-    params: {
-      nickname,
-    },
-  })
+  const resoponse = await client.get<{ available: boolean }>(
+    '/user/nickname-available',
+    {
+      params: {
+        nickname,
+      },
+    }
+  )
+  return resoponse.data
 }
 
 export default checkNickname
