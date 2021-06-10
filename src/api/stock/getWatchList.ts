@@ -3,7 +3,7 @@ import { getWatchListResponse } from './types'
 
 const getWatchList = async () => {
   const response = await client.get<getWatchListResponse | null>(
-    '/stock/watchList'
+    '/stock/watchlist'
   )
 
   return response.data
