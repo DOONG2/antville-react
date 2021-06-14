@@ -9,7 +9,7 @@ type WatchListState = {
 const initialState = null as WatchListState
 
 const watchListSlice = createSlice({
-  name: 'watchList',
+  name: 'watchlist',
   initialState,
   reducers: {
     setWatchListState(state, action: PayloadAction<WatchListState>) {

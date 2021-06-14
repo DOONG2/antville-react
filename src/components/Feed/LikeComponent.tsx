@@ -1,8 +1,10 @@
 import styled from '@emotion/styled'
 import React, { useEffect, useState } from 'react'
 import { useDispatch } from 'react-redux'
-import postLikePost from '../../api/post/postLikePost'
-import postUnLikePost from '../../api/post/postUnLikePost'
+import deleteUnLikeComment from '../../api/comment/deleteUnLikeComment'
+import putLikeComment from '../../api/comment/putLikeComment'
+import putLikePost from '../../api/post/putLikePost'
+import deleteUnLikePost from '../../api/post/deleteUnLikePost'
 import HeartIcon from '../../assets/svg/HeartIcon'
 import useCheckLogin from '../../hooks/useCheckLogin'
 import viewSlice from '../../reducers/Slices/view'
@@ -10,14 +12,20 @@ import viewSlice from '../../reducers/Slices/view'
 interface Props {
   isLiked: boolean
   count: number
-  postId: number
+  postId?: number
+  commentId?: number
 }
 
 const Count = styled.div`
   user-select: none;
 `
 
-export default function LikeComponent({ isLiked, count, postId }: Props) {
+export default function LikeComponent({
+  isLiked,
+  count,
+  postId,
+  commentId,
+}: Props) {
   const { setIsOpenLoginForm } = viewSlice.actions
   const [liked, setLiked] = useState<boolean>(isLiked)
   const [likeCount, setLikeCount] = useState<number>(count)
@@ -40,14 +48,16 @@ export default function LikeComponent({ isLiked, count, postId }: Props) {
           setLiked(!liked)
           if (liked) {
             setLikeCount(likeCount - 1)
-            postUnLikePost(postId)
+            postId && deleteUnLikePost(postId)
+            commentId && deleteUnLikeComment(commentId)
           } else {
             setLikeCount(likeCount + 1)
-            postLikePost(postId)
+            postId && putLikePost(postId)
+            commentId && putLikeComment(commentId)
           }
         }}
       />
-      <Count>{likeCount}</Count>
+      <Count>좋아요 {likeCount}</Count>
     </>
   )
 }

@@ -12,6 +12,7 @@ const initialState = {
   query: '',
   previewUrl: null,
   sumitData: { body: '' },
+  commentSubmitData: { body: '' },
 } as postState
 
 const postSlice = createSlice({
@@ -40,6 +41,9 @@ const postSlice = createSlice({
     },
     setBody(state, action: PayloadAction<string>) {
       state.sumitData.body = action.payload
+    },
+    setCommentBody(state, action: PayloadAction<string>) {
+      state.commentSubmitData.body = action.payload
     },
   },
 })

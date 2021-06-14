@@ -1,5 +1,5 @@
 import styled from '@emotion/styled'
-import React, { useRef } from 'react'
+import React, { useEffect, useRef, useState } from 'react'
 import { useHistory } from 'react-router'
 import StockDownIcon from '../../assets/svg/StockDownIcon'
 import StockUpIcon from '../../assets/svg/StockUpIcon'
@@ -29,7 +29,7 @@ import LikeComponent from './LikeComponent'
 import MomentDateChange from './MomentDateChange'
 import WatchListEmpty from './WatchListEmpty'
 
-const Bottom = styled.div<{ isScrolled: boolean }>`
+export const Bottom = styled.div<{ isScrolled: boolean }>`
   width: 100%;
   height: 300px;
 
@@ -38,9 +38,10 @@ const Bottom = styled.div<{ isScrolled: boolean }>`
 
 const FeedSection = () => {
   const {
-    feed: { activatedTab, posts, isScrolled },
+    feed: { activatedTab, posts },
   } = useRootState((state) => state)
 
+  const [isScrolled, setScrolled] = useState<boolean>(false)
   const isLoggedIn = useCheckLogin()
 
   const history = useHistory()
@@ -54,7 +55,11 @@ const FeedSection = () => {
     false
   )
 
-  usePostFeed('15', isBottomVisible)
+  usePostFeed('15', isBottomVisible, isScrolled, setScrolled)
+
+  useEffect(() => {
+    setScrolled(false)
+  }, [activatedTab])
 
   return (
     <>
@@ -94,14 +99,13 @@ const FeedSection = () => {
                 postId={post.id}
               />
             </BottomItem>
-            <BottomItem>
-              <TalkIcon
-                cursor={'pointer'}
-                onClick={() => {
-                  history.push(`/feed/detail/${post.id}`)
-                }}
-              />
-              <Count>{post.postCount.commentCount}</Count>
+            <BottomItem
+              onClick={() => {
+                history.push(`/feed/detail/${post.id}`)
+              }}
+            >
+              <TalkIcon cursor={'pointer'} />
+              <Count>댓글 {post.postCount.commentCount}</Count>
             </BottomItem>
           </BottomWrapper>
         </FeedWrapper>

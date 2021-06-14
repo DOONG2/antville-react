@@ -8,4 +8,5 @@ export interface postOptions {
   query: string
   previewUrl: string | ArrayBuffer | null
   sumitData: { body: string }
+  commentSubmitData: { body: string }
 }

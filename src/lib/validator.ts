@@ -38,8 +38,9 @@ const debounceNickNameCheck = debounce(
 export const isTakenNickName = async (nickname: string | undefined) => {
   if (nickname === undefined) return true
   try {
-    await debounceNickNameCheck(nickname)
-    return true
+    const result = await debounceNickNameCheck(nickname)
+    if (result?.available === true) return true
+    else return false
   } catch (error) {
     if (error.data.errorCode === 601) return false
   }
@@ -52,8 +53,9 @@ const debounceEmailCheck = debounce((email: string) => checkEmail(email), 500)
 export const isTakenEmail = async (email: string | undefined) => {
   if (email === undefined) return true
   try {
-    await debounceEmailCheck(email)
-    return true
+    const result = await debounceEmailCheck(email)
+    if (result?.available === true) return true
+    else return false
   } catch (error) {
     if (error.data.errorCode === 600) return false
   }

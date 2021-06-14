@@ -4,6 +4,7 @@ import { grey050 } from '../../mds/styled/colors'
 
 interface Props {
   body: string
+  isDetail?: boolean
 }
 
 const Wrapper = styled.div`
@@ -19,11 +20,11 @@ const ExtendButton = styled.div`
   color: ${grey050};
 `
 
-export default function FeedBody({ body }: Props) {
+export default function FeedBody({ body, isDetail }: Props) {
   const [isExtended, setIsExtended] = useState<boolean>(body.length > 300)
   return (
     <Wrapper>
-      {isExtended ? (
+      {isExtended && !isDetail ? (
         <>
           {body.slice(0, 300)}
           {'...'}

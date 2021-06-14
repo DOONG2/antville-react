@@ -16,13 +16,18 @@ import {
   SuggestionWrapper,
 } from '../../mds/styled/post'
 
-export default function PostMentionInput() {
-  const { setIsFocusPostInput } = viewSlice.actions
-  const { setBody } = postSlice.actions
+interface Props {
+  isFocusCommentInput: boolean
+  setIsFocusCommentInput: (value: boolean) => void
+}
+export default function PostMentionInput({
+  isFocusCommentInput,
+  setIsFocusCommentInput,
+}: Props) {
+  const { setCommentBody } = postSlice.actions
   const {
-    view: { isFocusPostInput },
     post: {
-      sumitData: { body },
+      commentSubmitData: { body },
     },
   } = useRootState((state) => state)
   const textRef = useRef<any>(null)
@@ -56,9 +61,9 @@ export default function PostMentionInput() {
   return (
     <>
       <MentionInput
-        id="postBody"
+        id="commnetBody"
         onChange={(e) => {
-          dispatch(setBody(e.target.value))
+          dispatch(setCommentBody(e.target.value))
         }}
         value={body}
         placeholder={
@@ -66,9 +71,9 @@ export default function PostMentionInput() {
         }
         autoComplete="off"
         onFocus={() => {
-          dispatch(setIsFocusPostInput(true))
+          setIsFocusCommentInput(true)
         }}
-        isfocus={isFocusPostInput.toString()}
+        isfocus={isFocusCommentInput.toString()}
         scrollheight={scrollHeight}
         inputRef={textRef}
       >

@@ -1,4 +1,4 @@
-import React, { useEffect } from 'react'
+import React, { useEffect, useState } from 'react'
 import { useDispatch } from 'react-redux'
 import GifUploadButton from '../../assets/svg/GifUploadButton'
 import PictureUploadButton from '../../assets/svg/PictureUploadButton'
@@ -6,14 +6,10 @@ import StockDownButton from '../../assets/svg/StockDownButton'
 import StockUpButton from '../../assets/svg/StockUpButton'
 import UserIcon from '../../assets/svg/UserIcon'
 import { useRootState } from '../../hooks/useRootState'
-import postSlice from '../../reducers/Slices/post'
-import StockUpButtonClicked from '../../assets/svg/StockUpButtonClicked'
-import StockDownButtonClicked from '../../assets/svg/StockDownButtonClicked'
 import viewSlice from '../../reducers/Slices/view'
 import ImageUpload from '../Upload/ImageUpload'
 import GifUpload from '../Upload/GifUpload'
 import PreviewImage from './PreviewImage'
-import PostMentionInput from './PostMentionInput'
 import {
   EmailCheck,
   Form,
@@ -26,25 +22,30 @@ import {
   SubmitButton,
   UserIconWrapper,
 } from '../../mds/styled/post'
+import styled from '@emotion/styled'
+import CommnetMEntionInput from './CommnetMEntionInput'
 
-const PostForm = () => {
+const NewPostInnerButtonsWrapper = styled(PostInnerButtonsWrapper)`
+  column-gap: 12px;
+`
+
+const CommentForm = () => {
   const {
     user,
     post: {
-      isUp,
-      isDown,
       previewUrl,
-      sumitData: { body },
+      commentSubmitData: { body },
     },
-    view: { isFocusPostInput },
   } = useRootState((state) => state)
-  const { setIsUp, setIsDown } = postSlice.actions
-  const { setIsOpenLoginForm, setIsFocusPostInput } = viewSlice.actions
+
+  const [isFocusCommentInput, setIsFocusCommentInput] = useState<boolean>(false)
+
+  const { setIsOpenLoginForm } = viewSlice.actions
 
   const dispatch = useDispatch()
 
   useEffect(() => {
-    if (previewUrl !== null) dispatch(setIsFocusPostInput(true))
+    if (previewUrl !== null) setIsFocusCommentInput(true)
   }, [previewUrl])
 
   return (
@@ -57,31 +58,24 @@ const PostForm = () => {
         <UserIconWrapper>
           <UserIcon />
         </UserIconWrapper>
-        <InputWrapper isFocus={isFocusPostInput}>
+        <InputWrapper isFocus={isFocusCommentInput}>
           {user ? (
             <>
               {user.isEmailVerified ? (
                 <>
-                  <PostMentionInput />
+                  <CommnetMEntionInput
+                    isFocusCommentInput={isFocusCommentInput}
+                    setIsFocusCommentInput={setIsFocusCommentInput}
+                  />
                   <PreviewImage />
-                  <PostInnerButtonsWrapper>
-                    <PostItem onClick={() => dispatch(setIsUp(true))}>
-                      {isUp ? <StockUpButtonClicked /> : <StockUpButton />}
-                    </PostItem>
-                    <PostItem onClick={() => dispatch(setIsDown(true))}>
-                      {isDown ? (
-                        <StockDownButtonClicked />
-                      ) : (
-                        <StockDownButton />
-                      )}
-                    </PostItem>
+                  <NewPostInnerButtonsWrapper>
                     <PostItem>
                       <ImageUpload />
                     </PostItem>
                     <PostItem>
                       <GifUpload />
                     </PostItem>
-                  </PostInnerButtonsWrapper>
+                  </NewPostInnerButtonsWrapper>
                 </>
               ) : (
                 <EmailCheck>
@@ -93,7 +87,7 @@ const PostForm = () => {
           ) : (
             <>
               <LockedLabel onClick={() => dispatch(setIsOpenLoginForm(true))}>
-                당신의 생각을 공유해주세요! ($ 태그 사용 후, 종목 입력)
+                댓글을 입력해주세요.
               </LockedLabel>
               <PostInnerButtonsWrapper
                 onClick={() => dispatch(setIsOpenLoginForm(true))}
@@ -123,4 +117,4 @@ const PostForm = () => {
   )
 }
 
-export default PostForm
+export default CommentForm

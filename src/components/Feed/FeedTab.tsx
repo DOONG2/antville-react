@@ -39,7 +39,7 @@ export default function FeedTab() {
           전체
         </TabItem>
         <TabItem
-          isClicked={activatedTab === 'watchList'}
+          isClicked={activatedTab === 'watchlist'}
           onClick={() => dispatch(setTabWatchList())}
         >
           관심종목

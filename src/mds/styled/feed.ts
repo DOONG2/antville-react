@@ -88,5 +88,5 @@ export const BottomItem = styled.div`
 `
 
 export const Count = styled.div`
-  user-select: none;
+  cursor: pointer;
 `
