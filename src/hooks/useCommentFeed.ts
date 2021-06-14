@@ -1,42 +1,44 @@
 import { useEffect } from 'react'
 import { useDispatch } from 'react-redux'
-import getPostsByUrl from '../api/post/getPostsByUrl'
+import getCommentsById from '../api/comment/getCommentsById'
 import FeedSlice from '../reducers/Slices/feed'
 import { useRootState } from './useRootState'
 
-export default function usePostFeed(
+export default function useCommentFeed(
+  id: number,
   limit: string,
   isBottomVisible: boolean,
   isScrolled: boolean,
   setScrolled: (isScrolled: boolean) => void
 ) {
-  const { activatedTab, posts } = useRootState((state) => state.feed)
+  const { comments } = useRootState((state) => state.feed)
   const auth = useRootState((state) => state.auth)
-  const { setPosts } = FeedSlice.actions
+  const { setComments } = FeedSlice.actions
   const dispatch = useDispatch()
 
   useEffect(() => {
     const getPostsApi = async () => {
       try {
-        const result = await getPostsByUrl(activatedTab, limit)
-        dispatch(setPosts(result))
+        const result = await getCommentsById(id, limit)
+        dispatch(setComments(result))
       } catch (error) {
         console.log(error)
       }
     }
     getPostsApi()
-  }, [activatedTab, auth])
+  }, [auth])
 
   useEffect(() => {
     if (!isBottomVisible || isScrolled) return
 
     const postNextApi = async () => {
-      if (posts === undefined || posts === null || posts.length < 1) return
+      if (comments === undefined || comments === null || comments.length < 1)
+        return
 
-      const cursor = posts[posts?.length - 1].id.toString()
-      const result = await getPostsByUrl(activatedTab, limit, cursor)
-      const newResults = [...posts, ...result]
-      dispatch(setPosts(newResults))
+      const cursor = comments[comments?.length - 1].id.toString()
+      const result = await getCommentsById(id, limit, cursor)
+      const newResults = [...comments, ...result]
+      dispatch(setComments(newResults))
       if (result.length < Number(limit)) setScrolled(true)
     }
     postNextApi()
