@@ -5,7 +5,6 @@ import TalkIcon from '../../assets/svg/TalkIcon'
 import useCommentFeed from '../../hooks/useCommentFeed'
 import { useIntersectionObserver } from '../../hooks/useInfiniteScroll'
 import { useRootState } from '../../hooks/useRootState'
-
 import {
   BottomItem,
   BottomWrapper,
@@ -21,6 +20,7 @@ import FeedBody from '../Feed/FeedBody'
 import { Bottom } from '../Feed/FeedSection'
 import LikeComponent from '../Feed/LikeComponent'
 import MomentDateChange from '../Feed/MomentDateChange'
+import SubCommentComponent from './SubCommentComponent'
 
 const NewFeedWrapper = styled.div`
   border: none;
@@ -79,6 +79,12 @@ export default function CommentComponent() {
               <Count>댓글 {comment.commentCount.nextCommentCount}</Count>
             </BottomItem>
           </BottomWrapper>
+          {comment.commentCount.nextCommentCount > 0 && (
+            <SubCommentComponent
+              parentCommentId={comment.id}
+              nextCommentCount={comment.commentCount.nextCommentCount}
+            />
+          )}
         </NewFeedWrapper>
       ))}
       <Bottom ref={bottomRef} isScrolled={isScrolled || comments === null} />
