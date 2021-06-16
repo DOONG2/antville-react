@@ -10,14 +10,17 @@ export default function useSubCommentsById(
 ) {
   const [comments, setCommnets] = useState<getCommentsByIdResponse>([])
   const [isEnded, setIsEnded] = useState<boolean>(false)
+  const [isLoaded, setIsLoaded] = useState<boolean>(false)
 
   useEffect(() => {
     if (isOpen === false) return undefined
     try {
       const getSubCommentsByIdApi = async () => {
+        if (isEnded) return
         const result = await getSubCommentsById(id, cursor)
         if (result.length < Number(subCommentsLimit)) setIsEnded(true)
         setCommnets([...result.reverse(), ...comments])
+        setIsLoaded(true)
       }
       getSubCommentsByIdApi()
     } catch (error) {
@@ -25,5 +28,5 @@ export default function useSubCommentsById(
     }
   }, [id, isOpen, cursor])
 
-  return { comments, isEnded }
+  return { comments, isEnded, isLoaded }
 }

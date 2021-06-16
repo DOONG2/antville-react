@@ -71,14 +71,14 @@ export default function SubCommentComponent({
 }: Props) {
   const [isOpen, setIsOpen] = useState<boolean>(false)
   const [cursor, setCursor] = useState<string | undefined>(undefined)
-  const { comments, isEnded } = useSubCommentsById(
+  const { comments, isEnded, isLoaded } = useSubCommentsById(
     parentCommentId,
     isOpen,
     cursor
   )
 
   const history = useHistory()
-  console.log(comments)
+  console.log(isLoaded)
 
   return (
     <>
@@ -95,7 +95,7 @@ export default function SubCommentComponent({
             }
           }}
         >
-          {!isOpen ? (
+          {!isOpen && isLoaded ? (
             `답글 ${nextCommentCount}개 보기`
           ) : (
             <>
@@ -106,7 +106,7 @@ export default function SubCommentComponent({
           )}
         </ExtendButton>
       </ExtendWrapper>
-      {comments?.map((comment) => (
+      {comments.map((comment) => (
         <FeedWrapper key={`${comment.id}-feed-sub-comment`} isOpen={isOpen}>
           <NewTopWrapper>
             <LeftItem>
@@ -139,7 +139,8 @@ export default function SubCommentComponent({
           </NewBottomWrapper>
         </FeedWrapper>
       ))}
-      {comments && (
+
+      {isEnded && (
         <CommentFormWrapper isOpen={isOpen}>
           <CommentForm />
         </CommentFormWrapper>
