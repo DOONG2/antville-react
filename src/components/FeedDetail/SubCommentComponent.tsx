@@ -70,16 +70,40 @@ export default function SubCommentComponent({
   nextCommentCount,
 }: Props) {
   const [isOpen, setIsOpen] = useState<boolean>(false)
-  const comments = useSubCommentsById(parentCommentId, isOpen)
+  const [cursor, setCursor] = useState<string | undefined>(undefined)
+  const { comments, isEnded } = useSubCommentsById(
+    parentCommentId,
+    isOpen,
+    cursor
+  )
+
   const history = useHistory()
   console.log(comments)
-  //TODO subcomment 폼 가져오기
+
   return (
     <>
       <ExtendWrapper>
         <CommentArrow />
-        <ExtendButton onClick={() => setIsOpen(!isOpen)}>
-          {isOpen ? `답글 숨기기` : `답글 ${nextCommentCount}개 보기`}
+        <ExtendButton
+          onClick={() => {
+            if (isOpen === false) {
+              setIsOpen(true)
+            } else if (isEnded) {
+              setIsOpen(false)
+            } else {
+              if (comments) setCursor(comments[0].id.toString())
+            }
+          }}
+        >
+          {!isOpen ? (
+            `답글 ${nextCommentCount}개 보기`
+          ) : (
+            <>
+              {isEnded
+                ? '답글 숨기기'
+                : `이전 답글 ${nextCommentCount - comments.length}개 보기`}
+            </>
+          )}
         </ExtendButton>
       </ExtendWrapper>
       {comments?.map((comment) => (

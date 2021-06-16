@@ -1,16 +1,13 @@
+import { commentsLimit } from '../../lib/variable'
 import client from '../client'
 import { getCommentsByIdResponse } from './types'
 
-export default async function getCommentsById(
-  id: number,
-  limit: string = '15',
-  cursor?: string
-) {
+export default async function getCommentsById(id: number, cursor?: number) {
   const response = await client.get<getCommentsByIdResponse>(
     `/comment/${id}/first`,
     {
       params: {
-        limit,
+        limit: commentsLimit,
         cursor,
       },
     }

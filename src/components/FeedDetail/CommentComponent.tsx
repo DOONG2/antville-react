@@ -37,7 +37,6 @@ export default function CommentComponent() {
   const [isScrolled, setScrolled] = useState<boolean>(false)
 
   const { comments } = useRootState((state) => state.feed)
-  console.log(comments)
 
   const bottomRef = useRef<HTMLDivElement>(null)
 
@@ -49,7 +48,7 @@ export default function CommentComponent() {
     false
   )
 
-  useCommentFeed(Number(id), '15', isBottomVisible, isScrolled, setScrolled)
+  useCommentFeed(Number(id), isBottomVisible, isScrolled, setScrolled)
 
   return (
     <>
