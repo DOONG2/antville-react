@@ -10,6 +10,7 @@ import {
   BottomWrapper,
   Count,
   FeedAvatar,
+  FeedWrapper,
   LeftItem,
   MiddleWrapper,
   NickNameWrapper,
@@ -22,8 +23,12 @@ import LikeComponent from '../Feed/LikeComponent'
 import MomentDateChange from '../Feed/MomentDateChange'
 import SubCommentComponent from './SubCommentComponent'
 
-const NewFeedWrapper = styled.div`
+const NewFeedWrapper = styled(FeedWrapper)`
   border: none;
+`
+
+const SubCommentWrapper = styled.div`
+  padding-left: 97px;
 `
 
 export default function CommentComponent() {
@@ -76,15 +81,18 @@ export default function CommentComponent() {
             </BottomItem>
             <BottomItem onClick={() => {}}>
               <TalkIcon cursor={'pointer'} />
-              <Count>댓글 {comment.commentCount.nextCommentCount}</Count>
+              <Count>답글 달기</Count>
             </BottomItem>
           </BottomWrapper>
-          {comment.commentCount.nextCommentCount > 0 && (
-            <SubCommentComponent
-              parentCommentId={comment.id}
-              nextCommentCount={comment.commentCount.nextCommentCount}
-            />
-          )}
+          <SubCommentWrapper>
+            {' '}
+            {comment.commentCount.nextCommentCount > 0 && (
+              <SubCommentComponent
+                parentCommentId={comment.id}
+                nextCommentCount={comment.commentCount.nextCommentCount}
+              />
+            )}
+          </SubCommentWrapper>
         </NewFeedWrapper>
       ))}
       <Bottom ref={bottomRef} isScrolled={isScrolled || comments === null} />
