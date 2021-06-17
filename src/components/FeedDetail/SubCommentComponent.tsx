@@ -140,7 +140,7 @@ export default function SubCommentComponent({
         </FeedWrapper>
       ))}
 
-      {isEnded && (
+      {isLoaded && (
         <CommentFormWrapper isOpen={isOpen}>
           <CommentForm />
         </CommentFormWrapper>
