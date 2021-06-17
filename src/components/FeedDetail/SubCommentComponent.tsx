@@ -1,6 +1,7 @@
 import styled from '@emotion/styled'
 import React, { useState } from 'react'
 import { useHistory } from 'react-router'
+import { boolean } from 'yup/lib/locale'
 import CommentArrow from '../../assets/svg/CommentArrow'
 import TalkIcon from '../../assets/svg/TalkIcon'
 import useSubCommentsById from '../../hooks/useSubCommentsById'
@@ -65,6 +66,10 @@ const CommentFormWrapper = styled.div<{ isOpen: boolean }>`
   margin-top: 20px;
 `
 
+const IsLoadedWrapper = styled.div<{ isLoaded: boolean }>`
+  display: ${(p) => (p.isLoaded ? 'block' : 'none')};
+`
+
 export default function SubCommentComponent({
   parentCommentId,
   nextCommentCount,
@@ -78,7 +83,7 @@ export default function SubCommentComponent({
   )
 
   const history = useHistory()
-  console.log(isLoaded)
+  console.log(isLoaded, comments)
 
   return (
     <>
@@ -95,14 +100,14 @@ export default function SubCommentComponent({
             }
           }}
         >
-          {!isOpen && isLoaded ? (
+          {!isOpen ? (
             `답글 ${nextCommentCount}개 보기`
           ) : (
-            <>
+            <IsLoadedWrapper isLoaded={isLoaded}>
               {isEnded
                 ? '답글 숨기기'
                 : `이전 답글 ${nextCommentCount - comments.length}개 보기`}
-            </>
+            </IsLoadedWrapper>
           )}
         </ExtendButton>
       </ExtendWrapper>
