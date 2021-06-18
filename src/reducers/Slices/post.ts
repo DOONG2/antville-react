@@ -13,6 +13,7 @@ const initialState = {
   previewUrl: null,
   submitData: { body: '' },
   commentSubmitData: { body: '' },
+  isSubmitted: false,
 } as postState
 
 const postSlice = createSlice({
@@ -54,6 +55,9 @@ const postSlice = createSlice({
       state.previewUrl = null
       state.submitData.body = ''
       state.commentSubmitData.body = ''
+    },
+    setIsSubmitted(state, action: PayloadAction<boolean>) {
+      state.isSubmitted = action.payload
     },
   },
 })

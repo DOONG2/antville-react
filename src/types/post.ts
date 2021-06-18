@@ -9,4 +9,5 @@ export interface postOptions {
   previewUrl: string | ArrayBuffer | null
   submitData: { body: string }
   commentSubmitData: { body: string }
+  isSubmitted: boolean
 }

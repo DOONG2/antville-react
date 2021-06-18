@@ -40,10 +40,10 @@ const PostForm = () => {
     },
     view: { isFocusPostInput },
   } = useRootState((state) => state)
-  const { setIsUp, setIsDown, setIntialize } = postSlice.actions
+  const { setIsUp, setIsDown, setIntialize, setIsSubmitted } = postSlice.actions
   const { setIsOpenLoginForm, setIsFocusPostInput } = viewSlice.actions
 
-  const { post, isLoaded, postDataApi } = usePostData()
+  const { isLoaded, postDataApi } = usePostData()
   const dispatch = useDispatch()
 
   useEffect(() => {
@@ -57,6 +57,7 @@ const PostForm = () => {
         postDataApi(body)
         dispatch(setIsFocusPostInput(false))
         dispatch(setIntialize())
+        dispatch(setIsSubmitted(true))
       }}
     >
       <FormInner>
