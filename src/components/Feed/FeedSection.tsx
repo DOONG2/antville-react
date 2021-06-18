@@ -55,7 +55,7 @@ const FeedSection = () => {
     false
   )
 
-  usePostFeed('15', isBottomVisible, isScrolled, setScrolled)
+  usePostFeed(isBottomVisible, isScrolled, setScrolled)
 
   useEffect(() => {
     setScrolled(false)
