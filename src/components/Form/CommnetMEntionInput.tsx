@@ -66,9 +66,7 @@ export default function PostMentionInput({
           dispatch(setCommentBody(e.target.value))
         }}
         value={body}
-        placeholder={
-          '당신의 생각을 공유해주세요! ($ 태그 사용 후, 종목  입력) '
-        }
+        placeholder={'댓글을 입력해주세요.'}
         autoComplete="off"
         onFocus={() => {
           setIsFocusCommentInput(true)

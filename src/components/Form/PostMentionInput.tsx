@@ -22,7 +22,7 @@ export default function PostMentionInput() {
   const {
     view: { isFocusPostInput },
     post: {
-      sumitData: { body },
+      submitData: { body },
     },
   } = useRootState((state) => state)
   const textRef = useRef<any>(null)

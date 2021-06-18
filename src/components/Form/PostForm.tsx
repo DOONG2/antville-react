@@ -26,6 +26,7 @@ import {
   SubmitButton,
   UserIconWrapper,
 } from '../../mds/styled/post'
+import usePostData from '../../hooks/usePostData'
 
 const PostForm = () => {
   const {
@@ -34,13 +35,15 @@ const PostForm = () => {
       isUp,
       isDown,
       previewUrl,
-      sumitData: { body },
+      submitData: { body },
+      gifs,
     },
     view: { isFocusPostInput },
   } = useRootState((state) => state)
-  const { setIsUp, setIsDown } = postSlice.actions
+  const { setIsUp, setIsDown, setIntialize } = postSlice.actions
   const { setIsOpenLoginForm, setIsFocusPostInput } = viewSlice.actions
 
+  const { post, isLoaded, postDataApi } = usePostData()
   const dispatch = useDispatch()
 
   useEffect(() => {
@@ -50,7 +53,10 @@ const PostForm = () => {
   return (
     <Form
       onSubmit={(e) => {
-        console.log(e.target)
+        e.preventDefault()
+        postDataApi(body)
+        dispatch(setIsFocusPostInput(false))
+        dispatch(setIntialize())
       }}
     >
       <FormInner>
@@ -114,7 +120,6 @@ const PostForm = () => {
             </>
           )}
         </InputWrapper>
-
         <SubmitButton type="submit" disabled={body.length < 1}>
           게시
         </SubmitButton>
