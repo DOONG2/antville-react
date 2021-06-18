@@ -37,6 +37,7 @@ const PostForm = () => {
       previewUrl,
       submitData: { body },
       gifs,
+      isSubmitted,
     },
     view: { isFocusPostInput },
   } = useRootState((state) => state)
@@ -55,9 +56,6 @@ const PostForm = () => {
       onSubmit={(e) => {
         e.preventDefault()
         postDataApi(body)
-        dispatch(setIsFocusPostInput(false))
-        dispatch(setIntialize())
-        dispatch(setIsSubmitted(true))
       }}
     >
       <FormInner>

@@ -25,7 +25,7 @@ const FeedSlice = createSlice({
     setTabFollowing(state) {
       state.activatedTab = 'following'
     },
-    setPosts(state, action: PayloadAction<Post[] | null | undefined>) {
+    setPosts(state, action: PayloadAction<Post[] | undefined | null>) {
       if (action.payload === undefined) return
       state.posts = action.payload
     },

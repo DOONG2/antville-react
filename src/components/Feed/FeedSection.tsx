@@ -4,6 +4,7 @@ import { useHistory } from 'react-router'
 import StockDownIcon from '../../assets/svg/StockDownIcon'
 import StockUpIcon from '../../assets/svg/StockUpIcon'
 import TalkIcon from '../../assets/svg/TalkIcon'
+import usePostQuery from '../../hooks/query/usePostQuery'
 import useCheckLogin from '../../hooks/useCheckLogin'
 import { useIntersectionObserver } from '../../hooks/useInfiniteScroll'
 import usePostFeed from '../../hooks/usePostFeed'
@@ -55,7 +56,8 @@ const FeedSection = () => {
     false
   )
 
-  usePostFeed(isBottomVisible, isScrolled, setScrolled)
+  // usePostFeed(isBottomVisible, isScrolled, setScrolled)
+  usePostQuery()
 
   useEffect(() => {
     setScrolled(false)

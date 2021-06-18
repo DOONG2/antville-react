@@ -3,7 +3,6 @@ import { useDispatch } from 'react-redux'
 import getPostsByUrl from '../api/post/getPostsByUrl'
 import { postLimit } from '../lib/variable'
 import feedSlice from '../reducers/Slices/feed'
-import postSlice from '../reducers/Slices/post'
 import { useRootState } from './useRootState'
 
 export default function usePostFeed(
@@ -17,7 +16,6 @@ export default function usePostFeed(
     post: { isSubmitted },
   } = useRootState((state) => state)
   const { setPosts } = feedSlice.actions
-  const { setIsSubmitted } = postSlice.actions
   const dispatch = useDispatch()
 
   useEffect(() => {
@@ -25,7 +23,6 @@ export default function usePostFeed(
       try {
         const result = await getPostsByUrl(activatedTab)
         dispatch(setPosts(result))
-        dispatch(setIsSubmitted(false))
       } catch (error) {
         console.log(error)
       }
