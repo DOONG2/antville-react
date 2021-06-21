@@ -41,8 +41,8 @@ export default function LikeComponent({
     <>
       <HeartIcon
         cursor={'pointer'}
-        color={liked ? '#FA1D65' : ''}
-        stroke={liked ? '' : '#9E9E9E'}
+        color={liked && isLoggedIn ? '#FA1D65' : ''}
+        stroke={liked && isLoggedIn ? '' : '#9E9E9E'}
         onClick={() => {
           if (!isLoggedIn) return dispatch(setIsOpenLoginForm(true))
           setLiked(!liked)

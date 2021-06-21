@@ -7,7 +7,6 @@ import TalkIcon from '../../assets/svg/TalkIcon'
 import usePostQuery from '../../hooks/query/usePostQuery'
 import useCheckLogin from '../../hooks/useCheckLogin'
 import { useIntersectionObserver } from '../../hooks/useInfiniteScroll'
-import usePostFeed from '../../hooks/usePostFeed'
 import { useRootState } from '../../hooks/useRootState'
 import {
   BottomItem,
