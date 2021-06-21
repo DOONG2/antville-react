@@ -7,4 +7,7 @@ export interface postOptions {
   gifs: getSearchResponse | null
   query: string
   previewUrl: string | ArrayBuffer | null
+  submitData: { body: string }
+  commentSubmitData: { body: string }
+  isSubmitted: boolean
 }

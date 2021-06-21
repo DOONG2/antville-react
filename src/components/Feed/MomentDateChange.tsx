@@ -6,6 +6,6 @@ interface Props {
   time: string
 }
 
-export default function MomentDateChage({ time }: Props) {
+export default function MomentDateChange({ time }: Props) {
   return <Moment fromNow>{time}</Moment>
 }

@@ -2,6 +2,7 @@ import React from 'react'
 import ReactDOM from 'react-dom'
 import App from './App'
 import { QueryClient, QueryClientProvider } from 'react-query'
+import { ReactQueryDevtools } from 'react-query/devtools'
 import { BrowserRouter } from 'react-router-dom'
 import { Provider } from 'react-redux'
 import store from './store'
@@ -13,11 +14,8 @@ dotenv.config()
 const queryClient = new QueryClient({
   defaultOptions: {
     queries: {
-      refetchOnMount: false,
-      refetchOnReconnect: false,
       refetchOnWindowFocus: false,
-      retry: false,
-      refetchInterval: false,
+      refetchOnMount: false,
     },
   },
 })
@@ -29,6 +27,7 @@ ReactDOM.render(
         <BrowserRouter>
           <HelmetProvider>
             <App />
+            <ReactQueryDevtools />
           </HelmetProvider>
         </BrowserRouter>
       </QueryClientProvider>

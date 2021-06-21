@@ -7,7 +7,10 @@ export const check_eng = /[a-zA-Z]/
 export const check_spc = /[~!@#$%^&*()_+|<>?:{}]/
 export const check_kor = /[ㄱ-ㅎ|ㅏ-ㅣ|가-힣]/
 
-export const check_nickname = /^(?!.*\.\.)(?!.*\.$)[0-9a-zA-Z_가-힣][a-zA-Z0-9_.가-힣]{1,27}/g
+export const check_nickname =
+  /^(?!.*\.\.)(?!.*\.$)[0-9a-zA-Z_가-힣][a-zA-Z0-9_.가-힣]{1,27}/g
+
+export const cacheTagRegex = /\$([a-zA-Z가-힣]{2,})/g
 
 export const checkNicknameLength = (nickname: string | undefined) => {
   if (nickname === undefined) return false
@@ -35,8 +38,9 @@ const debounceNickNameCheck = debounce(
 export const isTakenNickName = async (nickname: string | undefined) => {
   if (nickname === undefined) return true
   try {
-    await debounceNickNameCheck(nickname)
-    return true
+    const result = await debounceNickNameCheck(nickname)
+    if (result?.available === true) return true
+    else return false
   } catch (error) {
     if (error.data.errorCode === 601) return false
   }
@@ -49,8 +53,9 @@ const debounceEmailCheck = debounce((email: string) => checkEmail(email), 500)
 export const isTakenEmail = async (email: string | undefined) => {
   if (email === undefined) return true
   try {
-    await debounceEmailCheck(email)
-    return true
+    const result = await debounceEmailCheck(email)
+    if (result?.available === true) return true
+    else return false
   } catch (error) {
     if (error.data.errorCode === 600) return false
   }

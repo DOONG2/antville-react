@@ -1,4 +1,6 @@
 import { createSlice, PayloadAction } from '@reduxjs/toolkit'
+import { InfiniteData } from 'react-query'
+import { getCommentsByIdResponse } from '../../api/comment/types'
 import { Post } from '../../api/types'
 import { Feed } from '../../types/feed'
 
@@ -7,7 +9,7 @@ type FeedState = Feed
 const initialState = {
   activatedTab: 'all',
   posts: null,
-  isScrolled: false,
+  comments: null,
 } as FeedState
 
 const FeedSlice = createSlice({
@@ -18,18 +20,22 @@ const FeedSlice = createSlice({
       state.activatedTab = 'all'
     },
     setTabWatchList(state) {
-      state.activatedTab = 'watchList'
+      state.activatedTab = 'watchlist'
     },
 
     setTabFollowing(state) {
       state.activatedTab = 'following'
     },
-    setPosts(state, action: PayloadAction<Post[] | null | undefined>) {
+    setPosts(state, action: PayloadAction<Post[] | undefined | null>) {
       if (action.payload === undefined) return
       state.posts = action.payload
     },
-    setScrolled(state, action: PayloadAction<boolean>) {
-      state.isScrolled = action.payload
+    setComments(
+      state,
+      action: PayloadAction<getCommentsByIdResponse | null | undefined>
+    ) {
+      if (action.payload === undefined) return
+      state.comments = action.payload
     },
   },
 })

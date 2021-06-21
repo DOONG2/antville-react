@@ -1,19 +1,52 @@
-import { useQuery } from 'react-query'
+import { useEffect } from 'react'
+import { useInfiniteQuery } from 'react-query'
 import { useDispatch } from 'react-redux'
-import getPost from '../../api/post/getPost'
+import getPostsByUrl from '../../api/post/getPostsByUrl'
+import { Post } from '../../api/types'
+import { cacheStableTime } from '../../lib/variable'
 import FeedSlice from '../../reducers/Slices/feed'
 import { useRootState } from '../useRootState'
 
-export default function usePostQuery(limit: string, cursor?: string) {
-  const { activatedTab } = useRootState((state) => state.feed)
+export default function usePostQuery() {
+  const {
+    feed: { activatedTab },
+    auth,
+  } = useRootState((state) => state)
   const { setPosts } = FeedSlice.actions
   const dispatch = useDispatch()
 
-  const { isLoading, data, error, isFetching } = useQuery(activatedTab, () =>
-    getPost(activatedTab, limit, cursor)
+  const {
+    isLoading,
+    data,
+    error,
+    isFetching,
+    fetchNextPage,
+    hasNextPage,
+    isFetchingNextPage,
+  } = useInfiniteQuery(
+    [activatedTab],
+    ({ pageParam: cursor }) => getPostsByUrl(activatedTab, cursor),
+    {
+      staleTime: cacheStableTime,
+      getNextPageParam: (lastPage) => lastPage[lastPage.length - 1]?.id,
+    }
   )
 
-  dispatch(setPosts(data))
+  useEffect(() => {
+    if (data && !isFetchingNextPage) {
+      const arr: Post[] = []
+      data.pages.map((posts) => arr.push(...posts))
+      console.log(arr)
+      dispatch(setPosts(arr))
+    }
+  }, [data])
 
-  return { isLoading, data, error, isFetching }
+  return {
+    isLoading,
+    data,
+    error,
+    isFetching,
+    fetchNextPage,
+    hasNextPage,
+  }
 }

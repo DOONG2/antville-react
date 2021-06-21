@@ -1,143 +1,49 @@
 import styled from '@emotion/styled'
-import React, { useRef } from 'react'
-import { useDispatch } from 'react-redux'
-import HeartIcon from '../../assets/svg/HeartIcon'
+import React, { useEffect, useRef, useState } from 'react'
+import { useHistory } from 'react-router'
 import StockDownIcon from '../../assets/svg/StockDownIcon'
 import StockUpIcon from '../../assets/svg/StockUpIcon'
 import TalkIcon from '../../assets/svg/TalkIcon'
-import ThreeDot from '../../assets/svg/ThreeDot'
+import usePostQuery from '../../hooks/query/usePostQuery'
 import useCheckLogin from '../../hooks/useCheckLogin'
 import { useIntersectionObserver } from '../../hooks/useInfiniteScroll'
-import usePostFeed from '../../hooks/usePostFeed'
 import { useRootState } from '../../hooks/useRootState'
-import { blue040, grey060, grey080 } from '../../mds/styled/colors'
-import FeedSlice from '../../reducers/Slices/feed'
+import {
+  BottomItem,
+  BottomWrapper,
+  Count,
+  FeedAvatar,
+  FeedWrapper,
+  IconWrapper,
+  LeftItem,
+  MiddleWrapper,
+  NickNameWrapper,
+  PostTime,
+  TopWrapper,
+} from '../../mds/styled/feed'
+import FeedBody from './FeedBody'
+import FeedOption from './FeedOption'
+import FeedTab from './FeedTab'
 import FollowingEmpty from './FollowingEmpty'
-import MomentDateChage from './MomentDateChage'
+import LikeComponent from './LikeComponent'
+import MomentDateChange from './MomentDateChange'
 import WatchListEmpty from './WatchListEmpty'
 
-const FeedWrapper = styled.div`
-  border-top: 1px solid #ececec;
-`
-
-const TopWrapper = styled.div`
-  padding: 13px 24px 0 24px;
-
-  display: flex;
-  align-items: center;
-  justify-content: space-between;
-`
-
-const FeedAvatar = styled.div`
-  width: 50px;
-  height: 50px;
-
-  background-color: ${blue040};
-
-  border-radius: 50px;
-`
-
-const NickNameWrapper = styled.div`
-  font-weight: 600;
-  font-size: 16px;
-  line-height: 22px;
-
-  color: ${grey080};
-
-  margin-left: 20px;
-  padding-bottom: 5px;
-`
-
-const PostTime = styled.div`
-  font-weight: 600;
-  font-size: 10px;
-  line-height: 14px;
-
-  color: ${grey060};
-
-  margin-left: 7px;
-`
-
-const IconWrapper = styled.div`
-  margin-left: 9px;
-  display: flex;
-  align-items: center;
-`
-
-const LeftItem = styled.div`
-  display: flex;
-  align-items: center;
-`
-
-const RightItem = styled.div``
-
-const MiddleWrapper = styled.div`
-  padding-left: 97px;
-  padding-right: 22px;
-
-  font-size: 16px;
-  line-height: 150%;
-`
-const BottomWrapper = styled.div`
-  margin-top: 13px;
-  display: flex;
-  align-items: center;
-  padding-left: 97px;
-  column-gap: 30px;
-
-  font-family: Roboto;
-  font-style: normal;
-  font-weight: normal;
-  font-size: 12px;
-  line-height: 20px;
-
-  color: #757575;
-`
-
-const BottomItem = styled.div`
-  display: flex;
-  align-items: center;
-  column-gap: 6px;
-  padding-bottom: 13px;
-`
-
-const Count = styled.div``
-
-const Bottom = styled.div<{ isScrolled: boolean }>`
+export const Bottom = styled.div<{ isScrolled: boolean }>`
   width: 100%;
-  height: 300px;
+  height: 10px;
 
-  display: ${(p) => (p.isScrolled ? 'none' : 'initial')};
-`
-
-const FeedTabWraaper = styled.div`
-  margin-top: 23px;
-  padding: 15px 21px;
-  display: flex;
-  column-gap: 44px;
-`
-
-const TabItem = styled.div<{ isClicked: boolean }>`
-  font-weight: 400;
-  font-size: 13px;
-  line-height: 18px;
-  padding-bottom: 3px;
-
-  color: #000000;
-
-  cursor: pointer;
-
-  border-bottom: ${(p) => (p.isClicked ? '1px solid #1942e0' : 'none')};
+  display: ${(p) => (p.isScrolled ? 'none' : 'block')};
 `
 
 const FeedSection = () => {
-  const { setTabAll, setTabFollowing, setTabWatchList } = FeedSlice.actions
-  const { activatedTab, posts, isScrolled } = useRootState(
-    (state) => state.feed
-  )
+  const {
+    feed: { activatedTab, posts },
+  } = useRootState((state) => state)
 
   const isLoggedIn = useCheckLogin()
-  const dispatch = useDispatch()
+
+  const history = useHistory()
   const bottomRef = useRef<HTMLDivElement>(null)
 
   const isBottomVisible = useIntersectionObserver(
@@ -148,32 +54,15 @@ const FeedSection = () => {
     false
   )
 
-  usePostFeed('15', isBottomVisible)
+  const { fetchNextPage, hasNextPage } = usePostQuery()
+
+  useEffect(() => {
+    isBottomVisible && hasNextPage && fetchNextPage()
+  }, [isBottomVisible])
 
   return (
     <>
-      {isLoggedIn && (
-        <FeedTabWraaper>
-          <TabItem
-            isClicked={activatedTab === 'all'}
-            onClick={() => dispatch(setTabAll())}
-          >
-            전체
-          </TabItem>
-          <TabItem
-            isClicked={activatedTab === 'watchList'}
-            onClick={() => dispatch(setTabWatchList())}
-          >
-            관심종목
-          </TabItem>
-          <TabItem
-            isClicked={activatedTab === 'following'}
-            onClick={() => dispatch(setTabFollowing())}
-          >
-            팔로잉
-          </TabItem>
-        </FeedTabWraaper>
-      )}
+      {isLoggedIn && <FeedTab />}
 
       {posts && posts.length < 1 && activatedTab === 'watchList' && (
         <WatchListEmpty />
@@ -185,34 +74,43 @@ const FeedSection = () => {
         <FeedWrapper key={`${post.id}-feed-section`}>
           <TopWrapper>
             <LeftItem>
-              <FeedAvatar></FeedAvatar>
+              <FeedAvatar
+                onClick={() => history.push(`user/${post.author.id}/profile`)}
+              />
               <NickNameWrapper>{post.author.nickname}</NickNameWrapper>
               <PostTime>
-                <MomentDateChage time={post.createdAt} />
+                <MomentDateChange time={post.createdAt} />
               </PostTime>
               <IconWrapper>
                 {post.sentiment === 'UP' ? <StockUpIcon /> : <StockDownIcon />}
               </IconWrapper>
             </LeftItem>
-            <RightItem>
-              <ThreeDot />
-            </RightItem>
+            <FeedOption />
           </TopWrapper>
-          <MiddleWrapper>{post.body}</MiddleWrapper>
+          <MiddleWrapper>
+            <FeedBody body={post.body} />
+          </MiddleWrapper>
           <BottomWrapper>
             <BottomItem>
-              <HeartIcon />
-              <Count>{post.postCount.likeCount}</Count>
+              <LikeComponent
+                count={post.postCount.likeCount}
+                isLiked={post.isLikedSelf}
+                postId={post.id}
+              />
             </BottomItem>
-            <BottomItem>
-              <TalkIcon />
-              <Count>{post.postCount.commentCount}</Count>
+            <BottomItem
+              onClick={() => {
+                history.push(`/feed/detail/${post.id}`)
+              }}
+            >
+              <TalkIcon cursor={'pointer'} />
+              <Count>댓글 {post.postCount.commentCount}</Count>
             </BottomItem>
           </BottomWrapper>
         </FeedWrapper>
       ))}
 
-      <Bottom ref={bottomRef} isScrolled={isScrolled} />
+      <Bottom ref={bottomRef} isScrolled={!hasNextPage || posts === null} />
     </>
   )
 }

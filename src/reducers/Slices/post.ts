@@ -11,6 +11,9 @@ const initialState = {
   gifs: null,
   query: '',
   previewUrl: null,
+  submitData: { body: '' },
+  commentSubmitData: { body: '' },
+  isSubmitted: false,
 } as postState
 
 const postSlice = createSlice({
@@ -36,6 +39,25 @@ const postSlice = createSlice({
     },
     setPreviewUrl(state, action: PayloadAction<string | ArrayBuffer | null>) {
       state.previewUrl = action.payload
+    },
+    setBody(state, action: PayloadAction<string>) {
+      state.submitData.body = action.payload
+    },
+    setCommentBody(state, action: PayloadAction<string>) {
+      state.commentSubmitData.body = action.payload
+    },
+    setIntialize(state) {
+      state.isUp = false
+      state.isDown = false
+      state.categorys = null
+      state.gifs = null
+      state.query = ''
+      state.previewUrl = null
+      state.submitData.body = ''
+      state.commentSubmitData.body = ''
+    },
+    setIsSubmitted(state, action: PayloadAction<boolean>) {
+      state.isSubmitted = action.payload
     },
   },
 })

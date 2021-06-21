@@ -1,11 +1,15 @@
 import client from '../client'
 
 const checkEmail = async (email: string) => {
-  await client.get('/user/checkEmail', {
-    params: {
-      email,
-    },
-  })
+  const response = await client.get<{ available: boolean }>(
+    '/user/email-available',
+    {
+      params: {
+        email,
+      },
+    }
+  )
+  return response.data
 }
 
 export default checkEmail
