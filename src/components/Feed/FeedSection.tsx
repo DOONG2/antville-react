@@ -32,7 +32,7 @@ import WatchListEmpty from './WatchListEmpty'
 
 export const Bottom = styled.div<{ isScrolled: boolean }>`
   width: 100%;
-  height: 300px;
+  height: 10px;
 
   display: ${(p) => (p.isScrolled ? 'none' : 'block')};
 `
@@ -42,7 +42,6 @@ const FeedSection = () => {
     feed: { activatedTab, posts },
   } = useRootState((state) => state)
 
-  const [isScrolled, setScrolled] = useState<boolean>(false)
   const isLoggedIn = useCheckLogin()
 
   const history = useHistory()
@@ -56,12 +55,11 @@ const FeedSection = () => {
     false
   )
 
-  // usePostFeed(isBottomVisible, isScrolled, setScrolled)
-  usePostQuery()
+  const { fetchNextPage, hasNextPage } = usePostQuery()
 
   useEffect(() => {
-    setScrolled(false)
-  }, [activatedTab])
+    isBottomVisible && hasNextPage && fetchNextPage()
+  }, [isBottomVisible])
 
   return (
     <>
@@ -113,7 +111,7 @@ const FeedSection = () => {
         </FeedWrapper>
       ))}
 
-      <Bottom ref={bottomRef} isScrolled={isScrolled || posts === null} />
+      <Bottom ref={bottomRef} isScrolled={!hasNextPage || posts === null} />
     </>
   )
 }

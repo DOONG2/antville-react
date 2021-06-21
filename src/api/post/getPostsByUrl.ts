@@ -9,5 +9,6 @@ export default async function getPostsByUrl(url: string, cursor?: string) {
       cursor,
     },
   })
+
   return response.data
 }

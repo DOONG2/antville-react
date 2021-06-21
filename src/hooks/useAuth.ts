@@ -1,4 +1,5 @@
 import { useDispatch } from 'react-redux'
+import { useHistory } from 'react-router-dom'
 import getWatchList from '../api/stock/getWatchList'
 import { User } from '../api/types'
 import authStorage from '../lib/authStorage'
@@ -12,6 +13,7 @@ export default function useAuth() {
   const { setUserState } = userSlice.actions
   const { setAuthState } = authSlice.actions
   const { setWatchListState } = watchListSlice.actions
+  const history = useHistory()
 
   const dispatch = useDispatch()
 
@@ -22,6 +24,7 @@ export default function useAuth() {
     dispatch(setWatchListState(watchList))
 
     userStorage.set(user)
+    history.push('/')
   }
   const logout = () => {
     dispatch(setUserState(null))
@@ -29,6 +32,7 @@ export default function useAuth() {
     dispatch(setWatchListState(null))
     userStorage.clear()
     authStorage.clear()
+    history.push('/')
   }
 
   return {
