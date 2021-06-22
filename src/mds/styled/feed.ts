@@ -59,7 +59,7 @@ export const LeftItem = styled.div`
 export const MiddleWrapper = styled.div`
   width: 100%;
   padding-left: 97px;
-  padding-right: 22px;
+  padding-right: 40px;
 
   font-size: 16px;
   line-height: 150%;
