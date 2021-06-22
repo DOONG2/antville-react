@@ -36,15 +36,13 @@ const PostForm = () => {
       isDown,
       previewUrl,
       submitData: { body },
-      gifs,
-      isSubmitted,
     },
     view: { isFocusPostInput },
   } = useRootState((state) => state)
-  const { setIsUp, setIsDown, setIntialize, setIsSubmitted } = postSlice.actions
+  const { setIsUp, setIsDown } = postSlice.actions
   const { setIsOpenLoginForm, setIsFocusPostInput } = viewSlice.actions
 
-  const { isLoaded, postDataApi } = usePostData()
+  const { postDataApi } = usePostData()
   const dispatch = useDispatch()
 
   useEffect(() => {

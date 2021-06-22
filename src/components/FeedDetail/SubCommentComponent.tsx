@@ -1,7 +1,6 @@
 import styled from '@emotion/styled'
 import React, { useState } from 'react'
 import { useHistory } from 'react-router'
-import { boolean } from 'yup/lib/locale'
 import CommentArrow from '../../assets/svg/CommentArrow'
 import TalkIcon from '../../assets/svg/TalkIcon'
 import useSubCommentsById from '../../hooks/useSubCommentsById'

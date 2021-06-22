@@ -1,5 +1,4 @@
 import { createSlice, PayloadAction } from '@reduxjs/toolkit'
-import { InfiniteData } from 'react-query'
 import { getCommentsByIdResponse } from '../../api/comment/types'
 import { Post } from '../../api/types'
 import { Feed } from '../../types/feed'

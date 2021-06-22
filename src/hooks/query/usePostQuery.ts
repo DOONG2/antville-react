@@ -10,7 +10,6 @@ import { useRootState } from '../useRootState'
 export default function usePostQuery() {
   const {
     feed: { activatedTab },
-    auth,
   } = useRootState((state) => state)
   const { setPosts } = FeedSlice.actions
   const dispatch = useDispatch()

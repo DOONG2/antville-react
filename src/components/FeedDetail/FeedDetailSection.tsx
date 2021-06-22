@@ -1,5 +1,5 @@
 import styled from '@emotion/styled'
-import React, { useState } from 'react'
+import React from 'react'
 import { useHistory, useParams } from 'react-router'
 import LeftArrow from '../../assets/svg/LeftArrow'
 import StockDownIcon from '../../assets/svg/StockDownIcon'
