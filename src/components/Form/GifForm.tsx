@@ -2,6 +2,7 @@ import styled from '@emotion/styled'
 import { debounce } from 'lodash'
 import React, { useCallback, useEffect, useRef, useState } from 'react'
 import { useDispatch } from 'react-redux'
+import { gifDto } from '../../api/post/types'
 import getSearch from '../../api/tenor/getSearch'
 import BackIcon from '../../assets/svg/BackIcon'
 import SearchIcon from '../../assets/svg/SearchIcon'
@@ -11,6 +12,11 @@ import randomColor from '../../lib/randomColor'
 import { IconWrapper, SearchInput, SerchBar } from '../../mds/styled/searchBar'
 import postSlice from '../../reducers/Slices/post'
 import viewSlice from '../../reducers/Slices/view'
+
+interface Props {
+  setUploadImage(value: File | undefined): void
+  setGifDto(value: gifDto | undefined): void
+}
 
 const Item = styled.div<{ backGroundColor?: string }>`
   position: relative;
@@ -87,7 +93,7 @@ const Bottom = styled.div<{ isOpen: boolean }>`
   width: 100%;
 `
 
-const GifForm = () => {
+const GifForm = ({ setGifDto, setUploadImage }: Props) => {
   const { categorys, gifs, query } = useRootState((state) => state.post)
   const { setGifs, setQuery, setPreviewUrl } = postSlice.actions
   const { setIsOpenGifForm } = viewSlice.actions
@@ -176,6 +182,13 @@ const GifForm = () => {
               <Item
                 key={`${gif.id}-gif-form`}
                 onClick={() => {
+                  setGifDto({
+                    gifId: gif.id,
+                    tinyGifUrl: gif.media[0].tinygif.url,
+                    gifUrl: gif.media[0].gif.url,
+                    ratio: gif.media[0].gif.dims[0] / gif.media[0].gif.dims[1],
+                  })
+                  setUploadImage(undefined)
                   dispatch(setPreviewUrl(gif.media[0].gif.preview))
                   dispatch(setIsOpenGifForm(false))
                   dispatch(setGifs(null))

@@ -5,6 +5,7 @@ import CloseIconSmall from '../../assets/svg/CloseIconSmall'
 import { useRootState } from '../../hooks/useRootState'
 import { grey030 } from '../../mds/styled/colors'
 import postSlice from '../../reducers/Slices/post'
+import { Image } from '../../mds/styled/post'
 
 const Wrapper = styled.div`
   margin: 10px 0;
@@ -16,15 +17,6 @@ const Wrapper = styled.div`
   display: flex;
   justify-content: center;
   align-items: center;
-`
-
-const Image = styled.img`
-  width: 100%;
-  height: 100%;
-  margin: 0 auto;
-
-  border: 1px solid ${grey030};
-  border-radius: 8px;
 `
 
 const CloseButton = styled.div`

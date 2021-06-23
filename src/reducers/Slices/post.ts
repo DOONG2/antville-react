@@ -11,7 +11,7 @@ const initialState = {
   gifs: null,
   query: '',
   previewUrl: null,
-  submitData: { body: '' },
+  submitData: { body: '', sentiment: '', gifDto: undefined },
   commentSubmitData: { body: '' },
   isSubmitted: false,
 } as postState
@@ -58,6 +58,9 @@ const postSlice = createSlice({
     },
     setIsSubmitted(state, action: PayloadAction<boolean>) {
       state.isSubmitted = action.payload
+    },
+    setSentiment(state, action: PayloadAction<string>) {
+      state.submitData.sentiment = action.payload
     },
   },
 })

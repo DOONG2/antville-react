@@ -82,7 +82,6 @@ export default function SubCommentComponent({
   )
 
   const history = useHistory()
-  console.log(isLoaded, comments)
 
   return (
     <>

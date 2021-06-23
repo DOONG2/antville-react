@@ -24,6 +24,7 @@ import {
 } from '../../mds/styled/post'
 import styled from '@emotion/styled'
 import CommnetMEntionInput from './CommnetMEntionInput'
+import { GifDto } from '../../types/post'
 
 const NewPostInnerButtonsWrapper = styled(PostInnerButtonsWrapper)`
   column-gap: 12px;
@@ -39,6 +40,8 @@ const CommentForm = () => {
   } = useRootState((state) => state)
 
   const [isFocusCommentInput, setIsFocusCommentInput] = useState<boolean>(false)
+  const [uploadImage, setUploadImage] = useState<File | undefined>()
+  const [gifDto, setGifDto] = useState<GifDto | undefined>()
 
   const { setIsOpenLoginForm } = viewSlice.actions
 
@@ -70,10 +73,16 @@ const CommentForm = () => {
                   <PreviewImage />
                   <NewPostInnerButtonsWrapper>
                     <PostItem>
-                      <ImageUpload />
+                      <ImageUpload
+                        setUploadImage={setUploadImage}
+                        setGifDto={setGifDto}
+                      />
                     </PostItem>
                     <PostItem>
-                      <GifUpload />
+                      <GifUpload
+                        setUploadImage={setUploadImage}
+                        setGifDto={setGifDto}
+                      />
                     </PostItem>
                   </NewPostInnerButtonsWrapper>
                 </>

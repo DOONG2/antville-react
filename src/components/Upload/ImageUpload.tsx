@@ -1,14 +1,20 @@
 import styled from '@emotion/styled'
 import { ChangeEvent, useRef } from 'react'
 import { useDispatch } from 'react-redux'
+import { gifDto } from '../../api/post/types'
 import PictureUploadButton from '../../assets/svg/PictureUploadButton'
 import postSlice from '../../reducers/Slices/post'
+
+interface Props {
+  setUploadImage(value: File | undefined): void
+  setGifDto(value: gifDto | undefined): void
+}
 
 const Input = styled.input`
   display: none;
 `
 
-const ImageUpload = () => {
+const ImageUpload = ({ setUploadImage, setGifDto }: Props) => {
   const dispatch = useDispatch()
   const { setPreviewUrl } = postSlice.actions
   const hiddenFileInput = useRef<HTMLInputElement>(null)
@@ -19,8 +25,8 @@ const ImageUpload = () => {
     const fileUploaded = e.target.files?.[0]
     if (fileUploaded === undefined) return
     dispatch(setPreviewUrl(URL.createObjectURL(fileUploaded)))
-
-    console.log(fileUploaded)
+    setUploadImage(fileUploaded)
+    setGifDto(undefined)
   }
 
   return (

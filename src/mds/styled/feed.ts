@@ -1,5 +1,13 @@
 import styled from '@emotion/styled'
-import { blue040, grey060, grey080 } from './colors'
+import { blue040, grey030, grey060, grey080 } from './colors'
+
+export const GifImage = styled.img`
+  margin: 15px auto;
+  height: 270px;
+
+  border: 1px solid ${grey030};
+  border-radius: 8px;
+`
 
 export const FeedWrapper = styled.div`
   border-top: 1px solid #ececec;

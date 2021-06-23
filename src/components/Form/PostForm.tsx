@@ -1,4 +1,4 @@
-import React, { useEffect } from 'react'
+import React, { FormEvent, useEffect, useState } from 'react'
 import { useDispatch } from 'react-redux'
 import GifUploadButton from '../../assets/svg/GifUploadButton'
 import PictureUploadButton from '../../assets/svg/PictureUploadButton'
@@ -27,6 +27,7 @@ import {
   UserIconWrapper,
 } from '../../mds/styled/post'
 import usePostData from '../../hooks/usePostData'
+import { GifDto } from '../../types/post'
 
 const PostForm = () => {
   const {
@@ -35,12 +36,14 @@ const PostForm = () => {
       isUp,
       isDown,
       previewUrl,
-      submitData: { body },
+      submitData: { body, sentiment },
     },
     view: { isFocusPostInput },
   } = useRootState((state) => state)
-  const { setIsUp, setIsDown } = postSlice.actions
+  const { setIsUp, setIsDown, setSentiment } = postSlice.actions
   const { setIsOpenLoginForm, setIsFocusPostInput } = viewSlice.actions
+  const [uploadImage, setUploadImage] = useState<File | undefined>()
+  const [gifDto, setGifDto] = useState<GifDto | undefined>()
 
   const { postDataApi } = usePostData()
   const dispatch = useDispatch()
@@ -53,7 +56,7 @@ const PostForm = () => {
     <Form
       onSubmit={(e) => {
         e.preventDefault()
-        postDataApi(body)
+        postDataApi({ body, sentiment, gifDto, uploadImage })
       }}
     >
       <FormInner>
@@ -68,10 +71,20 @@ const PostForm = () => {
                   <PostMentionInput />
                   <PreviewImage />
                   <PostInnerButtonsWrapper>
-                    <PostItem onClick={() => dispatch(setIsUp(true))}>
+                    <PostItem
+                      onClick={() => {
+                        dispatch(setIsUp(true))
+                        dispatch(setSentiment('UP'))
+                      }}
+                    >
                       {isUp ? <StockUpButtonClicked /> : <StockUpButton />}
                     </PostItem>
-                    <PostItem onClick={() => dispatch(setIsDown(true))}>
+                    <PostItem
+                      onClick={() => {
+                        dispatch(setIsDown(true))
+                        dispatch(setSentiment('DOWN'))
+                      }}
+                    >
                       {isDown ? (
                         <StockDownButtonClicked />
                       ) : (
@@ -79,10 +92,16 @@ const PostForm = () => {
                       )}
                     </PostItem>
                     <PostItem>
-                      <ImageUpload />
+                      <ImageUpload
+                        setUploadImage={setUploadImage}
+                        setGifDto={setGifDto}
+                      />
                     </PostItem>
                     <PostItem>
-                      <GifUpload />
+                      <GifUpload
+                        setUploadImage={setUploadImage}
+                        setGifDto={setGifDto}
+                      />
                     </PostItem>
                   </PostInnerButtonsWrapper>
                 </>

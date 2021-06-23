@@ -7,6 +7,13 @@ import postSlice from '../reducers/Slices/post'
 import viewSlice from '../reducers/Slices/view'
 import { useRootState } from './useRootState'
 
+interface Props {
+  body: string
+  sentiment?: string
+  gifDto?: gifDto
+  uploadImage?: File
+}
+
 export default function usePostData() {
   const [post, setPost] = useState<Post | null>(null)
   const [isLoaded, setIsLoaded] = useState<boolean>(false)
@@ -15,16 +22,18 @@ export default function usePostData() {
   const { isSubmitted } = useRootState((state) => state.post)
   const dispatch = useDispatch()
 
-  const postDataApi = async (
-    body: string,
-    sentiment?: string,
-    gif?: gifDto
-  ) => {
+  const postDataApi = async ({
+    body,
+    sentiment,
+    gifDto,
+    uploadImage,
+  }: Props) => {
     try {
       const formData = new FormData()
       formData.append('body', body)
-      if (gif) formData.append('gif', JSON.stringify(gif))
+      if (gifDto) formData.append('gif', JSON.stringify(gifDto))
       if (sentiment) formData.append('sentiment', sentiment)
+      if (uploadImage) formData.append('posts', uploadImage)
       const result = await postFormData(formData)
       setPost(result)
       setIsLoaded(true)

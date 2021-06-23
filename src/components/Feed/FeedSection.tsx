@@ -14,6 +14,7 @@ import {
   Count,
   FeedAvatar,
   FeedWrapper,
+  GifImage,
   IconWrapper,
   LeftItem,
   MiddleWrapper,
@@ -21,6 +22,7 @@ import {
   PostTime,
   TopWrapper,
 } from '../../mds/styled/feed'
+import { Image } from '../../mds/styled/post'
 import FeedBody from './FeedBody'
 import FeedOption from './FeedOption'
 import FeedTab from './FeedTab'
@@ -82,13 +84,26 @@ const FeedSection = () => {
                 <MomentDateChange time={post.createdAt} />
               </PostTime>
               <IconWrapper>
-                {post.sentiment === 'UP' ? <StockUpIcon /> : <StockDownIcon />}
+                {post.sentiment === 'UP' && <StockUpIcon />}
+                {post.sentiment === 'DOWN' && <StockDownIcon />}
               </IconWrapper>
             </LeftItem>
             <FeedOption />
           </TopWrapper>
           <MiddleWrapper>
             <FeedBody body={post.body} />
+            {post.postImgs[0] && (
+              <Image
+                src={post.postImgs[0].image.toString()}
+                alt={`${post.id}-feed-image`}
+              />
+            )}
+            {post.gifImage?.gifUrl && (
+              <GifImage
+                src={post.gifImage.gifUrl}
+                alt={`${post.id}-gif-image`}
+              />
+            )}
           </MiddleWrapper>
           <BottomWrapper>
             <BottomItem>
