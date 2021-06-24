@@ -11,7 +11,7 @@ const initialState = {
   comments: null,
 } as FeedState
 
-const FeedSlice = createSlice({
+const feedSlice = createSlice({
   name: 'feed',
   initialState,
   reducers: {
@@ -39,4 +39,4 @@ const FeedSlice = createSlice({
   },
 })
 
-export default FeedSlice
+export default feedSlice

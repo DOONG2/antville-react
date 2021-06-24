@@ -1,7 +1,7 @@
 import styled from '@emotion/styled'
 import { useDispatch } from 'react-redux'
 import { useRootState } from '../../hooks/useRootState'
-import FeedSlice from '../../reducers/Slices/feed'
+import feedSlice from '../../reducers/Slices/feed'
 
 const FeedTabWraaper = styled.div`
   margin-top: 23px;
@@ -26,7 +26,7 @@ const TabItem = styled.div<{ isClicked: boolean }>`
 `
 export default function FeedTab() {
   const { activatedTab } = useRootState((state) => state.feed)
-  const { setTabAll, setTabFollowing, setTabWatchList } = FeedSlice.actions
+  const { setTabAll, setTabFollowing, setTabWatchList } = feedSlice.actions
 
   const dispatch = useDispatch()
   return (
