@@ -25,6 +25,8 @@ import {
 import styled from '@emotion/styled'
 import CommnetMEntionInput from './CommnetMEntionInput'
 import { GifDto } from '../../types/post'
+import useCommentData from '../../hooks/useCommentData'
+import { useParams } from 'react-router-dom'
 
 const NewPostInnerButtonsWrapper = styled(PostInnerButtonsWrapper)`
   column-gap: 12px;
@@ -42,10 +44,13 @@ const CommentForm = () => {
   const [isFocusCommentInput, setIsFocusCommentInput] = useState<boolean>(false)
   const [uploadImage, setUploadImage] = useState<File | undefined>()
   const [gifDto, setGifDto] = useState<GifDto | undefined>()
+  const { id: postId } = useParams<{ id: string }>()
 
   const { setIsOpenLoginForm } = viewSlice.actions
 
   const dispatch = useDispatch()
+
+  const { postDataApi } = useCommentData()
 
   useEffect(() => {
     if (previewUrl !== null) setIsFocusCommentInput(true)
@@ -54,7 +59,7 @@ const CommentForm = () => {
   return (
     <Form
       onSubmit={(e) => {
-        console.log(e.target)
+        postDataApi({ body, gifDto, uploadImage, postId })
       }}
     >
       <FormInner>
@@ -98,22 +103,16 @@ const CommentForm = () => {
               <LockedLabel onClick={() => dispatch(setIsOpenLoginForm(true))}>
                 댓글을 입력해주세요.
               </LockedLabel>
-              <PostInnerButtonsWrapper
+              <NewPostInnerButtonsWrapper
                 onClick={() => dispatch(setIsOpenLoginForm(true))}
               >
-                <PostItem>
-                  <StockUpButton />
-                </PostItem>
-                <PostItem>
-                  <StockDownButton />
-                </PostItem>
                 <PostItem>
                   <PictureUploadButton />
                 </PostItem>
                 <PostItem>
                   <GifUploadButton />
                 </PostItem>
-              </PostInnerButtonsWrapper>
+              </NewPostInnerButtonsWrapper>
             </>
           )}
         </InputWrapper>
