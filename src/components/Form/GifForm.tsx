@@ -16,6 +16,7 @@ import viewSlice from '../../reducers/Slices/view'
 interface Props {
   setUploadImage(value: File | undefined): void
   setGifDto(value: gifDto | undefined): void
+  setPreviewUrl(value: string | ArrayBuffer | null): void
 }
 
 const Item = styled.div<{ backGroundColor?: string }>`
@@ -93,9 +94,9 @@ const Bottom = styled.div<{ isOpen: boolean }>`
   width: 100%;
 `
 
-const GifForm = ({ setGifDto, setUploadImage }: Props) => {
+const GifForm = ({ setGifDto, setUploadImage, setPreviewUrl }: Props) => {
   const { categorys, gifs, query } = useRootState((state) => state.post)
-  const { setGifs, setQuery, setPreviewUrl } = postSlice.actions
+  const { setGifs, setQuery } = postSlice.actions
   const { setIsOpenGifForm } = viewSlice.actions
   const [isFocus, setIsFocus] = useState(false)
   const [count, setCount] = useState(0)
@@ -189,7 +190,7 @@ const GifForm = ({ setGifDto, setUploadImage }: Props) => {
                     ratio: gif.media[0].gif.dims[0] / gif.media[0].gif.dims[1],
                   })
                   setUploadImage(undefined)
-                  dispatch(setPreviewUrl(gif.media[0].gif.preview))
+                  setPreviewUrl(gif.media[0].gif.preview)
                   dispatch(setIsOpenGifForm(false))
                   dispatch(setGifs(null))
                   dispatch(setQuery(''))

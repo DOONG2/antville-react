@@ -98,6 +98,7 @@ export default function SubCommentComponent({ comment }: Props) {
         <BottomItem
           onClick={() => {
             setIsOpenCommentForm(true)
+            setIsOpen(true)
           }}
         >
           <TalkIcon cursor={'pointer'} />
@@ -172,11 +173,13 @@ export default function SubCommentComponent({ comment }: Props) {
             <CommentForm />
           </CommentFormWrapper>
         )}
-        {comment.commentCount.nextCommentCount < 1 && isOpenCommentForm && (
-          <CommentFormWrapper isOpen={isOpenCommentForm}>
-            <CommentForm />
-          </CommentFormWrapper>
-        )}
+        {comment.commentCount.nextCommentCount < 1 &&
+          isOpenCommentForm &&
+          !isOpen && (
+            <CommentFormWrapper isOpen={isOpenCommentForm}>
+              <CommentForm />
+            </CommentFormWrapper>
+          )}
       </SubCommentWrapper>
     </>
   )

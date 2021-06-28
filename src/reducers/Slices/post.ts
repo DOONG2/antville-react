@@ -12,7 +12,6 @@ const initialState = {
   query: '',
   previewUrl: null,
   submitData: { body: '', sentiment: '', gifDto: undefined },
-  commentSubmitData: { body: '' },
   isSubmitted: false,
 } as postState
 
@@ -43,9 +42,6 @@ const postSlice = createSlice({
     setBody(state, action: PayloadAction<string>) {
       state.submitData.body = action.payload
     },
-    setCommentBody(state, action: PayloadAction<string>) {
-      state.commentSubmitData.body = action.payload
-    },
     setIntialize(state) {
       state.isUp = false
       state.isDown = false
@@ -54,7 +50,6 @@ const postSlice = createSlice({
       state.query = ''
       state.previewUrl = null
       state.submitData.body = ''
-      state.commentSubmitData.body = ''
     },
     setIsSubmitted(state, action: PayloadAction<boolean>) {
       state.isSubmitted = action.payload

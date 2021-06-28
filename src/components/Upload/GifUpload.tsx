@@ -13,15 +13,15 @@ import GifForm from '../Form/GifForm'
 interface Props {
   setUploadImage(value: File | undefined): void
   setGifDto(value: gifDto | undefined): void
+  setPreviewUrl(value: string | ArrayBuffer | null): void
 }
-
 const Wrapper = styled.div``
 
 const DefaultCursor = styled.div`
   cursor: default;
 `
 
-const GifUpload = ({ setUploadImage, setGifDto }: Props) => {
+const GifUpload = ({ setUploadImage, setGifDto, setPreviewUrl }: Props) => {
   const {
     view: { isOpenGifForm },
     post: { query },
@@ -59,7 +59,11 @@ const GifUpload = ({ setUploadImage, setGifDto }: Props) => {
           }}
           scrollValue={query}
         >
-          <GifForm setUploadImage={setUploadImage} setGifDto={setGifDto} />
+          <GifForm
+            setUploadImage={setUploadImage}
+            setGifDto={setGifDto}
+            setPreviewUrl={setPreviewUrl}
+          />
         </Modal>
       </DefaultCursor>
     </>

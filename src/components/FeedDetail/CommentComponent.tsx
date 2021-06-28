@@ -81,7 +81,6 @@ export default function CommentComponent() {
               />
             )}
           </MiddleWrapper>
-
           <SubCommentComponent comment={comment} />
         </NewFeedWrapper>
       ))}

@@ -12,7 +12,6 @@ export interface postOptions {
     sentiment: string
     gifDto: GifDto | undefined
   }
-  commentSubmitData: { body: string }
   isSubmitted: boolean
 }
 

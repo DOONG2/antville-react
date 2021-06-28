@@ -35,7 +35,6 @@ const PostForm = () => {
     post: {
       isUp,
       isDown,
-      previewUrl,
       submitData: { body, sentiment },
     },
     view: { isFocusPostInput },
@@ -44,6 +43,9 @@ const PostForm = () => {
   const { setIsOpenLoginForm, setIsFocusPostInput } = viewSlice.actions
   const [uploadImage, setUploadImage] = useState<File | undefined>()
   const [gifDto, setGifDto] = useState<GifDto | undefined>()
+  const [previewUrl, setPreviewUrl] = useState<string | ArrayBuffer | null>(
+    null
+  )
 
   const { postDataApi } = usePostData()
   const dispatch = useDispatch()
@@ -69,7 +71,10 @@ const PostForm = () => {
               {user.isEmailVerified ? (
                 <>
                   <PostMentionInput />
-                  <PreviewImage />
+                  <PreviewImage
+                    setPreviewUrl={setPreviewUrl}
+                    previewUrl={previewUrl}
+                  />
                   <PostInnerButtonsWrapper>
                     <PostItem
                       onClick={() => {
@@ -95,12 +100,14 @@ const PostForm = () => {
                       <ImageUpload
                         setUploadImage={setUploadImage}
                         setGifDto={setGifDto}
+                        setPreviewUrl={setPreviewUrl}
                       />
                     </PostItem>
                     <PostItem>
                       <GifUpload
                         setUploadImage={setUploadImage}
                         setGifDto={setGifDto}
+                        setPreviewUrl={setPreviewUrl}
                       />
                     </PostItem>
                   </PostInnerButtonsWrapper>

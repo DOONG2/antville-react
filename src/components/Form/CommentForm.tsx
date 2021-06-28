@@ -2,14 +2,11 @@ import React, { useEffect, useState } from 'react'
 import { useDispatch } from 'react-redux'
 import GifUploadButton from '../../assets/svg/GifUploadButton'
 import PictureUploadButton from '../../assets/svg/PictureUploadButton'
-import StockDownButton from '../../assets/svg/StockDownButton'
-import StockUpButton from '../../assets/svg/StockUpButton'
 import UserIcon from '../../assets/svg/UserIcon'
 import { useRootState } from '../../hooks/useRootState'
 import viewSlice from '../../reducers/Slices/view'
 import ImageUpload from '../Upload/ImageUpload'
 import GifUpload from '../Upload/GifUpload'
-import PreviewImage from './PreviewImage'
 import {
   EmailCheck,
   Form,
@@ -27,6 +24,7 @@ import CommnetMEntionInput from './CommnetMEntionInput'
 import { GifDto } from '../../types/post'
 import useCommentData from '../../hooks/useCommentData'
 import { useParams } from 'react-router-dom'
+import PreviewImage from './PreviewImage'
 
 interface Props {
   parentCommentId?: string
@@ -37,17 +35,15 @@ const NewPostInnerButtonsWrapper = styled(PostInnerButtonsWrapper)`
 `
 
 const CommentForm = ({ parentCommentId }: Props) => {
-  const {
-    user,
-    post: {
-      previewUrl,
-      commentSubmitData: { body },
-    },
-  } = useRootState((state) => state)
+  const { user } = useRootState((state) => state)
 
   const [isFocusCommentInput, setIsFocusCommentInput] = useState<boolean>(false)
   const [uploadImage, setUploadImage] = useState<File | undefined>()
   const [gifDto, setGifDto] = useState<GifDto | undefined>()
+  const [body, setCommentBody] = useState<string>('')
+  const [previewUrl, setPreviewUrl] = useState<string | ArrayBuffer | null>(
+    null
+  )
   const { id: postId } = useParams<{ id: string }>()
 
   const { setIsOpenLoginForm } = viewSlice.actions
@@ -78,19 +74,26 @@ const CommentForm = ({ parentCommentId }: Props) => {
                   <CommnetMEntionInput
                     isFocusCommentInput={isFocusCommentInput}
                     setIsFocusCommentInput={setIsFocusCommentInput}
+                    setCommentBody={setCommentBody}
+                    body={body}
                   />
-                  <PreviewImage />
+                  <PreviewImage
+                    previewUrl={previewUrl}
+                    setPreviewUrl={setPreviewUrl}
+                  />
                   <NewPostInnerButtonsWrapper>
                     <PostItem>
                       <ImageUpload
                         setUploadImage={setUploadImage}
                         setGifDto={setGifDto}
+                        setPreviewUrl={setPreviewUrl}
                       />
                     </PostItem>
                     <PostItem>
                       <GifUpload
                         setUploadImage={setUploadImage}
                         setGifDto={setGifDto}
+                        setPreviewUrl={setPreviewUrl}
                       />
                     </PostItem>
                   </NewPostInnerButtonsWrapper>
