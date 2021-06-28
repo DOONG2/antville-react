@@ -1,12 +1,9 @@
 import { useState } from 'react'
-import { useDispatch } from 'react-redux'
-import { getCommentsByIdResponse } from '../api/comment/types'
+import { CommentObject } from '../api/comment/types'
 import postFormData from '../api/comment/postFormData'
 import { gifDto } from '../api/post/types'
-import commentSlice from '../reducers/Slices/comment'
-import { useRootState } from './useRootState'
 
-interface Props {
+interface ApiProps {
   body: string
   postId: string
   gifDto?: gifDto
@@ -14,12 +11,12 @@ interface Props {
   parentCommentId?: string
 }
 
-export default function useCommentData() {
-  const [comments, setComments] = useState<getCommentsByIdResponse | null>(null)
+interface Props {
+  addComment?: (value?: CommentObject) => void
+}
+
+export default function useCommentData({ addComment }: Props) {
   const [isLoaded, setIsLoaded] = useState<boolean>(false)
-  const { setIntialize, setIsSubmitted } = commentSlice.actions
-  const { isSubmitted } = useRootState((state) => state.cooment)
-  const dispatch = useDispatch()
 
   const postDataApi = async ({
     body,
@@ -27,7 +24,7 @@ export default function useCommentData() {
     gifDto,
     uploadImage,
     parentCommentId,
-  }: Props) => {
+  }: ApiProps) => {
     try {
       const formData = new FormData()
       formData.append('body', body)
@@ -36,14 +33,12 @@ export default function useCommentData() {
       if (uploadImage) formData.append('comments', uploadImage)
       if (parentCommentId) formData.append('parentCommentId', parentCommentId)
       const result = await postFormData(formData)
-      setComments(result)
+      if (addComment) addComment(result)
       setIsLoaded(true)
-      dispatch(setIntialize())
-      dispatch(setIsSubmitted(!isSubmitted))
     } catch (error) {
       console.log(error)
     }
   }
 
-  return { comments, isLoaded, postDataApi }
+  return { isLoaded, postDataApi }
 }

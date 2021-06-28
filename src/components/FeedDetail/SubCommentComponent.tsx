@@ -1,7 +1,7 @@
 import styled from '@emotion/styled'
-import React, { useState } from 'react'
+import React, { useEffect, useState } from 'react'
 import { useHistory } from 'react-router'
-import { CommentObject } from '../../api/comment/types'
+import { CommentObject, getCommentsByIdResponse } from '../../api/comment/types'
 import CommentArrow from '../../assets/svg/CommentArrow'
 import TalkIcon from '../../assets/svg/TalkIcon'
 import useSubCommentsById from '../../hooks/useSubCommentsById'
@@ -77,11 +77,21 @@ export default function SubCommentComponent({ comment }: Props) {
   const [isOpen, setIsOpen] = useState<boolean>(false)
   const [cursor, setCursor] = useState<string | undefined>(undefined)
   const [isOpenCommentForm, setIsOpenCommentForm] = useState<boolean>(false)
-  const { comments, isEnded, isLoaded } = useSubCommentsById(
-    comment.id,
-    isOpen,
-    cursor
-  )
+  const {
+    comments: _comments,
+    isEnded,
+    isLoaded,
+  } = useSubCommentsById(comment.id, isOpen, cursor)
+
+  const [comments, setComments] = useState<getCommentsByIdResponse>(_comments)
+
+  const addComment = (comment?: CommentObject) => {
+    comment && setComments(comments.concat(comment))
+  }
+
+  useEffect(() => {
+    setComments(_comments)
+  }, [isLoaded])
 
   const history = useHistory()
 
@@ -170,14 +180,20 @@ export default function SubCommentComponent({ comment }: Props) {
         ))}
         {isLoaded && (
           <CommentFormWrapper isOpen={isOpen}>
-            <CommentForm />
+            <CommentForm
+              parentCommentId={comment.id.toString()}
+              addComment={addComment}
+            />
           </CommentFormWrapper>
         )}
         {comment.commentCount.nextCommentCount < 1 &&
           isOpenCommentForm &&
           !isOpen && (
             <CommentFormWrapper isOpen={isOpenCommentForm}>
-              <CommentForm />
+              <CommentForm
+                parentCommentId={comment.id.toString()}
+                addComment={addComment}
+              />
             </CommentFormWrapper>
           )}
       </SubCommentWrapper>

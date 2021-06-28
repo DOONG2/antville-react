@@ -25,18 +25,19 @@ import { GifDto } from '../../types/post'
 import useCommentData from '../../hooks/useCommentData'
 import { useParams } from 'react-router-dom'
 import PreviewImage from './PreviewImage'
+import { CommentObject } from '../../api/comment/types'
 
 interface Props {
   parentCommentId?: string
+  addComment?: (value?: CommentObject) => void
 }
 
 const NewPostInnerButtonsWrapper = styled(PostInnerButtonsWrapper)`
   column-gap: 12px;
 `
 
-const CommentForm = ({ parentCommentId }: Props) => {
+const CommentForm = ({ parentCommentId, addComment }: Props) => {
   const { user } = useRootState((state) => state)
-
   const [isFocusCommentInput, setIsFocusCommentInput] = useState<boolean>(false)
   const [uploadImage, setUploadImage] = useState<File | undefined>()
   const [gifDto, setGifDto] = useState<GifDto | undefined>()
@@ -50,7 +51,7 @@ const CommentForm = ({ parentCommentId }: Props) => {
 
   const dispatch = useDispatch()
 
-  const { postDataApi } = useCommentData()
+  const { postDataApi } = useCommentData({ addComment })
 
   useEffect(() => {
     if (previewUrl !== null) setIsFocusCommentInput(true)
@@ -59,7 +60,13 @@ const CommentForm = ({ parentCommentId }: Props) => {
   return (
     <Form
       onSubmit={(e) => {
+        e.preventDefault()
         postDataApi({ body, gifDto, uploadImage, postId, parentCommentId })
+        setUploadImage(undefined)
+        setIsFocusCommentInput(false)
+        setGifDto(undefined)
+        setCommentBody('')
+        setPreviewUrl(null)
       }}
     >
       <FormInner>
