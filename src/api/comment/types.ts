@@ -12,6 +12,20 @@ export type getCommentsByIdResponse = {
   isLikedSelf: boolean
 }[]
 
+export type CommentObject = {
+  id: number
+  body: string
+  createdAt: string
+  postId: number
+  parentCommentId?: any
+  commentImgs: CommentImg[]
+  author: Author
+  commentCount: CommentCount
+  link?: Link
+  gifImage?: GifImage
+  isLikedSelf: boolean
+}
+
 interface GifImage {
   id: string
   ratio: number

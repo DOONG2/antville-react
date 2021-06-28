@@ -35,7 +35,6 @@ export default function usePostQuery() {
     if (data && !isFetchingNextPage) {
       const arr: Post[] = []
       data.pages.map((posts) => arr.push(...posts))
-      console.log(arr)
       dispatch(setPosts(arr))
     }
   }, [data])

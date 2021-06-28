@@ -28,11 +28,15 @@ import { GifDto } from '../../types/post'
 import useCommentData from '../../hooks/useCommentData'
 import { useParams } from 'react-router-dom'
 
+interface Props {
+  parentCommentId?: string
+}
+
 const NewPostInnerButtonsWrapper = styled(PostInnerButtonsWrapper)`
   column-gap: 12px;
 `
 
-const CommentForm = () => {
+const CommentForm = ({ parentCommentId }: Props) => {
   const {
     user,
     post: {
@@ -59,7 +63,7 @@ const CommentForm = () => {
   return (
     <Form
       onSubmit={(e) => {
-        postDataApi({ body, gifDto, uploadImage, postId })
+        postDataApi({ body, gifDto, uploadImage, postId, parentCommentId })
       }}
     >
       <FormInner>

@@ -12,23 +12,20 @@ import {
   FeedAvatar,
   FeedWrapper,
   LeftItem,
+  GifImage,
   MiddleWrapper,
   NickNameWrapper,
   PostTime,
   TopWrapper,
 } from '../../mds/styled/feed'
+import { Image } from '../../mds/styled/post'
 import FeedBody from '../Feed/FeedBody'
 import { Bottom } from '../Feed/FeedSection'
-import LikeComponent from '../Feed/LikeComponent'
 import MomentDateChange from '../Feed/MomentDateChange'
 import SubCommentComponent from './SubCommentComponent'
 
 const NewFeedWrapper = styled(FeedWrapper)`
   border: none;
-`
-
-const SubCommentWrapper = styled.div`
-  padding-left: 97px;
 `
 
 export default function CommentComponent() {
@@ -50,6 +47,8 @@ export default function CommentComponent() {
 
   useCommentFeed(Number(id), isBottomVisible, isScrolled, setScrolled)
 
+  console.log(comments)
+
   return (
     <>
       {comments?.map((comment) => (
@@ -69,29 +68,25 @@ export default function CommentComponent() {
           </TopWrapper>
           <MiddleWrapper>
             <FeedBody body={comment.body} isDetail={true} />
-          </MiddleWrapper>
-          <BottomWrapper>
-            <BottomItem>
-              <LikeComponent
-                count={comment.commentCount.likeCount}
-                isLiked={comment.isLikedSelf}
-                commentId={comment.id}
-              />
-            </BottomItem>
-            <BottomItem onClick={() => {}}>
-              <TalkIcon cursor={'pointer'} />
-              <Count>답글 달기</Count>
-            </BottomItem>
-          </BottomWrapper>
-          <SubCommentWrapper>
-            {' '}
-            {comment.commentCount.nextCommentCount > 0 && (
-              <SubCommentComponent
-                parentCommentId={comment.id}
-                nextCommentCount={comment.commentCount.nextCommentCount}
+            {comment.commentImgs[0] && (
+              <Image
+                src={comment.commentImgs[0].image.toString()}
+                alt={`${comment.id}-comment-image`}
               />
             )}
-          </SubCommentWrapper>
+            {comment.gifImage?.gifUrl && (
+              <GifImage
+                src={comment.gifImage.gifUrl}
+                alt={`${comment.id}-comment-gif-image`}
+              />
+            )}
+          </MiddleWrapper>
+
+          <SubCommentComponent
+            comment={comment}
+            parentCommentId={comment.id}
+            nextCommentCount={comment.commentCount.nextCommentCount}
+          />
         </NewFeedWrapper>
       ))}
       <Bottom ref={bottomRef} isScrolled={isScrolled || comments === null} />
