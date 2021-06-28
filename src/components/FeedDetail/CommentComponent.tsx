@@ -82,11 +82,7 @@ export default function CommentComponent() {
             )}
           </MiddleWrapper>
 
-          <SubCommentComponent
-            comment={comment}
-            parentCommentId={comment.id}
-            nextCommentCount={comment.commentCount.nextCommentCount}
-          />
+          <SubCommentComponent comment={comment} />
         </NewFeedWrapper>
       ))}
       <Bottom ref={bottomRef} isScrolled={isScrolled || comments === null} />

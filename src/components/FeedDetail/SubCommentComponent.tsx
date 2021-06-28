@@ -24,8 +24,6 @@ import CommentForm from '../Form/CommentForm'
 
 interface Props {
   comment: CommentObject
-  parentCommentId: number
-  nextCommentCount: number
 }
 
 const SubCommentWrapper = styled.div`
@@ -75,16 +73,12 @@ const IsLoadedWrapper = styled.div<{ isLoaded: boolean }>`
   display: ${(p) => (p.isLoaded ? 'block' : 'none')};
 `
 
-export default function SubCommentComponent({
-  comment,
-  parentCommentId,
-  nextCommentCount,
-}: Props) {
+export default function SubCommentComponent({ comment }: Props) {
   const [isOpen, setIsOpen] = useState<boolean>(false)
   const [cursor, setCursor] = useState<string | undefined>(undefined)
   const [isOpenCommentForm, setIsOpenCommentForm] = useState<boolean>(false)
   const { comments, isEnded, isLoaded } = useSubCommentsById(
-    parentCommentId,
+    comment.id,
     isOpen,
     cursor
   )
@@ -127,12 +121,14 @@ export default function SubCommentComponent({
               }}
             >
               {!isOpen ? (
-                `답글 ${nextCommentCount}개 보기`
+                `답글 ${comment.commentCount.nextCommentCount}개 보기`
               ) : (
                 <IsLoadedWrapper isLoaded={isLoaded}>
                   {isEnded
                     ? '답글 숨기기'
-                    : `이전 답글 ${nextCommentCount - comments.length}개 보기`}
+                    : `이전 답글 ${
+                        comment.commentCount.nextCommentCount - comments.length
+                      }개 보기`}
                 </IsLoadedWrapper>
               )}
             </ExtendButton>
