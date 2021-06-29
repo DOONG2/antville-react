@@ -124,7 +124,7 @@ export const MentionInput = styled(MentionsInput)`
 
   textarea {
     font-size: 16px;
-    line-height: 2.2rem;
+    line-height: 20px;
     outline: none;
     border: none;
     resize: none;

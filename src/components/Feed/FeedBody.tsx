@@ -26,14 +26,31 @@ export default function FeedBody({ body, isDetail }: Props) {
     <Wrapper>
       {isExtended && !isDetail ? (
         <>
-          {body.slice(0, 300)}
+          {body
+            .slice(0, 300)
+            .split('\n')
+            .map((line) => (
+              <>
+                <span>
+                  {line}
+                  <br />
+                </span>
+              </>
+            ))}
           {'...'}
           <ExtendButton onClick={() => setIsExtended(false)}>
             더보기
           </ExtendButton>
         </>
       ) : (
-        body
+        body.split('\n').map((line) => (
+          <>
+            <span>
+              {line}
+              <br />
+            </span>
+          </>
+        ))
       )}
     </Wrapper>
   )
