@@ -64,6 +64,10 @@ const PostForm = ({ addPost }: Props) => {
       onSubmit={(e) => {
         e.preventDefault()
         postDataApi({ body, sentiment, gifDto, uploadImage })
+        setUploadImage(undefined)
+        setIsFocusPostInput(false)
+        setGifDto(undefined)
+        setPreviewUrl(null)
       }}
     >
       <FormInner>
