@@ -28,8 +28,13 @@ import {
 } from '../../mds/styled/post'
 import usePostData from '../../hooks/usePostData'
 import { GifDto } from '../../types/post'
+import { Post } from '../../api/types'
 
-const PostForm = () => {
+interface Props {
+  addPost?: (value?: Post) => void
+}
+
+const PostForm = ({ addPost }: Props) => {
   const {
     user,
     post: {
@@ -47,7 +52,7 @@ const PostForm = () => {
     null
   )
 
-  const { postDataApi } = usePostData()
+  const { postDataApi } = usePostData({ addPost })
   const dispatch = useDispatch()
 
   useEffect(() => {

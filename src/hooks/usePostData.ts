@@ -7,15 +7,18 @@ import postSlice from '../reducers/Slices/post'
 import viewSlice from '../reducers/Slices/view'
 import { useRootState } from './useRootState'
 
-interface Props {
+interface ApiProps {
   body: string
   sentiment?: string
   gifDto?: gifDto
   uploadImage?: File
 }
 
-export default function usePostData() {
-  const [post, setPost] = useState<Post | null>(null)
+interface Props {
+  addPost?: (value?: Post) => void
+}
+
+export default function usePostData({ addPost }: Props) {
   const [isLoaded, setIsLoaded] = useState<boolean>(false)
   const { setIntialize, setIsSubmitted } = postSlice.actions
   const { setIsFocusPostInput } = viewSlice.actions
@@ -27,7 +30,7 @@ export default function usePostData() {
     sentiment,
     gifDto,
     uploadImage,
-  }: Props) => {
+  }: ApiProps) => {
     try {
       const formData = new FormData()
       formData.append('body', body)
@@ -35,7 +38,7 @@ export default function usePostData() {
       if (sentiment) formData.append('sentiment', sentiment)
       if (uploadImage) formData.append('posts', uploadImage)
       const result = await postFormData(formData)
-      setPost(result)
+      if (addPost) addPost(result)
       setIsLoaded(true)
       dispatch(setIsFocusPostInput(false))
       dispatch(setIntialize())
@@ -45,5 +48,5 @@ export default function usePostData() {
     }
   }
 
-  return { post, isLoaded, postDataApi }
+  return { isLoaded, postDataApi }
 }
