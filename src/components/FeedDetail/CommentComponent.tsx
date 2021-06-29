@@ -47,8 +47,6 @@ export default function CommentComponent() {
 
   useCommentFeed(Number(id), isBottomVisible, isScrolled, setScrolled)
 
-  console.log(comments)
-
   return (
     <>
       {comments?.map((comment) => (
