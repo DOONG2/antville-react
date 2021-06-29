@@ -1,11 +1,7 @@
 import React, { useRef } from 'react'
 import { SuggestionDataItem } from 'react-mentions'
-import { useDispatch } from 'react-redux'
 import useElementSize from '../../hooks/useElementSize'
 import postSearchStock from '../../api/stock/postSearchStock'
-import viewSlice from '../../reducers/Slices/view'
-import { useRootState } from '../../hooks/useRootState'
-import postSlice from '../../reducers/Slices/post'
 import getSearchUser from '../../api/user/getSearchUser'
 import {
   Margin,
@@ -19,19 +15,16 @@ import {
 interface Props {
   isFocusCommentInput: boolean
   setIsFocusCommentInput: (value: boolean) => void
+  setCommentBody: (value: string) => void
+  body: string
 }
 export default function PostMentionInput({
   isFocusCommentInput,
   setIsFocusCommentInput,
+  setCommentBody,
+  body,
 }: Props) {
-  const { setCommentBody } = postSlice.actions
-  const {
-    post: {
-      commentSubmitData: { body },
-    },
-  } = useRootState((state) => state)
   const textRef = useRef<any>(null)
-  const dispatch = useDispatch()
   const { scrollHeight } = useElementSize(textRef)
 
   const postQueryStock = (
@@ -63,7 +56,7 @@ export default function PostMentionInput({
       <MentionInput
         id="commnetBody"
         onChange={(e) => {
-          dispatch(setCommentBody(e.target.value))
+          setCommentBody(e.target.value)
         }}
         value={body}
         placeholder={'댓글을 입력해주세요.'}

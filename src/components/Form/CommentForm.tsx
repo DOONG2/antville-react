@@ -2,14 +2,11 @@ import React, { useEffect, useState } from 'react'
 import { useDispatch } from 'react-redux'
 import GifUploadButton from '../../assets/svg/GifUploadButton'
 import PictureUploadButton from '../../assets/svg/PictureUploadButton'
-import StockDownButton from '../../assets/svg/StockDownButton'
-import StockUpButton from '../../assets/svg/StockUpButton'
 import UserIcon from '../../assets/svg/UserIcon'
 import { useRootState } from '../../hooks/useRootState'
 import viewSlice from '../../reducers/Slices/view'
 import ImageUpload from '../Upload/ImageUpload'
 import GifUpload from '../Upload/GifUpload'
-import PreviewImage from './PreviewImage'
 import {
   EmailCheck,
   Form,
@@ -24,25 +21,37 @@ import {
 } from '../../mds/styled/post'
 import styled from '@emotion/styled'
 import CommnetMEntionInput from './CommnetMEntionInput'
+import { GifDto } from '../../types/post'
+import useCommentData from '../../hooks/useCommentData'
+import { useParams } from 'react-router-dom'
+import PreviewImage from './PreviewImage'
+import { CommentObject } from '../../api/comment/types'
+
+interface Props {
+  parentCommentId?: string
+  addComment?: (value?: CommentObject) => void
+}
 
 const NewPostInnerButtonsWrapper = styled(PostInnerButtonsWrapper)`
   column-gap: 12px;
 `
 
-const CommentForm = () => {
-  const {
-    user,
-    post: {
-      previewUrl,
-      commentSubmitData: { body },
-    },
-  } = useRootState((state) => state)
-
+const CommentForm = ({ parentCommentId, addComment }: Props) => {
+  const { user } = useRootState((state) => state)
   const [isFocusCommentInput, setIsFocusCommentInput] = useState<boolean>(false)
+  const [uploadImage, setUploadImage] = useState<File | undefined>()
+  const [gifDto, setGifDto] = useState<GifDto | undefined>()
+  const [body, setCommentBody] = useState<string>('')
+  const [previewUrl, setPreviewUrl] = useState<string | ArrayBuffer | null>(
+    null
+  )
+  const { id: postId } = useParams<{ id: string }>()
 
   const { setIsOpenLoginForm } = viewSlice.actions
 
   const dispatch = useDispatch()
+
+  const { postDataApi } = useCommentData({ addComment })
 
   useEffect(() => {
     if (previewUrl !== null) setIsFocusCommentInput(true)
@@ -51,7 +60,13 @@ const CommentForm = () => {
   return (
     <Form
       onSubmit={(e) => {
-        console.log(e.target)
+        e.preventDefault()
+        postDataApi({ body, gifDto, uploadImage, postId, parentCommentId })
+        setUploadImage(undefined)
+        setIsFocusCommentInput(false)
+        setGifDto(undefined)
+        setCommentBody('')
+        setPreviewUrl(null)
       }}
     >
       <FormInner>
@@ -66,14 +81,27 @@ const CommentForm = () => {
                   <CommnetMEntionInput
                     isFocusCommentInput={isFocusCommentInput}
                     setIsFocusCommentInput={setIsFocusCommentInput}
+                    setCommentBody={setCommentBody}
+                    body={body}
                   />
-                  <PreviewImage />
+                  <PreviewImage
+                    previewUrl={previewUrl}
+                    setPreviewUrl={setPreviewUrl}
+                  />
                   <NewPostInnerButtonsWrapper>
                     <PostItem>
-                      <ImageUpload />
+                      <ImageUpload
+                        setUploadImage={setUploadImage}
+                        setGifDto={setGifDto}
+                        setPreviewUrl={setPreviewUrl}
+                      />
                     </PostItem>
                     <PostItem>
-                      <GifUpload />
+                      <GifUpload
+                        setUploadImage={setUploadImage}
+                        setGifDto={setGifDto}
+                        setPreviewUrl={setPreviewUrl}
+                      />
                     </PostItem>
                   </NewPostInnerButtonsWrapper>
                 </>
@@ -89,22 +117,16 @@ const CommentForm = () => {
               <LockedLabel onClick={() => dispatch(setIsOpenLoginForm(true))}>
                 댓글을 입력해주세요.
               </LockedLabel>
-              <PostInnerButtonsWrapper
+              <NewPostInnerButtonsWrapper
                 onClick={() => dispatch(setIsOpenLoginForm(true))}
               >
-                <PostItem>
-                  <StockUpButton />
-                </PostItem>
-                <PostItem>
-                  <StockDownButton />
-                </PostItem>
                 <PostItem>
                   <PictureUploadButton />
                 </PostItem>
                 <PostItem>
                   <GifUploadButton />
                 </PostItem>
-              </PostInnerButtonsWrapper>
+              </NewPostInnerButtonsWrapper>
             </>
           )}
         </InputWrapper>

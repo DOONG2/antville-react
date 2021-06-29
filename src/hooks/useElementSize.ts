@@ -1,4 +1,4 @@
-import { RefObject, useState, useEffect, useLayoutEffect } from 'react'
+import { RefObject, useState, useLayoutEffect } from 'react'
 import useEventListener from './useEventListener'
 
 interface Size {

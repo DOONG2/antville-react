@@ -4,6 +4,14 @@ import { Mention, MentionsInput } from 'react-mentions'
 import { grey010, grey020, grey030, grey050, grey060, grey080 } from './colors'
 import { FontBlue } from './texts'
 
+export const Image = styled.img`
+  height: 270px;
+  margin: 15px auto;
+
+  border: 1px solid ${grey030};
+  border-radius: 8px;
+`
+
 export const Form = styled.form`
   position: relative;
 `

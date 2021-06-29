@@ -73,6 +73,7 @@ export default function PostMentionInput() {
         inputRef={textRef}
       >
         <PostMention
+          markup="$[__display__](post:__id__)"
           displayTransform={(id, display) => `$${display}`}
           trigger="$"
           data={postQueryStock}
@@ -95,6 +96,7 @@ export default function PostMentionInput() {
           )}
         />
         <PostMention
+          markup="@[__display__](user:__id__)"
           displayTransform={(id, display) => `@${display}`}
           trigger="@"
           data={getQueryUser}

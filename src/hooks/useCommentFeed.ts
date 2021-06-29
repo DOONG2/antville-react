@@ -2,7 +2,7 @@ import { useEffect } from 'react'
 import { useDispatch } from 'react-redux'
 import getCommentsById from '../api/comment/getCommentsById'
 import { commentsLimit } from '../lib/variable'
-import FeedSlice from '../reducers/Slices/feed'
+import feedSlice from '../reducers/Slices/feed'
 import { useRootState } from './useRootState'
 
 export default function useCommentFeed(
@@ -13,7 +13,7 @@ export default function useCommentFeed(
 ) {
   const { comments } = useRootState((state) => state.feed)
   const auth = useRootState((state) => state.auth)
-  const { setComments } = FeedSlice.actions
+  const { setComments } = feedSlice.actions
   const dispatch = useDispatch()
 
   useEffect(() => {

@@ -4,15 +4,14 @@ import { useDispatch } from 'react-redux'
 import getPostsByUrl from '../../api/post/getPostsByUrl'
 import { Post } from '../../api/types'
 import { cacheStableTime } from '../../lib/variable'
-import FeedSlice from '../../reducers/Slices/feed'
+import feedSlice from '../../reducers/Slices/feed'
 import { useRootState } from '../useRootState'
 
 export default function usePostQuery() {
   const {
     feed: { activatedTab },
-    auth,
   } = useRootState((state) => state)
-  const { setPosts } = FeedSlice.actions
+  const { setPosts } = feedSlice.actions
   const dispatch = useDispatch()
 
   const {
@@ -36,7 +35,6 @@ export default function usePostQuery() {
     if (data && !isFetchingNextPage) {
       const arr: Post[] = []
       data.pages.map((posts) => arr.push(...posts))
-      console.log(arr)
       dispatch(setPosts(arr))
     }
   }, [data])

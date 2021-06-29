@@ -1,5 +1,5 @@
 import styled from '@emotion/styled'
-import React, { useState } from 'react'
+import React from 'react'
 import { useHistory, useParams } from 'react-router'
 import LeftArrow from '../../assets/svg/LeftArrow'
 import StockDownIcon from '../../assets/svg/StockDownIcon'
@@ -12,6 +12,7 @@ import {
   Count,
   FeedAvatar,
   FeedWrapper,
+  GifImage,
   IconWrapper,
   LeftItem,
   MiddleWrapper,
@@ -19,6 +20,7 @@ import {
   PostTime,
   TopWrapper,
 } from '../../mds/styled/feed'
+import { Image } from '../../mds/styled/post'
 import FeedBody from '../Feed/FeedBody'
 import FeedOption from '../Feed/FeedOption'
 import LikeComponent from '../Feed/LikeComponent'
@@ -101,13 +103,26 @@ export default function FeedDetailSection() {
                 <MomentDateChange time={post.createdAt} />
               </PostTime>
               <IconWrapper>
-                {post.sentiment === 'UP' ? <StockUpIcon /> : <StockDownIcon />}
+                {post.sentiment === 'UP' && <StockUpIcon />}
+                {post.sentiment === 'DOWN' && <StockDownIcon />}
               </IconWrapper>
             </LeftItem>
             <FeedOption />
           </TopWrapper>
           <NewMiddleWrapper>
             <FeedBody body={post.body} isDetail={true} />
+            {post.postImgs[0] && (
+              <Image
+                src={post.postImgs[0].image.toString()}
+                alt={`${post.id}-feed-image`}
+              />
+            )}
+            {post.gifImage?.gifUrl && (
+              <GifImage
+                src={post.gifImage.gifUrl}
+                alt={`${post.id}-gif-image`}
+              />
+            )}
           </NewMiddleWrapper>
           <SubWrapper>
             <FeedHistoryComponent />

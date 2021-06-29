@@ -1,5 +1,4 @@
 import { createSlice, PayloadAction } from '@reduxjs/toolkit'
-import { InfiniteData } from 'react-query'
 import { getCommentsByIdResponse } from '../../api/comment/types'
 import { Post } from '../../api/types'
 import { Feed } from '../../types/feed'
@@ -12,7 +11,7 @@ const initialState = {
   comments: null,
 } as FeedState
 
-const FeedSlice = createSlice({
+const feedSlice = createSlice({
   name: 'feed',
   initialState,
   reducers: {
@@ -40,4 +39,4 @@ const FeedSlice = createSlice({
   },
 })
 
-export default FeedSlice
+export default feedSlice

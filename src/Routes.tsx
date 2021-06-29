@@ -14,7 +14,7 @@ const Routes = () => {
     <Switch>
       <AuthRoute
         exact
-        path={['/', 'landing']}
+        path={['/', '/landing']}
         authenticated={authenticated}
         component={LandingPage}
       />

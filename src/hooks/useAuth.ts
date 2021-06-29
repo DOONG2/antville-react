@@ -24,7 +24,6 @@ export default function useAuth() {
     dispatch(setWatchListState(watchList))
 
     userStorage.set(user)
-    history.push('/')
   }
   const logout = () => {
     dispatch(setUserState(null))
@@ -32,7 +31,6 @@ export default function useAuth() {
     dispatch(setWatchListState(null))
     userStorage.clear()
     authStorage.clear()
-    history.push('/')
   }
 
   return {

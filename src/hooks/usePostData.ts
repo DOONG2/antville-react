@@ -7,26 +7,38 @@ import postSlice from '../reducers/Slices/post'
 import viewSlice from '../reducers/Slices/view'
 import { useRootState } from './useRootState'
 
-export default function usePostData() {
-  const [post, setPost] = useState<Post | null>(null)
+interface ApiProps {
+  body: string
+  sentiment?: string
+  gifDto?: gifDto
+  uploadImage?: File
+}
+
+interface Props {
+  addPost?: (value?: Post) => void
+}
+
+export default function usePostData({ addPost }: Props) {
   const [isLoaded, setIsLoaded] = useState<boolean>(false)
   const { setIntialize, setIsSubmitted } = postSlice.actions
   const { setIsFocusPostInput } = viewSlice.actions
   const { isSubmitted } = useRootState((state) => state.post)
   const dispatch = useDispatch()
 
-  const postDataApi = async (
-    body: string,
-    sentiment?: string,
-    gif?: gifDto
-  ) => {
+  const postDataApi = async ({
+    body,
+    sentiment,
+    gifDto,
+    uploadImage,
+  }: ApiProps) => {
     try {
       const formData = new FormData()
       formData.append('body', body)
-      if (gif) formData.append('gif', JSON.stringify(gif))
+      if (gifDto) formData.append('gif', JSON.stringify(gifDto))
       if (sentiment) formData.append('sentiment', sentiment)
+      if (uploadImage) formData.append('posts', uploadImage)
       const result = await postFormData(formData)
-      setPost(result)
+      if (addPost) addPost(result)
       setIsLoaded(true)
       dispatch(setIsFocusPostInput(false))
       dispatch(setIntialize())
@@ -36,5 +48,5 @@ export default function usePostData() {
     }
   }
 
-  return { post, isLoaded, postDataApi }
+  return { isLoaded, postDataApi }
 }
