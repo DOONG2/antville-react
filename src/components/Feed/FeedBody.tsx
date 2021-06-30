@@ -29,13 +29,11 @@ export default function FeedBody({ body, isDetail }: Props) {
           {body
             .slice(0, 300)
             .split('\n')
-            .map((line) => (
-              <>
-                <span>
-                  {line}
-                  <br />
-                </span>
-              </>
+            .map((line, index) => (
+              <span key={`${index}-feed-body`}>
+                {line}
+                <br />
+              </span>
             ))}
           {'...'}
           <ExtendButton onClick={() => setIsExtended(false)}>
@@ -43,13 +41,11 @@ export default function FeedBody({ body, isDetail }: Props) {
           </ExtendButton>
         </>
       ) : (
-        body.split('\n').map((line) => (
-          <>
-            <span>
-              {line}
-              <br />
-            </span>
-          </>
+        body.split('\n').map((line, index) => (
+          <span key={`${index}-feed-body-all`}>
+            {line}
+            <br />
+          </span>
         ))
       )}
     </Wrapper>
