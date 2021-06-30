@@ -5,9 +5,9 @@ import StockDownIcon from '../../assets/svg/StockDownIcon'
 import StockUpIcon from '../../assets/svg/StockUpIcon'
 import TalkIcon from '../../assets/svg/TalkIcon'
 import usePostQuery from '../../hooks/query/usePostQuery'
-import useCheckLogin from '../../hooks/useCheckLogin'
 import { useIntersectionObserver } from '../../hooks/useInfiniteScroll'
 import { useRootState } from '../../hooks/useRootState'
+import { activated_following, activated_watchlist } from '../../lib/variable'
 import {
   BottomItem,
   BottomWrapper,
@@ -25,7 +25,6 @@ import {
 import { Image } from '../../mds/styled/post'
 import FeedBody from './FeedBody'
 import FeedOption from './FeedOption'
-import FeedTab from './FeedTab'
 import FollowingEmpty from './FollowingEmpty'
 import LikeComponent from './LikeComponent'
 import MomentDateChange from './MomentDateChange'
@@ -42,8 +41,6 @@ const FeedSection = () => {
   const {
     feed: { activatedTab, posts },
   } = useRootState((state) => state)
-
-  const isLoggedIn = useCheckLogin()
 
   const history = useHistory()
   const bottomRef = useRef<HTMLDivElement>(null)
@@ -64,12 +61,10 @@ const FeedSection = () => {
 
   return (
     <>
-      {isLoggedIn && <FeedTab />}
-
-      {posts && posts.length < 1 && activatedTab === 'watchList' && (
+      {posts && posts.length < 1 && activatedTab === activated_watchlist && (
         <WatchListEmpty />
       )}
-      {posts && posts.length < 1 && activatedTab === 'following' && (
+      {posts && posts.length < 1 && activatedTab === activated_following && (
         <FollowingEmpty />
       )}
       {posts?.map((post) => (

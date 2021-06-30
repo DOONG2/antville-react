@@ -1,6 +1,11 @@
 import { createSlice, PayloadAction } from '@reduxjs/toolkit'
 import { getCommentsByIdResponse } from '../../api/comment/types'
 import { Post } from '../../api/types'
+import {
+  activated_all,
+  activated_following,
+  activated_watchlist,
+} from '../../lib/variable'
 import { Feed } from '../../types/feed'
 
 type FeedState = Feed
@@ -16,14 +21,14 @@ const feedSlice = createSlice({
   initialState,
   reducers: {
     setTabAll(state) {
-      state.activatedTab = 'all'
+      state.activatedTab = activated_all
     },
     setTabWatchList(state) {
-      state.activatedTab = 'watchlist'
+      state.activatedTab = activated_watchlist
     },
 
     setTabFollowing(state) {
-      state.activatedTab = 'following'
+      state.activatedTab = activated_following
     },
     setPosts(state, action: PayloadAction<Post[] | undefined | null>) {
       if (action.payload === undefined) return

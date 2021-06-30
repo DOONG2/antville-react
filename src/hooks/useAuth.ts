@@ -13,7 +13,6 @@ export default function useAuth() {
   const { setUserState } = userSlice.actions
   const { setAuthState } = authSlice.actions
   const { setWatchListState } = watchListSlice.actions
-  const history = useHistory()
 
   const dispatch = useDispatch()
 
