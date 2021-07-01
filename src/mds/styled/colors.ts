@@ -2,7 +2,7 @@ export const antpink050 = '#FA1D65'
 
 export const antblue030 = '#6f7deb'
 export const antblue040 = '#4b5fe7'
-export const antblue050 = '#1942EO'
+export const antblue050 = '#1942E0'
 
 export const navy030 = '#6f7deb'
 export const navy040 = '#4b5fe7'
