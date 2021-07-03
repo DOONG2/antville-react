@@ -114,6 +114,7 @@ const WatchWrapper = styled.div`
 
 export default function StockInfo() {
   const { id } = useParams<{ id: string }>()
+
   return (
     <Wrapper>
       <Inner>
