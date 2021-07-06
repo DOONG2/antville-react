@@ -4,10 +4,9 @@ import { useHistory } from 'react-router'
 import StockDownIcon from '../../assets/svg/StockDownIcon'
 import StockUpIcon from '../../assets/svg/StockUpIcon'
 import TalkIcon from '../../assets/svg/TalkIcon'
-import usePostQuery from '../../hooks/query/usePostQuery'
+import usePostStockQuery from '../../hooks/query/usePostStockQuery'
 import { useIntersectionObserver } from '../../hooks/useInfiniteScroll'
 import { useRootState } from '../../hooks/useRootState'
-import { activated_following, activated_watchlist } from '../../lib/variable'
 import {
   BottomItem,
   BottomWrapper,
@@ -25,10 +24,12 @@ import {
 import { Image } from '../../mds/styled/post'
 import FeedBody from './FeedBody'
 import FeedOption from './FeedOption'
-import FollowingEmpty from './FollowingEmpty'
 import LikeComponent from './LikeComponent'
 import MomentDateChange from './MomentDateChange'
-import WatchListEmpty from './WatchListEmpty'
+
+interface Props {
+  id: number
+}
 
 export const Bottom = styled.div<{ isScrolled: boolean }>`
   width: 100%;
@@ -37,9 +38,9 @@ export const Bottom = styled.div<{ isScrolled: boolean }>`
   display: ${(p) => (p.isScrolled ? 'none' : 'block')};
 `
 
-const FeedSection = () => {
+const FeedSection = ({ id }: Props) => {
   const {
-    feed: { activatedTab, posts },
+    feed: { posts },
   } = useRootState((state) => state)
 
   const history = useHistory()
@@ -53,7 +54,7 @@ const FeedSection = () => {
     false
   )
 
-  const { fetchNextPage, hasNextPage } = usePostQuery()
+  const { fetchNextPage, hasNextPage } = usePostStockQuery({ id })
 
   useEffect(() => {
     isBottomVisible && hasNextPage && fetchNextPage()
@@ -61,12 +62,6 @@ const FeedSection = () => {
 
   return (
     <>
-      {posts && posts.length < 1 && activatedTab === activated_watchlist && (
-        <WatchListEmpty />
-      )}
-      {posts && posts.length < 1 && activatedTab === activated_following && (
-        <FollowingEmpty />
-      )}
       {posts?.map((post) => (
         <FeedWrapper key={`${post.id}-feed-section`}>
           <TopWrapper>

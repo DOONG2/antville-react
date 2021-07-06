@@ -1,6 +1,11 @@
 import styled from '@emotion/styled'
 import { useDispatch } from 'react-redux'
 import { useRootState } from '../../hooks/useRootState'
+import {
+  activated_all,
+  activated_following,
+  activated_watchlist,
+} from '../../lib/variable'
 import feedSlice from '../../reducers/Slices/feed'
 
 const FeedTabWraaper = styled.div`
@@ -33,19 +38,19 @@ export default function FeedTab() {
     <>
       <FeedTabWraaper>
         <TabItem
-          isClicked={activatedTab === 'all'}
+          isClicked={activatedTab === activated_all}
           onClick={() => dispatch(setTabAll())}
         >
           전체
         </TabItem>
         <TabItem
-          isClicked={activatedTab === 'watchlist'}
+          isClicked={activatedTab === activated_watchlist}
           onClick={() => dispatch(setTabWatchList())}
         >
           관심종목
         </TabItem>
         <TabItem
-          isClicked={activatedTab === 'following'}
+          isClicked={activatedTab === activated_following}
           onClick={() => dispatch(setTabFollowing())}
         >
           팔로잉

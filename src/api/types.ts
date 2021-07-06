@@ -3,6 +3,11 @@ export interface StockPopularType {
   stockPriceInfos: StockPriceInfo[]
 }
 
+export interface StockType {
+  stock: Stock
+  stockPriceInfos: StockPriceInfo
+}
+
 export interface StockPriceInfo {
   symbol: string
   latest: number
@@ -20,7 +25,14 @@ export interface Stock {
   enName: string
   krName: string
   type: string
+  cashTagName: string
   stockCount: StockCount
+  exchange: StockExchange
+}
+
+export interface StockExchange {
+  name: string
+  countryCode: string
 }
 
 export interface StockCount {

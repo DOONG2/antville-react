@@ -18,7 +18,7 @@ interface Props {
   setCommentBody: (value: string) => void
   body: string
 }
-export default function PostMentionInput({
+export default function CommnetMentionInput({
   isFocusCommentInput,
   setIsFocusCommentInput,
   setCommentBody,
@@ -69,6 +69,7 @@ export default function PostMentionInput({
         inputRef={textRef}
       >
         <PostMention
+          markup="$[__display__](comment:__id__)"
           displayTransform={(id, display) => `$${display}`}
           trigger="$"
           data={postQueryStock}
@@ -91,6 +92,7 @@ export default function PostMentionInput({
           )}
         />
         <PostMention
+          markup="@[__display__](comment:__id__)"
           displayTransform={(id, display) => `@${display}`}
           trigger="@"
           data={getQueryUser}
