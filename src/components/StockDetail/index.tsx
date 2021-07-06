@@ -1,6 +1,7 @@
 import { useDispatch } from 'react-redux'
 import { useParams } from 'react-router-dom'
 import { Post } from '../../api/types'
+import useGetStock from '../../hooks/useGetStock'
 import { useRootState } from '../../hooks/useRootState'
 import { BarWrapper, PostWrapper, Wrapper } from '../../mds/styled/wrapper'
 import feedSlice from '../../reducers/Slices/feed'
@@ -10,7 +11,9 @@ import SideBar from '../SideBar'
 import StockInfo from './StockInfo'
 
 export default function StockDetail() {
-  const { id } = useParams<{ id: string }>()
+  const { ticker } = useParams<{ ticker: string }>()
+
+  const { stock } = useGetStock(ticker)
   const {
     feed: { posts },
   } = useRootState((state) => state)
@@ -20,15 +23,18 @@ export default function StockDetail() {
   const addPost = (post?: Post) => {
     if (posts) post && dispatch(setPosts([post].concat(posts)))
   }
+
+  if (!stock) return <></>
+
   return (
     <>
       <Wrapper>
         <BarWrapper>
           <SideBar />
           <PostWrapper>
-            <StockInfo />
+            <StockInfo stock={stock} />
             <PostForm addPost={addPost} />
-            <FeedStockSection id={id} />
+            <FeedStockSection id={stock.stock.id} />
           </PostWrapper>
         </BarWrapper>
       </Wrapper>

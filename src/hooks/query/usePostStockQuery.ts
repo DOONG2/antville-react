@@ -7,7 +7,7 @@ import { cacheStableTime } from '../../lib/variable'
 import feedSlice from '../../reducers/Slices/feed'
 
 interface Props {
-  id: string
+  id: number
 }
 
 export default function usePostStockQuery({ id }: Props) {

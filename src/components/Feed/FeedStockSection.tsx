@@ -28,7 +28,7 @@ import LikeComponent from './LikeComponent'
 import MomentDateChange from './MomentDateChange'
 
 interface Props {
-  id: string
+  id: number
 }
 
 export const Bottom = styled.div<{ isScrolled: boolean }>`

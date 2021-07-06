@@ -1,9 +1,14 @@
 import styled from '@emotion/styled'
-import { useParams } from 'react-router-dom'
+import { StockType } from '../../api/types'
 import BlueStarIcon from '../../assets/svg/BlueStarIcon'
 import PolygonDown from '../../assets/svg/PolygonDown'
 import PolygonUp from '../../assets/svg/PolygonUp'
-import { antblue050, grey070, grey080, red050 } from '../../mds/styled/colors'
+import { grey070, grey080, red050 } from '../../mds/styled/colors'
+import WatchlistButton from './WatchlistButton'
+
+type Props = {
+  stock: StockType
+}
 
 const Wrapper = styled.div`
   display: flex;
@@ -94,27 +99,13 @@ const WatchListCount = styled.div`
   color: ${grey080};
 `
 
-const WatchButton = styled.div`
-  padding: 6px 9px;
-  background-color: ${antblue050};
-
-  font-size: 11px;
-  border-radius: 3px;
-  color: #ededed;
-  margin-top: 3px;
-
-  cursor: pointer;
-`
-
 const WatchWrapper = styled.div`
   display: flex;
   align-items: center;
   justify-content: center;
 `
 
-export default function StockInfo() {
-  const { id } = useParams<{ id: string }>()
-
+export default function StockInfo({ stock }: Props) {
   return (
     <Wrapper>
       <Inner>
@@ -138,7 +129,7 @@ export default function StockInfo() {
           <BlueStarIcon />
           <WatchListCount>61,367</WatchListCount>
         </WatchWrapper>
-        <WatchButton>관심 종목 등록</WatchButton>
+        <WatchlistButton id={stock.stock.id} isWatching={false} />
       </Inner>
     </Wrapper>
   )

@@ -22,7 +22,7 @@ const Routes = () => {
       <Route exact path="/feed" component={FeedPage} />
       <Route exact path="/feed/detail/:id" component={FeedDetailPage} />
       <Route exact path="/user/:id/profile" component={UserProfilePage} />
-      <Route exact path="/stock/:id" component={StockDetailPage} />
+      <Route exact path="/stock/:ticker" component={StockDetailPage} />
     </Switch>
   )
 }
