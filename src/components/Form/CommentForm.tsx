@@ -20,7 +20,7 @@ import {
   UserIconWrapper,
 } from '../../mds/styled/post'
 import styled from '@emotion/styled'
-import CommnetMentionInput from './CommnetMentionInput'
+import CommentMentionInput from './CommentMentionInput'
 import { GifDto } from '../../types/post'
 import useCommentData from '../../hooks/useCommentData'
 import { useParams } from 'react-router-dom'
@@ -78,7 +78,7 @@ const CommentForm = ({ parentCommentId, addComment }: Props) => {
             <>
               {user.isEmailVerified ? (
                 <>
-                  <CommnetMentionInput
+                  <CommentMentionInput
                     isFocusCommentInput={isFocusCommentInput}
                     setIsFocusCommentInput={setIsFocusCommentInput}
                     setCommentBody={setCommentBody}
