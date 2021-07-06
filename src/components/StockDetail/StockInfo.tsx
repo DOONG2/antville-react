@@ -1,10 +1,9 @@
 import styled from '@emotion/styled'
 import { StockType } from '../../api/types'
-import BlueStarIcon from '../../assets/svg/BlueStarIcon'
 import PolygonDown from '../../assets/svg/PolygonDown'
 import PolygonUp from '../../assets/svg/PolygonUp'
 import { grey070, grey080, red050 } from '../../mds/styled/colors'
-import WatchlistButton from './WatchlistButton'
+import AddWatchlistComponent from './AddWatchlistComponent'
 
 type Props = {
   stock: StockType
@@ -14,6 +13,7 @@ const Wrapper = styled.div`
   display: flex;
   justify-content: space-between;
   align-items: center;
+  margin-bottom: 20px;
 `
 
 const Inner = styled.div`
@@ -88,30 +88,13 @@ const Bottom = styled.div`
   align-items: center;
 `
 
-const WatchListCount = styled.div`
-  font-family: Roboto;
-  font-size: 16px;
-  line-height: 19px;
-
-  text-align: center;
-  margin-left: 3px;
-
-  color: ${grey080};
-`
-
-const WatchWrapper = styled.div`
-  display: flex;
-  align-items: center;
-  justify-content: center;
-`
-
 export default function StockInfo({ stock }: Props) {
   return (
     <Wrapper>
       <Inner>
-        <TopWrapper>Advanced Micro Devices, Inc.</TopWrapper>
+        <TopWrapper>{stock.stock.enName}</TopWrapper>
         <TitleWrapper>
-          <Ticker>AMD</Ticker>
+          <Ticker>{stock.stock.cashTagName}</Ticker>
           <Price>＄83.15</Price>
           <LastItem>
             <Top>66,089,152</Top>
@@ -125,11 +108,7 @@ export default function StockInfo({ stock }: Props) {
         </TitleWrapper>
       </Inner>
       <Inner>
-        <WatchWrapper>
-          <BlueStarIcon />
-          <WatchListCount>61,367</WatchListCount>
-        </WatchWrapper>
-        <WatchlistButton id={stock.stock.id} isWatching={false} />
+        <AddWatchlistComponent stock={stock} isWatching={false} />
       </Inner>
     </Wrapper>
   )

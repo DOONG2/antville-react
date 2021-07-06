@@ -2,10 +2,12 @@ import styled from '@emotion/styled'
 import { useEffect, useState } from 'react'
 import deleteWatchlist from '../../api/stock/deleteWatchlist'
 import putAddWatchlist from '../../api/stock/putAddWatchlist'
-import { antblue050 } from '../../mds/styled/colors'
+import { StockType } from '../../api/types'
+import BlueStarIcon from '../../assets/svg/BlueStarIcon'
+import { antblue050, grey080 } from '../../mds/styled/colors'
 
 type Props = {
-  id: number
+  stock: StockType
   isWatching: boolean
 }
 
@@ -22,11 +24,31 @@ const WatchButton = styled.div<{ isWatching: boolean }>`
   cursor: pointer;
 `
 
-export default function WatchlistButton({
-  id,
+const WatchListCount = styled.div`
+  font-family: Roboto;
+  font-size: 16px;
+  line-height: 19px;
+
+  text-align: center;
+  margin-left: 3px;
+
+  color: ${grey080};
+`
+
+const WatchWrapper = styled.div`
+  display: flex;
+  align-items: center;
+  justify-content: center;
+`
+
+export default function AddWatchlistComponent({
+  stock,
   isWatching: intialState,
 }: Props) {
   const [isWatching, setIsWatching] = useState(intialState)
+  const [watchUserCount, setWatchUserCount] = useState(
+    stock.stock.stockCount.watchUserCount
+  )
 
   useEffect(() => {
     setIsWatching(intialState)
@@ -34,13 +56,19 @@ export default function WatchlistButton({
 
   return (
     <>
+      <WatchWrapper>
+        <BlueStarIcon />
+        <WatchListCount>{watchUserCount}</WatchListCount>
+      </WatchWrapper>
       <WatchButton
         isWatching={isWatching}
         onClick={() => {
           if (isWatching) {
-            deleteWatchlist(id)
+            deleteWatchlist(stock.stock.id)
+            setWatchUserCount(watchUserCount - 1)
           } else {
-            putAddWatchlist(id)
+            putAddWatchlist(stock.stock.id)
+            setWatchUserCount(watchUserCount + 1)
           }
           setIsWatching(!isWatching)
         }}
