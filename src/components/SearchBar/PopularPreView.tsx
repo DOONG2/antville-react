@@ -40,7 +40,7 @@ export default function PopularPreView() {
               <StockPrice>₩64,551,100</StockPrice>
             </StockListItem>
             <StockListItem>
-              <CompanyName>{stock.symbol}/KRW</CompanyName>
+              <CompanyName>{stock.symbol}</CompanyName>
               <UpDownRate>
                 <UpDownIcon>*</UpDownIcon>20.21 (-2.91%)
               </UpDownRate>

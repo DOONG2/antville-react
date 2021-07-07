@@ -19,6 +19,9 @@ export const StockListHeader = styled.div`
   line-height: 18px;
   padding: 1rem;
   border-bottom: 0.5px solid #0076e1;
+
+  display: flex;
+  justify-content: space-between;
 `
 
 export const StockListGroup = styled.div`
