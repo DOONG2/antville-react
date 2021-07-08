@@ -6,7 +6,6 @@ import useOnClickOutside from '../../hooks/useOnClickOutside'
 import { useRootState } from '../../hooks/useRootState'
 import { IconWrapper, SearchInput, SerchBar } from '../../mds/styled/searchBar'
 import viewSlice from '../../reducers/Slices/view'
-import PopularPreView from './PopularPreView'
 import SearchPreView from './SearchPreView'
 
 const SearchBar = () => {
@@ -38,7 +37,7 @@ const SearchBar = () => {
           setQuery(e.target.value)
         }}
       />
-      {isLoggedIn ? <SearchPreView query={query} /> : <PopularPreView />}
+      <SearchPreView query={query} />
     </SerchBar>
   )
 }

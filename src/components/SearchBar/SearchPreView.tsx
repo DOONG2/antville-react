@@ -17,6 +17,8 @@ import {
 import useSearchStocks from '../../hooks/useSearchStocks'
 import viewSlice from '../../reducers/Slices/view'
 import { useDispatch } from 'react-redux'
+import useCheckLogin from '../../hooks/useCheckLogin'
+import PopularPreView from './PopularPreView'
 
 type Props = {
   query: string
@@ -90,11 +92,14 @@ export default function SearchPreview({ query }: Props) {
   const dispatch = useDispatch()
   const { set, get, clear } = searchStorage
 
+  const isLoggedIn = useCheckLogin()
   const [searchedHistory, setSearchedHistory] = useState(get())
   const [searchedStocks, setSearchedStocks] = useState<Stock[]>()
   const { isLoading } = useSearchStocks({ query, setSearchedStocks })
 
   if (isLoading) return <></>
+
+  if (!isLoggedIn && query === '') return <PopularPreView />
 
   if (query === '')
     return (
