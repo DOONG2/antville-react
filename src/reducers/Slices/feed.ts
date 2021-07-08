@@ -14,6 +14,7 @@ const initialState = {
   activatedTab: 'all',
   posts: null,
   comments: null,
+  stockId: undefined,
 } as FeedState
 
 const feedSlice = createSlice({
@@ -40,6 +41,9 @@ const feedSlice = createSlice({
     ) {
       if (action.payload === undefined) return
       state.comments = action.payload
+    },
+    setStockId(state, action: PayloadAction<number>) {
+      state.stockId = action.payload
     },
   },
 })

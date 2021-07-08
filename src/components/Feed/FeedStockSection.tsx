@@ -27,10 +27,6 @@ import FeedOption from './FeedOption'
 import LikeComponent from './LikeComponent'
 import MomentDateChange from './MomentDateChange'
 
-interface Props {
-  id: number
-}
-
 export const Bottom = styled.div<{ isScrolled: boolean }>`
   width: 100%;
   height: 10px;
@@ -38,7 +34,7 @@ export const Bottom = styled.div<{ isScrolled: boolean }>`
   display: ${(p) => (p.isScrolled ? 'none' : 'block')};
 `
 
-const FeedSection = ({ id }: Props) => {
+const FeedStockSection = () => {
   const {
     feed: { posts },
   } = useRootState((state) => state)
@@ -54,7 +50,7 @@ const FeedSection = ({ id }: Props) => {
     false
   )
 
-  const { fetchNextPage, hasNextPage } = usePostStockQuery({ id })
+  const { fetchNextPage, hasNextPage } = usePostStockQuery()
 
   useEffect(() => {
     isBottomVisible && hasNextPage && fetchNextPage()
@@ -120,4 +116,4 @@ const FeedSection = ({ id }: Props) => {
   )
 }
 
-export default FeedSection
+export default FeedStockSection

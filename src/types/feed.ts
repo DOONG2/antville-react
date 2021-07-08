@@ -5,4 +5,5 @@ export interface Feed {
   activatedTab: string
   posts: Post[] | null
   comments: getCommentsByIdResponse | null
+  stockId?: number
 }

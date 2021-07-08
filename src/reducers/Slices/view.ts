@@ -7,6 +7,7 @@ interface ViewState {
   isOpenProfileDropDown: boolean
   isOpenNoticeDropDown: boolean
   isOpenGifForm: boolean
+  isOpenSearchBar: boolean
   isFocusPostInput: boolean
   isFocusSearchBar: boolean
   isFailLoginSubmit: boolean
@@ -19,6 +20,7 @@ const initialState: ViewState = {
   isOpenFindPasswordForm: false,
   isOpenProfileDropDown: false,
   isOpenNoticeDropDown: false,
+  isOpenSearchBar: false,
   isOpenGifForm: false,
   isFocusPostInput: false,
   isFocusSearchBar: false,

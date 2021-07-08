@@ -1,8 +1,11 @@
 import styled from '@emotion/styled'
+import { useState } from 'react'
+import { useHistory } from 'react-router-dom'
+import { Stock } from '../../api/types'
 import CloseIconGrey from '../../assets/svg/CloseIconGrey'
-import useStockPopularQuery from '../../hooks/query/useStockPopularQuery'
 import { useRootState } from '../../hooks/useRootState'
-import { grey040 } from '../../mds/styled/colors'
+import searchStorage from '../../lib/searchStorage'
+import { grey040, grey080 } from '../../mds/styled/colors'
 import {
   CompanyName,
   StockListGroup,
@@ -10,8 +13,14 @@ import {
   StockListItem,
   StockListWrapper,
   StockName,
-  UpDownRate,
 } from '../../mds/styled/stockList'
+import useSearchStocks from '../../hooks/useSearchStocks'
+import viewSlice from '../../reducers/Slices/view'
+import { useDispatch } from 'react-redux'
+
+type Props = {
+  query: string
+}
 
 const HotStockListWrapper = styled(StockListWrapper)<{ isOpen: boolean }>`
   position: absolute;
@@ -56,35 +65,118 @@ const IconWrapper = styled.div`
   cursor: pointer;
 `
 
-export default function SearchPreview() {
+const NewStockListGroup = styled(StockListGroup)`
+  width: 100%;
+  border: none;
+  cursor: pointer;
+`
+
+const EmptyWrapper = styled.div`
+  padding: 93px 75px 133px 75px;
+
+  font-weight: 400;
+  font-size: 16px;
+  line-height: 150%;
+
+  text-align: center;
+
+  color: ${grey080};
+`
+
+export default function SearchPreview({ query }: Props) {
   const { isFocusSearchBar } = useRootState((state) => state.view)
-  const { data } = useStockPopularQuery()
+  const { setIsFocusSearchBar } = viewSlice.actions
+  const history = useHistory()
+  const dispatch = useDispatch()
+  const { set, get, clear } = searchStorage
 
-  if (!data) return <></>
+  const [searchedHistory, setSearchedHistory] = useState(get())
+  const [searchedStocks, setSearchedStocks] = useState<Stock[]>()
+  const { isLoading } = useSearchStocks({ query, setSearchedStocks })
 
+  if (isLoading) return <></>
+
+  if (query === '')
+    return (
+      <>
+        <HotStockListWrapper isOpen={isFocusSearchBar}>
+          <StockListHeader>
+            <Title>최근 검색어</Title>
+            <Button
+              onClick={() => {
+                clear()
+                setSearchedHistory(get())
+              }}
+            >
+              전체삭제
+            </Button>
+          </StockListHeader>
+          {searchedHistory ? (
+            searchedHistory.map((stock) => (
+              <ListWrapper key={`${stock.id}-search-bar`}>
+                <NewStockListGroup
+                  onClick={() => {
+                    history.push(`/stock/${stock.cashTagName}`)
+                    set(stock)
+                    setSearchedHistory(get())
+                    dispatch(setIsFocusSearchBar(false))
+                  }}
+                >
+                  <StockListItem>
+                    <StockName>{stock.cashTagName}</StockName>
+                  </StockListItem>
+                  <StockListItem>
+                    <CompanyName>{stock.enName}</CompanyName>
+                  </StockListItem>
+                </NewStockListGroup>
+                <IconWrapper
+                  onClick={(e) => {
+                    e.stopPropagation()
+                    searchStorage.delete(stock.cashTagName)
+                    setSearchedHistory(get())
+                  }}
+                >
+                  <CloseIconGrey />
+                </IconWrapper>
+              </ListWrapper>
+            ))
+          ) : (
+            <EmptyWrapper>최근 검색 내역이 없습니다.</EmptyWrapper>
+          )}
+          {}
+        </HotStockListWrapper>
+      </>
+    )
+  if (!searchedStocks) return <></>
   return (
     <>
       <HotStockListWrapper isOpen={isFocusSearchBar}>
         <StockListHeader>
-          <Title>최근 검색어</Title>
-          <Button>전체삭제</Button>
+          <Title>종목</Title>
         </StockListHeader>
-        {data?.stocks.map((stock) => (
-          <ListWrapper key={`${stock.id}-search-bar`}>
-            <StockListGroup>
-              <StockListItem>
-                <StockName>{stock.krName}</StockName>
-              </StockListItem>
-              <StockListItem>
-                <CompanyName>{stock.symbol}</CompanyName>
-                <UpDownRate></UpDownRate>
-              </StockListItem>
-            </StockListGroup>
-            <IconWrapper>
-              <CloseIconGrey />
-            </IconWrapper>
-          </ListWrapper>
-        ))}
+        {searchedStocks.length >= 1 ? (
+          searchedStocks.map((stock) => (
+            <ListWrapper key={`${stock.id}-search-bar`}>
+              <NewStockListGroup
+                onClick={() => {
+                  history.push(`/stock/${stock.cashTagName}`)
+                  set(stock)
+                  setSearchedHistory(get())
+                  dispatch(setIsFocusSearchBar(false))
+                }}
+              >
+                <StockListItem>
+                  <StockName>{stock.cashTagName}</StockName>
+                </StockListItem>
+                <StockListItem>
+                  <CompanyName>{stock.enName}</CompanyName>
+                </StockListItem>
+              </NewStockListGroup>
+            </ListWrapper>
+          ))
+        ) : (
+          <EmptyWrapper>검색 결과가 없습니다.</EmptyWrapper>
+        )}
       </HotStockListWrapper>
     </>
   )

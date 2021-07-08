@@ -5,12 +5,10 @@ import getPostsByStock from '../../api/post/getPostsByStock'
 import { Post } from '../../api/types'
 import { cacheStableTime } from '../../lib/variable'
 import feedSlice from '../../reducers/Slices/feed'
+import { useRootState } from '../useRootState'
 
-interface Props {
-  id: number
-}
-
-export default function usePostStockQuery({ id }: Props) {
+export default function usePostStockQuery() {
+  const { stockId } = useRootState((state) => state.feed)
   const { setPosts } = feedSlice.actions
   const dispatch = useDispatch()
 
@@ -23,11 +21,12 @@ export default function usePostStockQuery({ id }: Props) {
     hasNextPage,
     isFetchingNextPage,
   } = useInfiniteQuery(
-    ['getPostsByStock'],
-    ({ pageParam: cursor }) => getPostsByStock(id, cursor),
+    ['getPostsByStock', { stockId }],
+    ({ pageParam: cursor }) => getPostsByStock(stockId, cursor),
     {
       staleTime: cacheStableTime,
       getNextPageParam: (lastPage) => lastPage[lastPage.length - 1]?.id,
+      enabled: !!stockId,
     }
   )
 

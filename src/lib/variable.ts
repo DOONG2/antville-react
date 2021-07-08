@@ -6,3 +6,6 @@ export const cacheStableTime = 6 * 1000 * 5
 export const activated_watchlist = 'watchlist'
 export const activated_following = 'following'
 export const activated_all = 'all'
+
+export const search_preview_limit = '5'
+export const search_preview_page = '0'
