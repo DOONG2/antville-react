@@ -1,4 +1,5 @@
 import styled from '@emotion/styled'
+import { useHistory } from 'react-router-dom'
 
 import { useRootState } from '../../hooks/useRootState'
 import { grey040, grey050 } from '../../mds/styled/colors'
@@ -69,8 +70,15 @@ const ScrollBar = styled.div`
   }
 `
 
+const NewStockListGroup = styled(StockListGroup)`
+  cursor: pointer;
+`
+
 function SideBar() {
-  const { watchList } = useRootState((state) => state)
+  const { watchList, user } = useRootState((state) => state)
+  const history = useHistory()
+
+  if (!user) return <></>
 
   return (
     <>
@@ -80,18 +88,21 @@ function SideBar() {
           {watchList ? (
             <ScrollBar>
               {watchList?.stocks.map((stock) => (
-                <StockListGroup key={`${stock.id}-side-bar`}>
+                <NewStockListGroup
+                  key={`${stock.id}-side-bar`}
+                  onClick={() => history.push(`/stock/${stock.cashTagName}`)}
+                >
                   <StockListItem>
-                    <StockName>{stock.krName}</StockName>
+                    <StockName>{stock.cashTagName}</StockName>
                     <StockPrice>₩64,551,100</StockPrice>
                   </StockListItem>
                   <StockListItem>
-                    <CompanyName>{stock.symbol}/KRW</CompanyName>
+                    <CompanyName>{stock.enName}/KRW</CompanyName>
                     <UpDownRate>
                       <UpDownIcon>*</UpDownIcon>20.21 (-2.91%)
                     </UpDownRate>
                   </StockListItem>
-                </StockListGroup>
+                </NewStockListGroup>
               ))}
             </ScrollBar>
           ) : (

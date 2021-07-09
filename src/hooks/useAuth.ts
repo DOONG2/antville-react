@@ -17,10 +17,10 @@ export default function useAuth() {
   const dispatch = useDispatch()
 
   const authorize = async (user: User) => {
-    dispatch(setUserState(user))
-    dispatch(setAuthState(authStorage.get()))
     const watchList = await getWatchList()
     dispatch(setWatchListState(watchList))
+    dispatch(setUserState(user))
+    dispatch(setAuthState(authStorage.get()))
 
     userStorage.set(user)
   }

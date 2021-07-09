@@ -1,4 +1,6 @@
 import styled from '@emotion/styled'
+import { useDispatch } from 'react-redux'
+import { useHistory } from 'react-router-dom'
 import useStockPopularQuery from '../../hooks/query/useStockPopularQuery'
 import { useRootState } from '../../hooks/useRootState'
 import {
@@ -12,6 +14,7 @@ import {
   UpDownIcon,
   UpDownRate,
 } from '../../mds/styled/stockList'
+import viewSlice from '../../reducers/Slices/view'
 
 const HotStockListWrapper = styled(StockListWrapper)<{ isOpen: boolean }>`
   position: absolute;
@@ -23,8 +26,15 @@ const HotStockListWrapper = styled(StockListWrapper)<{ isOpen: boolean }>`
   z-index: 2;
 `
 
+const NewStockListGroup = styled(StockListGroup)`
+  cursor: pointer;
+`
+
 export default function PopularPreView() {
   const { isFocusSearchBar } = useRootState((state) => state.view)
+  const { setIsFocusSearchBar } = viewSlice.actions
+  const history = useHistory()
+  const dispatch = useDispatch()
   const { data } = useStockPopularQuery()
 
   if (!data) return <></>
@@ -34,18 +44,24 @@ export default function PopularPreView() {
       <HotStockListWrapper isOpen={isFocusSearchBar}>
         <StockListHeader>실시간 인기 종목</StockListHeader>
         {data?.stocks.map((stock) => (
-          <StockListGroup key={`${stock.id}-search-bar`}>
+          <NewStockListGroup
+            key={`${stock.id}-search-bar`}
+            onClick={() => {
+              dispatch(setIsFocusSearchBar(false))
+              history.push(`/stock/${stock.cashTagName}`)
+            }}
+          >
             <StockListItem>
-              <StockName>{stock.krName}</StockName>
+              <StockName>{stock.cashTagName}</StockName>
               <StockPrice>₩64,551,100</StockPrice>
             </StockListItem>
             <StockListItem>
-              <CompanyName>{stock.symbol}</CompanyName>
+              <CompanyName>{stock.enName}</CompanyName>
               <UpDownRate>
                 <UpDownIcon>*</UpDownIcon>20.21 (-2.91%)
               </UpDownRate>
             </StockListItem>
-          </StockListGroup>
+          </NewStockListGroup>
         ))}
       </HotStockListWrapper>
     </>
