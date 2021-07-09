@@ -14,6 +14,7 @@ const initialState = {
   activatedTab: 'all',
   posts: null,
   comments: null,
+  stockId: undefined,
 } as FeedState
 
 const feedSlice = createSlice({
@@ -22,13 +23,16 @@ const feedSlice = createSlice({
   reducers: {
     setTabAll(state) {
       state.activatedTab = activated_all
+      state.posts = null
     },
     setTabWatchList(state) {
       state.activatedTab = activated_watchlist
+      state.posts = null
     },
 
     setTabFollowing(state) {
       state.activatedTab = activated_following
+      state.posts = null
     },
     setPosts(state, action: PayloadAction<Post[] | undefined | null>) {
       if (action.payload === undefined) return
@@ -40,6 +44,9 @@ const feedSlice = createSlice({
     ) {
       if (action.payload === undefined) return
       state.comments = action.payload
+    },
+    setStockId(state, action: PayloadAction<number>) {
+      state.stockId = action.payload
     },
   },
 })

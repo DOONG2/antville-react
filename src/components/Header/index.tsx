@@ -8,7 +8,7 @@ import { useRootState } from '../../hooks/useRootState'
 import viewSlice from '../../reducers/Slices/view'
 import { useDispatch } from 'react-redux'
 import { useHistory } from 'react-router'
-import SerchBar from '../SearchBar'
+import SearchBar from '../SearchBar'
 import LogoWithIcon from '../../assets/svg/LogoWithIcon'
 import useCheckLogin from '../../hooks/useCheckLogin'
 import NoticeIcon from '../../assets/svg/NoticeIcon'
@@ -111,7 +111,7 @@ function Header() {
         <LogoWrapper onClick={() => history.push('/')}>
           <LogoWithIcon />
         </LogoWrapper>
-        <SerchBar />
+        <SearchBar />
         <ButtonWrapper>
           {isLoggedIn ? (
             <IconWrapper ref={IconWrapperRef}>

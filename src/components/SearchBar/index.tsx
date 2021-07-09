@@ -1,21 +1,31 @@
-import styled from '@emotion/styled'
-import React from 'react'
+import { useState } from 'react'
 import { useDispatch } from 'react-redux'
 import SearchIcon from '../../assets/svg/SearchIcon'
 import useCheckLogin from '../../hooks/useCheckLogin'
+import useOnClickOutside from '../../hooks/useOnClickOutside'
+import { useRootState } from '../../hooks/useRootState'
 import { IconWrapper, SearchInput, SerchBar } from '../../mds/styled/searchBar'
 import viewSlice from '../../reducers/Slices/view'
-import PopularPreView from './PopularPreView'
 import SearchPreView from './SearchPreView'
 
 const SearchBar = () => {
   const dispatch = useDispatch()
   const { setIsFocusSearchBar } = viewSlice.actions
+  const { isFocusSearchBar } = useRootState((state) => state.view)
 
   const isLoggedIn = useCheckLogin()
 
+  const [query, setQuery] = useState('')
+
+  const outSideClickRef = useOnClickOutside({
+    close: () => {
+      if (isFocusSearchBar) dispatch(setIsFocusSearchBar(false))
+    },
+    isOpen: isFocusSearchBar,
+  })
+
   return (
-    <SerchBar isLoggedIn={isLoggedIn}>
+    <SerchBar isLoggedIn={isLoggedIn} ref={outSideClickRef}>
       <IconWrapper>
         <SearchIcon />
       </IconWrapper>
@@ -23,10 +33,11 @@ const SearchBar = () => {
         type="search"
         placeholder="키워드 혹은 @닉네임을 입력해주세요."
         onFocus={() => dispatch(setIsFocusSearchBar(true))}
-        onBlur={() => dispatch(setIsFocusSearchBar(false))}
-        onChange={() => {}}
+        onChange={(e) => {
+          setQuery(e.target.value)
+        }}
       />
-      {isLoggedIn ? <SearchPreView /> : <PopularPreView />}
+      <SearchPreView query={query} />
     </SerchBar>
   )
 }

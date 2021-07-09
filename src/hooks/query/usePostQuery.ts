@@ -1,4 +1,4 @@
-import { useEffect } from 'react'
+import { useEffect, useState } from 'react'
 import { useInfiniteQuery } from 'react-query'
 import { useDispatch } from 'react-redux'
 import getPostsByUrl from '../../api/post/getPostsByUrl'
