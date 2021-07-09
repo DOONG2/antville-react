@@ -1,6 +1,6 @@
 import axios, { AxiosError } from 'axios'
 import authStorage from '../lib/authStorage'
-import refreshToken from './auth/refreshToken'
+import postRefreshToken from './auth/postRefreshToken'
 
 const client = axios.create()
 
@@ -14,18 +14,21 @@ client.interceptors.response.use(
   function (response) {
     return response
   },
-  async function (error: AxiosError) {
-    if (error.code === '401') {
-      const data = await refreshToken()
-      error.config.headers.Authorization = data
-        ? `Bearer ${data.accessToken}`
-        : null
-      return client.request(error.config)
+  async function (error: Error | AxiosError) {
+    if (axios.isAxiosError(error)) {
+      const { config, response } = error
+      if (response?.status === 401) {
+        const data = await postRefreshToken()
+        config.headers.Authorization = data
+          ? `Bearer ${data.accessToken}`
+          : null
+        return client.request(config)
+      }
+      if (response) {
+        return Promise.reject(response)
+      }
+      return Promise.reject(error)
     }
-    if (error.response) {
-      return Promise.reject(error.response)
-    }
-    return Promise.reject(error)
   }
 )
 
