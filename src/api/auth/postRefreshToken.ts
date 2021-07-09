@@ -2,7 +2,7 @@ import authStorage from '../../lib/authStorage'
 import client from '../client'
 import { refreshTokenResponse } from './types'
 
-const refreshToken = async () => {
+const postRefreshToken = async () => {
   const token = authStorage.get()
   if (!token) return
   const { refreshToken } = token
@@ -13,4 +13,4 @@ const refreshToken = async () => {
   return response.data
 }
 
-export default refreshToken
+export default postRefreshToken
