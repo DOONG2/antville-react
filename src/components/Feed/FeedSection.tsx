@@ -59,6 +59,8 @@ const FeedSection = () => {
     isBottomVisible && hasNextPage && fetchNextPage()
   }, [isBottomVisible])
 
+  console.log(posts?.length, activatedTab)
+
   return (
     <>
       {posts && posts.length < 1 && activatedTab === activated_watchlist && (
