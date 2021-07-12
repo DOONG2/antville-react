@@ -1,5 +1,6 @@
 import styled from '@emotion/styled'
 import { useHistory } from 'react-router-dom'
+import useCheckLogin from '../../hooks/useCheckLogin'
 
 import { useRootState } from '../../hooks/useRootState'
 import { grey040, grey050 } from '../../mds/styled/colors'
@@ -75,10 +76,44 @@ const NewStockListGroup = styled(StockListGroup)`
 `
 
 function SideBar() {
-  const { watchList, user } = useRootState((state) => state)
+  const {
+    watchList,
+    view: { isLogging },
+  } = useRootState((state) => state)
   const history = useHistory()
+  const isLoggedIn = useCheckLogin()
 
-  if (!user) return <></>
+  if (isLogging)
+    return (
+      <>
+        <Wrapper>
+          <NewStockListWrapper>
+            <StockListHeader>관심 종목</StockListHeader>
+            <Main>
+              <MainLabel></MainLabel>
+            </Main>
+          </NewStockListWrapper>
+        </Wrapper>
+      </>
+    )
+
+  if (!isLoggedIn)
+    return (
+      <>
+        <Wrapper>
+          <NewStockListWrapper>
+            <StockListHeader>관심 종목</StockListHeader>
+            <Main>
+              <MainLabel>
+                원하는 종목을 검색하고
+                <br />
+                관심 종목 리스트에 등록해보세요!
+              </MainLabel>
+            </Main>
+          </NewStockListWrapper>
+        </Wrapper>
+      </>
+    )
 
   return (
     <>
