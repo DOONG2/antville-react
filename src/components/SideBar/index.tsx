@@ -3,6 +3,7 @@ import { useHistory } from 'react-router-dom'
 import useCheckLogin from '../../hooks/useCheckLogin'
 
 import { useRootState } from '../../hooks/useRootState'
+import watchlistStorage from '../../lib/watchlistStorage'
 import { grey040, grey050 } from '../../mds/styled/colors'
 import {
   StockListWrapper,
@@ -76,26 +77,10 @@ const NewStockListGroup = styled(StockListGroup)`
 `
 
 function SideBar() {
-  const {
-    watchList,
-    view: { isLogging },
-  } = useRootState((state) => state)
   const history = useHistory()
   const isLoggedIn = useCheckLogin()
 
-  if (isLogging)
-    return (
-      <>
-        <Wrapper>
-          <NewStockListWrapper>
-            <StockListHeader>관심 종목</StockListHeader>
-            <Main>
-              <MainLabel></MainLabel>
-            </Main>
-          </NewStockListWrapper>
-        </Wrapper>
-      </>
-    )
+  const watchlist = watchlistStorage.get()
 
   if (!isLoggedIn)
     return (
@@ -120,9 +105,9 @@ function SideBar() {
       <Wrapper>
         <NewStockListWrapper>
           <StockListHeader>관심 종목</StockListHeader>
-          {watchList ? (
+          {watchlist ? (
             <ScrollBar>
-              {watchList?.stocks.map((stock) => (
+              {watchlist?.stocks.map((stock) => (
                 <NewStockListGroup
                   key={`${stock.id}-side-bar`}
                   onClick={() => history.push(`/stock/${stock.cashTagName}`)}

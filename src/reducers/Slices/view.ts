@@ -1,7 +1,6 @@
 import { createSlice, PayloadAction } from '@reduxjs/toolkit'
 
 interface ViewState {
-  isLogging: boolean
   isOpenLoginForm: boolean
   isOpenSignUpForm: boolean
   isOpenFindPasswordForm: boolean
@@ -16,7 +15,6 @@ interface ViewState {
 }
 
 const initialState: ViewState = {
-  isLogging: false,
   isOpenLoginForm: false,
   isOpenSignUpForm: false,
   isOpenFindPasswordForm: false,
@@ -34,9 +32,6 @@ const viewSlice = createSlice({
   name: 'view',
   initialState,
   reducers: {
-    setIsLogging(state, action: PayloadAction<boolean>) {
-      state.isLogging = action.payload
-    },
     setIsOpenLoginForm(state, action: PayloadAction<boolean>) {
       state.isOpenLoginForm = action.payload
       state.isOpenSignUpForm = false
