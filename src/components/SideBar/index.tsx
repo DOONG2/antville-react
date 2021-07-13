@@ -1,8 +1,6 @@
 import styled from '@emotion/styled'
 import { useHistory } from 'react-router-dom'
 import useCheckLogin from '../../hooks/useCheckLogin'
-
-import { useRootState } from '../../hooks/useRootState'
 import watchlistStorage from '../../lib/watchlistStorage'
 import { grey040, grey050 } from '../../mds/styled/colors'
 import {
