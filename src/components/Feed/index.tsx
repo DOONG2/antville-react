@@ -1,5 +1,6 @@
 import React from 'react'
 import { useDispatch } from 'react-redux'
+import getPostsByUrl from '../../api/post/getPostsByUrl'
 import { Post } from '../../api/types'
 import useCheckLogin from '../../hooks/useCheckLogin'
 import { useRootState } from '../../hooks/useRootState'
@@ -12,7 +13,7 @@ import FeedTab from './FeedTab'
 
 const Feed = () => {
   const {
-    feed: { posts },
+    feed: { posts, activatedTab },
   } = useRootState((state) => state)
   const { setPosts } = feedSlice.actions
   const dispatch = useDispatch()
@@ -30,7 +31,9 @@ const Feed = () => {
         <PostWrapper>
           <PostForm addPost={addPost} />
           {isLoggedIn && <FeedTab />}
-          <FeedSection />
+          <FeedSection
+            callback={(cursor) => getPostsByUrl(activatedTab, cursor)}
+          />
         </PostWrapper>
       </BarWrapper>
     </Wrapper>

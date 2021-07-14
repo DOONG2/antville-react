@@ -16,9 +16,9 @@ interface Prop {
 
 export default function usePostQuery({ callback }: Prop) {
   const {
-    feed: { activatedTab },
+    feed: { activatedUseTab },
   } = useRootState((state) => state)
-  const { setPosts } = feedSlice.actions
+  const { setUserPosts } = feedSlice.actions
   const dispatch = useDispatch()
 
   const {
@@ -30,7 +30,7 @@ export default function usePostQuery({ callback }: Prop) {
     hasNextPage,
     isFetchingNextPage,
   } = useInfiniteQuery(
-    [activatedTab],
+    [activatedUseTab],
     ({ pageParam: cursor }) => callback(cursor),
     {
       staleTime: cacheStableTime,
@@ -42,7 +42,7 @@ export default function usePostQuery({ callback }: Prop) {
     if (data && !isFetchingNextPage) {
       const arr: Post[] = []
       data.pages.map((posts) => arr.push(...posts))
-      dispatch(setPosts(arr))
+      dispatch(setUserPosts(arr))
     }
   }, [data])
 
