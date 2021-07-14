@@ -1,6 +1,7 @@
 import { useEffect } from 'react'
 import { useInfiniteQuery } from 'react-query'
 import { useDispatch } from 'react-redux'
+import { useParams } from 'react-router-dom'
 import { Post } from '../../api/types'
 import { cacheStableTime } from '../../lib/variable'
 import feedSlice from '../../reducers/Slices/feed'
@@ -20,6 +21,7 @@ export default function usePostQuery({ callback }: Prop) {
   } = useRootState((state) => state)
   const { setUserPosts } = feedSlice.actions
   const dispatch = useDispatch()
+  const { id } = useParams<{ id: string }>()
 
   const {
     isLoading,
@@ -30,7 +32,7 @@ export default function usePostQuery({ callback }: Prop) {
     hasNextPage,
     isFetchingNextPage,
   } = useInfiniteQuery(
-    [activatedUseTab],
+    [activatedUseTab, { id }],
     ({ pageParam: cursor }) => callback(cursor),
     {
       staleTime: cacheStableTime,

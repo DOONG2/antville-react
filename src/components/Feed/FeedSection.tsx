@@ -28,8 +28,6 @@ import FeedOption from './FeedOption'
 import FollowingEmpty from './FollowingEmpty'
 import LikeComponent from './LikeComponent'
 import MomentDateChange from './MomentDateChange'
-import ProfileEmpty from './ProfileEmpty'
-import ProfileLikeEmpty from './ProfileLikeEmpty'
 import WatchListEmpty from './WatchListEmpty'
 
 interface Prop {
