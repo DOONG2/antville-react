@@ -76,11 +76,10 @@ const NewStockListGroup = styled(StockListGroup)`
 
 function SideBar() {
   const history = useHistory()
-  const isLoggedIn = useCheckLogin()
 
   const watchlist = watchlistStorage.get()
 
-  if (!isLoggedIn)
+  if (!watchlist)
     return (
       <>
         <Wrapper>
@@ -103,7 +102,7 @@ function SideBar() {
       <Wrapper>
         <NewStockListWrapper>
           <StockListHeader>관심 종목</StockListHeader>
-          {watchlist ? (
+          {watchlist.stocks.length > 1 ? (
             <ScrollBar>
               {watchlist?.stocks.map((stock) => (
                 <NewStockListGroup
