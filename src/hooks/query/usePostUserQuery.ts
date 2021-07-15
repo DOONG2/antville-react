@@ -21,7 +21,7 @@ export default function usePostQuery({ callback }: Prop) {
   } = useRootState((state) => state)
   const { setUserPosts } = feedSlice.actions
   const dispatch = useDispatch()
-  const { id } = useParams<{ id: string }>()
+  const { nickname } = useParams<{ nickname: string }>()
 
   const {
     isLoading,
@@ -32,7 +32,7 @@ export default function usePostQuery({ callback }: Prop) {
     hasNextPage,
     isFetchingNextPage,
   } = useInfiniteQuery(
-    [activatedUseTab, { id }],
+    [activatedUseTab, { nickname }],
     ({ pageParam: cursor }) => callback(cursor),
     {
       staleTime: cacheStableTime,

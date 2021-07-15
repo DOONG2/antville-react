@@ -1,6 +1,19 @@
 import styled from '@emotion/styled'
+import { useState } from 'react'
+import { useDispatch } from 'react-redux'
+import { useHistory } from 'react-router-dom'
+import { User } from '../../api/types'
 import CalendarIcon from '../../assets/svg/CalendarIcon'
+import { useRootState } from '../../hooks/useRootState'
+import Modal from '../../mds/Modal'
 import { antblue050, grey050, grey060, grey080 } from '../../mds/styled/colors'
+import viewSlice from '../../reducers/Slices/view'
+import MonthDate from './MonthDate'
+import UserListComponent from './UserListComponent'
+
+type Prop = {
+  user: User
+}
 
 const Wrapper = styled.div`
   display: flex;
@@ -68,10 +81,12 @@ const DateText = styled.div`
 
 const Following = styled.div`
   display: flex;
+  cursor: pointer;
 `
 
 const Follower = styled.div`
   display: flex;
+  cursor: pointer;
 `
 
 const EditButton = styled.div`
@@ -91,7 +106,9 @@ const EditButton = styled.div`
   color: ${antblue050};
 `
 
-const ButtonWrapper = styled.div``
+const ButtonWrapper = styled.div`
+  cursor: pointer;
+`
 
 const Introduction = styled.div`
   font-weight: 400;
@@ -102,36 +119,89 @@ const Introduction = styled.div`
   margin-top: 15px;
 `
 
-export default function UserSection() {
+const ModalTitle = styled.div`
+  position: absolute;
+  top: 27px;
+  left: 196px;
+
+  font-weight: 600;
+  font-size: 20px;
+  line-height: 27px;
+  text-align: center;
+
+  color: ${grey080};
+`
+
+export default function UserSection({ user }: Prop) {
+  const {
+    view: { isOpenFollowingModal, isOpenFollwerModal },
+  } = useRootState((state) => state)
+  const { setIsOpenFollowingModal, setIsOpenFollwerModal } = viewSlice.actions
+  const history = useHistory()
+  const dispatch = useDispatch()
+
+  const [followingUsers, setFollowingUsers] = useState<User[] | undefined>()
+  const [followerUsers, setFollowerUsers] = useState<User[] | undefined>()
+
   return (
     <>
       <Wrapper>
         <UserInfo>
           <UserAvatar></UserAvatar>
           <UserDetail>
-            <Nickname>Kingeungi</Nickname>
+            <Nickname>{user.nickname}</Nickname>
             <JoinDate>
               <CalendarIcon />
-              <DateText>2021년 3월에 가입</DateText>
+              <DateText>
+                <MonthDate time={user.createdAt} />
+                {`에 가입`}
+              </DateText>
             </JoinDate>
             <FollowWrapper>
-              <Following>{`10  팔로잉`}</Following>
-              <Follower>{`187  팔로워`}</Follower>
+              <Following
+                onClick={() => {
+                  dispatch(setIsOpenFollowingModal(true))
+                }}
+              >
+                {`${user.userCount.following}  팔로잉`}
+              </Following>
+              <Modal
+                shown={isOpenFollowingModal}
+                width="448px"
+                height="557px"
+                close={() => {
+                  dispatch(setIsOpenFollowingModal(false))
+                  setFollowingUsers(undefined)
+                }}
+              >
+                <ModalTitle>팔로잉</ModalTitle>
+                <UserListComponent users={followingUsers} />
+              </Modal>
+              <Follower
+                onClick={() => dispatch(setIsOpenFollwerModal(true))}
+              >{`${user.userCount.followers}  팔로워`}</Follower>
+              <Modal
+                shown={isOpenFollwerModal}
+                width="448px"
+                height="557px"
+                close={() => {
+                  dispatch(setIsOpenFollwerModal(false))
+                  setFollowerUsers(undefined)
+                }}
+              >
+                <ModalTitle>팔로워</ModalTitle>
+                <UserListComponent users={followerUsers} />
+              </Modal>
             </FollowWrapper>
           </UserDetail>
         </UserInfo>
         <ButtonWrapper>
-          <EditButton>프로필 편집</EditButton>
+          <EditButton onClick={() => history.push('/user/edit')}>
+            프로필 편집
+          </EditButton>
         </ButtonWrapper>
       </Wrapper>
-      <Introduction>
-        주식경제 유튜브. (전) 한국투자밸류자산운용 펀드매니저 소셜 경제 미디어
-        스넥(SNEK)에서 콘텐츠를 담당하고 있습니다. 경제와 관련된 주제에 대해
-        나누고 싶은 이야기 거리가 있으신 분들의 기고자 신청을 스넥은 늘
-        환영합니다. (소정의 기고료도 준비되어 있으니 망설이지 말아주세요^^) 지금
-        투자중인 상품에 대해서 혹시 이야기를 나누고 싶다면 좋아요 버튼
-        눌러주시고 실시간 트윗으로 대화나눠요
-      </Introduction>
+      <Introduction>{user.bio}</Introduction>
     </>
   )
 }

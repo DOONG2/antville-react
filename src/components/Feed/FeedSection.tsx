@@ -76,7 +76,9 @@ const FeedSection = ({ callback }: Prop) => {
           <TopWrapper>
             <LeftItem>
               <FeedAvatar
-                onClick={() => history.push(`user/${post.author.id}/profile`)}
+                onClick={() =>
+                  history.push(`user/${post.author.nickname}/profile`)
+                }
               />
               <NickNameWrapper>{post.author.nickname}</NickNameWrapper>
               <PostTime>

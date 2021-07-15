@@ -48,12 +48,12 @@ const ProfileDropDown = ({ close }: Props) => {
     <Group onClick={close}>
       <Item
         onClick={() => {
-          history.push(`/user/${user.id}/profile`)
+          history.push(`/user/${user.nickname}/profile`)
         }}
       >
         프로필 보기
       </Item>
-      <Item>프로필 편집</Item>
+      <Item onClick={() => history.push('/user/edit')}>프로필 편집</Item>
       <Item>사용자 설정</Item>
       <Item>
         <FontRed

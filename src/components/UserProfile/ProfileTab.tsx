@@ -1,9 +1,14 @@
 import styled from '@emotion/styled'
 import { useDispatch } from 'react-redux'
+import { User } from '../../api/types'
 import { useRootState } from '../../hooks/useRootState'
 import { activated_user, activated_user_like } from '../../lib/variable'
 import { antblue050, grey030, grey080 } from '../../mds/styled/colors'
 import feedSlice from '../../reducers/Slices/feed'
+
+type Prop = {
+  user: User
+}
 
 const Wrapper = styled.div`
   display: flex;
@@ -36,7 +41,7 @@ const Title = styled.div`
   padding-top: 1px;
   padding-bottom: 11px;
 `
-export default function ProfileTab() {
+export default function ProfileTab({ user }: Prop) {
   const {
     feed: { activatedUseTab },
   } = useRootState((state) => state)
@@ -49,14 +54,14 @@ export default function ProfileTab() {
         isClicked={activatedUseTab === activated_user}
         onClick={() => dispatch(setTabUser())}
       >
-        <Count>91</Count>
+        <Count>{user.userCount.postCount}</Count>
         <Title>활동내역</Title>
       </Group>
       <Group
         isClicked={activatedUseTab === activated_user_like}
         onClick={() => dispatch(setTabUserLike())}
       >
-        <Count>289</Count>
+        <Count>{user.userCount.postLikeCount}</Count>
         <Title>좋아하는 게시물</Title>
       </Group>
     </Wrapper>
