@@ -104,11 +104,11 @@ const EditButton = styled.div`
   text-align: center;
 
   color: ${antblue050};
-`
 
-const ButtonWrapper = styled.div`
   cursor: pointer;
 `
+
+const ButtonWrapper = styled.div``
 
 const Introduction = styled.div`
   font-weight: 400;
