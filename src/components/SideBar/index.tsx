@@ -1,7 +1,7 @@
 import styled from '@emotion/styled'
 import { useHistory } from 'react-router-dom'
-
-import { useRootState } from '../../hooks/useRootState'
+import useCheckLogin from '../../hooks/useCheckLogin'
+import watchlistStorage from '../../lib/watchlistStorage'
 import { grey040, grey050 } from '../../mds/styled/colors'
 import {
   StockListWrapper,
@@ -75,19 +75,36 @@ const NewStockListGroup = styled(StockListGroup)`
 `
 
 function SideBar() {
-  const { watchList, user } = useRootState((state) => state)
   const history = useHistory()
 
-  if (!user) return <></>
+  const watchlist = watchlistStorage.get()
+
+  if (!watchlist)
+    return (
+      <>
+        <Wrapper>
+          <NewStockListWrapper>
+            <StockListHeader>관심 종목</StockListHeader>
+            <Main>
+              <MainLabel>
+                원하는 종목을 검색하고
+                <br />
+                관심 종목 리스트에 등록해보세요!
+              </MainLabel>
+            </Main>
+          </NewStockListWrapper>
+        </Wrapper>
+      </>
+    )
 
   return (
     <>
       <Wrapper>
         <NewStockListWrapper>
           <StockListHeader>관심 종목</StockListHeader>
-          {watchList ? (
+          {watchlist.stocks.length > 1 ? (
             <ScrollBar>
-              {watchList?.stocks.map((stock) => (
+              {watchlist?.stocks.map((stock) => (
                 <NewStockListGroup
                   key={`${stock.id}-side-bar`}
                   onClick={() => history.push(`/stock/${stock.cashTagName}`)}

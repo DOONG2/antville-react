@@ -1,5 +1,7 @@
 import styled from '@emotion/styled'
+import { useHistory } from 'react-router-dom'
 import useAuth from '../../hooks/useAuth'
+import { useRootState } from '../../hooks/useRootState'
 
 interface Props {
   close: (event: React.MouseEvent<HTMLDivElement, MouseEvent>) => void
@@ -36,12 +38,22 @@ const FontRed = styled.div`
 `
 
 const ProfileDropDown = ({ close }: Props) => {
+  const { user } = useRootState((state) => state)
   const { logout } = useAuth()
+  const history = useHistory()
+
+  if (!user) return <></>
 
   return (
     <Group onClick={close}>
-      <Item>프로필 보기</Item>
-      <Item>프로필 편집</Item>
+      <Item
+        onClick={() => {
+          history.push(`/user/${user.nickname}/profile`)
+        }}
+      >
+        프로필 보기
+      </Item>
+      <Item onClick={() => history.push('/user/edit')}>프로필 편집</Item>
       <Item>사용자 설정</Item>
       <Item>
         <FontRed

@@ -4,10 +4,12 @@ import { useHistory } from 'react-router'
 import StockDownIcon from '../../assets/svg/StockDownIcon'
 import StockUpIcon from '../../assets/svg/StockUpIcon'
 import TalkIcon from '../../assets/svg/TalkIcon'
-import usePostQuery, { PostFunction } from '../../hooks/query/usePostQuery'
+import usePostUserQuery, {
+  PostFunction,
+} from '../../hooks/query/usePostUserQuery'
 import { useIntersectionObserver } from '../../hooks/useInfiniteScroll'
 import { useRootState } from '../../hooks/useRootState'
-import { activated_following, activated_watchlist } from '../../lib/variable'
+import { activated_user, activated_user_like } from '../../lib/variable'
 import {
   BottomItem,
   BottomWrapper,
@@ -25,10 +27,10 @@ import {
 import { Image } from '../../mds/styled/post'
 import FeedBody from './FeedBody'
 import FeedOption from './FeedOption'
-import FollowingEmpty from './FollowingEmpty'
 import LikeComponent from './LikeComponent'
 import MomentDateChange from './MomentDateChange'
-import WatchListEmpty from './WatchListEmpty'
+import ProfileEmpty from './ProfileEmpty'
+import ProfileLikeEmpty from './ProfileLikeEmpty'
 
 interface Prop {
   callback: PostFunction
@@ -40,9 +42,9 @@ export const Bottom = styled.div<{ isScrolled: boolean }>`
   display: ${(p) => (p.isScrolled ? 'none' : 'block')};
 `
 
-const FeedSection = ({ callback }: Prop) => {
+const FeedUserSection = ({ callback }: Prop) => {
   const {
-    feed: { activatedTab, posts },
+    feed: { userPosts, activatedUseTab },
   } = useRootState((state) => state)
   const history = useHistory()
   const bottomRef = useRef<HTMLDivElement>(null)
@@ -55,7 +57,7 @@ const FeedSection = ({ callback }: Prop) => {
     false
   )
 
-  const { fetchNextPage, hasNextPage } = usePostQuery({
+  const { fetchNextPage, hasNextPage } = usePostUserQuery({
     callback: (cursor) => callback(cursor),
   })
 
@@ -65,20 +67,18 @@ const FeedSection = ({ callback }: Prop) => {
 
   return (
     <>
-      {posts && posts.length < 1 && activatedTab === activated_watchlist && (
-        <WatchListEmpty />
-      )}
-      {posts && posts.length < 1 && activatedTab === activated_following && (
-        <FollowingEmpty />
-      )}
-      {posts?.map((post) => (
-        <FeedWrapper key={`${post.id}-feed-section`}>
+      {userPosts &&
+        userPosts.length < 1 &&
+        activatedUseTab === activated_user && <ProfileEmpty />}
+      {userPosts &&
+        userPosts.length < 1 &&
+        activatedUseTab === activated_user_like && <ProfileLikeEmpty />}
+      {userPosts?.map((post) => (
+        <FeedWrapper key={`${post.id}-feed-user-section`}>
           <TopWrapper>
             <LeftItem>
               <FeedAvatar
-                onClick={() =>
-                  history.push(`user/${post.author.nickname}/profile`)
-                }
+                onClick={() => history.push(`user/${post.author.id}/profile`)}
               />
               <NickNameWrapper>{post.author.nickname}</NickNameWrapper>
               <PostTime>
@@ -96,13 +96,13 @@ const FeedSection = ({ callback }: Prop) => {
             {post.postImgs[0] && (
               <Image
                 src={post.postImgs[0].image.toString()}
-                alt={`${post.id}-feed-image`}
+                alt={`${post.id}-feed-user-image`}
               />
             )}
             {post.gifImage?.gifUrl && (
               <GifImage
                 src={post.gifImage.gifUrl}
-                alt={`${post.id}-gif-image`}
+                alt={`${post.id}-gif-user-image`}
               />
             )}
           </MiddleWrapper>
@@ -126,9 +126,9 @@ const FeedSection = ({ callback }: Prop) => {
         </FeedWrapper>
       ))}
 
-      <Bottom ref={bottomRef} isScrolled={!hasNextPage || posts === null} />
+      <Bottom ref={bottomRef} isScrolled={!hasNextPage || userPosts === null} />
     </>
   )
 }
 
-export default FeedSection
+export default FeedUserSection

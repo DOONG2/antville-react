@@ -7,6 +7,7 @@ import FeedDetailPage from './pages/FeedDetailPage'
 import FeedPage from './pages/FeedPage'
 import LandingPage from './pages/LandingPage'
 import StockDetailPage from './pages/StockDetailPage'
+import UserEditPage from './pages/UserEditPage'
 import UserProfilePage from './pages/UserProfilePage'
 
 const Routes = () => {
@@ -21,7 +22,8 @@ const Routes = () => {
       />
       <Route exact path="/feed" component={FeedPage} />
       <Route exact path="/feed/detail/:id" component={FeedDetailPage} />
-      <Route exact path="/user/:id/profile" component={UserProfilePage} />
+      <Route exact path="/user/:nickname/profile" component={UserProfilePage} />
+      <Route exact path="/user/edit" component={UserEditPage} />
       <Route exact path="/stock/:ticker" component={StockDetailPage} />
     </Switch>
   )
