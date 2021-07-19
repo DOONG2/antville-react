@@ -73,6 +73,7 @@ export interface User {
   website?: string
   profileImg?: string
   createdAt: string
+  isFollowing: boolean
   userCount: UserCount
 }
 
