@@ -3,13 +3,15 @@ import { useState } from 'react'
 import { useDispatch } from 'react-redux'
 import { useHistory } from 'react-router-dom'
 import { User } from '../../api/types'
+import getUserFollower from '../../api/user/getUserFollower'
+import getUserFollowing from '../../api/user/getUserFollowing'
 import CalendarIcon from '../../assets/svg/CalendarIcon'
 import { useRootState } from '../../hooks/useRootState'
 import Modal from '../../mds/Modal'
 import { antblue050, grey050, grey060, grey080 } from '../../mds/styled/colors'
 import viewSlice from '../../reducers/Slices/view'
 import MonthDate from './MonthDate'
-import UserListComponent from './UserListComponent'
+import UserFollowComponent from './UserFollowComponent'
 
 type Prop = {
   user: User
@@ -140,9 +142,6 @@ export default function UserSection({ user }: Prop) {
   const history = useHistory()
   const dispatch = useDispatch()
 
-  const [followingUsers, setFollowingUsers] = useState<User[] | undefined>()
-  const [followerUsers, setFollowerUsers] = useState<User[] | undefined>()
-
   return (
     <>
       <Wrapper>
@@ -171,11 +170,13 @@ export default function UserSection({ user }: Prop) {
                 height="557px"
                 close={() => {
                   dispatch(setIsOpenFollowingModal(false))
-                  setFollowingUsers(undefined)
                 }}
               >
                 <ModalTitle>팔로잉</ModalTitle>
-                <UserListComponent users={followingUsers} />
+                <UserFollowComponent
+                  callback={(cursor) => getUserFollowing(user.id, cursor)}
+                  cachingKey={`${user.id}-following`}
+                />
               </Modal>
               <Follower
                 onClick={() => dispatch(setIsOpenFollwerModal(true))}
@@ -186,11 +187,13 @@ export default function UserSection({ user }: Prop) {
                 height="557px"
                 close={() => {
                   dispatch(setIsOpenFollwerModal(false))
-                  setFollowerUsers(undefined)
                 }}
               >
                 <ModalTitle>팔로워</ModalTitle>
-                <UserListComponent users={followerUsers} />
+                <UserFollowComponent
+                  callback={(cursor) => getUserFollower(user.id, cursor)}
+                  cachingKey={`${user.id}-follower`}
+                />
               </Modal>
             </FollowWrapper>
           </UserDetail>

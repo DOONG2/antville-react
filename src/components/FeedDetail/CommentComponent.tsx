@@ -55,7 +55,7 @@ export default function CommentComponent() {
             <LeftItem>
               <FeedAvatar
                 onClick={() =>
-                  history.push(`user/${comment.author.id}/profile`)
+                  history.push(`/user/${comment.author.nickname}/profile`)
                 }
               />
               <NickNameWrapper>{comment.author.nickname}</NickNameWrapper>

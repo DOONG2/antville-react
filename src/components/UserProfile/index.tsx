@@ -37,7 +37,6 @@ export default function UserProfile() {
               }
             }}
           />
-          )
         </PostWrapper>
       </BarWrapper>
     </Wrapper>
