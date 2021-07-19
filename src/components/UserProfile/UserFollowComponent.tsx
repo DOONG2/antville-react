@@ -4,7 +4,6 @@ import useFollowUsersQuery, {
   UserFunction,
 } from '../../hooks/query/useFollowUsersQuery'
 import { useIntersectionObserver } from '../../hooks/useInfiniteScroll'
-import { userFollowListLimit } from '../../lib/variable'
 import { grey030, grey080 } from '../../mds/styled/colors'
 
 type Prop = {
@@ -53,14 +52,16 @@ export default function UserFollowComponent({ callback, cachingKey }: Prop) {
     false
   )
 
-  useEffect(() => {
-    isBottomVisible && hasNextPage && fetchNextPage()
-  }, [isBottomVisible])
-
   const { users, fetchNextPage, hasNextPage } = useFollowUsersQuery({
     callback,
     cachingKey,
   })
+
+  useEffect(() => {
+    isBottomVisible && hasNextPage && fetchNextPage()
+  }, [isBottomVisible])
+
+  if (!users) return <></>
 
   return (
     <Wrapper>

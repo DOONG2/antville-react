@@ -1,24 +1,15 @@
 import styled from '@emotion/styled'
-import { useState } from 'react'
 import { useDispatch } from 'react-redux'
-import { useHistory } from 'react-router-dom'
 import { User } from '../../api/types'
 import getUserFollower from '../../api/user/getUserFollower'
 import getUserFollowing from '../../api/user/getUserFollowing'
 import CalendarIcon from '../../assets/svg/CalendarIcon'
-import usePutFollow from '../../hooks/usePutFollow'
 import { useRootState } from '../../hooks/useRootState'
-import userStorage from '../../lib/userStorage'
 import Modal from '../../mds/Modal'
-import {
-  antblue050,
-  grey010,
-  grey050,
-  grey060,
-  grey080,
-} from '../../mds/styled/colors'
+import { grey050, grey060, grey080 } from '../../mds/styled/colors'
 import viewSlice from '../../reducers/Slices/view'
 import MonthDate from './MonthDate'
+import SectionButtonComponent from './SectionButtonComponent'
 import UserFollowComponent from './UserFollowComponent'
 
 type Prop = {
@@ -99,27 +90,6 @@ const Follower = styled.div`
   cursor: pointer;
 `
 
-const EditButton = styled.div`
-  margin-top: 24px;
-  padding: 4px 10px;
-
-  background: #fafafa;
-
-  border: 1px solid ${antblue050};
-  border-radius: 3px;
-
-  font-weight: 400;
-  font-size: 12px;
-  line-height: 16px;
-  text-align: center;
-
-  color: ${antblue050};
-
-  cursor: pointer;
-`
-
-const ButtonWrapper = styled.div``
-
 const Introduction = styled.div`
   font-weight: 400;
   font-size: 14px;
@@ -142,35 +112,12 @@ const ModalTitle = styled.div`
   color: ${grey080};
 `
 
-const FollowButton = styled.div<{ isFollowing: boolean }>`
-  margin-top: 24px;
-  padding: 4px 22px;
-  background-color: ${(p) => (p.isFollowing ? grey010 : antblue050)};
-  border: 1px solid ${antblue050};
-  border-radius: 3px;
-
-  font-weight: 500;
-  font-size: 12px;
-  line-height: 16px;
-  text-align: center;
-
-  color: ${(p) => (p.isFollowing ? antblue050 : grey010)};
-
-  cursor: pointer;
-`
-
 export default function UserSection({ user }: Prop) {
   const {
     view: { isOpenFollowingModal, isOpenFollwerModal },
   } = useRootState((state) => state)
   const { setIsOpenFollowingModal, setIsOpenFollwerModal } = viewSlice.actions
-  const history = useHistory()
   const dispatch = useDispatch()
-
-  const loginUser = userStorage.get()
-  const { putFollowApi, deleteFollowApi } = usePutFollow()
-
-  const [isFollowing, setIsFollowing] = useState(user.isFollowing)
 
   return (
     <>
@@ -228,25 +175,7 @@ export default function UserSection({ user }: Prop) {
             </FollowWrapper>
           </UserDetail>
         </UserInfo>
-        <ButtonWrapper>
-          {loginUser?.id === user.id && (
-            <EditButton onClick={() => history.push('/user/edit')}>
-              프로필 편집
-            </EditButton>
-          )}
-          {loginUser?.id !== user.id && (
-            <FollowButton
-              isFollowing={isFollowing}
-              onClick={() => {
-                if (isFollowing) deleteFollowApi(user.id)
-                else putFollowApi(user.id)
-                setIsFollowing(!isFollowing)
-              }}
-            >
-              {isFollowing ? '팔로잉' : '팔로우'}
-            </FollowButton>
-          )}
-        </ButtonWrapper>
+        <SectionButtonComponent user={user} />
       </Wrapper>
       <Introduction>{user.bio}</Introduction>
     </>
