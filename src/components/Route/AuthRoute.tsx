@@ -1,9 +1,10 @@
 import React from 'react'
-import { Route, Redirect } from 'react-router-dom'
+import { Route } from 'react-router-dom'
 
 function AuthRoute({
   authenticated,
   component: Component,
+  redirect: RedirectComponent,
   render,
   ...rest
 }: any) {
@@ -12,13 +13,13 @@ function AuthRoute({
       {...rest}
       render={(props: any) =>
         authenticated ? (
-          <Redirect
-            to={{ pathname: '/feed', state: { from: props.location } }}
-          />
-        ) : render ? (
-          render(props)
+          render ? (
+            render(props)
+          ) : (
+            <Component {...props} />
+          )
         ) : (
-          <Component {...props} />
+          <RedirectComponent {...props} />
         )
       }
     />

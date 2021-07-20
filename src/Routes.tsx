@@ -16,11 +16,11 @@ const Routes = () => {
     <Switch>
       <AuthRoute
         exact
-        path={['/', '/landing']}
+        path="/"
         authenticated={authenticated}
-        component={LandingPage}
+        component={FeedPage}
+        redirect={LandingPage}
       />
-      <Route exact path="/feed" component={FeedPage} />
       <Route exact path="/feed/detail/:id" component={FeedDetailPage} />
       <Route exact path="/user/:nickname/profile" component={UserProfilePage} />
       <Route exact path="/user/edit" component={UserEditPage} />
