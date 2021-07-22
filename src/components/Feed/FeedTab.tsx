@@ -1,12 +1,41 @@
 import styled from '@emotion/styled'
-import { useDispatch } from 'react-redux'
-import { useRootState } from '../../hooks/useRootState'
+import { useHistory } from 'react-router-dom'
+import useGetRoutePath from './hooks/useGetPath'
 import {
   activated_all,
   activated_following,
   activated_watchlist,
 } from '../../lib/variable'
-import feedSlice from '../../reducers/Slices/feed'
+
+export default function FeedTab() {
+  const pathanme = useGetRoutePath()
+  const history = useHistory()
+
+  return (
+    <>
+      <FeedTabWraaper>
+        <TabItem
+          isClicked={pathanme === activated_all}
+          onClick={() => history.push('/')}
+        >
+          전체
+        </TabItem>
+        <TabItem
+          isClicked={pathanme === activated_watchlist}
+          onClick={() => history.push('/watchlist')}
+        >
+          관심종목
+        </TabItem>
+        <TabItem
+          isClicked={pathanme === activated_following}
+          onClick={() => history.push('/following')}
+        >
+          팔로잉
+        </TabItem>
+      </FeedTabWraaper>
+    </>
+  )
+}
 
 const FeedTabWraaper = styled.div`
   margin-top: 23px;
@@ -29,33 +58,3 @@ const TabItem = styled.div<{ isClicked: boolean }>`
 
   border-bottom: ${(p) => (p.isClicked ? '1px solid #1942e0' : 'none')};
 `
-export default function FeedTab() {
-  const { activatedTab } = useRootState((state) => state.feed)
-  const { setTabAll, setTabFollowing, setTabWatchList } = feedSlice.actions
-
-  const dispatch = useDispatch()
-  return (
-    <>
-      <FeedTabWraaper>
-        <TabItem
-          isClicked={activatedTab === activated_all}
-          onClick={() => dispatch(setTabAll())}
-        >
-          전체
-        </TabItem>
-        <TabItem
-          isClicked={activatedTab === activated_watchlist}
-          onClick={() => dispatch(setTabWatchList())}
-        >
-          관심종목
-        </TabItem>
-        <TabItem
-          isClicked={activatedTab === activated_following}
-          onClick={() => dispatch(setTabFollowing())}
-        >
-          팔로잉
-        </TabItem>
-      </FeedTabWraaper>
-    </>
-  )
-}

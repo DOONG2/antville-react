@@ -1,17 +1,13 @@
 import styled from '@emotion/styled'
 import { ChangeEvent, useRef } from 'react'
-import { gifDto } from '../../api/post/types'
-import PictureUploadButton from '../../assets/svg/PictureUploadButton'
+import { gifDto } from '../../lib/api/post/types'
+import PictureUploadButton from '../../static/svg/PictureUploadButton'
 
 interface Props {
   setUploadImage(value: File | undefined): void
   setGifDto(value: gifDto | undefined): void
   setPreviewUrl(value: string | ArrayBuffer | null): void
 }
-
-const Input = styled.input`
-  display: none;
-`
 
 const ImageUpload = ({ setUploadImage, setGifDto, setPreviewUrl }: Props) => {
   const hiddenFileInput = useRef<HTMLInputElement>(null)
@@ -39,5 +35,9 @@ const ImageUpload = ({ setUploadImage, setGifDto, setPreviewUrl }: Props) => {
     </>
   )
 }
+
+const Input = styled.input`
+  display: none;
+`
 
 export default ImageUpload

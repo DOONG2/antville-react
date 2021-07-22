@@ -1,4 +1,4 @@
-import { Auth } from '../api/types'
+import { Auth } from './api/types'
 
 const key = 'TOKEN'
 

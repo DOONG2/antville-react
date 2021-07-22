@@ -1,4 +1,4 @@
-import { getWatchListResponse } from '../api/stock/types'
+import { getWatchListResponse } from './api/stock/types'
 
 const key = 'WATCHLIST'
 

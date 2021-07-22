@@ -1,13 +1,9 @@
-import styled from '@emotion/styled'
-import React, { useEffect, useRef } from 'react'
+import React, { ReactNode } from 'react'
 import { useHistory } from 'react-router'
-import StockDownIcon from '../../assets/svg/StockDownIcon'
-import StockUpIcon from '../../assets/svg/StockUpIcon'
-import TalkIcon from '../../assets/svg/TalkIcon'
-import usePostQuery, { PostFunction } from '../../hooks/query/usePostQuery'
-import { useIntersectionObserver } from '../../hooks/useInfiniteScroll'
-import { useRootState } from '../../hooks/useRootState'
-import { activated_following, activated_watchlist } from '../../lib/variable'
+import { Post } from '../../lib/api/types'
+import StockDownIcon from '../../static/svg/StockDownIcon'
+import StockUpIcon from '../../static/svg/StockUpIcon'
+import TalkIcon from '../../static/svg/TalkIcon'
 import {
   BottomItem,
   BottomWrapper,
@@ -21,63 +17,31 @@ import {
   NickNameWrapper,
   PostTime,
   TopWrapper,
-} from '../../mds/styled/feed'
-import { Image } from '../../mds/styled/post'
+} from '../../lib/styles/feed'
+import { Image } from '../../lib/styles/post'
 import FeedBody from './FeedBody'
 import FeedOption from './FeedOption'
-import FollowingEmpty from './FollowingEmpty'
 import LikeComponent from './LikeComponent'
-import MomentDateChange from './MomentDateChange'
-import WatchListEmpty from './WatchListEmpty'
+import MomentDateChange from '../common/MomentDateChange'
 
-interface Prop {
-  callback: PostFunction
+interface Props {
+  posts: Post[] | undefined
+  loading?: boolean
+  emptyComponent: ReactNode
 }
 
-export const Bottom = styled.div<{ isScrolled: boolean }>`
-  width: 100%;
-  height: 10px;
-  display: ${(p) => (p.isScrolled ? 'none' : 'block')};
-`
-
-const FeedSection = ({ callback }: Prop) => {
-  const {
-    feed: { activatedTab, posts },
-  } = useRootState((state) => state)
+const FeedSection = ({ posts, loading, emptyComponent }: Props) => {
   const history = useHistory()
-  const bottomRef = useRef<HTMLDivElement>(null)
-
-  const isBottomVisible = useIntersectionObserver(
-    bottomRef,
-    {
-      threshold: 0,
-    },
-    false
-  )
-
-  const { fetchNextPage, hasNextPage } = usePostQuery({
-    callback: (cursor) => callback(cursor),
-  })
-
-  useEffect(() => {
-    isBottomVisible && hasNextPage && fetchNextPage()
-  }, [isBottomVisible])
 
   return (
     <>
-      {posts && posts.length < 1 && activatedTab === activated_watchlist && (
-        <WatchListEmpty />
-      )}
-      {posts && posts.length < 1 && activatedTab === activated_following && (
-        <FollowingEmpty />
-      )}
       {posts?.map((post) => (
         <FeedWrapper key={`${post.id}-feed-section`}>
           <TopWrapper>
             <LeftItem>
               <FeedAvatar
                 onClick={() =>
-                  history.push(`user/${post.author.nickname}/profile`)
+                  history.push(`/user/${post.author.nickname}/profile`)
                 }
               />
               <NickNameWrapper>{post.author.nickname}</NickNameWrapper>
@@ -125,8 +89,6 @@ const FeedSection = ({ callback }: Prop) => {
           </BottomWrapper>
         </FeedWrapper>
       ))}
-
-      <Bottom ref={bottomRef} isScrolled={!hasNextPage || posts === null} />
     </>
   )
 }

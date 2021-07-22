@@ -1,5 +1,5 @@
 import { createSlice, PayloadAction } from '@reduxjs/toolkit'
-import { Stock, StockPriceInfo } from '../../api/types'
+import { Stock, StockPriceInfo } from '../../lib/api/types'
 
 type WatchListState = {
   stocks: [Stock]

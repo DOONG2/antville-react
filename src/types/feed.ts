@@ -1,5 +1,5 @@
-import { getCommentsByIdResponse } from '../api/comment/types'
-import { Post } from '../api/types'
+import { getCommentsByIdResponse } from '../lib/api/comment/types'
+import { Post } from '../lib/api/types'
 
 export interface Feed {
   activatedTab: string
