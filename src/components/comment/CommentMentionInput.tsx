@@ -13,15 +13,15 @@ import {
 } from '../../lib/styles/post'
 
 interface Props {
-  isFocusCommentInput: boolean
-  setIsFocusCommentInput: (value: boolean) => void
-  setCommentBody: (value: string) => void
+  isFocusInput: boolean
+  setIsFocusInput: (value: boolean) => void
+  setBody: (value: string) => void
   body: string
 }
 export default function CommnetMentionInput({
-  isFocusCommentInput,
-  setIsFocusCommentInput,
-  setCommentBody,
+  isFocusInput,
+  setIsFocusInput,
+  setBody,
   body,
 }: Props) {
   const textRef = useRef<any>(null)
@@ -56,15 +56,15 @@ export default function CommnetMentionInput({
       <MentionInput
         id="commnetBody"
         onChange={(e) => {
-          setCommentBody(e.target.value)
+          setBody(e.target.value)
         }}
         value={body}
         placeholder={'댓글을 입력해주세요.'}
         autoComplete="off"
         onFocus={() => {
-          setIsFocusCommentInput(true)
+          setIsFocusInput(true)
         }}
-        isfocus={isFocusCommentInput.toString()}
+        isfocus={isFocusInput.toString()}
         scrollheight={scrollHeight}
         inputRef={textRef}
       >

@@ -6,21 +6,29 @@ import { gifDto } from '../../lib/api/post/types'
 import getSearch from '../../lib/api/tenor/getSearch'
 import BackIcon from '../../static/svg/BackIcon'
 import SearchIcon from '../../static/svg/SearchIcon'
-import { useRootState } from '../common/hooks/useRootState'
 import randomColor from '../../lib/randomColor'
 import { IconWrapper, SearchInput, SerchBar } from '../../lib/styles/searchBar'
-import postSlice from '../../reducers/Slices/post'
 import viewSlice from '../../reducers/Slices/view'
+import {
+  getCategoriesResponse,
+  getSearchResponse,
+} from '../../lib/api/tenor/types'
 
 interface Props {
   setUploadImage(value: File | undefined): void
   setGifDto(value: gifDto | undefined): void
   setPreviewUrl(value: string | ArrayBuffer | null): void
+  categorys?: getCategoriesResponse
 }
 
-function PostGifForm({ setGifDto, setUploadImage, setPreviewUrl }: Props) {
-  const { categorys, gifs, query } = useRootState((state) => state.post)
-  const { setGifs, setQuery } = postSlice.actions
+function GifForm({
+  setGifDto,
+  setUploadImage,
+  setPreviewUrl,
+  categorys,
+}: Props) {
+  const [query, setQuery] = useState('')
+  const [gifs, setGifs] = useState<getSearchResponse | null>(null)
   const { setIsOpenGifForm } = viewSlice.actions
   const [isFocus, setIsFocus] = useState(false)
 
@@ -29,7 +37,7 @@ function PostGifForm({ setGifDto, setUploadImage, setPreviewUrl }: Props) {
   //TODO : 아래로직 훅으로 빼기
   const searchApi = async (term: string) => {
     const result = await getSearch(term)
-    dispatch(setGifs(result))
+    setGifs(result)
   }
 
   const debouncedSearch = useCallback(
@@ -59,8 +67,8 @@ function PostGifForm({ setGifDto, setUploadImage, setPreviewUrl }: Props) {
               type="search"
               placeholder=""
               onChange={(e) => {
-                dispatch(setQuery(e.target.value))
-                if (query === '') return dispatch(setGifs(null))
+                setQuery(e.target.value)
+                if (e.target.value === '') setGifs(null)
               }}
               value={query}
               onFocus={() => setIsFocus(true)}
@@ -72,8 +80,8 @@ function PostGifForm({ setGifDto, setUploadImage, setPreviewUrl }: Props) {
           <>
             <ResetWrapper
               onClick={() => {
-                dispatch(setGifs(null))
-                dispatch(setQuery(''))
+                setGifs(null)
+                setQuery('')
               }}
             >
               <BackIcon />
@@ -91,8 +99,6 @@ function PostGifForm({ setGifDto, setUploadImage, setPreviewUrl }: Props) {
                   setUploadImage(undefined)
                   setPreviewUrl(gif.media[0].gif.preview)
                   dispatch(setIsOpenGifForm(false))
-                  dispatch(setGifs(null))
-                  dispatch(setQuery(''))
                 }}
                 backGroundColor={randomColor()}
               >
@@ -109,7 +115,7 @@ function PostGifForm({ setGifDto, setUploadImage, setPreviewUrl }: Props) {
               <Item
                 key={`${category.name}-gif-form`}
                 onClick={() => {
-                  dispatch(setQuery(category.searchterm))
+                  setQuery(category.searchterm)
                 }}
               >
                 <GifImageBright
@@ -201,4 +207,4 @@ const NewSerchBar = styled(SerchBar)`
   width: 475px;
 `
 
-export default PostGifForm
+export default GifForm

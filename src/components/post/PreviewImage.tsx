@@ -1,5 +1,4 @@
 import styled from '@emotion/styled'
-import React from 'react'
 import CloseIconSmall from '../../static/svg/CloseIconSmall'
 import { grey030 } from '../../lib/styles/colors'
 import { Image } from '../../lib/styles/post'

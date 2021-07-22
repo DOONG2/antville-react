@@ -8,7 +8,6 @@ interface ModalProps {
   width: string
   height: string
   close: (event: React.MouseEvent<HTMLDivElement, MouseEvent>) => void
-  scrollValue?: string
 }
 
 const ModalOverlay = styled.div<{ shown: boolean }>`
@@ -66,19 +65,12 @@ const NewCloseIcon = styled(CloseIcon)`
   margin-right: 2.5rem;
 `
 
-const Modal = ({
-  children,
-  shown,
-  width,
-  height,
-  close,
-  scrollValue,
-}: ModalProps) => {
+const Modal = ({ children, shown, width, height, close }: ModalProps) => {
   const scrollRef = useRef<HTMLDivElement>(null)
 
   useEffect(() => {
     scrollRef.current?.scrollTo(0, 0)
-  }, [shown, scrollValue])
+  }, [shown])
 
   return (
     <>

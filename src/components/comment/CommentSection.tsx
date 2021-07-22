@@ -17,7 +17,7 @@ import MomentDateChange from '../common/MomentDateChange'
 import SubCommentSection from './SubCommentSection'
 
 interface Props {
-  comments: CommentObject[] | undefined
+  comments: CommentObject[]
   loading?: boolean
 }
 

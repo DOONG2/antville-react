@@ -1,11 +1,7 @@
 import React, { useRef } from 'react'
 import { SuggestionDataItem } from 'react-mentions'
-import { useDispatch } from 'react-redux'
 import useElementSize from '../common/hooks/useElementSize'
 import postSearchStock from '../../lib/api/stock/postSearchStock'
-import viewSlice from '../../reducers/Slices/view'
-import { useRootState } from '../common/hooks/useRootState'
-import postSlice from '../../reducers/Slices/post'
 import getSearchUser from '../../lib/api/user/getSearchUser'
 import {
   Margin,
@@ -16,17 +12,20 @@ import {
   SuggestionWrapper,
 } from '../../lib/styles/post'
 
-export default function PostMentionInput() {
-  const { setIsFocusPostInput } = viewSlice.actions
-  const { setBody } = postSlice.actions
-  const {
-    view: { isFocusPostInput },
-    post: {
-      submitData: { body },
-    },
-  } = useRootState((state) => state)
+type Props = {
+  isFocusInput: boolean
+  setIsFocusInput: (value: boolean) => void
+  body: string
+  setBody(value: string): void
+}
+
+export default function PostMentionInput({
+  body,
+  setBody,
+  isFocusInput,
+  setIsFocusInput,
+}: Props) {
   const textRef = useRef<any>(null)
-  const dispatch = useDispatch()
   const { scrollHeight } = useElementSize(textRef)
 
   const postQueryStock = (
@@ -58,7 +57,7 @@ export default function PostMentionInput() {
       <MentionInput
         id="postBody"
         onChange={(e) => {
-          dispatch(setBody(e.target.value))
+          setBody(e.target.value)
         }}
         value={body}
         placeholder={
@@ -66,9 +65,9 @@ export default function PostMentionInput() {
         }
         autoComplete="off"
         onFocus={() => {
-          dispatch(setIsFocusPostInput(true))
+          setIsFocusInput(true)
         }}
-        isfocus={isFocusPostInput.toString()}
+        isfocus={isFocusInput.toString()}
         scrollheight={scrollHeight}
         inputRef={textRef}
       >
