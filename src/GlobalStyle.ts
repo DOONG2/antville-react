@@ -35,12 +35,6 @@ const globalStyle = css`
   }
 
   @font-face {
-    font-family: 'Noto Sans KR';
-    font-weight: 900;
-    src: url('/fonts/Roboto-Black.otf') format('opentype');
-  }
-
-  @font-face {
     font-family: 'Roboto';
     font-weight: 100;
     src: url('/fonts/Roboto-Thin.ttf') format('truetype');

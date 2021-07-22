@@ -6,13 +6,12 @@ import StockDownButton from '../../static/svg/StockDownButton'
 import StockUpButton from '../../static/svg/StockUpButton'
 import UserIcon from '../../static/svg/UserIcon'
 import { useRootState } from '../common/hooks/useRootState'
-import postSlice from '../../reducers/Slices/post'
 import StockUpButtonClicked from '../../static/svg/StockUpButtonClicked'
 import StockDownButtonClicked from '../../static/svg/StockDownButtonClicked'
 import viewSlice from '../../reducers/Slices/view'
 import ImageUpload from '../upload/ImageUpload'
 import GifUpload from '../upload/GifUpload'
-import PreviewImage from './PostPreviewImage'
+import PreviewImage from './PreviewImage'
 import PostMentionInput from './PostMentionInput'
 import {
   EmailCheck,
@@ -35,28 +34,25 @@ interface Props {
 }
 
 const PostForm = ({ addPost }: Props) => {
-  const {
-    user,
-    post: {
-      isUp,
-      isDown,
-      submitData: { body, sentiment },
-    },
-    view: { isFocusPostInput },
-  } = useRootState((state) => state)
-  const { setIsUp, setIsDown, setSentiment } = postSlice.actions
-  const { setIsOpenLoginForm, setIsFocusPostInput } = viewSlice.actions
-  const [uploadImage, setUploadImage] = useState<File | undefined>()
-  const [gifDto, setGifDto] = useState<GifDto | undefined>()
+  const { user } = useRootState((state) => state)
+  const [isFocusInput, setIsFocusInput] = useState<boolean>(false)
+  const [uploadImage, setUploadImage] = useState<File>()
+  const [gifDto, setGifDto] = useState<GifDto>()
+  const [body, setBody] = useState('')
   const [previewUrl, setPreviewUrl] = useState<string | ArrayBuffer | null>(
     null
   )
+  const [isOnUp, setIsOnUp] = useState(false)
+  const [isOnDown, setIsOnDown] = useState(false)
+  const [sentiment, setSentiment] = useState<string>()
 
-  const { postDataApi } = usePostData({ addPost })
+  const { setIsOpenLoginForm } = viewSlice.actions
   const dispatch = useDispatch()
 
+  const { postDataApi } = usePostData({ addPost })
+
   useEffect(() => {
-    if (previewUrl !== null) dispatch(setIsFocusPostInput(true))
+    if (previewUrl !== null) setIsFocusInput(true)
   }, [previewUrl])
 
   return (
@@ -65,8 +61,9 @@ const PostForm = ({ addPost }: Props) => {
         e.preventDefault()
         postDataApi({ body, sentiment, gifDto, uploadImage })
         setUploadImage(undefined)
-        setIsFocusPostInput(false)
+        setIsFocusInput(false)
         setGifDto(undefined)
+        setBody('')
         setPreviewUrl(null)
       }}
     >
@@ -74,32 +71,43 @@ const PostForm = ({ addPost }: Props) => {
         <UserIconWrapper>
           <UserIcon />
         </UserIconWrapper>
-        <InputWrapper isFocus={isFocusPostInput}>
+        <InputWrapper isFocus={isFocusInput}>
           {user ? (
             <>
               {user.isEmailVerified ? (
                 <>
-                  <PostMentionInput />
+                  <PostMentionInput
+                    body={body}
+                    setBody={setBody}
+                    isFocusInput={isFocusInput}
+                    setIsFocusInput={setIsFocusInput}
+                  />
                   <PreviewImage
-                    setPreviewUrl={setPreviewUrl}
                     previewUrl={previewUrl}
+                    setPreviewUrl={setPreviewUrl}
                   />
                   <PostInnerButtonsWrapper>
                     <PostItem
                       onClick={() => {
-                        dispatch(setIsUp(true))
-                        dispatch(setSentiment('UP'))
+                        setIsOnUp(!isOnUp)
+                        if (!isOnUp) {
+                          setIsOnDown(false)
+                          setSentiment('UP')
+                        }
                       }}
                     >
-                      {isUp ? <StockUpButtonClicked /> : <StockUpButton />}
+                      {isOnUp ? <StockUpButtonClicked /> : <StockUpButton />}
                     </PostItem>
                     <PostItem
                       onClick={() => {
-                        dispatch(setIsDown(true))
-                        dispatch(setSentiment('DOWN'))
+                        setIsOnDown(!isOnDown)
+                        if (!isOnDown) {
+                          setIsOnUp(false)
+                          setSentiment('DOWN')
+                        }
                       }}
                     >
-                      {isDown ? (
+                      {isOnDown ? (
                         <StockDownButtonClicked />
                       ) : (
                         <StockDownButton />

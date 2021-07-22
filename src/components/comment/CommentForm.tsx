@@ -24,7 +24,7 @@ import CommentMentionInput from './CommentMentionInput'
 import { GifDto } from '../../types/post'
 import useCommentData from './hooks/useCommentData'
 import { useParams } from 'react-router-dom'
-import PreviewImage from '../post/PostPreviewImage'
+import PreviewImage from '../post/PreviewImage'
 import { CommentObject } from '../../lib/api/comment/types'
 
 interface Props {
@@ -34,23 +34,23 @@ interface Props {
 
 function CommentForm({ parentCommentId, addComment }: Props) {
   const { user } = useRootState((state) => state)
-  const [isFocusCommentInput, setIsFocusCommentInput] = useState<boolean>(false)
-  const [uploadImage, setUploadImage] = useState<File | undefined>()
-  const [gifDto, setGifDto] = useState<GifDto | undefined>()
-  const [body, setCommentBody] = useState<string>('')
+  const [isFocusInput, setIsFocusInput] = useState<boolean>(false)
+  const [uploadImage, setUploadImage] = useState<File>()
+  const [gifDto, setGifDto] = useState<GifDto>()
+  const [body, setBody] = useState('')
   const [previewUrl, setPreviewUrl] = useState<string | ArrayBuffer | null>(
     null
   )
+
   const { id: postId } = useParams<{ id: string }>()
 
   const { setIsOpenLoginForm } = viewSlice.actions
-
   const dispatch = useDispatch()
 
   const { postDataApi } = useCommentData({ addComment })
 
   useEffect(() => {
-    if (previewUrl !== null) setIsFocusCommentInput(true)
+    if (previewUrl !== null) setIsFocusInput(true)
   }, [previewUrl])
 
   return (
@@ -59,9 +59,9 @@ function CommentForm({ parentCommentId, addComment }: Props) {
         e.preventDefault()
         postDataApi({ body, gifDto, uploadImage, postId, parentCommentId })
         setUploadImage(undefined)
-        setIsFocusCommentInput(false)
+        setIsFocusInput(false)
         setGifDto(undefined)
-        setCommentBody('')
+        setBody('')
         setPreviewUrl(null)
       }}
     >
@@ -69,16 +69,16 @@ function CommentForm({ parentCommentId, addComment }: Props) {
         <UserIconWrapper>
           <UserIcon />
         </UserIconWrapper>
-        <InputWrapper isFocus={isFocusCommentInput}>
+        <InputWrapper isFocus={isFocusInput}>
           {user ? (
             <>
               {user.isEmailVerified ? (
                 <>
                   <CommentMentionInput
-                    isFocusCommentInput={isFocusCommentInput}
-                    setIsFocusCommentInput={setIsFocusCommentInput}
-                    setCommentBody={setCommentBody}
                     body={body}
+                    setBody={setBody}
+                    isFocusInput={isFocusInput}
+                    setIsFocusInput={setIsFocusInput}
                   />
                   <PreviewImage
                     previewUrl={previewUrl}

@@ -10,6 +10,9 @@ export default function FeedDetailPage({ id, post }: FeedPageProps) {
     key: `feed-detail-${id}`,
     callback: (cursor) => getCommentsById(id, cursor),
   })
+
+  if (!comments) return <></>
+
   return (
     <>
       <FeedDetailInfo post={post} />
