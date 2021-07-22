@@ -1,5 +1,8 @@
 import { createSlice, PayloadAction } from '@reduxjs/toolkit'
-import { getCategoriesResponse, getSearchResponse } from '../../api/tenor/types'
+import {
+  getCategoriesResponse,
+  getSearchResponse,
+} from '../../lib/api/tenor/types'
 import { postOptions } from '../../types/post'
 
 type postState = postOptions

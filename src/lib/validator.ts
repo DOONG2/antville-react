@@ -1,6 +1,6 @@
 import { debounce } from 'lodash'
-import checkEmail from '../api/user/checkEmail'
-import checkNickname from '../api/user/checkNickname'
+import checkEmail from './api/user/checkEmail'
+import checkNickname from './api/user/checkNickname'
 
 export const check_num = /[0-9]/
 export const check_eng = /[a-zA-Z]/

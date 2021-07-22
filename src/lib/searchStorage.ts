@@ -1,5 +1,5 @@
 import _ from 'lodash'
-import { Stock } from '../api/types'
+import { Stock } from './api/types'
 
 const key = 'SEARCH'
 

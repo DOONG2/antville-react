@@ -1,18 +1,9 @@
 import styled from '@emotion/styled'
 import React, { useState } from 'react'
-import ThreeDot from '../../assets/svg/ThreeDot'
-import useOnClickOutside from '../../hooks/useOnClickOutside'
-import DropDown from '../../mds/DropDown'
-import FeedOptionDropDown from '../DropDown/FeedOptionDropDown'
-
-const Wrapper = styled.div``
-
-const OutSideClickWrapper = styled.div`
-  padding: 5px 0;
-  cursor: pointer;
-
-  position: relative;
-`
+import ThreeDot from '../../static/svg/ThreeDot'
+import useOnClickOutside from '../common/hooks/useOnClickOutside'
+import DropDown from '../common/DropDown'
+import FeedOptionDropDown from './FeedOptionDropDown'
 
 export default function FeedOption() {
   const [isOpen, setIsOpen] = useState(false)
@@ -35,3 +26,12 @@ export default function FeedOption() {
     </>
   )
 }
+
+const Wrapper = styled.div``
+
+const OutSideClickWrapper = styled.div`
+  padding: 5px 0;
+  cursor: pointer;
+
+  position: relative;
+`

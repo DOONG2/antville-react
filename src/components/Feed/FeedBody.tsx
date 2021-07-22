@@ -1,24 +1,11 @@
 import styled from '@emotion/styled'
 import { useState } from 'react'
-import { grey050 } from '../../mds/styled/colors'
+import { grey050 } from '../../lib/styles/colors'
 
 interface Props {
   body: string
   isDetail?: boolean
 }
-
-const Wrapper = styled.div`
-  word-break: break-all;
-`
-
-const ExtendButton = styled.div`
-  margin-top: 15px;
-  font-size: 16px;
-  line-height: 150%;
-  cursor: pointer;
-
-  color: ${grey050};
-`
 
 export default function FeedBody({ body, isDetail }: Props) {
   const [isExtended, setIsExtended] = useState<boolean>(body.length > 300)
@@ -51,3 +38,16 @@ export default function FeedBody({ body, isDetail }: Props) {
     </Wrapper>
   )
 }
+
+const Wrapper = styled.div`
+  word-break: break-all;
+`
+
+const ExtendButton = styled.div`
+  margin-top: 15px;
+  font-size: 16px;
+  line-height: 150%;
+  cursor: pointer;
+
+  color: ${grey050};
+`

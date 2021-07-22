@@ -1,4 +1,7 @@
-import { getCategoriesResponse, getSearchResponse } from '../api/tenor/types'
+import {
+  getCategoriesResponse,
+  getSearchResponse,
+} from '../lib/api/tenor/types'
 
 export interface postOptions {
   isUp: boolean

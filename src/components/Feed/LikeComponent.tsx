@@ -1,12 +1,12 @@
 import styled from '@emotion/styled'
 import React, { useEffect, useState } from 'react'
 import { useDispatch } from 'react-redux'
-import deleteUnLikeComment from '../../api/comment/deleteUnLikeComment'
-import putLikeComment from '../../api/comment/putLikeComment'
-import putLikePost from '../../api/post/putLikePost'
-import deleteUnLikePost from '../../api/post/deleteUnLikePost'
-import HeartIcon from '../../assets/svg/HeartIcon'
-import useCheckLogin from '../../hooks/useCheckLogin'
+import deleteUnLikeComment from '../../lib/api/comment/deleteUnLikeComment'
+import putLikeComment from '../../lib/api/comment/putLikeComment'
+import putLikePost from '../../lib/api/post/putLikePost'
+import deleteUnLikePost from '../../lib/api/post/deleteUnLikePost'
+import HeartIcon from '../../static/svg/HeartIcon'
+import useCheckLogin from '../common/hooks/useCheckLogin'
 import viewSlice from '../../reducers/Slices/view'
 
 interface Props {
@@ -15,10 +15,6 @@ interface Props {
   postId?: number
   commentId?: number
 }
-
-const Count = styled.div`
-  user-select: none;
-`
 
 export default function LikeComponent({
   isLiked,
@@ -61,3 +57,7 @@ export default function LikeComponent({
     </>
   )
 }
+
+const Count = styled.div`
+  user-select: none;
+`

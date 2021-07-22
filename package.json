@@ -40,10 +40,16 @@
     "eject": "react-scripts eject"
   },
   "eslintConfig": {
+    "plugins": [
+      "react-hooks"
+    ],
     "extends": [
       "react-app",
       "react-app/jest"
-    ]
+    ],
+    "rules": {
+      "react-hooks/exhaustive-deps": "off"
+    }
   },
   "browserslist": {
     "production": [
@@ -60,6 +66,7 @@
   "devDependencies": {
     "@types/lodash.debounce": "^4.0.6",
     "@types/react-mentions": "^4.1.1",
-    "@types/react-router-dom": "^5.1.7"
+    "@types/react-router-dom": "^5.1.7",
+    "eslint-plugin-react-hooks": "^4.2.0"
   }
 }

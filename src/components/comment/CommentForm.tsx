@@ -1,0 +1,142 @@
+import React, { useEffect, useState } from 'react'
+import { useDispatch } from 'react-redux'
+import GifUploadButton from '../../static/svg/GifUploadButton'
+import PictureUploadButton from '../../static/svg/PictureUploadButton'
+import UserIcon from '../../static/svg/UserIcon'
+import { useRootState } from '../common/hooks/useRootState'
+import viewSlice from '../../reducers/Slices/view'
+import ImageUpload from '../upload/ImageUpload'
+import GifUpload from '../upload/GifUpload'
+import {
+  EmailCheck,
+  Form,
+  FormInner,
+  InputWrapper,
+  LockedLabel,
+  NewFontBlue,
+  PostInnerButtonsWrapper,
+  PostItem,
+  SubmitButton,
+  UserIconWrapper,
+} from '../../lib/styles/post'
+import styled from '@emotion/styled'
+import CommentMentionInput from './CommentMentionInput'
+import { GifDto } from '../../types/post'
+import useCommentData from './hooks/useCommentData'
+import { useParams } from 'react-router-dom'
+import PreviewImage from '../post/PostPreviewImage'
+import { CommentObject } from '../../lib/api/comment/types'
+
+interface Props {
+  parentCommentId?: string
+  addComment?: (value?: CommentObject) => void
+}
+
+function CommentForm({ parentCommentId, addComment }: Props) {
+  const { user } = useRootState((state) => state)
+  const [isFocusCommentInput, setIsFocusCommentInput] = useState<boolean>(false)
+  const [uploadImage, setUploadImage] = useState<File | undefined>()
+  const [gifDto, setGifDto] = useState<GifDto | undefined>()
+  const [body, setCommentBody] = useState<string>('')
+  const [previewUrl, setPreviewUrl] = useState<string | ArrayBuffer | null>(
+    null
+  )
+  const { id: postId } = useParams<{ id: string }>()
+
+  const { setIsOpenLoginForm } = viewSlice.actions
+
+  const dispatch = useDispatch()
+
+  const { postDataApi } = useCommentData({ addComment })
+
+  useEffect(() => {
+    if (previewUrl !== null) setIsFocusCommentInput(true)
+  }, [previewUrl])
+
+  return (
+    <Form
+      onSubmit={(e) => {
+        e.preventDefault()
+        postDataApi({ body, gifDto, uploadImage, postId, parentCommentId })
+        setUploadImage(undefined)
+        setIsFocusCommentInput(false)
+        setGifDto(undefined)
+        setCommentBody('')
+        setPreviewUrl(null)
+      }}
+    >
+      <FormInner>
+        <UserIconWrapper>
+          <UserIcon />
+        </UserIconWrapper>
+        <InputWrapper isFocus={isFocusCommentInput}>
+          {user ? (
+            <>
+              {user.isEmailVerified ? (
+                <>
+                  <CommentMentionInput
+                    isFocusCommentInput={isFocusCommentInput}
+                    setIsFocusCommentInput={setIsFocusCommentInput}
+                    setCommentBody={setCommentBody}
+                    body={body}
+                  />
+                  <PreviewImage
+                    previewUrl={previewUrl}
+                    setPreviewUrl={setPreviewUrl}
+                  />
+                  <NewPostInnerButtonsWrapper>
+                    <PostItem>
+                      <ImageUpload
+                        setUploadImage={setUploadImage}
+                        setGifDto={setGifDto}
+                        setPreviewUrl={setPreviewUrl}
+                      />
+                    </PostItem>
+                    <PostItem>
+                      <GifUpload
+                        setUploadImage={setUploadImage}
+                        setGifDto={setGifDto}
+                        setPreviewUrl={setPreviewUrl}
+                      />
+                    </PostItem>
+                  </NewPostInnerButtonsWrapper>
+                </>
+              ) : (
+                <EmailCheck>
+                  게시글 작성을 위해 이메일 인증을 완료해주세요.{' '}
+                  <NewFontBlue>이메일 인증 요청하기</NewFontBlue>
+                </EmailCheck>
+              )}
+            </>
+          ) : (
+            <>
+              <LockedLabel onClick={() => dispatch(setIsOpenLoginForm(true))}>
+                댓글을 입력해주세요.
+              </LockedLabel>
+              <NewPostInnerButtonsWrapper
+                onClick={() => dispatch(setIsOpenLoginForm(true))}
+              >
+                <PostItem>
+                  <PictureUploadButton />
+                </PostItem>
+                <PostItem>
+                  <GifUploadButton />
+                </PostItem>
+              </NewPostInnerButtonsWrapper>
+            </>
+          )}
+        </InputWrapper>
+
+        <SubmitButton type="submit" disabled={body.length < 1}>
+          게시
+        </SubmitButton>
+      </FormInner>
+    </Form>
+  )
+}
+
+const NewPostInnerButtonsWrapper = styled(PostInnerButtonsWrapper)`
+  column-gap: 12px;
+`
+
+export default CommentForm
