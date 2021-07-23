@@ -30,7 +30,6 @@ const GifUpload = ({ setUploadImage, setGifDto, setPreviewUrl }: Props) => {
     if (isOpenGifForm) {
       const callApi = async () => {
         const data = await getCategories()
-
         setCategorys(data)
       }
       callApi()

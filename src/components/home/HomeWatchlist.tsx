@@ -1,6 +1,5 @@
 import styled from '@emotion/styled'
 import { useHistory } from 'react-router-dom'
-import watchlistStorage from '../../lib/watchlistStorage'
 import { grey040, grey050 } from '../../lib/styles/colors'
 import {
   StockListWrapper,
@@ -13,12 +12,19 @@ import {
   StockListGroup,
   StockListItem,
 } from '../../lib/styles/stockList'
+import { useRootState } from '../common/hooks/useRootState'
+import useGetWatchlist from './hooks/useGetWatchlist'
 
 function HomeWatchlist() {
   const history = useHistory()
-  const watchlist = watchlistStorage.get()
 
-  if (!watchlist)
+  const { watchlist } = useRootState((state) => state)
+
+  const { isLoading } = useGetWatchlist()
+
+  if (isLoading) return <></>
+
+  if (watchlist === null)
     return (
       <>
         <Wrapper>
@@ -41,9 +47,9 @@ function HomeWatchlist() {
       <Wrapper>
         <NewStockListWrapper>
           <StockListHeader>관심 종목</StockListHeader>
-          {watchlist.stocks.length > 1 ? (
+          {watchlist.length > 1 ? (
             <ScrollBar>
-              {watchlist?.stocks.map((stock) => (
+              {watchlist.map((stock) => (
                 <NewStockListGroup
                   key={`${stock.id}-side-bar`}
                   onClick={() => history.push(`/stock/${stock.cashTagName}`)}

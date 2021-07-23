@@ -1,26 +1,33 @@
 import { createSlice, PayloadAction } from '@reduxjs/toolkit'
-import { Stock, StockPriceInfo } from '../../lib/api/types'
+import { Stock } from '../../lib/api/types'
 
-type WatchListState = {
-  stocks: [Stock]
-  stockPriceInfos: [StockPriceInfo]
-} | null
+type WatchListState = Stock[] | null
 
 const initialState = null as WatchListState
 
-const watchListSlice = createSlice({
+const watchlistSlice = createSlice({
   name: 'watchlist',
   initialState,
   reducers: {
-    setWatchListState(state, action: PayloadAction<WatchListState>) {
-      if (action.payload?.stocks === undefined) {
+    setWatchlistState(state, action: PayloadAction<WatchListState>) {
+      if (action.payload === null) {
         return (state = null)
       } else {
-        if (action.payload.stocks.length < 1) return (state = null)
+        if (action.payload.length < 1) return (state = null)
         return (state = action.payload)
+      }
+    },
+    setAddWatchlist(state, action: PayloadAction<Stock>) {
+      if (state) {
+        state.unshift(action.payload)
+      }
+    },
+    setDeleteWatchlist(state, action: PayloadAction<Stock>) {
+      if (state) {
+        return state.filter((state) => state.id !== action.payload.id)
       }
     },
   },
 })
 
-export default watchListSlice
+export default watchlistSlice
