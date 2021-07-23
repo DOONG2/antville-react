@@ -1,4 +1,5 @@
 import { useDispatch } from 'react-redux'
+import { useHistory } from 'react-router-dom'
 import { User } from '../../../lib/api/types'
 import authStorage from '../../../lib/authStorage'
 import userStorage from '../../../lib/userStorage'
@@ -9,6 +10,7 @@ export default function useAuth() {
   const { setUserState } = userSlice.actions
   const { setAuthState } = authSlice.actions
   const dispatch = useDispatch()
+  const history = useHistory()
 
   const authorize = async (user: User) => {
     userStorage.set(user)
@@ -20,6 +22,7 @@ export default function useAuth() {
     dispatch(setAuthState(null))
     userStorage.clear()
     authStorage.clear()
+    history.push('/')
   }
 
   return {
