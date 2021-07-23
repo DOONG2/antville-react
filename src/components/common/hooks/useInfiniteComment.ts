@@ -38,5 +38,6 @@ export default function useInfiniteComment({ key, callback }: Props) {
     comments,
     error,
     isFetching,
+    setComments,
   }
 }

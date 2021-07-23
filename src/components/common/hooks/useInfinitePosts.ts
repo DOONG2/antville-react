@@ -38,5 +38,6 @@ export default function useInfinitePosts({ key, callback }: Props) {
     posts,
     error,
     isFetching,
+    setPosts,
   }
 }

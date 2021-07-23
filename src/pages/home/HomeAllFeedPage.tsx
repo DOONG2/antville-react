@@ -1,21 +1,32 @@
 import useInfinitePosts from '../../components/common/hooks/useInfinitePosts'
 import FollowingEmpty from '../../components/feed/empty/FollowingEmpty'
 import FeedSection from '../../components/feed/FeedSection'
+import FeedTab from '../../components/feed/FeedTab'
+import PostForm from '../../components/post/PostForm'
 import getPostsByUrl from '../../lib/api/post/getPostsByUrl'
 import { HomePageProps } from './type'
 
 function AllFeedPage({ id }: HomePageProps) {
-  const { isLoading, posts } = useInfinitePosts({
+  const { isLoading, posts, setPosts } = useInfinitePosts({
     key: `all-${id}`,
     callback: (cursor) => getPostsByUrl('all', cursor),
   })
   if (!posts) return <></>
   return (
-    <FeedSection
-      posts={posts}
-      loading={isLoading}
-      emptyComponent={<FollowingEmpty />}
-    />
+    <>
+      <PostForm
+        addPost={(post) => {
+          if (!post) return
+          setPosts([post].concat(posts))
+        }}
+      />
+      <FeedTab />
+      <FeedSection
+        posts={posts}
+        loading={isLoading}
+        emptyComponent={<FollowingEmpty />}
+      />
+    </>
   )
 }
 

@@ -6,7 +6,7 @@ import CommentSection from '../../components/comment/CommentSection'
 import CommentForm from '../../components/comment/CommentForm'
 
 export default function FeedDetailPage({ id, post }: FeedPageProps) {
-  const { isLoading, comments } = useInfiniteComment({
+  const { isLoading, comments, setComments } = useInfiniteComment({
     key: `feed-detail-${id}`,
     callback: (cursor) => getCommentsById(id, cursor),
   })
@@ -16,7 +16,12 @@ export default function FeedDetailPage({ id, post }: FeedPageProps) {
   return (
     <>
       <FeedDetailInfo post={post} />
-      <CommentForm />
+      <CommentForm
+        addComment={(comment) => {
+          if (!comment) return
+          setComments([comment].concat(comments))
+        }}
+      />
       <CommentSection comments={comments} loading={isLoading} />
     </>
   )

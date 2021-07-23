@@ -4,8 +4,6 @@ import AllFeedPage from './HomeAllFeedPage'
 import FollowingFeedPage from './HomeFollowingFeedPage'
 import WatchlistFeedPage from './HomeWatchlistFeedPage'
 import { Route } from 'react-router-dom'
-import PostForm from '../../components/post/PostForm'
-import FeedTab from '../../components/feed/FeedTab'
 import { useRootState } from '../../components/common/hooks/useRootState'
 
 function HomePage() {
@@ -17,8 +15,6 @@ function HomePage() {
     <MainTemplate
       children={
         <>
-          <PostForm />
-          <FeedTab />
           <Route
             path={['/', '/all']}
             render={() => <AllFeedPage id={user.id} />}
