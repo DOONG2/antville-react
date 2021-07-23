@@ -7,6 +7,7 @@ import { FontBlue } from './texts'
 export const Image = styled.img`
   height: 270px;
   margin: 15px auto;
+  width: 100%;
 
   border: 1px solid ${grey030};
   border-radius: 8px;

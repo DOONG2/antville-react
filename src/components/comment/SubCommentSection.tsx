@@ -14,6 +14,7 @@ import {
   BottomWrapper,
   Count,
   FeedAvatar,
+  GifImage,
   LeftItem,
   MiddleWrapper,
   NickNameWrapper,
@@ -24,6 +25,7 @@ import FeedBody from '../feed/FeedBody'
 import LikeComponent from '../feed/LikeComponent'
 import MomentDateChange from '../common/MomentDateChange'
 import CommentForm from './CommentForm'
+import { Image } from '../../lib/styles/post'
 
 interface Props {
   comment: CommentObject
@@ -118,6 +120,18 @@ export default function SubCommentSection({ comment }: Props) {
             </NewTopWrapper>
             <NewMiddleWrapper>
               <FeedBody body={comment.body} isDetail={true} />
+              {comment.commentImgs[0] && (
+                <Image
+                  src={comment.commentImgs[0].image.toString()}
+                  alt={`${comment.id}-comment-image`}
+                />
+              )}
+              {comment.gifImage?.gifUrl && (
+                <GifImage
+                  src={comment.gifImage.gifUrl}
+                  alt={`${comment.id}-comment-gif-image`}
+                />
+              )}
             </NewMiddleWrapper>
             <NewBottomWrapper>
               <BottomItem>
@@ -158,7 +172,7 @@ export default function SubCommentSection({ comment }: Props) {
 }
 
 const SubCommentWrapper = styled.div`
-  padding-left: 97px;
+  margin-left: 97px;
 `
 
 const NewBottomWrapper = styled(BottomWrapper)`

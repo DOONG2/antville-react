@@ -41,7 +41,6 @@ export default function PreviewImage({
 
 const Wrapper = styled.div`
   margin: 10px 0;
-
   width: 100%;
 
   position: relative;
