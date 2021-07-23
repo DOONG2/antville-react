@@ -25,13 +25,15 @@ import LikeComponent from './LikeComponent'
 import MomentDateChange from '../common/MomentDateChange'
 
 interface Props {
-  posts: Post[] | undefined
+  posts: Post[]
   loading?: boolean
   emptyComponent: ReactNode
 }
 
 const FeedSection = ({ posts, loading, emptyComponent }: Props) => {
   const history = useHistory()
+
+  if (posts.length < 1) return <>{emptyComponent}</>
 
   return (
     <>

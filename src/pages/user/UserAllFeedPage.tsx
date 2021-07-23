@@ -1,5 +1,5 @@
 import useInfinitePosts from '../../components/common/hooks/useInfinitePosts'
-import ProfileEmpty from '../../components/feed/empty/UserLikeEmpty'
+import UserEmpty from '../../components/feed/empty/UserEmpty'
 import FeedSection from '../../components/feed/FeedSection'
 import getPostsByUser from '../../lib/api/post/getPostsByUser'
 import { UserFeedPageProps } from './type'
@@ -9,12 +9,12 @@ function UserAllFeedPage({ user }: UserFeedPageProps) {
     key: `user-all-${user.id}`,
     callback: (cursor) => getPostsByUser(user.id, cursor),
   })
-
+  if (!posts) return <></>
   return (
     <FeedSection
       posts={posts}
       loading={isLoading}
-      emptyComponent={<ProfileEmpty />}
+      emptyComponent={<UserEmpty />}
     />
   )
 }

@@ -9,6 +9,7 @@ function StockDetailPage({ stock }: StockPageProps) {
     key: `stock-detail-${stock.id}`,
     callback: (cursor) => getPostsByStock(stock.id, cursor),
   })
+  if (!posts) return <></>
   return (
     <>
       <FeedSection

@@ -6,19 +6,32 @@ import WatchlistFeedPage from './HomeWatchlistFeedPage'
 import { Route } from 'react-router-dom'
 import PostForm from '../../components/post/PostForm'
 import FeedTab from '../../components/feed/FeedTab'
+import { useRootState } from '../../components/common/hooks/useRootState'
 
-export type HomePageProps = {}
+function HomePage() {
+  const { user } = useRootState((state) => state)
 
-function HomePage(props: HomePageProps) {
+  if (!user) return <></>
+
   return (
     <MainTemplate
       children={
         <>
           <PostForm />
           <FeedTab />
-          <Route path={['/', '/all']} component={AllFeedPage} exact />
-          <Route path={['/watchlist']} component={WatchlistFeedPage} />
-          <Route path={['/following']} component={FollowingFeedPage} />
+          <Route
+            path={['/', '/all']}
+            render={() => <AllFeedPage id={user.id} />}
+            exact
+          />
+          <Route
+            path={['/watchlist']}
+            render={() => <WatchlistFeedPage id={user.id} />}
+          />
+          <Route
+            path={['/following']}
+            render={() => <FollowingFeedPage id={user.id} />}
+          />
         </>
       }
     />
