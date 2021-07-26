@@ -1,14 +1,13 @@
 import styled from '@emotion/styled'
-import React, { useEffect, useState } from 'react'
+import { useRef } from 'react'
 import { useDispatch } from 'react-redux'
 import { gifDto } from '../../lib/api/post/types'
-import getCategories from '../../lib/api/tenor/getCategories'
 import GifUploadButton from '../../static/svg/GifUploadButton'
 import { useRootState } from '../common/hooks/useRootState'
 import viewSlice from '../../reducers/Slices/view'
 import GifForm from './GifForm'
 import Modal from '../common/Modal'
-import { getCategoriesResponse } from '../../lib/api/tenor/types'
+import useGetTenorCategories from './hooks/useGetTenorCategories'
 
 interface Props {
   setUploadImage(value?: File): void
@@ -21,21 +20,10 @@ const GifUpload = ({ setUploadImage, setGifDto, setPreviewUrl }: Props) => {
   const {
     view: { isOpenGifForm },
   } = useRootState((state) => state)
-  const [categorys, setCategorys] = useState<getCategoriesResponse>()
+  const { categorys } = useGetTenorCategories()
   const { setIsOpenGifForm } = viewSlice.actions
-
+  const modalParentRef = useRef<HTMLDivElement>(null)
   const dispatch = useDispatch()
-
-  useEffect(() => {
-    if (isOpenGifForm) {
-      const callApi = async () => {
-        const data = await getCategories()
-
-        setCategorys(data)
-      }
-      callApi()
-    }
-  }, [isOpenGifForm])
 
   return (
     <>
@@ -44,6 +32,7 @@ const GifUpload = ({ setUploadImage, setGifDto, setPreviewUrl }: Props) => {
       </Wrapper>
       <DefaultCursor>
         <Modal
+          modalParentRef={modalParentRef}
           shown={isOpenGifForm}
           width="66rem"
           height="66rem"
@@ -56,6 +45,7 @@ const GifUpload = ({ setUploadImage, setGifDto, setPreviewUrl }: Props) => {
             setGifDto={setGifDto}
             setPreviewUrl={setPreviewUrl}
             categorys={categorys}
+            modalParentRef={modalParentRef}
           />
         </Modal>
       </DefaultCursor>

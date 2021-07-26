@@ -1,21 +1,21 @@
 import styled from '@emotion/styled'
-import { StockType } from '../../lib/api/types'
 import PolygonDown from '../../static/svg/PolygonDown'
 import PolygonUp from '../../static/svg/PolygonUp'
 import { grey070, grey080, red050 } from '../../lib/styles/colors'
 import AddWatchlistComponent from './StockTopRightButton'
+import { Stock } from '../../lib/api/types'
 
 type Props = {
-  stock: StockType
+  stock: Stock
 }
 
 export default function StockInfo({ stock }: Props) {
   return (
     <Wrapper>
       <Inner>
-        <TopWrapper>{stock.stock.enName}</TopWrapper>
+        <TopWrapper>{stock.enName}</TopWrapper>
         <TitleWrapper>
-          <Ticker>{stock.stock.cashTagName}</Ticker>
+          <Ticker>{stock.cashTagName}</Ticker>
           <Price>＄83.15</Price>
           <LastItem>
             <Top>66,089,152</Top>

@@ -83,6 +83,8 @@ function CommentForm({ parentCommentId, addComment }: Props) {
                   <PreviewImage
                     previewUrl={previewUrl}
                     setPreviewUrl={setPreviewUrl}
+                    setUploadImage={setUploadImage}
+                    setGifDto={setGifDto}
                   />
                   <NewPostInnerButtonsWrapper>
                     <PostItem>

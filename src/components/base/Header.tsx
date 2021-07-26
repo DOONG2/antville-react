@@ -55,6 +55,7 @@ function Header() {
   })
 
   const IconWrapperRef = useRef<HTMLDivElement>(null)
+  const modalParentRef = useRef<HTMLDivElement>(null)
 
   const { height } = useElementSize(IconWrapperRef)
 
@@ -111,6 +112,7 @@ function Header() {
                 로그인
               </NewLoginButton>
               <Modal
+                modalParentRef={modalParentRef}
                 shown={isOpenLoginForm}
                 width="44.7rem"
                 height="54.1rem"
@@ -126,6 +128,7 @@ function Header() {
                 가입하기
               </NewSignUpButton>
               <Modal
+                modalParentRef={modalParentRef}
                 shown={isOpenSignUpForm}
                 width="44.7rem"
                 height="77.4rem"
@@ -136,6 +139,7 @@ function Header() {
                 <AuthSignUpForm />
               </Modal>
               <Modal
+                modalParentRef={modalParentRef}
                 shown={isOpenFindPasswordForm}
                 width="44.7rem"
                 height="46.8rem"

@@ -1,24 +1,20 @@
 import styled from '@emotion/styled'
-import { debounce } from 'lodash'
-import { useCallback, useEffect, useState } from 'react'
-import { useDispatch } from 'react-redux'
+import { RefObject, useState } from 'react'
 import { gifDto } from '../../lib/api/post/types'
 import getSearch from '../../lib/api/tenor/getSearch'
-import BackIcon from '../../static/svg/BackIcon'
 import SearchIcon from '../../static/svg/SearchIcon'
-import randomColor from '../../lib/randomColor'
 import { IconWrapper, SearchInput, SerchBar } from '../../lib/styles/searchBar'
-import viewSlice from '../../reducers/Slices/view'
-import {
-  getCategoriesResponse,
-  getSearchResponse,
-} from '../../lib/api/tenor/types'
+import { getCategoriesResponse } from '../../lib/api/tenor/types'
+import GifView from './GifView'
+import useInfiniteGif from './hooks/useInfiniteGif'
+import useDebounce from '../common/hooks/useDebounce'
 
 interface Props {
   setUploadImage(value: File | undefined): void
   setGifDto(value: gifDto | undefined): void
   setPreviewUrl(value: string | ArrayBuffer | null): void
   categorys?: getCategoriesResponse
+  modalParentRef: RefObject<HTMLDivElement>
 }
 
 function GifForm({
@@ -26,34 +22,18 @@ function GifForm({
   setUploadImage,
   setPreviewUrl,
   categorys,
+  modalParentRef,
 }: Props) {
   const [query, setQuery] = useState('')
-  const [gifs, setGifs] = useState<getSearchResponse | null>(null)
-  const { setIsOpenGifForm } = viewSlice.actions
-  const [isFocus, setIsFocus] = useState(false)
 
-  const dispatch = useDispatch()
+  const debouncedQuery = useDebounce(query, 300)
 
-  //TODO : 아래로직 훅으로 빼기
-  const searchApi = async (term: string) => {
-    const result = await getSearch(term)
-    setGifs(result)
-  }
-
-  const debouncedSearch = useCallback(
-    debounce((term) => searchApi(term), 300),
-    []
-  )
-
-  useEffect(() => {
-    if (query !== '') {
-      if (isFocus === true) {
-        debouncedSearch(query)
-      } else {
-        searchApi(query)
-      }
-    }
-  }, [debouncedSearch, query])
+  const { gifs, setGifs, isFetching } = useInfiniteGif({
+    key: `gifs-${debouncedQuery}`,
+    callback: (cursor) => getSearch(debouncedQuery, cursor),
+    query: debouncedQuery,
+    ref: modalParentRef,
+  })
 
   return (
     <>
@@ -68,82 +48,28 @@ function GifForm({
               placeholder=""
               onChange={(e) => {
                 setQuery(e.target.value)
-                if (e.target.value === '') setGifs(null)
+                if (e.target.value === '') setGifs(undefined)
               }}
               value={query}
-              onFocus={() => setIsFocus(true)}
-              onBlur={() => setIsFocus(false)}
             />
           </NewSerchBar>
         </SearchBarWrapper>
-        {gifs ? (
-          <>
-            <ResetWrapper
-              onClick={() => {
-                setGifs(null)
-                setQuery('')
-              }}
-            >
-              <BackIcon />
-            </ResetWrapper>
-            {gifs.results.map((gif) => (
-              <Item
-                key={`${gif.id}-gif-form`}
-                onClick={() => {
-                  setGifDto({
-                    gifId: gif.id,
-                    tinyGifUrl: gif.media[0].tinygif.url,
-                    gifUrl: gif.media[0].gif.url,
-                    ratio: gif.media[0].gif.dims[0] / gif.media[0].gif.dims[1],
-                  })
-                  setUploadImage(undefined)
-                  setPreviewUrl(gif.media[0].gif.preview)
-                  dispatch(setIsOpenGifForm(false))
-                }}
-                backGroundColor={randomColor()}
-              >
-                <GifImage
-                  src={`${gif.media[0].gif.url}`}
-                  alt="gif_search"
-                ></GifImage>
-              </Item>
-            ))}
-          </>
-        ) : (
-          <>
-            {categorys?.tags.map((category) => (
-              <Item
-                key={`${category.name}-gif-form`}
-                onClick={() => {
-                  setQuery(category.searchterm)
-                }}
-              >
-                <GifImageBright
-                  src={`${category.image}`}
-                  alt="gif_category"
-                ></GifImageBright>
-                <Label>{category.name}</Label>
-              </Item>
-            ))}
-          </>
-        )}
+        <GifView
+          gifs={gifs}
+          query={debouncedQuery}
+          isFetching={isFetching}
+          setGifs={setGifs}
+          setQuery={setQuery}
+          categorys={categorys}
+          setPreviewUrl={setPreviewUrl}
+          setGifDto={setGifDto}
+          setUploadImage={setUploadImage}
+          modalParentRef={modalParentRef}
+        />
       </Group>
-      <NewGroup>
-        <Item backGroundColor={randomColor()} />
-        <Item backGroundColor={randomColor()} />
-        <Item backGroundColor={randomColor()} />
-      </NewGroup>
     </>
   )
 }
-
-const Item = styled.div<{ backGroundColor?: string }>`
-  position: relative;
-  cursor: pointer;
-  height: 200px;
-
-  background-color: ${(p) => p.backGroundColor};
-`
 
 const Group = styled.div`
   display: grid;
@@ -153,54 +79,10 @@ const Group = styled.div`
   padding-top: 25px;
 `
 
-const NewGroup = styled(Group)`
-  padding-top: 0;
-`
-
-const GifImage = styled.img`
-  width: 100%;
-  height: 100%;
-`
-
-const GifImageBright = styled(GifImage)`
-  filter: brightness(70%);
-
-  &:hover {
-    filter: brightness(95%);
-  }
-`
-
-const Label = styled.div`
-  position: absolute;
-
-  z-index: 2;
-
-  font-size: 20px;
-  font-weight: 900;
-
-  bottom: 0;
-  left: 0;
-
-  margin: 10%;
-
-  color: #ffffff;
-`
-
 const SearchBarWrapper = styled.div`
   position: absolute;
   top: -37px;
   left: 85px;
-`
-
-const ResetWrapper = styled.div`
-  position: absolute;
-  width: 30px;
-  top: -26px;
-  left: 25px;
-  cursor: pointer;
-
-  display: flex;
-  justify-content: center;
 `
 
 const NewSerchBar = styled(SerchBar)`

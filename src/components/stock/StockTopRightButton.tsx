@@ -2,12 +2,14 @@ import styled from '@emotion/styled'
 import { useEffect, useState } from 'react'
 import deleteWatchlist from '../../lib/api/stock/deleteWatchlist'
 import putAddWatchlist from '../../lib/api/stock/putAddWatchlist'
-import { StockType } from '../../lib/api/types'
+import { Stock } from '../../lib/api/types'
 import BlueStarIcon from '../../static/svg/BlueStarIcon'
 import { antblue050, grey080 } from '../../lib/styles/colors'
+import watchlistSlice from '../../reducers/Slices/watchlist'
+import { useDispatch } from 'react-redux'
 
 type Props = {
-  stock: StockType
+  stock: Stock
   isWatching: boolean
 }
 
@@ -17,8 +19,10 @@ export default function AddWatchlistComponent({
 }: Props) {
   const [isWatching, setIsWatching] = useState(intialState)
   const [watchUserCount, setWatchUserCount] = useState(
-    stock.stock.stockCount.watchUserCount
+    stock.stockCount.watchUserCount
   )
+  const { setAddWatchlist, setDeleteWatchlist } = watchlistSlice.actions
+  const dispatch = useDispatch()
 
   useEffect(() => {
     setIsWatching(intialState)
@@ -34,11 +38,13 @@ export default function AddWatchlistComponent({
         isWatching={isWatching}
         onClick={() => {
           if (isWatching) {
-            deleteWatchlist(stock.stock.id)
+            deleteWatchlist(stock.id)
             setWatchUserCount(watchUserCount - 1)
+            dispatch(setDeleteWatchlist(stock))
           } else {
-            putAddWatchlist(stock.stock.id)
+            putAddWatchlist(stock.id)
             setWatchUserCount(watchUserCount + 1)
+            dispatch(setAddWatchlist(stock))
           }
           setIsWatching(!isWatching)
         }}

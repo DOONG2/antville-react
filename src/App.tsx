@@ -46,7 +46,6 @@ function App() {
         <Route path="/user/edit" component={UserEditPage} exact />
         <Route path="/stock/:ticker" component={StockPage} exact />
       </Switch>
-
       <Core />
     </>
   )

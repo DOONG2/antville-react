@@ -1,32 +1,28 @@
 import styled from '@emotion/styled'
-import useFollowUsersQuery, { UserFunction } from './hooks/useFollowUsersQuery'
 import { grey030, grey080 } from '../../lib/styles/colors'
+import { User } from '../../lib/api/types'
 
 type Prop = {
-  callback: UserFunction
-  cachingKey: string
+  users: User[]
+  isLoading: boolean
+  elementKey: string
+  emptyComponent?: React.ReactNode
 }
 
-export default function UserFollowComponent({ callback, cachingKey }: Prop) {
-  const { users } = useFollowUsersQuery({
-    callback,
-    cachingKey,
-  })
-
-  if (!users) return <></>
-
+export default function UserSection({
+  users,
+  isLoading,
+  emptyComponent,
+  elementKey,
+}: Prop) {
   return (
     <Wrapper>
-      {users?.map((user) => (
-        <Item key={`${user.id}-${cachingKey}`}>
+      {users.map((user) => (
+        <Item key={elementKey + user.id}>
           <Avatar></Avatar>
           <Nickname>{user.nickname}</Nickname>
         </Item>
       ))}
-      <Item>
-        <Avatar></Avatar>
-        <Nickname></Nickname>
-      </Item>
     </Wrapper>
   )
 }

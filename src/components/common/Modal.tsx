@@ -1,5 +1,5 @@
 import styled from '@emotion/styled'
-import { useEffect, useRef } from 'react'
+import { RefObject, useEffect } from 'react'
 import CloseIcon from '../../static/svg/CloseIcon'
 
 interface ModalProps {
@@ -8,6 +8,7 @@ interface ModalProps {
   width: string
   height: string
   close: (event: React.MouseEvent<HTMLDivElement, MouseEvent>) => void
+  modalParentRef: RefObject<HTMLDivElement>
 }
 
 const ModalOverlay = styled.div<{ shown: boolean }>`
@@ -65,18 +66,23 @@ const NewCloseIcon = styled(CloseIcon)`
   margin-right: 2.5rem;
 `
 
-const Modal = ({ children, shown, width, height, close }: ModalProps) => {
-  const scrollRef = useRef<HTMLDivElement>(null)
-
+const Modal = ({
+  children,
+  shown,
+  width,
+  height,
+  close,
+  modalParentRef,
+}: ModalProps) => {
   useEffect(() => {
-    scrollRef.current?.scrollTo(0, 0)
+    modalParentRef.current?.scrollTo(0, 0)
   }, [shown])
 
   return (
     <>
       <ModalOverlay shown={shown} onClick={close} />
       <Wrapper
-        ref={scrollRef}
+        ref={modalParentRef}
         shown={shown}
         tabIndex={-1}
         onClick={(e) => e.stopPropagation()}

@@ -1,16 +1,16 @@
 import styled from '@emotion/styled'
 import { useDispatch } from 'react-redux'
 import { User } from '../../lib/api/types'
-import getUserFollower from '../../lib/api/user/getUserFollower'
-import getUserFollowing from '../../lib/api/user/getUserFollowing'
 import CalendarIcon from '../../static/svg/CalendarIcon'
 import { useRootState } from '../common/hooks/useRootState'
 import viewSlice from '../../reducers/Slices/view'
 import MonthDate from '../common/MomentMonthDate'
 import SectionButtonComponent from './UserTopRightButton'
-import UserFollowComponent from './UserFollowComponent'
 import { grey050, grey060, grey080 } from '../../lib/styles/colors'
 import Modal from '../common/Modal'
+import FollowingList from './UserFollowingList'
+import UserFollowerList from './UserFollowerList'
+import { useRef } from 'react'
 
 type Prop = {
   user: User
@@ -22,6 +22,8 @@ export default function UserInfo({ user }: Prop) {
   } = useRootState((state) => state)
   const { setIsOpenFollowingModal, setIsOpenFollwerModal } = viewSlice.actions
   const dispatch = useDispatch()
+
+  const modalParentRef = useRef<HTMLDivElement>(null)
 
   return (
     <>
@@ -46,6 +48,7 @@ export default function UserInfo({ user }: Prop) {
                 {`${user.userCount.following}  팔로잉`}
               </Following>
               <Modal
+                modalParentRef={modalParentRef}
                 shown={isOpenFollowingModal}
                 width="448px"
                 height="557px"
@@ -54,15 +57,13 @@ export default function UserInfo({ user }: Prop) {
                 }}
               >
                 <ModalTitle>팔로잉</ModalTitle>
-                <UserFollowComponent
-                  callback={(cursor) => getUserFollowing(user.id, cursor)}
-                  cachingKey={`${user.id}-following`}
-                />
+                <FollowingList id={user.id} modalParentRef={modalParentRef} />
               </Modal>
               <Follower
                 onClick={() => dispatch(setIsOpenFollwerModal(true))}
               >{`${user.userCount.followers}  팔로워`}</Follower>
               <Modal
+                modalParentRef={modalParentRef}
                 shown={isOpenFollwerModal}
                 width="448px"
                 height="557px"
@@ -71,9 +72,9 @@ export default function UserInfo({ user }: Prop) {
                 }}
               >
                 <ModalTitle>팔로워</ModalTitle>
-                <UserFollowComponent
-                  callback={(cursor) => getUserFollower(user.id, cursor)}
-                  cachingKey={`${user.id}-follower`}
+                <UserFollowerList
+                  id={user.id}
+                  modalParentRef={modalParentRef}
                 />
               </Modal>
             </FollowWrapper>

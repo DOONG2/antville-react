@@ -1,16 +1,16 @@
 import { useEffect, useState } from 'react'
 import { useInfiniteQuery } from 'react-query'
-import { useInfiniteScroll } from './useInfiniteScroll'
-import { Post } from '../../../lib/api/types'
+import { useInfiniteScroll } from '../../../components/common/hooks/useInfiniteScroll'
 import { cacheStableTime } from '../../../lib/variable'
+import { CommentObject } from '../../../lib/api/comment/types'
 
 export interface Props {
   key: string
-  callback: (cursor?: number) => Promise<Post[]>
+  callback: (cursor?: number) => Promise<CommentObject[]>
 }
 
-export default function useInfinitePosts({ key, callback }: Props) {
-  const [posts, setPosts] = useState<Post[] | undefined>()
+export default function useInfiniteComment({ key, callback }: Props) {
+  const [comments, setComments] = useState<CommentObject[] | undefined>()
   const { isLoading, data, error, isFetching, fetchNextPage, hasNextPage } =
     useInfiniteQuery(key, ({ pageParam: cursor }) => callback(cursor), {
       staleTime: cacheStableTime,
@@ -18,10 +18,10 @@ export default function useInfinitePosts({ key, callback }: Props) {
     })
   useEffect(() => {
     if (data) {
-      if (posts) {
-        setPosts([...posts, ...data.pages[data.pages.length - 1]])
+      if (comments) {
+        setComments([...comments, ...data.pages[data.pages.length - 1]])
       } else {
-        setPosts([...data.pages[0]])
+        setComments([...data.pages[0]])
       }
     }
   }, [data])
@@ -35,8 +35,9 @@ export default function useInfinitePosts({ key, callback }: Props) {
 
   return {
     isLoading,
-    posts,
+    comments,
     error,
     isFetching,
+    setComments,
   }
 }
