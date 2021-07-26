@@ -65,6 +65,8 @@ const PostForm = ({ addPost }: Props) => {
         setGifDto(undefined)
         setBody('')
         setPreviewUrl(null)
+        setIsOnUp(false)
+        setIsOnDown(false)
       }}
     >
       <FormInner>

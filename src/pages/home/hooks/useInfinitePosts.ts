@@ -1,6 +1,6 @@
 import { useEffect, useState } from 'react'
 import { useInfiniteQuery } from 'react-query'
-import { useInfiniteScroll } from './useInfiniteScroll'
+import { useInfiniteScroll } from '../../../components/common/hooks/useInfiniteScroll'
 import { Post } from '../../../lib/api/types'
 import { cacheStableTime } from '../../../lib/variable'
 

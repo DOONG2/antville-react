@@ -1,6 +1,6 @@
 import FeedDetailInfo from '../../components/feed/detail/FeedDetailInfo'
 import { FeedPageProps } from './type'
-import useInfiniteComment from '../../components/common/hooks/useInfiniteComment'
+import useInfiniteComment from './hooks/useInfiniteComment'
 import getCommentsById from '../../lib/api/comment/getCommentsById'
 import CommentSection from '../../components/comment/CommentSection'
 import CommentForm from '../../components/comment/CommentForm'

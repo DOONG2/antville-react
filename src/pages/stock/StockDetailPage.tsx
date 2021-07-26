@@ -1,5 +1,5 @@
-import useInfinitePosts from '../../components/common/hooks/useInfinitePosts'
-import FollowingEmpty from '../../components/feed/empty/FollowingEmpty'
+import useInfinitePosts from '../home/hooks/useInfinitePosts'
+import NomalEmpty from '../../components/feed/empty/NomalEmpty'
 import FeedSection from '../../components/feed/FeedSection'
 import PostForm from '../../components/post/PostForm'
 import StockInfo from '../../components/stock/StockInfo'
@@ -19,7 +19,7 @@ function StockDetailPage({ stock }: StockPageProps) {
       <FeedSection
         posts={posts}
         loading={isLoading}
-        emptyComponent={<FollowingEmpty />}
+        emptyComponent={<NomalEmpty />}
       />
     </>
   )

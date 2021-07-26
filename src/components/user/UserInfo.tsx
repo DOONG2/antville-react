@@ -1,16 +1,15 @@
 import styled from '@emotion/styled'
 import { useDispatch } from 'react-redux'
 import { User } from '../../lib/api/types'
-import getUserFollower from '../../lib/api/user/getUserFollower'
-import getUserFollowing from '../../lib/api/user/getUserFollowing'
 import CalendarIcon from '../../static/svg/CalendarIcon'
 import { useRootState } from '../common/hooks/useRootState'
 import viewSlice from '../../reducers/Slices/view'
 import MonthDate from '../common/MomentMonthDate'
 import SectionButtonComponent from './UserTopRightButton'
-import UserFollowComponent from './UserFollowComponent'
 import { grey050, grey060, grey080 } from '../../lib/styles/colors'
 import Modal from '../common/Modal'
+import FollowingList from './UserFollowingList'
+import UserFollowerList from './UserFollowerList'
 
 type Prop = {
   user: User
@@ -54,10 +53,7 @@ export default function UserInfo({ user }: Prop) {
                 }}
               >
                 <ModalTitle>팔로잉</ModalTitle>
-                <UserFollowComponent
-                  callback={(cursor) => getUserFollowing(user.id, cursor)}
-                  cachingKey={`${user.id}-following`}
-                />
+                <FollowingList id={user.id} />
               </Modal>
               <Follower
                 onClick={() => dispatch(setIsOpenFollwerModal(true))}
@@ -71,10 +67,7 @@ export default function UserInfo({ user }: Prop) {
                 }}
               >
                 <ModalTitle>팔로워</ModalTitle>
-                <UserFollowComponent
-                  callback={(cursor) => getUserFollower(user.id, cursor)}
-                  cachingKey={`${user.id}-follower`}
-                />
+                <UserFollowerList id={user.id} />
               </Modal>
             </FollowWrapper>
           </UserDetail>

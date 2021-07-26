@@ -1,4 +1,4 @@
-import useInfinitePosts from '../../components/common/hooks/useInfinitePosts'
+import useInfinitePosts from '../home/hooks/useInfinitePosts'
 import UserLikeEmpty from '../../components/feed/empty/UserLikeEmpty'
 import FeedSection from '../../components/feed/FeedSection'
 import getPostsByUserLike from '../../lib/api/post/getPostsByUserLike'

@@ -1,4 +1,4 @@
-import useInfinitePosts from '../../components/common/hooks/useInfinitePosts'
+import useInfinitePosts from './hooks/useInfinitePosts'
 import WatchListEmpty from '../../components/feed/empty/WatchlistEmpty'
 import FeedSection from '../../components/feed/FeedSection'
 import FeedTab from '../../components/feed/FeedTab'
