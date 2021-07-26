@@ -12,6 +12,7 @@ function UserAllFeedPage({ user }: UserFeedPageProps) {
   if (!posts) return <></>
   return (
     <FeedSection
+      sectionKey={`user-all-${user.id}`}
       posts={posts}
       loading={isLoading}
       emptyComponent={<UserEmpty />}

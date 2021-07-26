@@ -17,6 +17,7 @@ function WatchlistFeedPage({ id }: HomePageProps) {
       <PostForm />
       <FeedTab />
       <FeedSection
+        sectionKey={`watchlist-${id}`}
         posts={posts}
         loading={isLoading}
         emptyComponent={<WatchListEmpty />}

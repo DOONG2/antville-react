@@ -17,6 +17,7 @@ function FollowingFeedPage({ id }: HomePageProps) {
       <PostForm />
       <FeedTab />
       <FeedSection
+        sectionKey={`following-${id}`}
         posts={posts}
         loading={isLoading}
         emptyComponent={<FollowingEmpty />}

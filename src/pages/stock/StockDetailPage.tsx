@@ -17,6 +17,7 @@ function StockDetailPage({ stock }: StockPageProps) {
       <StockInfo stock={stock} />
       <PostForm />
       <FeedSection
+        sectionKey={`stock-detail-${stock.id}`}
         posts={posts}
         loading={isLoading}
         emptyComponent={<NomalEmpty />}

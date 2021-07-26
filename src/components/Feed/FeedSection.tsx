@@ -28,9 +28,10 @@ interface Props {
   posts: Post[]
   loading?: boolean
   emptyComponent: ReactNode
+  sectionKey: string
 }
 
-const FeedSection = ({ posts, loading, emptyComponent }: Props) => {
+const FeedSection = ({ posts, loading, emptyComponent, sectionKey }: Props) => {
   const history = useHistory()
 
   if (posts.length < 1) return <>{emptyComponent}</>
@@ -38,7 +39,7 @@ const FeedSection = ({ posts, loading, emptyComponent }: Props) => {
   return (
     <>
       {posts?.map((post) => (
-        <FeedWrapper key={`${post.id}-feed-section`}>
+        <FeedWrapper key={`${post.id}-feed-section-${sectionKey}`}>
           <TopWrapper>
             <LeftItem>
               <FeedAvatar

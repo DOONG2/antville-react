@@ -12,6 +12,7 @@ function UserLikeFeedPage({ user }: UserFeedPageProps) {
   if (!posts) return <></>
   return (
     <FeedSection
+      sectionKey={`user-like-${user.id}`}
       posts={posts}
       loading={isLoading}
       emptyComponent={<UserLikeEmpty />}

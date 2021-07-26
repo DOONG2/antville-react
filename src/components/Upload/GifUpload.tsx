@@ -1,5 +1,5 @@
 import styled from '@emotion/styled'
-import React, { useEffect, useState } from 'react'
+import React, { useEffect, useRef, useState } from 'react'
 import { useDispatch } from 'react-redux'
 import { gifDto } from '../../lib/api/post/types'
 import getCategories from '../../lib/api/tenor/getCategories'
@@ -23,7 +23,7 @@ const GifUpload = ({ setUploadImage, setGifDto, setPreviewUrl }: Props) => {
   } = useRootState((state) => state)
   const [categorys, setCategorys] = useState<getCategoriesResponse>()
   const { setIsOpenGifForm } = viewSlice.actions
-
+  const modalParentRef = useRef<HTMLDivElement>(null)
   const dispatch = useDispatch()
 
   useEffect(() => {
@@ -43,6 +43,7 @@ const GifUpload = ({ setUploadImage, setGifDto, setPreviewUrl }: Props) => {
       </Wrapper>
       <DefaultCursor>
         <Modal
+          modalParentRef={modalParentRef}
           shown={isOpenGifForm}
           width="66rem"
           height="66rem"

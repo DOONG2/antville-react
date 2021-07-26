@@ -22,6 +22,7 @@ function AllFeedPage({ id }: HomePageProps) {
       />
       <FeedTab />
       <FeedSection
+        sectionKey={`all-${id}`}
         posts={posts}
         loading={isLoading}
         emptyComponent={<FollowingEmpty />}

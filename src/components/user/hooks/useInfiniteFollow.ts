@@ -1,4 +1,4 @@
-import { useEffect, useState } from 'react'
+import { RefObject, useEffect, useState } from 'react'
 import { useInfiniteQuery } from 'react-query'
 import { useInfiniteScroll } from '../../common/hooks/useInfiniteScroll'
 import { cacheStableTime } from '../../../lib/variable'
@@ -7,9 +7,10 @@ import { User } from '../../../lib/api/types'
 export interface Props {
   key: string
   callback: (cursor?: number) => Promise<User[]>
+  ref?: RefObject<HTMLDivElement>
 }
 
-export default function useInfiniteFollow({ key, callback }: Props) {
+export default function useInfiniteFollow({ key, callback, ref }: Props) {
   const [users, setUsers] = useState<User[] | undefined>()
   const { isLoading, data, error, isFetching, fetchNextPage, hasNextPage } =
     useInfiniteQuery(key, ({ pageParam: cursor }) => callback(cursor), {
@@ -31,6 +32,7 @@ export default function useInfiniteFollow({ key, callback }: Props) {
         fetchNextPage()
       }
     },
+    ref,
   })
 
   return {

@@ -5,6 +5,7 @@ import { User } from '../../lib/api/types'
 type Prop = {
   users: User[]
   isLoading: boolean
+  elementKey: string
   emptyComponent?: React.ReactNode
 }
 
@@ -12,11 +13,12 @@ export default function UserSection({
   users,
   isLoading,
   emptyComponent,
+  elementKey,
 }: Prop) {
   return (
     <Wrapper>
       {users.map((user) => (
-        <Item key={`${user.id}`}>
+        <Item key={elementKey + user.id}>
           <Avatar></Avatar>
           <Nickname>{user.nickname}</Nickname>
         </Item>

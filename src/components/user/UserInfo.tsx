@@ -10,6 +10,7 @@ import { grey050, grey060, grey080 } from '../../lib/styles/colors'
 import Modal from '../common/Modal'
 import FollowingList from './UserFollowingList'
 import UserFollowerList from './UserFollowerList'
+import { useRef } from 'react'
 
 type Prop = {
   user: User
@@ -21,6 +22,8 @@ export default function UserInfo({ user }: Prop) {
   } = useRootState((state) => state)
   const { setIsOpenFollowingModal, setIsOpenFollwerModal } = viewSlice.actions
   const dispatch = useDispatch()
+
+  const modalParentRef = useRef<HTMLDivElement>(null)
 
   return (
     <>
@@ -45,6 +48,7 @@ export default function UserInfo({ user }: Prop) {
                 {`${user.userCount.following}  팔로잉`}
               </Following>
               <Modal
+                modalParentRef={modalParentRef}
                 shown={isOpenFollowingModal}
                 width="448px"
                 height="557px"
@@ -53,12 +57,13 @@ export default function UserInfo({ user }: Prop) {
                 }}
               >
                 <ModalTitle>팔로잉</ModalTitle>
-                <FollowingList id={user.id} />
+                <FollowingList id={user.id} modalParentRef={modalParentRef} />
               </Modal>
               <Follower
                 onClick={() => dispatch(setIsOpenFollwerModal(true))}
               >{`${user.userCount.followers}  팔로워`}</Follower>
               <Modal
+                modalParentRef={modalParentRef}
                 shown={isOpenFollwerModal}
                 width="448px"
                 height="557px"
@@ -67,7 +72,10 @@ export default function UserInfo({ user }: Prop) {
                 }}
               >
                 <ModalTitle>팔로워</ModalTitle>
-                <UserFollowerList id={user.id} />
+                <UserFollowerList
+                  id={user.id}
+                  modalParentRef={modalParentRef}
+                />
               </Modal>
             </FollowWrapper>
           </UserDetail>
