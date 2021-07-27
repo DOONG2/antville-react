@@ -24,8 +24,8 @@ import {
 import FeedBody from '../feed/FeedBody'
 import LikeComponent from '../feed/LikeComponent'
 import MomentDateChange from '../common/MomentDateChange'
-import CommentForm from './CommentForm'
 import { Image } from '../../lib/styles/post'
+import SubCommentForm from './SubCommentForm'
 
 interface Props {
   comment: CommentObject
@@ -150,7 +150,7 @@ export default function SubCommentSection({ comment }: Props) {
         ))}
         {isLoaded && (
           <CommentFormWrapper isOpen={isOpen}>
-            <CommentForm
+            <SubCommentForm
               parentCommentId={comment.id.toString()}
               addComment={addComment}
             />
@@ -160,7 +160,7 @@ export default function SubCommentSection({ comment }: Props) {
           isOpenCommentForm &&
           !isOpen && (
             <CommentFormWrapper isOpen={isOpenCommentForm}>
-              <CommentForm
+              <SubCommentForm
                 parentCommentId={comment.id.toString()}
                 addComment={addComment}
               />

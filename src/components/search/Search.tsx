@@ -33,6 +33,7 @@ function SearchBar() {
         type="search"
         placeholder="키워드 혹은 @닉네임을 입력해주세요."
         onFocus={() => dispatch(setIsFocusSearchBar(true))}
+        onBlur={() => dispatch(setIsFocusSearchBar(false))}
         onChange={(e) => {
           setQuery(e.target.value)
         }}

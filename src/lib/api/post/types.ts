@@ -10,3 +10,8 @@ export interface gifDto {
   gifUrl: string
   ratio: number
 }
+
+export type PostState = {
+  body: string
+  isFocusInput: boolean
+}

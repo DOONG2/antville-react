@@ -12,7 +12,6 @@ import viewSlice from '../../reducers/Slices/view'
 import ImageUpload from '../upload/ImageUpload'
 import GifUpload from '../upload/GifUpload'
 import PreviewImage from './PreviewImage'
-import PostMentionInput from './PostMentionInput'
 import {
   EmailCheck,
   Form,
@@ -28,17 +27,22 @@ import {
 import usePostData from './hooks/usePostData'
 import { GifDto } from '../../types/post'
 import { Post } from '../../lib/api/types'
+import PostEditor from './PostEditor'
+import postSlice from '../../reducers/Slices/post'
 
 interface Props {
   addPost?: (value?: Post) => void
 }
 
 const PostForm = ({ addPost }: Props) => {
-  const { user } = useRootState((state) => state)
-  const [isFocusInput, setIsFocusInput] = useState<boolean>(false)
+  const {
+    user,
+    post: { body, isFocusInput },
+  } = useRootState((state) => state)
+  const { setIsOpenLoginForm } = viewSlice.actions
+  const { setBody, setIsFocusInput } = postSlice.actions
   const [uploadImage, setUploadImage] = useState<File>()
   const [gifDto, setGifDto] = useState<GifDto>()
-  const [body, setBody] = useState('')
   const [previewUrl, setPreviewUrl] = useState<string | ArrayBuffer | null>(
     null
   )
@@ -46,13 +50,12 @@ const PostForm = ({ addPost }: Props) => {
   const [isOnDown, setIsOnDown] = useState(false)
   const [sentiment, setSentiment] = useState<string>()
 
-  const { setIsOpenLoginForm } = viewSlice.actions
   const dispatch = useDispatch()
 
   const { postDataApi } = usePostData({ addPost })
 
   useEffect(() => {
-    if (previewUrl !== null) setIsFocusInput(true)
+    if (previewUrl !== null) dispatch(setIsFocusInput(true))
   }, [previewUrl])
 
   return (
@@ -61,9 +64,9 @@ const PostForm = ({ addPost }: Props) => {
         e.preventDefault()
         postDataApi({ body, sentiment, gifDto, uploadImage })
         setUploadImage(undefined)
-        setIsFocusInput(false)
+        dispatch(setIsFocusInput(false))
         setGifDto(undefined)
-        setBody('')
+        dispatch(setBody(''))
         setPreviewUrl(null)
         setIsOnUp(false)
         setIsOnDown(false)
@@ -78,12 +81,7 @@ const PostForm = ({ addPost }: Props) => {
             <>
               {user.isEmailVerified ? (
                 <>
-                  <PostMentionInput
-                    body={body}
-                    setBody={setBody}
-                    isFocusInput={isFocusInput}
-                    setIsFocusInput={setIsFocusInput}
-                  />
+                  <PostEditor />
                   <PreviewImage
                     previewUrl={previewUrl}
                     setPreviewUrl={setPreviewUrl}

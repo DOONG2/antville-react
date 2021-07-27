@@ -25,20 +25,17 @@ import useCommentData from './hooks/useCommentData'
 import { useParams } from 'react-router-dom'
 import PreviewImage from '../post/PreviewImage'
 import { CommentObject } from '../../lib/api/comment/types'
-import commentSlice from '../../reducers/Slices/comment'
-import CommentEditor from './CommentEditor'
+import SubCommentEditor from './SubCommentEditor'
 
 interface Props {
   parentCommentId?: string
   addComment?: (value?: CommentObject) => void
 }
 
-function CommentForm({ parentCommentId, addComment }: Props) {
-  const {
-    user,
-    comment: { isFocusInput, body },
-  } = useRootState((state) => state)
-  const { setIsFocusInput, setBody } = commentSlice.actions
+function SubCommentForm({ parentCommentId, addComment }: Props) {
+  const { user } = useRootState((state) => state)
+  const [isFocusInput, setIsFocusInput] = useState(false)
+  const [body, setBody] = useState('')
   const { setIsOpenLoginForm } = viewSlice.actions
   const [uploadImage, setUploadImage] = useState<File>()
   const [gifDto, setGifDto] = useState<GifDto>()
@@ -53,7 +50,7 @@ function CommentForm({ parentCommentId, addComment }: Props) {
   const { postDataApi } = useCommentData({ addComment })
 
   useEffect(() => {
-    if (previewUrl !== null) dispatch(setIsFocusInput(true))
+    if (previewUrl !== null) setIsFocusInput(true)
   }, [previewUrl])
 
   return (
@@ -62,9 +59,9 @@ function CommentForm({ parentCommentId, addComment }: Props) {
         e.preventDefault()
         postDataApi({ body, gifDto, uploadImage, postId, parentCommentId })
         setUploadImage(undefined)
-        dispatch(setIsFocusInput(false))
+        setIsFocusInput(false)
         setGifDto(undefined)
-        dispatch(setBody(''))
+        setBody('')
         setPreviewUrl(null)
       }}
     >
@@ -77,7 +74,12 @@ function CommentForm({ parentCommentId, addComment }: Props) {
             <>
               {user.isEmailVerified ? (
                 <>
-                  <CommentEditor />
+                  <SubCommentEditor
+                    body={body}
+                    setBody={setBody}
+                    isFocusInput={isFocusInput}
+                    setIsFocusInput={setIsFocusInput}
+                  />
                   <PreviewImage
                     previewUrl={previewUrl}
                     setPreviewUrl={setPreviewUrl}
@@ -139,4 +141,4 @@ const NewPostInnerButtonsWrapper = styled(PostInnerButtonsWrapper)`
   column-gap: 12px;
 `
 
-export default CommentForm
+export default SubCommentForm

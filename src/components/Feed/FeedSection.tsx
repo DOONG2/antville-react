@@ -23,6 +23,7 @@ import FeedBody from './FeedBody'
 import FeedOption from './FeedOption'
 import LikeComponent from './LikeComponent'
 import MomentDateChange from '../common/MomentDateChange'
+import UserIcon from '../../static/svg/UserIcon'
 
 interface Props {
   posts: Post[]
@@ -46,7 +47,9 @@ const FeedSection = ({ posts, loading, emptyComponent, sectionKey }: Props) => {
                 onClick={() =>
                   history.push(`/user/${post.author.nickname}/profile`)
                 }
-              />
+              >
+                <UserIcon />
+              </FeedAvatar>
               <NickNameWrapper>{post.author.nickname}</NickNameWrapper>
               <PostTime>
                 <MomentDateChange time={post.createdAt} />

@@ -64,3 +64,13 @@ interface Author {
 interface CommentImg {
   image: string
 }
+
+export type CommentState = {
+  body: string
+  isFocusInput: boolean
+}
+
+export type SubCommentState = {
+  body: string
+  isFocusInput: boolean
+}
