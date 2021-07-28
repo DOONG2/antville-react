@@ -21,7 +21,6 @@ export default function ImageUpload({
     hiddenFileInput.current.click()
   }
   const handleChange = (e: ChangeEvent<HTMLInputElement>) => {
-    console.log(e.target.files)
     const fileUploaded = e.target.files?.[0]
     if (fileUploaded === undefined) return
     setPreviewUrl(URL.createObjectURL(fileUploaded))
@@ -29,8 +28,6 @@ export default function ImageUpload({
     setGifDto(undefined)
 
     if (e.target.files) e.target.files = null
-    console.log('done2')
-    console.log(e.target.files)
   }
 
   return (
