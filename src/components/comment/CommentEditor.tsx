@@ -1,8 +1,7 @@
-import React, { useMemo, useRef } from 'react'
+import React, { useMemo } from 'react'
 import debounce from 'lodash.debounce'
 import postSearchStock from '../../lib/api/stock/postSearchStock'
 import getSearchUser from '../../lib/api/user/getSearchUser'
-import useElementSize from '../common/hooks/useElementSize'
 import { useRootState } from '../common/hooks/useRootState'
 import { useDispatch } from 'react-redux'
 import UserIcon from '../../static/img/UserIcon.png'
@@ -22,11 +21,9 @@ function debounceCallback(callback: (...arg: any) => any, duration: number) {
 }
 
 export default function CommentEditor() {
-  const { body, isFocusInput } = useRootState((state) => state.comment)
+  const { body } = useRootState((state) => state.comment)
   const { setBody, setIsFocusInput } = commentSlice.actions
   const dispatch = useDispatch()
-  const Ref = useRef<HTMLDivElement>(null)
-  const { scrollHeight } = useElementSize(Ref)
 
   const postQueryStock = async (query: string) => {
     const result = await postSearchStock(query)
@@ -88,7 +85,7 @@ export default function CommentEditor() {
   }, [])
 
   return (
-    <Block ref={Ref}>
+    <Block>
       <CustomQuill
         modules={modules}
         onChange={(value, delta, source, editor) => dispatch(setBody(value))}
@@ -96,8 +93,6 @@ export default function CommentEditor() {
         defaultValue={body}
         placeholder={'댓글을 입력해주세요. '}
         onFocus={() => dispatch(setIsFocusInput(true))}
-        isfocus={String(isFocusInput)}
-        scrollheight={scrollHeight}
       ></CustomQuill>
     </Block>
   )

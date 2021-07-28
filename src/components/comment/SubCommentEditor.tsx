@@ -1,13 +1,9 @@
-import React, { useMemo, useRef } from 'react'
+import React, { useMemo } from 'react'
 import debounce from 'lodash.debounce'
 import postSearchStock from '../../lib/api/stock/postSearchStock'
 import getSearchUser from '../../lib/api/user/getSearchUser'
-import useElementSize from '../common/hooks/useElementSize'
-import { useRootState } from '../common/hooks/useRootState'
-import { useDispatch } from 'react-redux'
 import UserIcon from '../../static/img/UserIcon.png'
 import { Block, CustomQuill } from '../../lib/styles/post'
-import subCommentSlice from '../../reducers/Slices/subComment'
 
 type DataType = {
   id: number
@@ -20,7 +16,6 @@ type DataType = {
 type Props = {
   body: string
   setBody(value: string): void
-  isFocusInput: boolean
   setIsFocusInput(value: boolean): void
 }
 
@@ -32,11 +27,7 @@ export default function SubCommentEditor({
   body,
   setBody,
   setIsFocusInput,
-  isFocusInput,
 }: Props) {
-  const Ref = useRef<HTMLDivElement>(null)
-  const { scrollHeight } = useElementSize(Ref)
-
   const postQueryStock = async (query: string) => {
     const result = await postSearchStock(query)
     return result.map((stock) => ({
@@ -97,15 +88,13 @@ export default function SubCommentEditor({
   }, [])
 
   return (
-    <Block ref={Ref}>
+    <Block>
       <CustomQuill
         modules={modules}
         onChange={(value, delta, source, editor) => setBody(value)}
         placeholder={'답글을 입력해주세요. '}
         onFocus={() => setIsFocusInput(true)}
-        isfocus={String(isFocusInput)}
         value={body}
-        scrollheight={scrollHeight}
       ></CustomQuill>
     </Block>
   )

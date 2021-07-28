@@ -64,7 +64,7 @@ export default function CommnetMentionInput({
         onFocus={() => {
           setIsFocusInput(true)
         }}
-        isfocus={isFocusInput.toString()}
+        isfocus={isFocusInput}
         scrollheight={scrollHeight}
         inputRef={textRef}
       >

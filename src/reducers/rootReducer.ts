@@ -5,7 +5,6 @@ import authSlice from './Slices/auth'
 import watchlistSlice from './Slices/watchlist'
 import postSlice from './Slices/post'
 import commentSlice from './Slices/comment'
-import subCommentSlice from './Slices/subComment'
 
 const rootReducer = combineReducers({
   view: viewSlice.reducer,
@@ -13,7 +12,6 @@ const rootReducer = combineReducers({
   auth: authSlice.reducer,
   post: postSlice.reducer,
   comment: commentSlice.reducer,
-  subComment: subCommentSlice.reducer,
   watchlist: watchlistSlice.reducer,
 })
 

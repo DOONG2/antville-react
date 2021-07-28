@@ -1,9 +1,8 @@
-import React, { useMemo, useRef } from 'react'
+import React, { useMemo } from 'react'
 import debounce from 'lodash.debounce'
 import postSearchStock from '../../lib/api/stock/postSearchStock'
 import getSearchUser from '../../lib/api/user/getSearchUser'
 import { Block, CustomQuill } from '../../lib/styles/post'
-import useElementSize from '../common/hooks/useElementSize'
 import { useRootState } from '../common/hooks/useRootState'
 import postSlice from '../../reducers/Slices/post'
 import { useDispatch } from 'react-redux'
@@ -22,11 +21,9 @@ function debounceCallback(callback: (...arg: any) => any, duration: number) {
 }
 
 export default function PostEditor() {
-  const { body, isFocusInput } = useRootState((state) => state.post)
+  const { body } = useRootState((state) => state.post)
   const { setBody, setIsFocusInput } = postSlice.actions
   const dispatch = useDispatch()
-  const Ref = useRef<HTMLDivElement>(null)
-  const { scrollHeight } = useElementSize(Ref)
 
   const postQueryStock = async (query: string) => {
     const result = await postSearchStock(query)
@@ -88,20 +85,15 @@ export default function PostEditor() {
   }, [])
 
   return (
-    <Block ref={Ref}>
+    <Block>
       <CustomQuill
         modules={modules}
-        onChange={(value, delta, source, editor) => {
-          console.log(delta)
-          dispatch(setBody(value))
-        }}
+        onChange={(value, delta, source, editor) => dispatch(setBody(value))}
         value={body}
         placeholder={
           '당신의 생각을 공유해주세요! ($ 태그 사용 후, 종목  입력) '
         }
         onFocus={() => dispatch(setIsFocusInput(true))}
-        isfocus={String(isFocusInput)}
-        scrollheight={scrollHeight}
       ></CustomQuill>
     </Block>
   )

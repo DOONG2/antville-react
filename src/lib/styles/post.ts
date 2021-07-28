@@ -40,7 +40,9 @@ export const InputWrapper = styled.div<{ isFocus: boolean }>`
   box-sizing: border-box;
   border-radius: 3px;
   display: flex;
+  justify-content: space-between;
   flex-direction: ${(p) => (p.isFocus ? 'column' : 'row')};
+  min-height: ${(p) => (p.isFocus ? `114px` : '22px')};
 `
 
 export const PostInnerButtonsWrapper = styled.div`
@@ -107,10 +109,10 @@ export const LockedLabel = styled.div`
 `
 
 export const dynamicStyle = (props: {
-  isfocus: string
+  isfocus: boolean
   scrollheight: number
 }) => css`
-  min-height: ${props.isfocus === 'true' ? `76px` : '22px'};
+  min-height: ${props.isfocus ? `76px` : '22px'};
 `
 
 export const MentionInput = styled(MentionsInput)`
@@ -195,7 +197,6 @@ export const Block = styled.div`
 `
 
 export const CustomQuill = styled(ReactQuill)`
-  height: 100%;
   .ql-container {
     font-size: 16px;
     line-height: 20px;
@@ -251,6 +252,4 @@ export const CustomQuill = styled(ReactQuill)`
       line-height: 13px;
     }
   }
-
-  ${dynamicStyle}
 `

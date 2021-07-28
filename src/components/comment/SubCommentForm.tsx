@@ -77,7 +77,6 @@ function SubCommentForm({ parentCommentId, addComment }: Props) {
                   <SubCommentEditor
                     body={body}
                     setBody={setBody}
-                    isFocusInput={isFocusInput}
                     setIsFocusInput={setIsFocusInput}
                   />
                   <PreviewImage
