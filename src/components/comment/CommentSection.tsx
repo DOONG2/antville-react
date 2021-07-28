@@ -15,6 +15,7 @@ import { Image } from '../../lib/styles/post'
 import FeedBody from '../feed/FeedBody'
 import MomentDateChange from '../common/MomentDateChange'
 import SubCommentSection from './SubCommentSection'
+import UserIcon50 from '../../static/svg/UserIcon50'
 
 interface Props {
   comments: CommentObject[]
@@ -34,7 +35,13 @@ export default function CommentSection({ comments, loading }: Props) {
                 onClick={() =>
                   history.push(`/user/${comment.author.nickname}/profile`)
                 }
-              />
+              >
+                {comment.author.profileImg ? (
+                  <img src={comment.author.profileImg} alt="profile_image" />
+                ) : (
+                  <UserIcon50 />
+                )}
+              </FeedAvatar>
               <NickNameWrapper>{comment.author.nickname}</NickNameWrapper>
               <PostTime>
                 <MomentDateChange time={comment.createdAt} />

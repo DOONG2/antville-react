@@ -1,5 +1,5 @@
 import styled from '@emotion/styled'
-import { blue040, grey030, grey060, grey080 } from './colors'
+import { grey030, grey060, grey080 } from './colors'
 
 export const GifImage = styled.img`
   margin: 15px auto;
@@ -25,9 +25,13 @@ export const FeedAvatar = styled.div`
   width: 50px;
   height: 50px;
 
-  background-color: ${blue040};
-
   border-radius: 50px;
+
+  img {
+    width: 50px;
+    height: 50px;
+    border-radius: 50px;
+  }
 
   cursor: pointer;
 `
