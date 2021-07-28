@@ -1,5 +1,6 @@
 import { css } from '@emotion/react'
 import emotionReset from 'emotion-reset'
+import { sky040, sky050 } from './lib/styles/colors'
 
 const globalStyle = css`
   ${emotionReset}
@@ -87,6 +88,20 @@ const globalStyle = css`
     margin: 0;
     padding: 0;
     font-family: Noto Sans KR;
+
+    a {
+      color: ${sky040};
+      text-decoration: none;
+      :link {
+        text-decoration: none;
+      }
+      :visited {
+        text-decoration: none;
+      }
+      :hover {
+        color: ${sky050};
+      }
+    }
 
     h1 {
       font-size: 4.8rem;

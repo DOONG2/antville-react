@@ -6,12 +6,22 @@ import { Route, useParams } from 'react-router-dom'
 import useGetUserProfile from './hooks/useGetUserProfile'
 import ProfileUserInfo from '../../components/user/UserInfo'
 import ProfileTab from '../../components/user/UserTab'
+import UserNotFound from './UserNotFound'
 
 export default function UserProfilePage() {
   const { nickname } = useParams<{ nickname: string }>()
   const { user } = useGetUserProfile(nickname)
 
-  if (!user) return <></>
+  if (!user)
+    return (
+      <MainTemplate
+        children={
+          <>
+            <UserNotFound />
+          </>
+        }
+      />
+    )
 
   return (
     <MainTemplate

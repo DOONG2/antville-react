@@ -2,7 +2,15 @@ import { css } from '@emotion/react'
 import styled from '@emotion/styled'
 import { Mention, MentionsInput } from 'react-mentions'
 import ReactQuill from 'react-quill'
-import { grey010, grey020, grey030, grey050, grey060, grey080 } from './colors'
+import {
+  grey010,
+  grey020,
+  grey030,
+  grey050,
+  grey060,
+  grey080,
+  sky040,
+} from './colors'
 import { FontBlue } from './texts'
 import 'quill-mention'
 import 'quill-mention/dist/quill.mention.css'
@@ -199,6 +207,7 @@ export const Block = styled.div`
 
 export const CustomQuill = styled(ReactQuill)`
   height: 100%;
+
   .ql-container {
     font-size: 16px;
     line-height: 20px;
@@ -220,6 +229,8 @@ export const CustomQuill = styled(ReactQuill)`
 
   span.mention {
     padding: 0 0;
+    background-color: #fff;
+    color: ${sky040};
   }
 
   .ql-mention-list-item {
