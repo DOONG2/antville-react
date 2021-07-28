@@ -53,6 +53,8 @@ function SubCommentForm({ parentCommentId, addComment }: Props) {
     if (previewUrl !== null) setIsFocusInput(true)
   }, [previewUrl])
 
+  console.log('done')
+
   return (
     <Form
       onSubmit={(e) => {

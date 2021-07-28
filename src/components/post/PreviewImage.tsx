@@ -17,6 +17,7 @@ export default function PreviewImage({
   setUploadImage,
   setGifDto,
 }: Props) {
+  console.log(previewUrl)
   return (
     <>
       {previewUrl ? (

@@ -194,9 +194,11 @@ export const UserAvatar = styled.div`
 export const Block = styled.div`
   align-self: center;
   width: 100%;
+  height: 100%;
 `
 
 export const CustomQuill = styled(ReactQuill)`
+  height: 100%;
   .ql-container {
     font-size: 16px;
     line-height: 20px;

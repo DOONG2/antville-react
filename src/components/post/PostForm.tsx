@@ -162,7 +162,10 @@ const PostForm = ({ addPost }: Props) => {
             </>
           )}
         </InputWrapper>
-        <SubmitButton type="submit" disabled={body.length < 1}>
+        <SubmitButton
+          type="submit"
+          disabled={body.length < 1 || body === '<p><br></p>'}
+        >
           게시
         </SubmitButton>
       </FormInner>
