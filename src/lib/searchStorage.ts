@@ -40,7 +40,9 @@ const searchStorage = {
         key,
         JSON.stringify({ users: [user], stocks })
       )
-    const temp = [user].concat(users)
+    let temp
+    if (users.length > 4) temp = [user].concat(users.slice(0, 4))
+    else temp = [user].concat(users)
     const newParsed = _.uniqBy(temp, 'id')
     localStorage.setItem(key, JSON.stringify({ users: newParsed, stocks }))
   },
@@ -57,7 +59,9 @@ const searchStorage = {
         key,
         JSON.stringify({ users, stocks: [stock] })
       )
-    const temp = [stock].concat(stocks)
+    let temp
+    if (stocks.length > 4) temp = [stock].concat(stocks.slice(0, 4))
+    else temp = [stock].concat(stocks)
     const newParsed = _.uniqBy(temp, 'id')
     localStorage.setItem(key, JSON.stringify({ users, stocks: newParsed }))
   },

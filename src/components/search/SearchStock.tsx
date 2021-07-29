@@ -3,7 +3,7 @@ import { useHistory } from 'react-router-dom'
 import searchStorage from '../../lib/searchStorage'
 import {
   EmptyWrapper,
-  ListWrapper,
+  HoverListWrapper,
   NewStockListGroup,
 } from '../../lib/styles/search'
 import {
@@ -31,15 +31,16 @@ export default function SearchStock() {
     <>
       {stocks.length >= 1 ? (
         stocks.map((stock) => (
-          <ListWrapper key={`${stock.id}-search-bar`}>
-            <NewStockListGroup
-              onClick={() => {
-                history.push(`/stock/${stock.cashTagName}`)
-                set(stock)
-                dispatch(setHistoryStocks(get()))
-                dispatch(setIsFocusSearchBar(false))
-              }}
-            >
+          <HoverListWrapper
+            key={`${stock.id}-search-bar`}
+            onClick={() => {
+              history.push(`/stock/${stock.cashTagName}`)
+              set(stock)
+              dispatch(setHistoryStocks(get()))
+              dispatch(setIsFocusSearchBar(false))
+            }}
+          >
+            <NewStockListGroup>
               <StockListItem>
                 <StockName>{stock.cashTagName}</StockName>
               </StockListItem>
@@ -47,7 +48,7 @@ export default function SearchStock() {
                 <CompanyName>{stock.enName}</CompanyName>
               </StockListItem>
             </NewStockListGroup>
-          </ListWrapper>
+          </HoverListWrapper>
         ))
       ) : (
         <EmptyWrapper>검색 결과가 없습니다.</EmptyWrapper>

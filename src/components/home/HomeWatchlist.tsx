@@ -1,6 +1,6 @@
 import styled from '@emotion/styled'
 import { useHistory } from 'react-router-dom'
-import { grey040, grey050 } from '../../lib/styles/colors'
+import { grey040, grey050, sky010 } from '../../lib/styles/colors'
 import {
   StockListWrapper,
   StockListHeader,
@@ -146,6 +146,9 @@ const ScrollBar = styled.div`
 
 const NewStockListGroup = styled(StockListGroup)`
   cursor: pointer;
+  :hover {
+    background-color: ${sky010};
+  }
 `
 
 export default HomeWatchlist

@@ -4,7 +4,7 @@ import searchStorage from '../../lib/searchStorage'
 import {
   EmptyWrapper,
   HistoryIconWrapper,
-  ListWrapper,
+  HoverListWrapper,
   NewStockListGroup,
 } from '../../lib/styles/search'
 import {
@@ -28,15 +28,16 @@ export default function SearchStockHistory() {
     <>
       {stocks ? (
         stocks.slice(0, 5).map((stock) => (
-          <ListWrapper key={`${stock.id}-search-bar`}>
-            <NewStockListGroup
-              onClick={() => {
-                history.push(`/stock/${stock.cashTagName}`)
-                set(stock)
-                dispatch(setHistoryStocks(get()))
-                dispatch(setIsFocusSearchBar(false))
-              }}
-            >
+          <HoverListWrapper
+            key={`${stock.id}-search-bar`}
+            onClick={() => {
+              history.push(`/stock/${stock.cashTagName}`)
+              set(stock)
+              dispatch(setHistoryStocks(get()))
+              dispatch(setIsFocusSearchBar(false))
+            }}
+          >
+            <NewStockListGroup>
               <StockListItem>
                 <StockName>{stock.cashTagName}</StockName>
               </StockListItem>
@@ -53,7 +54,7 @@ export default function SearchStockHistory() {
             >
               <CloseIconGrey />
             </HistoryIconWrapper>
-          </ListWrapper>
+          </HoverListWrapper>
         ))
       ) : (
         <EmptyWrapper>최근 검색 종목이 없습니다.</EmptyWrapper>
