@@ -18,7 +18,6 @@ export const StockListHeader = styled.div`
   font-size: 13px;
   line-height: 18px;
   padding: 1rem;
-  border-bottom: 0.5px solid #0076e1;
 
   display: flex;
   justify-content: space-between;

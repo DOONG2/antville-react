@@ -1,6 +1,5 @@
 import styled from '@emotion/styled'
 import { useDispatch } from 'react-redux'
-import { User } from '../../lib/api/types'
 import CalendarIcon from '../../static/svg/CalendarIcon'
 import { useRootState } from '../common/hooks/useRootState'
 import viewSlice from '../../reducers/Slices/view'
@@ -11,20 +10,19 @@ import Modal from '../common/Modal'
 import FollowingList from './UserFollowingList'
 import UserFollowerList from './UserFollowerList'
 import { useRef } from 'react'
-import UserIcon50 from '../../static/svg/UserIcon50'
+import UserIcon133 from '../../static/svg/UserIcon133'
 
-type Prop = {
-  user: User
-}
-
-export default function UserInfo({ user }: Prop) {
+export default function UserInfo() {
   const {
     view: { isOpenFollowingModal, isOpenFollwerModal },
+    profile: { user },
   } = useRootState((state) => state)
   const { setIsOpenFollowingModal, setIsOpenFollwerModal } = viewSlice.actions
   const dispatch = useDispatch()
 
   const modalParentRef = useRef<HTMLDivElement>(null)
+
+  if (!user) return <></>
 
   return (
     <>
@@ -34,7 +32,7 @@ export default function UserInfo({ user }: Prop) {
             {user.profileImg ? (
               <img src={user.profileImg} alt="profile_image" />
             ) : (
-              <UserIcon50 />
+              <UserIcon133 />
             )}
           </UserAvatar>
           <UserDetail>
@@ -64,7 +62,7 @@ export default function UserInfo({ user }: Prop) {
                 }}
               >
                 <ModalTitle>팔로잉</ModalTitle>
-                <FollowingList id={user.id} modalParentRef={modalParentRef} />
+                <FollowingList user={user} modalParentRef={modalParentRef} />
               </Modal>
               <Follower
                 onClick={() => dispatch(setIsOpenFollwerModal(true))}
@@ -79,10 +77,7 @@ export default function UserInfo({ user }: Prop) {
                 }}
               >
                 <ModalTitle>팔로워</ModalTitle>
-                <UserFollowerList
-                  id={user.id}
-                  modalParentRef={modalParentRef}
-                />
+                <UserFollowerList user={user} modalParentRef={modalParentRef} />
               </Modal>
             </FollowWrapper>
           </UserDetail>

@@ -12,3 +12,6 @@ export const activated_user_like = 'user_like'
 
 export const search_preview_limit = '5'
 export const search_preview_page = '0'
+
+export const following = 'following'
+export const follower = 'follower'

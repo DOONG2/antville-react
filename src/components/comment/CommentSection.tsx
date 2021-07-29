@@ -42,7 +42,13 @@ export default function CommentSection({ comments, loading }: Props) {
                   <UserIcon50 />
                 )}
               </FeedAvatar>
-              <NickNameWrapper>{comment.author.nickname}</NickNameWrapper>
+              <NickNameWrapper
+                onClick={() =>
+                  history.push(`/user/${comment.author.nickname}/profile`)
+                }
+              >
+                {comment.author.nickname}
+              </NickNameWrapper>
               <PostTime>
                 <MomentDateChange time={comment.createdAt} />
               </PostTime>

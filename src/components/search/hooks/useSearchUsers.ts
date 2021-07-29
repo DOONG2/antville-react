@@ -1,21 +1,21 @@
 import debounce from 'lodash.debounce'
 import { useCallback, useEffect, useState } from 'react'
 import { useDispatch } from 'react-redux'
-import getSearchStocks from '../../../lib/api/stock/getSearchStocks'
+import getSearchUser from '../../../lib/api/user/getSearchUser'
 import searchSlice from '../../../reducers/Slices/search'
 
 type Props = {
   query: string
 }
 
-export default function useSearchStocks({ query }: Props) {
+export default function useSearchUsers({ query }: Props) {
   const [isLoading, setIsLoading] = useState(false)
-  const { setStocks } = searchSlice.actions
+  const { setUsers } = searchSlice.actions
   const dispatch = useDispatch()
 
   const searchApi = async (term: string) => {
-    const result = await getSearchStocks(term)
-    dispatch(setStocks(result))
+    const result = await getSearchUser(term)
+    dispatch(setUsers(result))
     setIsLoading(false)
   }
 
@@ -26,7 +26,7 @@ export default function useSearchStocks({ query }: Props) {
 
   useEffect(() => {
     if (query === '') {
-      dispatch(setStocks(null))
+      dispatch(setUsers(null))
       return
     }
     setIsLoading(true)
