@@ -74,8 +74,6 @@ export const ListWrapper = styled.div`
   display: flex;
   justify-content: space-between;
   align-items: center;
-
-  border-bottom: 0.5px solid #f0f0f0;
 `
 
 export const HistoryIconWrapper = styled.div`
