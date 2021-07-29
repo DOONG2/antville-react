@@ -24,8 +24,9 @@ export default function useInfiniteFollow({ key, callback, ref }: Props) {
       } else {
         setUsers([...data.pages[0]])
       }
-    }
+    } else setUsers(undefined)
   }, [data])
+
   useInfiniteScroll({
     onLoadMore: () => {
       if (!isLoading && !isFetching && hasNextPage) {

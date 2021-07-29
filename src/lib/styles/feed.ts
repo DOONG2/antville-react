@@ -45,6 +45,8 @@ export const NickNameWrapper = styled.div`
 
   margin-left: 20px;
   padding-bottom: 5px;
+
+  cursor: pointer;
 `
 
 export const PostTime = styled.div`

@@ -4,11 +4,11 @@ import SearchIcon from '../../static/svg/SearchIcon'
 import useCheckLogin from '../common/hooks/useCheckLogin'
 import useOnClickOutside from '../common/hooks/useOnClickOutside'
 import { useRootState } from '../common/hooks/useRootState'
-import { IconWrapper, SearchInput, SerchBar } from '../../lib/styles/searchBar'
+import { IconWrapper, SearchInput, SerchBar } from '../../lib/styles/search'
 import viewSlice from '../../reducers/Slices/view'
 import SearchPreView from './SearchPreView'
 
-function SearchBar() {
+function Search() {
   const dispatch = useDispatch()
   const { setIsFocusSearchBar } = viewSlice.actions
   const { isFocusSearchBar } = useRootState((state) => state.view)
@@ -33,7 +33,6 @@ function SearchBar() {
         type="search"
         placeholder="키워드 혹은 @닉네임을 입력해주세요."
         onFocus={() => dispatch(setIsFocusSearchBar(true))}
-        onBlur={() => dispatch(setIsFocusSearchBar(false))}
         onChange={(e) => {
           setQuery(e.target.value)
         }}
@@ -43,4 +42,4 @@ function SearchBar() {
   )
 }
 
-export default SearchBar
+export default Search

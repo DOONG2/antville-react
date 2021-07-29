@@ -4,10 +4,13 @@ import useInfiniteFollow from './hooks/useInfiniteFollow'
 import { UserListPros } from './type'
 import UserSection from './UserSection'
 
-export default function UserFollowerList({ id, modalParentRef }: UserListPros) {
-  const { isLoading, users } = useInfiniteFollow({
-    key: `user-follower-${id}`,
-    callback: (cursor) => getUserFollower(id, cursor),
+export default function UserFollowerList({
+  user,
+  modalParentRef,
+}: UserListPros) {
+  const { isLoading, users, setUsers } = useInfiniteFollow({
+    key: `user-follower-${user.id}`,
+    callback: (cursor) => getUserFollower(user.id, cursor),
     ref: modalParentRef,
   })
 
@@ -18,7 +21,8 @@ export default function UserFollowerList({ id, modalParentRef }: UserListPros) {
       <UserSection
         users={users}
         isLoading={isLoading}
-        elementKey={`user-follower-section-${id}-`}
+        setUsers={setUsers}
+        elementKey={`user-follower-section-${user.id}-`}
       />
     </Block>
   )

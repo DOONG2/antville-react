@@ -54,7 +54,13 @@ const FeedSection = ({ posts, loading, emptyComponent, sectionKey }: Props) => {
                   <UserIcon50 />
                 )}
               </FeedAvatar>
-              <NickNameWrapper>{post.author.nickname}</NickNameWrapper>
+              <NickNameWrapper
+                onClick={() =>
+                  history.push(`/user/${post.author.nickname}/profile`)
+                }
+              >
+                {post.author.nickname}
+              </NickNameWrapper>
               <PostTime>
                 <MomentDateChange time={post.createdAt} />
               </PostTime>

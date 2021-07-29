@@ -1,12 +1,17 @@
-import styled from '@emotion/styled'
-import { grey030, grey080 } from '../../lib/styles/colors'
 import { User } from '../../lib/api/types'
+import { Item, Nickname, Wrapper } from '../../lib/styles/user'
+import { useHistory } from 'react-router-dom'
+import { FeedAvatar } from '../../lib/styles/feed'
+import UserIcon50 from '../../static/svg/UserIcon50'
+import { useDispatch } from 'react-redux'
+import viewSlice from '../../reducers/Slices/view'
 
 type Prop = {
   users: User[]
   isLoading: boolean
   elementKey: string
   emptyComponent?: React.ReactNode
+  setUsers(users: User[] | undefined): void
 }
 
 export default function UserSection({
@@ -14,41 +19,41 @@ export default function UserSection({
   isLoading,
   emptyComponent,
   elementKey,
+  setUsers,
 }: Prop) {
+  const { setIsOpenFollwerModal, setIsOpenFollowingModal } = viewSlice.actions
+  const history = useHistory()
+  const dispatch = useDispatch()
+
   return (
     <Wrapper>
       {users.map((user) => (
-        <Item key={elementKey + user.id}>
-          <Avatar></Avatar>
+        <Item
+          key={elementKey + user.id}
+          onClick={() => {
+            dispatch(setIsOpenFollwerModal(false))
+            dispatch(setIsOpenFollowingModal(false))
+            setUsers(undefined)
+            history.push(`/user/${user.nickname}/profile`)
+          }}
+        >
+          <FeedAvatar
+            onClick={() => {
+              dispatch(setIsOpenFollwerModal(false))
+              dispatch(setIsOpenFollowingModal(false))
+              setUsers(undefined)
+              history.push(`/user/${user.nickname}/profile`)
+            }}
+          >
+            {user.profileImg ? (
+              <img src={user.profileImg} alt="profile_image" />
+            ) : (
+              <UserIcon50 />
+            )}
+          </FeedAvatar>
           <Nickname>{user.nickname}</Nickname>
         </Item>
       ))}
     </Wrapper>
   )
 }
-
-const Wrapper = styled.div`
-  display: flex;
-  flex-direction: column;
-  margin-top: 15px;
-  border-top: 0.5px solid ${grey030};
-`
-
-const Item = styled.div`
-  display: flex;
-  padding: 10px 20px;
-  align-items: center;
-
-  border-bottom: 0.5px solid ${grey030};
-`
-
-const Avatar = styled.div`
-  width: 50px;
-  height: 50px;
-  border-radius: 50%;
-  background-color: ${grey080};
-`
-
-const Nickname = styled.div`
-  margin-left: 15px;
-`

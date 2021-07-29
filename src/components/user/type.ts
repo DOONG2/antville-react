@@ -1,6 +1,7 @@
 import { RefObject } from 'react'
+import { User } from '../../lib/api/types'
 
 export type UserListPros = {
-  id: number
+  user: User
   modalParentRef: RefObject<HTMLDivElement>
 }

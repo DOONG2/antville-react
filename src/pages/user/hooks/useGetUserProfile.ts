@@ -1,14 +1,18 @@
-import { useEffect, useState } from 'react'
-import { User } from '../../../lib/api/types'
+import { useEffect } from 'react'
+import { useDispatch } from 'react-redux'
+import { useRootState } from '../../../components/common/hooks/useRootState'
 import getUserProfile from '../../../lib/api/user/getUserProfile'
+import profileSlice from '../../../reducers/Slices/profile'
 
 export default function useGetUserProfile(nickname: string) {
-  const [user, setUser] = useState<User>()
+  const { user } = useRootState((state) => state.profile)
+  const { setProfileUser } = profileSlice.actions
+  const dispatch = useDispatch()
 
   useEffect(() => {
     const getUserApi = async () => {
       const result = await getUserProfile(nickname)
-      setUser(result)
+      dispatch(setProfileUser(result))
     }
     getUserApi()
   }, [nickname])
