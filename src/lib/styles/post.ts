@@ -1,8 +1,20 @@
 import { css } from '@emotion/react'
 import styled from '@emotion/styled'
 import { Mention, MentionsInput } from 'react-mentions'
-import { grey010, grey020, grey030, grey050, grey060, grey080 } from './colors'
+import ReactQuill from 'react-quill'
+import {
+  grey010,
+  grey020,
+  grey030,
+  grey050,
+  grey060,
+  grey080,
+  sky040,
+} from './colors'
 import { FontBlue } from './texts'
+import 'quill-mention'
+import 'quill-mention/dist/quill.mention.css'
+import 'react-quill/dist/quill.snow.css'
 
 export const Image = styled.img`
   height: 270px;
@@ -36,7 +48,9 @@ export const InputWrapper = styled.div<{ isFocus: boolean }>`
   box-sizing: border-box;
   border-radius: 3px;
   display: flex;
+  justify-content: space-between;
   flex-direction: ${(p) => (p.isFocus ? 'column' : 'row')};
+  min-height: ${(p) => (p.isFocus ? `114px` : '22px')};
 `
 
 export const PostInnerButtonsWrapper = styled.div`
@@ -103,11 +117,10 @@ export const LockedLabel = styled.div`
 `
 
 export const dynamicStyle = (props: {
-  isfocus: string
+  isfocus: boolean
   scrollheight: number
 }) => css`
-  height: ${props.isfocus === 'true' ? `76px` : '22px'};
-  min-height: ${props.isfocus === 'true' ? `${props.scrollheight}px` : '22px'};
+  min-height: ${props.isfocus ? `76px` : '22px'};
 `
 
 export const MentionInput = styled(MentionsInput)`
@@ -184,4 +197,72 @@ export const UserAvatar = styled.div`
   margin-right: 14px;
 
   background-color: blue;
+`
+
+export const Block = styled.div`
+  align-self: center;
+  width: 100%;
+  height: 100%;
+`
+
+export const CustomQuill = styled(ReactQuill)`
+  height: 100%;
+
+  .ql-container {
+    font-size: 16px;
+    line-height: 20px;
+    outline: none;
+    border: none;
+    resize: none;
+
+    color: #202020;
+    background-color: #fff;
+    border: none;
+  }
+
+  .ql-editor {
+    padding: 0 15px;
+  }
+  .ql-blank {
+    color: ${grey050};
+  }
+
+  span.mention {
+    padding: 0 0;
+    background-color: #fff;
+    color: ${sky040};
+  }
+
+  .ql-mention-list-item {
+    display: grid;
+    padding: 9px 12px 7px 12px;
+    grid-row-gap: 3px;
+    border-bottom: 0.225872px solid #e0e0e0;
+
+    span {
+    }
+
+    img {
+      width: 25px;
+      height: 25px;
+      margin-right: 14px;
+    }
+
+    div:first-of-type {
+      font-family: Roboto;
+      font-weight: 500;
+      font-size: 14px;
+      line-height: 16px;
+
+      color: ${grey080};
+      display: flex;
+      align-items: center;
+    }
+    div:last-child {
+      font-family: Roboto;
+      font-size: 11px;
+      color: ${grey060};
+      line-height: 13px;
+    }
+  }
 `

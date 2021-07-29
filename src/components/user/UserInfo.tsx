@@ -6,11 +6,12 @@ import { useRootState } from '../common/hooks/useRootState'
 import viewSlice from '../../reducers/Slices/view'
 import MonthDate from '../common/MomentMonthDate'
 import SectionButtonComponent from './UserTopRightButton'
-import { grey050, grey060, grey080 } from '../../lib/styles/colors'
+import { grey050, grey080 } from '../../lib/styles/colors'
 import Modal from '../common/Modal'
 import FollowingList from './UserFollowingList'
 import UserFollowerList from './UserFollowerList'
 import { useRef } from 'react'
+import UserIcon50 from '../../static/svg/UserIcon50'
 
 type Prop = {
   user: User
@@ -29,7 +30,13 @@ export default function UserInfo({ user }: Prop) {
     <>
       <Wrapper>
         <Info>
-          <UserAvatar></UserAvatar>
+          <UserAvatar>
+            {user.profileImg ? (
+              <img src={user.profileImg} alt="profile_image" />
+            ) : (
+              <UserIcon50 />
+            )}
+          </UserAvatar>
           <UserDetail>
             <Nickname>{user.nickname}</Nickname>
             <JoinDate>
@@ -95,9 +102,14 @@ const Wrapper = styled.div`
 const UserAvatar = styled.div`
   width: 133px;
   height: 133px;
-
   border-radius: 50%;
-  background-color: ${grey060};
+
+  img {
+    width: 133px;
+    height: 133px;
+
+    border-radius: 50%;
+  }
 `
 
 const Info = styled.div`

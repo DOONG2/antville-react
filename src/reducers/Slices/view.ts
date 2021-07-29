@@ -53,8 +53,10 @@ const viewSlice = createSlice({
     },
     setIsOpenProfileDropDown(state, action: PayloadAction<boolean>) {
       state.isOpenProfileDropDown = action.payload
+      state.isOpenNoticeDropDown = false
     },
     setIsOpenNoticeDropDown(state, action: PayloadAction<boolean>) {
+      state.isOpenProfileDropDown = false
       state.isOpenNoticeDropDown = action.payload
     },
     setIsOpenFollowingModal(state, action: PayloadAction<boolean>) {
@@ -71,6 +73,10 @@ const viewSlice = createSlice({
     },
     setIsFocusSearchBar(state, action: PayloadAction<boolean>) {
       state.isFocusSearchBar = action.payload
+      if (action.payload === true) {
+        state.isOpenProfileDropDown = false
+        state.isOpenNoticeDropDown = false
+      }
     },
     setIsFailLoginSubmit(state, action: PayloadAction<boolean>) {
       state.isFailLoginSubmit = action.payload

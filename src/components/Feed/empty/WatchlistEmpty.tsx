@@ -1,4 +1,4 @@
-import FollowingTabEmptyIcon from '../../../static/svg/FollowingTabEmptyIcon'
+import WatchListTabEmptyIcon from '../../../static/svg/WatchListTabEmptyIcon'
 import { Icon, MainText, SubText, Wrapper } from '../../../lib/styles/empty'
 
 export default function WatchListEmpty() {
@@ -6,7 +6,7 @@ export default function WatchListEmpty() {
     <>
       <Wrapper>
         <Icon>
-          <FollowingTabEmptyIcon />
+          <WatchListTabEmptyIcon />
         </Icon>
         <MainText>아직 관심종목 게시글이 없어요.</MainText>
         <SubText>

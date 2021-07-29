@@ -24,8 +24,9 @@ import {
 import FeedBody from '../feed/FeedBody'
 import LikeComponent from '../feed/LikeComponent'
 import MomentDateChange from '../common/MomentDateChange'
-import CommentForm from './CommentForm'
 import { Image } from '../../lib/styles/post'
+import SubCommentForm from './SubCommentForm'
+import UserIcon50 from '../../static/svg/UserIcon50'
 
 interface Props {
   comment: CommentObject
@@ -111,7 +112,13 @@ export default function SubCommentSection({ comment }: Props) {
                   onClick={() =>
                     history.push(`/user/${comment.author.nickname}/profile`)
                   }
-                />
+                >
+                  {comment.author.profileImg ? (
+                    <img src={comment.author.profileImg} alt="profile_image" />
+                  ) : (
+                    <UserIcon50 />
+                  )}
+                </FeedAvatar>
                 <NickNameWrapper>{comment.author.nickname}</NickNameWrapper>
                 <PostTime>
                   <MomentDateChange time={comment.createdAt} />
@@ -150,7 +157,7 @@ export default function SubCommentSection({ comment }: Props) {
         ))}
         {isLoaded && (
           <CommentFormWrapper isOpen={isOpen}>
-            <CommentForm
+            <SubCommentForm
               parentCommentId={comment.id.toString()}
               addComment={addComment}
             />
@@ -160,7 +167,7 @@ export default function SubCommentSection({ comment }: Props) {
           isOpenCommentForm &&
           !isOpen && (
             <CommentFormWrapper isOpen={isOpenCommentForm}>
-              <CommentForm
+              <SubCommentForm
                 parentCommentId={comment.id.toString()}
                 addComment={addComment}
               />

@@ -27,7 +27,16 @@ export default function useCommentData({ addComment }: Props) {
   }: ApiProps) => {
     try {
       const formData = new FormData()
-      formData.append('body', body)
+      const parser = new DOMParser()
+      const doc = parser.parseFromString(body, 'text/html')
+      const elements = doc.querySelectorAll('p')
+      let bodyOnlyText = ''
+      elements.forEach((el, index) => {
+        if (index === elements.length - 1)
+          return (bodyOnlyText = bodyOnlyText + el.innerText)
+        bodyOnlyText = bodyOnlyText + el.innerText + '\n'
+      })
+      formData.append('body', bodyOnlyText)
       formData.append('postId', postId)
       if (gifDto) formData.append('gif', JSON.stringify(gifDto))
       if (uploadImage) formData.append('comments', uploadImage)

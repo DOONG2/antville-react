@@ -67,7 +67,7 @@ export default function PostMentionInput({
         onFocus={() => {
           setIsFocusInput(true)
         }}
-        isfocus={isFocusInput.toString()}
+        isfocus={isFocusInput}
         scrollheight={scrollHeight}
         inputRef={textRef}
       >

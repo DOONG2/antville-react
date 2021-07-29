@@ -9,10 +9,16 @@ interface Props {
   setPreviewUrl(value: string | ArrayBuffer | null): void
 }
 
-const ImageUpload = ({ setUploadImage, setGifDto, setPreviewUrl }: Props) => {
+export default function ImageUpload({
+  setUploadImage,
+  setGifDto,
+  setPreviewUrl,
+}: Props) {
   const hiddenFileInput = useRef<HTMLInputElement>(null)
   const handleClick = () => {
-    hiddenFileInput?.current?.click()
+    if (!hiddenFileInput.current) return
+    hiddenFileInput.current.value = ''
+    hiddenFileInput.current.click()
   }
   const handleChange = (e: ChangeEvent<HTMLInputElement>) => {
     const fileUploaded = e.target.files?.[0]
@@ -20,6 +26,8 @@ const ImageUpload = ({ setUploadImage, setGifDto, setPreviewUrl }: Props) => {
     setPreviewUrl(URL.createObjectURL(fileUploaded))
     setUploadImage(fileUploaded)
     setGifDto(undefined)
+
+    if (e.target.files) e.target.files = null
   }
 
   return (
@@ -39,5 +47,3 @@ const ImageUpload = ({ setUploadImage, setGifDto, setPreviewUrl }: Props) => {
 const Input = styled.input`
   display: none;
 `
-
-export default ImageUpload

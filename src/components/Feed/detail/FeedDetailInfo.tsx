@@ -26,6 +26,7 @@ import FeedOption from '../FeedOption'
 import LikeComponent from '../LikeComponent'
 import MomentDateChange from '../../common/MomentDateChange'
 import FeedHistoryComponent from './FeedHistoryComponent'
+import UserIcon50 from '../../../static/svg/UserIcon50'
 
 type FeedDetailInfoProps = {
   post: Post
@@ -33,6 +34,8 @@ type FeedDetailInfoProps = {
 
 export default function FeedDetailInfo({ post }: FeedDetailInfoProps) {
   const history = useHistory()
+
+  console.log(post)
 
   return (
     <Wrapper>
@@ -54,7 +57,13 @@ export default function FeedDetailInfo({ post }: FeedDetailInfoProps) {
                 onClick={() =>
                   history.push(`/user/${post.author.nickname}/profile`)
                 }
-              />
+              >
+                {post.author.profileImg ? (
+                  <img src={post.author.profileImg} alt="profile_image" />
+                ) : (
+                  <UserIcon50 />
+                )}
+              </FeedAvatar>
               <NickNameWrapper>{post.author.nickname}</NickNameWrapper>
               <PostTime>
                 <MomentDateChange time={post.createdAt} />
