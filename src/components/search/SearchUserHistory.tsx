@@ -20,7 +20,7 @@ export default function SearchUserHistory() {
   return (
     <>
       {users ? (
-        users.map((user) => (
+        users.slice(0, 5).map((user) => (
           <Wrapper key={'user-search-history-' + user.id}>
             <Inner>
               <Item

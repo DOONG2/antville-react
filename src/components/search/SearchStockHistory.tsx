@@ -27,7 +27,7 @@ export default function SearchStockHistory() {
   return (
     <>
       {stocks ? (
-        stocks.map((stock) => (
+        stocks.slice(0, 5).map((stock) => (
           <ListWrapper key={`${stock.id}-search-bar`}>
             <NewStockListGroup
               onClick={() => {
