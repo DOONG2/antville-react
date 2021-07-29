@@ -25,10 +25,9 @@ export default function SearchUser() {
     <>
       {users.length >= 1 ? (
         users.map((user) => (
-          <Wrapper>
+          <Wrapper key={'user-search-' + user.id}>
             <Inner>
               <Item
-                key={'user-search-' + user.id}
                 onClick={() => {
                   dispatch(setIsFocusSearchBar(false))
                   set(user)
