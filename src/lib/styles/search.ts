@@ -112,6 +112,7 @@ export const Wrapper = styled.div`
   align-items: center;
   width: 100%;
   padding: 10px 0;
+  position: relative;
 
   cursor: pointer;
   :hover {
@@ -149,7 +150,7 @@ export const FeedAvatar = styled.div`
 
 export const Nickname = styled.div`
   font-family: Roboto;
-  font-weight: 500;
+  font-weight: 600;
   font-size: 13px;
   line-height: 15px;
 

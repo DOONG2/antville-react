@@ -35,8 +35,6 @@ type FeedDetailInfoProps = {
 export default function FeedDetailInfo({ post }: FeedDetailInfoProps) {
   const history = useHistory()
 
-  console.log(post)
-
   return (
     <Wrapper>
       <Title>
