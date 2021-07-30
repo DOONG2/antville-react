@@ -9,16 +9,16 @@ import { useDispatch } from 'react-redux'
 import { useHistory } from 'react-router'
 import SearchBar from '../search/Search'
 import LogoWithIcon from '../../static/svg/LogoWithIcon'
-import useCheckLogin from '../common/hooks/useCheckLogin'
 import NoticeIcon from '../../static/svg/NoticeIcon'
 import ProfileIcon from '../../static/svg/ProfileIcon'
 import useOnClickOutside from '../common/hooks/useOnClickOutside'
 import useElementSize from '../common/hooks/useElementSize'
 import React, { useRef } from 'react'
 import HeaderUserDropDown from './HeaderUserDropDown'
-import NoticeDropDown from './HeaderNoticeDropDown'
+import HeaderNoticeDropDown from './HeaderNoticeDropDown'
 import DropDown from '../common/DropDown'
 import Modal from '../common/Modal'
+import userStorage from '../../lib/userStorage'
 
 function Header() {
   const {
@@ -39,7 +39,6 @@ function Header() {
   } = useRootState((state) => state)
   const dispatch = useDispatch()
   const history = useHistory()
-  const isLoggedIn = useCheckLogin()
 
   const ProfileRef = useOnClickOutside({
     close: () => {
@@ -58,16 +57,16 @@ function Header() {
   const modalParentRef = useRef<HTMLDivElement>(null)
 
   const { height } = useElementSize(IconWrapperRef)
-
+  const user = userStorage.get()
   return (
     <Wrapper>
-      <HeaderWrapper isLoggedIn={isLoggedIn}>
+      <HeaderWrapper isLoggedIn={user !== null}>
         <LogoWrapper onClick={() => history.push('/')}>
           <LogoWithIcon />
         </LogoWrapper>
         <SearchBar />
         <ButtonWrapper>
-          {isLoggedIn ? (
+          {user ? (
             <IconWrapper ref={IconWrapperRef}>
               <NoticeWrapper
                 onClick={() =>
@@ -81,7 +80,7 @@ function Header() {
                   parentHeight={height}
                   placement={'Right'}
                 >
-                  <NoticeDropDown />
+                  <HeaderNoticeDropDown id={user.id} />
                 </DropDown>
               </NoticeWrapper>
               <ProfileWrapper

@@ -15,3 +15,7 @@ export const search_preview_page = '0'
 
 export const following = 'following'
 export const follower = 'follower'
+
+export const TYPE_FOLLOW = 'FOLLOW'
+export const TYPE_TAG = 'TAG'
+export const TYPE_LIKE = 'LIKE'

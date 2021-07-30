@@ -15,6 +15,7 @@ import {
   UpDownRate,
 } from '../../lib/styles/stockList'
 import viewSlice from '../../reducers/Slices/view'
+import { sky010 } from '../../lib/styles/colors'
 
 export default function PopularPreView() {
   const { isFocusSearchBar } = useRootState((state) => state.view)
@@ -66,4 +67,7 @@ const HotStockListWrapper = styled(StockListWrapper)<{ isOpen: boolean }>`
 
 const NewStockListGroup = styled(StockListGroup)`
   cursor: pointer;
+  :hover {
+    background-color: ${sky010};
+  }
 `

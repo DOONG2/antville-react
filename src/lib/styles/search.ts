@@ -1,5 +1,5 @@
 import styled from '@emotion/styled'
-import { grey040, grey080 } from './colors'
+import { grey040, grey080, sky010 } from './colors'
 import { StockListGroup, StockListWrapper } from './stockList'
 
 export const SerchBar = styled.div<{ isLoggedIn: boolean }>`
@@ -74,12 +74,18 @@ export const ListWrapper = styled.div`
   display: flex;
   justify-content: space-between;
   align-items: center;
+`
 
-  border-bottom: 0.5px solid #f0f0f0;
+export const HoverListWrapper = styled(ListWrapper)`
+  cursor: pointer;
+  :hover {
+    background-color: ${sky010};
+  }
 `
 
 export const HistoryIconWrapper = styled.div`
-  margin-right: 22px;
+  margin-right: 12px;
+  padding: 10px;
   cursor: pointer;
 `
 
@@ -99,4 +105,63 @@ export const EmptyWrapper = styled.div`
   text-align: center;
 
   color: ${grey080};
+`
+
+export const Wrapper = styled.div`
+  display: flex;
+  align-items: center;
+  width: 100%;
+  padding: 10px 0;
+  position: relative;
+
+  cursor: pointer;
+  :hover {
+    background-color: ${sky010};
+  }
+`
+
+export const Inner = styled.div`
+  display: flex;
+  justify-content: space-between;
+  width: 100%;
+`
+
+export const Item = styled.div`
+  width: 100%;
+  display: flex;
+  align-items: center;
+`
+
+export const FeedAvatar = styled.div`
+  margin-left: 12px;
+  width: 30px;
+  height: 30px;
+
+  border-radius: 30px;
+
+  img {
+    width: 30px;
+    height: 30px;
+    border-radius: 30px;
+  }
+
+  cursor: pointer;
+`
+
+export const Nickname = styled.div`
+  font-family: Roboto;
+  font-weight: 600;
+  font-size: 13px;
+  line-height: 15px;
+
+  color: ${grey080};
+  margin-left: 8px;
+`
+
+export const Icon = styled.div`
+  display: flex;
+  align-items: center;
+  cursor: pointer;
+  padding: 10px;
+  margin-right: 12px;
 `

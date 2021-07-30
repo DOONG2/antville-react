@@ -26,8 +26,6 @@ export const StockListHeader = styled.div`
 export const StockListGroup = styled.div`
   display: grid;
   padding: 1.1rem;
-
-  border-bottom: 0.5px solid #f0f0f0;
 `
 
 export const StockListItem = styled.div`
