@@ -27,7 +27,7 @@ export default function UserProfilePage() {
     <MainTemplate
       children={
         <>
-          <ProfileUserInfo />
+          <ProfileUserInfo user={user} />
           <ProfileTab user={user} />
           <Route
             path={['/user/:nickname/profile', '/user/:nickname/profile/all']}

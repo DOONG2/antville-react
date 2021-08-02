@@ -13,9 +13,9 @@ const rootReducer = combineReducers({
   user: userSlice.reducer,
   auth: authSlice.reducer,
   post: postSlice.reducer,
-  profile: profileSlice.reducer,
   comment: commentSlice.reducer,
   search: searchSlice.reducer,
+  profile: profileSlice.reducer,
   watchlist: watchlistSlice.reducer,
 })
 

@@ -11,6 +11,8 @@ import {
   BottomWrapper,
   Count,
   FeedAvatar,
+  FeedText,
+  FeedTitle,
   FeedWrapper,
   GifImage,
   IconWrapper,
@@ -18,6 +20,7 @@ import {
   MiddleWrapper,
   NickNameWrapper,
   PostTime,
+  TitleIconWrapper,
   TopWrapper,
 } from '../../../lib/styles/feed'
 import { Image } from '../../../lib/styles/post'
@@ -37,7 +40,7 @@ export default function FeedDetailInfo({ post }: FeedDetailInfoProps) {
 
   return (
     <Wrapper>
-      <Title>
+      <FeedTitle>
         <TitleIconWrapper
           onClick={() => {
             history.goBack()
@@ -45,8 +48,8 @@ export default function FeedDetailInfo({ post }: FeedDetailInfoProps) {
         >
           <LeftArrow />
         </TitleIconWrapper>
-        <Text>게시글</Text>
-      </Title>
+        <FeedText>게시글</FeedText>
+      </FeedTitle>
       {post && (
         <FeedWrapper key={`${post.id}-feed-detail`}>
           <TopWrapper>
@@ -119,27 +122,6 @@ export default function FeedDetailInfo({ post }: FeedDetailInfoProps) {
 }
 
 const Wrapper = styled.div``
-
-const Title = styled.div`
-  display: flex;
-  align-items: center;
-  padding: 10px 0;
-`
-
-const TitleIconWrapper = styled.div`
-  cursor: pointer;
-  padding: 0 5px;
-`
-
-const Text = styled.div`
-  text-align: center;
-  margin-left: 23px;
-  font-weight: 400;
-  font-size: 22px;
-  line-height: 30px;
-
-  color: #000000;
-`
 
 const NewMiddleWrapper = styled(MiddleWrapper)`
   padding: 0 22px;
