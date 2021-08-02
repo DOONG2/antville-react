@@ -57,14 +57,18 @@ export default function UserEdit() {
         </Profile>
         <FormWrapper>
           <form onSubmit={handleSubmit}>
-            <div>
+            <Item>
               <span>닉네임</span>
               <input placeholder={'닉네임을 입력해주세요.'}></input>
-            </div>
-            <div>
+              <WarningLabel>이미 존재하는 닉네임 입니다.</WarningLabel>
+            </Item>
+            <Item>
               <span>웹사이트</span>
               <input placeholder={'링크를 입력해주세요.'}></input>
-            </div>
+              <WarningLabel>
+                올바르지 않은 주소입니다. 주소를 다시 입력해주세요.
+              </WarningLabel>
+            </Item>
             <IntroductionWrapper>
               <span>자기소개</span>
               <IntroductionInput placeholder={'자기소개를 입력해주세요.'} />
@@ -83,6 +87,21 @@ export default function UserEdit() {
   )
 }
 
+const Item = styled.div`
+  position: relative;
+`
+
+const WarningLabel = styled.div`
+  position: absolute;
+  font-size: 11px;
+  line-height: 15px;
+
+  left: 82px;
+  bottom: -15px;
+
+  color: #fa4a61;
+`
+
 const ButtonWrapper = styled.div``
 
 const Button = styled.div`
@@ -95,6 +114,8 @@ const Button = styled.div`
   color: ${grey010};
   background: ${antblue050};
   border-radius: 5px;
+
+  cursor: pointer;
 `
 
 const IntroductionWrapper = styled.div`
