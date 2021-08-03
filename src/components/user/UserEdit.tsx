@@ -2,7 +2,6 @@ import styled from '@emotion/styled'
 import { useHistory } from 'react-router-dom'
 import {
   antblue050,
-  blue050,
   grey010,
   grey020,
   grey040,
@@ -14,23 +13,19 @@ import LeftArrow from '../../static/svg/LeftArrow'
 import UserIcon66 from '../../static/svg/UserIcon66'
 import { useRootState } from '../common/hooks/useRootState'
 import useUserEditFormik from './hooks/useUserEditFormik'
+import NickNameRuleLabel from '../auth/AuthNicknameRule'
+import CompleteCheckIcon from '../../static/svg/CompleteCheckIcon'
 
 export default function UserEdit() {
   const history = useHistory()
   const user = useRootState((state) => state.user)
 
-  const {
-    dirty,
-    isValid,
-    values,
-    errors,
-    touched,
-    handleSubmit,
-    resetForm,
-    getFieldProps,
-  } = useUserEditFormik()
+  const { dirty, isValid, errors, touched, handleSubmit, getFieldProps } =
+    useUserEditFormik()
 
   if (!user) return <></>
+
+  console.log(touched, errors)
 
   return (
     <Block>
@@ -58,27 +53,55 @@ export default function UserEdit() {
         <FormWrapper>
           <form onSubmit={handleSubmit}>
             <Item>
-              <span>닉네임</span>
-              <input placeholder={'닉네임을 입력해주세요.'}></input>
-              <WarningLabel>이미 존재하는 닉네임 입니다.</WarningLabel>
+              <Span>닉네임</Span>
+              <NicknameWrapper>
+                <NonBorderInput
+                  id="editNickname"
+                  type="text"
+                  {...getFieldProps('editNickname')}
+                  placeholder={'닉네임을 입력해주세요.'}
+                />
+                <NickNameRuleLabel />
+                {touched.editNickname ? (
+                  errors.editNickname ? (
+                    <WarningLabel>{errors.editNickname}</WarningLabel>
+                  ) : (
+                    <CompleteLabel>올바른 아이디입니다</CompleteLabel>
+                  )
+                ) : (
+                  ''
+                )}
+              </NicknameWrapper>
             </Item>
             <Item>
-              <span>웹사이트</span>
-              <input placeholder={'링크를 입력해주세요.'}></input>
-              <WarningLabel>
-                올바르지 않은 주소입니다. 주소를 다시 입력해주세요.
-              </WarningLabel>
+              <Span>웹사이트</Span>
+              <Input
+                id="editWebSite"
+                type="url"
+                {...getFieldProps('editWebSite')}
+                placeholder={'링크를 입력해주세요.'}
+              />
+              {touched.editWebSite
+                ? errors.editWebSite && (
+                    <WarningLabel>{errors.editWebSite}</WarningLabel>
+                  )
+                : ''}
             </Item>
-            <IntroductionWrapper>
-              <span>자기소개</span>
-              <IntroductionInput placeholder={'자기소개를 입력해주세요.'} />
-              <Description>
-                자기소개는 200자까지 가능합니다. 못다한 이야기는 타임라인에서
-                해주세요 :)
-              </Description>
-            </IntroductionWrapper>
+            <Item>
+              <Span>자기소개</Span>
+              <IntroductionInput
+                id="editIntroduction"
+                {...getFieldProps('editIntroduction')}
+                placeholder={'자기소개를 입력해주세요.'}
+              />
+              {errors.editIntroduction && (
+                <Description>{errors.editIntroduction}</Description>
+              )}
+            </Item>
             <ButtonWrapper>
-              <Button>완료</Button>
+              <Button type="submit" disabled={!(dirty && isValid)}>
+                완료
+              </Button>
             </ButtonWrapper>
           </form>
         </FormWrapper>
@@ -87,8 +110,44 @@ export default function UserEdit() {
   )
 }
 
+const NicknameWrapper = styled.div`
+  display: flex;
+  align-items: center;
+  border: 1px solid ${grey040};
+  box-sizing: border-box;
+  border-radius: 3px;
+`
+
+const Input = styled.input`
+  background: #ffffff;
+  width: 386px;
+
+  border: 1px solid ${grey040};
+  box-sizing: border-box;
+  border-radius: 3px;
+  padding: 4px 10px;
+
+  font-weight: 400;
+  font-size: 15px;
+  line-height: 20px;
+  outline: none;
+
+  color: #000000;
+  ::placeholder {
+    color: ${grey050};
+  }
+`
+
+const NonBorderInput = styled(Input)`
+  border: none;
+  width: 357px;
+`
+
 const Item = styled.div`
   position: relative;
+  display: flex;
+  column-gap: 24px;
+  justify-content: flex-end;
 `
 
 const WarningLabel = styled.div`
@@ -96,30 +155,34 @@ const WarningLabel = styled.div`
   font-size: 11px;
   line-height: 15px;
 
-  left: 82px;
+  left: 94px;
   bottom: -15px;
 
   color: #fa4a61;
 `
 
-const ButtonWrapper = styled.div``
+const CompleteLabel = styled(WarningLabel)`
+  color: ${antblue050};
+`
 
-const Button = styled.div`
+const ButtonWrapper = styled.div`
+  display: flex;
+  justify-content: flex-end;
+`
+
+const Button = styled.button`
   margin-top: 13px;
   padding: 5px 23px;
   font-weight: 600;
   font-size: 16px;
   line-height: 22px;
 
+  background: ${(p) => (p.disabled ? grey050 : antblue050)};
   color: ${grey010};
-  background: ${antblue050};
+  border: ${(props) =>
+    props.disabled ? `1px solid ${grey050}` : `1px solid ${antblue050}`};
+  cursor: ${(props) => (props.disabled ? 'default' : 'pointer')};
   border-radius: 5px;
-
-  cursor: pointer;
-`
-
-const IntroductionWrapper = styled.div`
-  position: relative;
 `
 
 const Description = styled.div`
@@ -143,6 +206,7 @@ const IntroductionInput = styled.textarea`
   box-sizing: border-box;
   border-radius: 3px;
   resize: none;
+  outline: none;
   padding: 10px;
 
   font-weight: 400;
@@ -150,7 +214,7 @@ const IntroductionInput = styled.textarea`
   line-height: 20px;
 
   color: #000000;
-  ::placeholder {
+  & > ::placeholder {
     color: ${grey050};
     font-size: 15px;
   }
@@ -171,42 +235,20 @@ const Profile = styled.div`
   row-gap: 10px;
 `
 
+const Span = styled.span`
+  font-size: 16px;
+  line-height: 22px;
+
+  color: #000000;
+`
+
 const FormWrapper = styled.div`
   margin-left: 60px;
 
-  form {
+  & > form {
     display: flex;
     flex-direction: column;
     row-gap: 48px;
-    div {
-      display: flex;
-      column-gap: 24px;
-      justify-content: flex-end;
-      span {
-        font-size: 16px;
-        line-height: 22px;
-
-        color: #000000;
-      }
-      input {
-        background: #ffffff;
-        width: 386px;
-
-        border: 1px solid ${grey040};
-        box-sizing: border-box;
-        border-radius: 3px;
-        padding: 4px 10px;
-
-        font-weight: 400;
-        font-size: 15px;
-        line-height: 20px;
-
-        color: #000000;
-        ::placeholder {
-          color: ${grey050};
-        }
-      }
-    }
   }
 `
 
@@ -239,4 +281,10 @@ const EditButton = styled.div`
   border-radius: 3px;
 
   cursor: pointer;
+`
+
+const NewCompleteCheckIcon = styled(CompleteCheckIcon)`
+  position: absolute;
+  right: -22px;
+  margin-right: 0;
 `

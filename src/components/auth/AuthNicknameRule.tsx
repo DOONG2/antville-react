@@ -69,7 +69,6 @@ const NewNoticeGridIcons = styled(NoticeGridIcons)`
 
 const NewQuestionIcon = styled(QuestionIcon)`
   margin-right: 10px;
-  cursor: pointer;
 
   &:hover + ${HiddenAnswerForm} {
     visibility: visible;
