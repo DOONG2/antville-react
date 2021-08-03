@@ -7,6 +7,7 @@ import postSlice from './Slices/post'
 import commentSlice from './Slices/comment'
 import searchSlice from './Slices/search'
 import profileSlice from './Slices/profile'
+import userEditSlice from './Slices/userEdit'
 
 const rootReducer = combineReducers({
   view: viewSlice.reducer,
@@ -17,6 +18,7 @@ const rootReducer = combineReducers({
   search: searchSlice.reducer,
   profile: profileSlice.reducer,
   watchlist: watchlistSlice.reducer,
+  userEdit: userEditSlice.reducer,
 })
 
 export default rootReducer

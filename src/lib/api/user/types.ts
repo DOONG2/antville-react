@@ -5,3 +5,7 @@ export interface postSignUpRequest {
   password: string | null
   subscribeNewsLetter: boolean | null
 }
+
+export type postUserAvatarResponse = {
+  profileImg: string
+}

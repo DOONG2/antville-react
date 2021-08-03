@@ -11,21 +11,30 @@ import {
 import { FeedText, FeedTitle, TitleIconWrapper } from '../../lib/styles/feed'
 import LeftArrow from '../../static/svg/LeftArrow'
 import UserIcon66 from '../../static/svg/UserIcon66'
-import { useRootState } from '../common/hooks/useRootState'
 import useUserEditFormik from './hooks/useUserEditFormik'
 import NickNameRuleLabel from '../auth/AuthNicknameRule'
-import CompleteCheckIcon from '../../static/svg/CompleteCheckIcon'
+import { useRef } from 'react'
+import useImageUpload from '../common/hooks/useImageUpload'
+import { User } from '../../lib/api/types'
+import useUserEditForm from './hooks/useUserEditForm'
 
-export default function UserEdit() {
+type Props = {
+  user: User
+}
+
+export default function UserEdit({ user }: Props) {
   const history = useHistory()
-  const user = useRootState((state) => state.user)
+  const hiddenFileInput = useRef<HTMLInputElement>(null)
 
-  const { dirty, isValid, errors, touched, handleSubmit, getFieldProps } =
+  const { handleChange, handleClick, uploadImageUrl } = useImageUpload({
+    hiddenFileInput,
+    url: user.profileImg,
+  })
+
+  const { values, dirty, isValid, errors, touched, getFieldProps } =
     useUserEditFormik()
 
-  if (!user) return <></>
-
-  console.log(touched, errors)
+  const { editFormApi } = useUserEditForm()
 
   return (
     <Block>
@@ -42,16 +51,33 @@ export default function UserEdit() {
       <Main>
         <Profile>
           <ProfileAvatar>
-            {user.profileImg ? (
-              <img src={user.profileImg} alt="profile_edit_image" />
+            {uploadImageUrl ? (
+              <img src={uploadImageUrl} alt="profile_edit_image" />
             ) : (
               <UserIcon66 />
             )}
           </ProfileAvatar>
-          <EditButton>프로필 사진 변경하기</EditButton>
+
+          <EditButton onClick={handleClick}>프로필 사진 변경하기</EditButton>
         </Profile>
         <FormWrapper>
-          <form onSubmit={handleSubmit}>
+          <form
+            onSubmit={(e) => {
+              e.preventDefault()
+              editFormApi({
+                bio: values.editIntroduction,
+                nickname: values.editNickname,
+              })
+              history.push('/')
+            }}
+          >
+            <HiddenInput
+              ref={hiddenFileInput}
+              id="editFile"
+              name="editFile"
+              type="file"
+              onChange={handleChange}
+            />
             <Item>
               <Span>닉네임</Span>
               <NicknameWrapper>
@@ -59,7 +85,7 @@ export default function UserEdit() {
                   id="editNickname"
                   type="text"
                   {...getFieldProps('editNickname')}
-                  placeholder={'닉네임을 입력해주세요.'}
+                  placeholder={user.nickname}
                 />
                 <NickNameRuleLabel />
                 {touched.editNickname ? (
@@ -73,7 +99,7 @@ export default function UserEdit() {
                 )}
               </NicknameWrapper>
             </Item>
-            <Item>
+            {/* <Item>
               <Span>웹사이트</Span>
               <Input
                 id="editWebSite"
@@ -86,16 +112,22 @@ export default function UserEdit() {
                     <WarningLabel>{errors.editWebSite}</WarningLabel>
                   )
                 : ''}
-            </Item>
+            </Item> */}
             <Item>
               <Span>자기소개</Span>
               <IntroductionInput
                 id="editIntroduction"
                 {...getFieldProps('editIntroduction')}
-                placeholder={'자기소개를 입력해주세요.'}
+                placeholder={user.bio}
               />
-              {errors.editIntroduction && (
-                <Description>{errors.editIntroduction}</Description>
+              {touched.editNickname ? (
+                errors.editIntroduction ? (
+                  <Description>{errors.editIntroduction}</Description>
+                ) : (
+                  ''
+                )
+              ) : (
+                ''
               )}
             </Item>
             <ButtonWrapper>
@@ -283,8 +315,6 @@ const EditButton = styled.div`
   cursor: pointer;
 `
 
-const NewCompleteCheckIcon = styled(CompleteCheckIcon)`
-  position: absolute;
-  right: -22px;
-  margin-right: 0;
+const HiddenInput = styled.input`
+  display: none;
 `

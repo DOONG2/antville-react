@@ -8,7 +8,10 @@ import {
 
 export default function useUserEditFormik() {
   const formik = useFormik({
-    initialValues: { editNickname: '', editWebSite: '', editIntroduction: '' },
+    initialValues: {
+      editNickname: '',
+      editIntroduction: '',
+    },
     validationSchema: Yup.object().shape({
       editNickname: Yup.string()
         .required('닉네임을 입력해주세요.')
@@ -19,23 +22,18 @@ export default function useUserEditFormik() {
         .test('닉네임 중복', '이미 존재하는 닉네임입니다.', (nickname) =>
           isTakenNickName(nickname)
         ),
-      editWebSite: Yup.string()
-      .url('올바르지 않은 주소입니다. 주소를 다시 입력해주세요.'),
-      editIntroduction: Yup.string().max(
-        200,
-        `자기소개는 200자까지 가능합니다. 못다한 이야기는 타임라인에서
+      // editWebSite: Yup.string().url(
+      //   '올바르지 않은 주소입니다. 주소를 다시 입력해주세요.'
+      // ),
+      editIntroduction: Yup.string()
+        .max(
+          200,
+          `자기소개는 200자까지 가능합니다. 못다한 이야기는 타임라인에서
       해주세요 :)`
-      ),
+        )
+        .required('자기소개를 입력해주세요.'),
     }),
-    onSubmit: async (
-      { editNickname, editWebSite, editIntroduction },
-      { setSubmitting, resetForm }
-    ) => {
-      try {
-      } catch (error) {
-        console.log(error)
-      }
-    },
+    onSubmit: () => {},
   })
 
   return formik
