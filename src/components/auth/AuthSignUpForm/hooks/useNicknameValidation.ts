@@ -32,7 +32,7 @@ export default function useNicknameValidation() {
     []
   )
 
-  const setSignUpNicknameError = (error: string) => {
+  const setNicknameErrorHandler = (error: string) => {
     setIsNicknameValid(false)
     setNicknameError(error)
   }
@@ -41,6 +41,6 @@ export default function useNicknameValidation() {
     nicknameError,
     isNicknameValid,
     validateNickname,
-    setSignUpNicknameError,
+    setNicknameErrorHandler,
   }
 }

@@ -1,5 +1,5 @@
 import { useState } from 'react'
-import putUserEdit from '../../../lib/api/user/putUserEdit'
+import putUserEdit from '../../../../lib/api/user/putUserEdit'
 
 interface ApiProps {
   nickname?: string

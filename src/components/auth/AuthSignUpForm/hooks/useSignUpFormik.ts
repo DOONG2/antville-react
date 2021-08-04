@@ -12,7 +12,7 @@ export default function useSignUpFormik() {
     nicknameError,
     isNicknameValid,
     validateNickname,
-    setSignUpNicknameError,
+    setNicknameErrorHandler,
   } = useNicknameValidation()
   const { signUp } = useSignUp()
 
@@ -66,7 +66,7 @@ export default function useSignUpFormik() {
         if (error.data.errorCode === 600) {
           setSignUpEmailError('이미 존재하는 이메일입니다.')
         } else if (error.data.errorCode === 601) {
-          setSignUpNicknameError('이미 존재하는 닉네임 입니다.')
+          setNicknameErrorHandler('이미 존재하는 닉네임 입니다.')
         }
       }
       setSubmitting(false)

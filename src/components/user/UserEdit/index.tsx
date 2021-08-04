@@ -7,16 +7,18 @@ import {
   grey040,
   grey050,
   grey060,
-} from '../../lib/styles/colors'
-import { FeedText, FeedTitle, TitleIconWrapper } from '../../lib/styles/feed'
-import LeftArrow from '../../static/svg/LeftArrow'
-import UserIcon66 from '../../static/svg/UserIcon66'
+} from '../../../lib/styles/colors'
+import { FeedText, FeedTitle, TitleIconWrapper } from '../../../lib/styles/feed'
+import LeftArrow from '../../../static/svg/LeftArrow'
+import UserIcon66 from '../../../static/svg/UserIcon66'
 import useUserEditFormik from './hooks/useUserEditFormik'
-import NickNameRuleLabel from '../auth/AuthNicknameRule'
-import { useRef } from 'react'
-import useImageUpload from '../common/hooks/useImageUpload'
-import { User } from '../../lib/api/types'
-import useUserEditForm from './hooks/useUserEditForm'
+import NickNameRuleLabel from '../../auth/AuthNicknameRule'
+import { useEffect, useRef } from 'react'
+import useImageUpload from './hooks/useUserImageUpload'
+import { User } from '../../../lib/api/types'
+import { useRootState } from '../../common/hooks/useRootState'
+import userEditSlice from '../../../reducers/Slices/userEdit'
+import { useDispatch } from 'react-redux'
 
 type Props = {
   user: User
@@ -25,16 +27,34 @@ type Props = {
 export default function UserEdit({ user }: Props) {
   const history = useHistory()
   const hiddenFileInput = useRef<HTMLInputElement>(null)
+  const { uploadFileUrl } = useRootState((state) => state.userEdit)
+  const { setUploadFileUrl } = userEditSlice.actions
+  const dispatch = useDispatch()
 
-  const { handleChange, handleClick, uploadImageUrl } = useImageUpload({
+  const { handleClick } = useImageUpload({
     hiddenFileInput,
-    url: user.profileImg,
   })
 
-  const { values, dirty, isValid, errors, touched, getFieldProps } =
-    useUserEditFormik()
+  const {
+    values,
+    dirty,
+    isValid,
+    initialValues,
+    errors,
+    touched,
+    isSubmitting,
+    handleSubmit,
+    getFieldProps,
+    onChangeNickanme,
+    onChangeUpload,
+  } = useUserEditFormik({
+    initialBio: user.bio,
+    initialNickname: user.nickname,
+  })
 
-  const { editFormApi } = useUserEditForm()
+  useEffect(() => {
+    dispatch(setUploadFileUrl(user.profileImg))
+  }, [])
 
   return (
     <Block>
@@ -51,8 +71,8 @@ export default function UserEdit({ user }: Props) {
       <Main>
         <Profile>
           <ProfileAvatar>
-            {uploadImageUrl ? (
-              <img src={uploadImageUrl} alt="profile_edit_image" />
+            {uploadFileUrl ? (
+              <img src={uploadFileUrl} alt="profile_edit_image" />
             ) : (
               <UserIcon66 />
             )}
@@ -61,22 +81,13 @@ export default function UserEdit({ user }: Props) {
           <EditButton onClick={handleClick}>프로필 사진 변경하기</EditButton>
         </Profile>
         <FormWrapper>
-          <form
-            onSubmit={(e) => {
-              e.preventDefault()
-              editFormApi({
-                bio: values.editIntroduction,
-                nickname: values.editNickname,
-              })
-              history.push('/')
-            }}
-          >
+          <form onSubmit={handleSubmit}>
             <HiddenInput
               ref={hiddenFileInput}
               id="editFile"
-              name="editFile"
               type="file"
-              onChange={handleChange}
+              {...getFieldProps('editFile')}
+              onChange={onChangeUpload}
             />
             <Item>
               <Span>닉네임</Span>
@@ -85,17 +96,21 @@ export default function UserEdit({ user }: Props) {
                   id="editNickname"
                   type="text"
                   {...getFieldProps('editNickname')}
+                  onChange={onChangeNickanme}
                   placeholder={user.nickname}
                 />
                 <NickNameRuleLabel />
-                {touched.editNickname ? (
-                  errors.editNickname ? (
-                    <WarningLabel>{errors.editNickname}</WarningLabel>
-                  ) : (
-                    <CompleteLabel>올바른 아이디입니다</CompleteLabel>
-                  )
-                ) : (
-                  ''
+                {(touched.editNickname ||
+                  values.editNickname !== initialValues.editNickname) && (
+                  <>
+                    {errors.editNickname ? (
+                      <WarningLabel>{errors.editNickname}</WarningLabel>
+                    ) : (
+                      values.editNickname !== initialValues.editNickname && (
+                        <CompleteLabel>올바른 닉네임입니다</CompleteLabel>
+                      )
+                    )}
+                  </>
                 )}
               </NicknameWrapper>
             </Item>
@@ -120,14 +135,16 @@ export default function UserEdit({ user }: Props) {
                 {...getFieldProps('editIntroduction')}
                 placeholder={user.bio}
               />
-              {touched.editNickname
-                ? errors.editIntroduction && (
-                    <Description>{errors.editIntroduction}</Description>
-                  )
-                : ''}
+              <Description>
+                자기소개는 200자까지 가능합니다. 못다한 이야기는 타임라인에서
+                해주세요 :)
+              </Description>
             </Item>
             <ButtonWrapper>
-              <Button type="submit" disabled={!(dirty && isValid)}>
+              <Button
+                type="submit"
+                disabled={!(dirty && isValid) || isSubmitting}
+              >
                 완료
               </Button>
             </ButtonWrapper>
