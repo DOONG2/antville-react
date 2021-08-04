@@ -104,3 +104,24 @@ export const BottomItem = styled.div`
 export const Count = styled.div`
   cursor: pointer;
 `
+
+export const FeedTitle = styled.div`
+  display: flex;
+  align-items: center;
+  padding: 10px 0;
+`
+
+export const TitleIconWrapper = styled.div`
+  cursor: pointer;
+  padding: 0 5px;
+`
+
+export const FeedText = styled.div`
+  text-align: center;
+  margin-left: 23px;
+  font-weight: 400;
+  font-size: 22px;
+  line-height: 30px;
+
+  color: #000000;
+`

@@ -24,7 +24,7 @@ export default function HeaderUserDropDown({ close }: Props) {
         프로필 보기
       </Item>
       <Item onClick={() => history.push('/user/edit')}>프로필 편집</Item>
-      <Item>사용자 설정</Item>
+      {/* <Item>사용자 설정</Item> */}
       <Item
         onClick={() => {
           logout()

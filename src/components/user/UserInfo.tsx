@@ -11,11 +11,15 @@ import FollowingList from './UserFollowingList'
 import UserFollowerList from './UserFollowerList'
 import { useRef } from 'react'
 import UserIcon133 from '../../static/svg/UserIcon133'
+import { User } from '../../lib/api/types'
 
-export default function UserInfo() {
+type Props = {
+  user: User
+}
+
+export default function UserInfo({ user }: Props) {
   const {
     view: { isOpenFollowingModal, isOpenFollwerModal },
-    profile: { user },
   } = useRootState((state) => state)
   const { setIsOpenFollowingModal, setIsOpenFollwerModal } = viewSlice.actions
   const dispatch = useDispatch()

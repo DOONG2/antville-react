@@ -9,6 +9,7 @@ import {
   grey050,
   grey060,
   grey080,
+  sky010,
   sky040,
 } from './colors'
 import { FontBlue } from './texts'
@@ -231,6 +232,10 @@ export const CustomQuill = styled(ReactQuill)`
     padding: 0 0;
     background-color: #fff;
     color: ${sky040};
+  }
+
+  .ql-mention-list-item.selected {
+    background-color: ${sky010};
   }
 
   .ql-mention-list-item {

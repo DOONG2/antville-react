@@ -3,21 +3,29 @@ import {
   FontBlue,
   SubDescription,
   ValidatorLabel,
-} from '../../lib/styles/texts'
-import { SignUpButton } from '../../lib/styles/buttons'
-import { grey050, navy040 } from '../../lib/styles/colors'
-import CompleteCheckIcon from '../../static/svg/CompleteCheckIcon'
+} from '../../../lib/styles/texts'
+import { SignUpButton } from '../../../lib/styles/buttons'
+import { grey050, navy040 } from '../../../lib/styles/colors'
+import CompleteCheckIcon from '../../../static/svg/CompleteCheckIcon'
 import useSignUpFormik from './hooks/useSignUpFormik'
-import { useRootState } from '../common/hooks/useRootState'
+import { useRootState } from '../../common/hooks/useRootState'
 import { useEffect } from 'react'
-import NickNameRuleLabel from './AuthNicknameRule'
+import NickNameRuleLabel from '../AuthNicknameRule'
 import { useDispatch } from 'react-redux'
-import viewSlice from '../../reducers/Slices/view'
+import viewSlice from '../../../reducers/Slices/view'
 
 function AuthSignUpForm() {
   const {
     dirty,
     isValid,
+    initialValues,
+    isSubmitting,
+    emailError,
+    isEmailValid,
+    onChangeEmail,
+    nicknameError,
+    isNicknameValid,
+    onChangeNickname,
     values,
     errors,
     touched,
@@ -44,15 +52,15 @@ function AuthSignUpForm() {
             id="emailSignup"
             type="email"
             {...getFieldProps('emailSignup')}
+            onChange={onChangeEmail}
             placeholder={'아이디 (이메일 형식)'}
           />
-          {touched.emailSignup && (
+          {(touched.emailSignup ||
+            values.emailSignup !== initialValues.emailSignup) && (
             <ValidatorLabel>
-              {errors.emailSignup ? (
-                errors.emailSignup
-              ) : (
-                <NewCompleteCheckIcon />
-              )}
+              {emailError
+                ? emailError
+                : isEmailValid && <NewCompleteCheckIcon />}
             </ValidatorLabel>
           )}
         </Item>
@@ -63,7 +71,8 @@ function AuthSignUpForm() {
             {...getFieldProps('passwordSignup')}
             placeholder={'비밀번호'}
           />
-          {touched.passwordSignup && (
+          {(touched.passwordSignup ||
+            values.passwordSignup !== initialValues.passwordSignup) && (
             <ValidatorLabel>
               {errors.passwordSignup ? (
                 errors.passwordSignup
@@ -81,7 +90,9 @@ function AuthSignUpForm() {
             placeholder={'비밀번호 확인'}
           />
 
-          {touched.passwordCheckSignup && (
+          {(touched.passwordCheckSignup ||
+            values.passwordCheckSignup !==
+              initialValues.passwordCheckSignup) && (
             <ValidatorLabel>
               {errors.passwordCheckSignup ? (
                 errors.passwordCheckSignup
@@ -96,19 +107,21 @@ function AuthSignUpForm() {
             id="nicknameSignup"
             type="text"
             {...getFieldProps('nicknameSignup')}
+            onChange={onChangeNickname}
             placeholder={'닉네임'}
           />
 
-          {touched.nicknameSignup && (
+          {(touched.nicknameSignup ||
+            values.nicknameSignup !== initialValues.nicknameSignup) && (
             <>
               <ValidatorLabel>
-                {errors.nicknameSignup ? (
+                {nicknameError ? (
                   <NickNameRuleLabel />
                 ) : (
-                  <NewCompleteCheckIcon />
+                  isNicknameValid && <NewCompleteCheckIcon />
                 )}
               </ValidatorLabel>
-              <NewValidatorLabel>{errors.nicknameSignup}</NewValidatorLabel>{' '}
+              <NewValidatorLabel>{nicknameError}</NewValidatorLabel>{' '}
             </>
           )}
         </Item>
@@ -121,7 +134,14 @@ function AuthSignUpForm() {
           />
           <CheckBoxLabel>앤트빌 뉴스레터 수신 동의 (선택)</CheckBoxLabel>
         </CheckBoxWrapper>
-        <NewSignUpButton type="submit" disabled={!(dirty && isValid)}>
+        <NewSignUpButton
+          type="submit"
+          disabled={
+            !(dirty && isValid) ||
+            isSubmitting ||
+            !(isEmailValid && isNicknameValid)
+          }
+        >
           가입하기
         </NewSignUpButton>
       </form>

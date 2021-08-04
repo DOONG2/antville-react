@@ -1,6 +1,8 @@
 import { useDispatch } from 'react-redux'
 import { useHistory } from 'react-router-dom'
-import { User } from '../../../lib/api/types'
+import { getCurrentUser } from '../../../lib/api/auth/getCurrentUser'
+import postLogin from '../../../lib/api/auth/postLogin'
+import { postLoginRequest } from '../../../lib/api/auth/types'
 import authStorage from '../../../lib/authStorage'
 import userStorage from '../../../lib/userStorage'
 import authSlice from '../../../reducers/Slices/auth'
@@ -12,11 +14,25 @@ export default function useAuth() {
   const dispatch = useDispatch()
   const history = useHistory()
 
-  const authorize = async (user: User) => {
-    userStorage.set(user)
-    dispatch(setUserState(user))
-    dispatch(setAuthState(authStorage.get()))
+  const getUser = async () => {
+    try {
+      const user = await getCurrentUser()
+      dispatch(setUserState(user))
+    } catch (_) {
+      logout()
+    }
   }
+
+  const login = async (input: postLoginRequest) => {
+    const { accessToken, refreshToken } = await postLogin({
+      email: input.email,
+      password: input.password,
+    })
+
+    dispatch(setAuthState({ accessToken, refreshToken }))
+    await getUser()
+  }
+
   const logout = () => {
     dispatch(setUserState(null))
     dispatch(setAuthState(null))
@@ -25,8 +41,5 @@ export default function useAuth() {
     history.push('/')
   }
 
-  return {
-    authorize,
-    logout,
-  }
+  return { getUser, login, logout }
 }

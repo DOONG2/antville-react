@@ -22,6 +22,7 @@ function AuthLoginForm() {
     errors,
     touched,
     isValidating,
+    initialValues,
     submitCount,
     handleSubmit,
     resetForm,
@@ -56,7 +57,8 @@ function AuthLoginForm() {
             {...getFieldProps('emailLogin')}
             placeholder={'아이디 (이메일 형식)'}
           />
-          {touched.emailLogin && (
+          {(touched.emailLogin ||
+            values.emailLogin !== initialValues.emailLogin) && (
             <ValidatorLabel>
               {errors.emailLogin ? errors.emailLogin : <NewCompleteCheckIcon />}
             </ValidatorLabel>
@@ -69,7 +71,8 @@ function AuthLoginForm() {
             {...getFieldProps('passwordLogin')}
             placeholder={'비밀번호'}
           />
-          {touched.passwordLogin && (
+          {(touched.passwordLogin ||
+            values.passwordLogin !== initialValues.passwordLogin) && (
             <ValidatorLabel>
               {errors.passwordLogin ? (
                 errors.passwordLogin

@@ -69,8 +69,7 @@ export interface User {
   email: string
   isEmailVerified: boolean
   subscribeNewsLetter: boolean
-  bio?: string
-  website?: string
+  bio: string
   profileImg?: string
   createdAt: string
   isFollowing: boolean

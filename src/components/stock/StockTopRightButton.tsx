@@ -7,6 +7,8 @@ import BlueStarIcon from '../../static/svg/BlueStarIcon'
 import { antblue050, grey080 } from '../../lib/styles/colors'
 import watchlistSlice from '../../reducers/Slices/watchlist'
 import { useDispatch } from 'react-redux'
+import useCheckLogin from '../common/hooks/useCheckLogin'
+import viewSlice from '../../reducers/Slices/view'
 
 type Props = {
   stock: Stock
@@ -22,7 +24,9 @@ export default function AddWatchlistComponent({
     stock.stockCount.watchUserCount
   )
   const { setAddWatchlist, setDeleteWatchlist } = watchlistSlice.actions
+  const { setIsOpenLoginForm } = viewSlice.actions
   const dispatch = useDispatch()
+  const isLoggedIn = useCheckLogin()
 
   useEffect(() => {
     setIsWatching(intialState)
@@ -37,6 +41,7 @@ export default function AddWatchlistComponent({
       <WatchButton
         isWatching={isWatching}
         onClick={() => {
+          if (!isLoggedIn) return dispatch(setIsOpenLoginForm(true))
           if (isWatching) {
             deleteWatchlist(stock.id)
             setWatchUserCount(watchUserCount - 1)
