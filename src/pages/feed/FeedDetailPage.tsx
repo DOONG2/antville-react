@@ -1,4 +1,4 @@
-import FeedDetailInfo from '../../components/feed/detail/FeedDetailInfo'
+import FeedDetailInfo from '../../components/feed2/detail/FeedDetailInfo'
 import { FeedPageProps } from './type'
 import useInfiniteComment from './hooks/useInfiniteComment'
 import getCommentsById from '../../lib/api/comment/getCommentsById'

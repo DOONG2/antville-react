@@ -21,8 +21,8 @@ import {
   PostTime,
   TopWrapper,
 } from '../../lib/styles/feed'
-import FeedBody from '../feed/FeedBody'
-import LikeComponent from '../feed/LikeComponent'
+import FeedBody from '../feed2/FeedBody'
+import LikeComponent from '../feed2/LikeComponent'
 import MomentDateChange from '../common/MomentDateChange'
 import { Image } from '../../lib/styles/post'
 import SubCommentForm from './SubCommentForm'

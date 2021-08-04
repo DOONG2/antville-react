@@ -3,7 +3,7 @@ import { User } from '../../lib/api/types'
 import { activated_user, activated_user_like } from '../../lib/variable'
 import { antblue050, grey030, grey080 } from '../../lib/styles/colors'
 import { useHistory } from 'react-router-dom'
-import useGetRoutePath from '../feed/hooks/useGetPath'
+import useGetRoutePath from '../feed2/hooks/useGetPath'
 
 type Prop = {
   user: User

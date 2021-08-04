@@ -5,8 +5,8 @@ import PictureUploadButton from '../../static/svg/PictureUploadButton'
 import UserIcon from '../../static/svg/UserIcon'
 import { useRootState } from '../common/hooks/useRootState'
 import viewSlice from '../../reducers/Slices/view'
-import ImageUpload from '../upload/ImageUpload'
-import GifUpload from '../upload/GifUpload'
+import ImageUpload from '../upload2/ImageUpload'
+import GifUpload from '../upload2/GifUpload'
 import {
   EmailCheck,
   Form,

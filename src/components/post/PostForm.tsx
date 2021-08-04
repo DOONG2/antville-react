@@ -9,8 +9,8 @@ import { useRootState } from '../common/hooks/useRootState'
 import StockUpButtonClicked from '../../static/svg/StockUpButtonClicked'
 import StockDownButtonClicked from '../../static/svg/StockDownButtonClicked'
 import viewSlice from '../../reducers/Slices/view'
-import ImageUpload from '../upload/ImageUpload'
-import GifUpload from '../upload/GifUpload'
+import ImageUpload from '../upload2/ImageUpload'
+import GifUpload from '../upload2/GifUpload'
 import PreviewImage from './PreviewImage'
 import {
   EmailCheck,

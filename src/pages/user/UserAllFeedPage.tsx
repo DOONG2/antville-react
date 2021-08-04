@@ -1,6 +1,6 @@
 import useInfinitePosts from '../home/hooks/useInfinitePosts'
-import UserEmpty from '../../components/feed/empty/UserEmpty'
-import FeedSection from '../../components/feed/FeedSection'
+import UserEmpty from '../../components/feed2/empty/UserEmpty'
+import FeedSection from '../../components/feed2/FeedSection'
 import getPostsByUser from '../../lib/api/post/getPostsByUser'
 import { UserFeedPageProps } from './type'
 
