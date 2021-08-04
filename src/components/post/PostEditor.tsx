@@ -1,5 +1,4 @@
 import React, { useMemo } from 'react'
-import debounce from 'lodash.debounce'
 import postSearchStock from '../../lib/api/stock/postSearchStock'
 import getSearchUser from '../../lib/api/user/getSearchUser'
 import { Block, CustomQuill } from '../../lib/styles/post'

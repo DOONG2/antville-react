@@ -1,16 +1,11 @@
 import { useFormik } from 'formik'
 import { useDispatch } from 'react-redux'
 import * as Yup from 'yup'
-import { getCurrentUser } from '../../../lib/api/auth/getCurrentUser'
-import postLogin from '../../../lib/api/auth/postLogin'
 import viewSlice from '../../../reducers/Slices/view'
 import useAuth from './useAuth'
-import authSlice from '../../../reducers/Slices/auth'
-import authStorage from '../../../lib/authStorage'
 
 const useLoginFormik = () => {
   const { setIsFailLoginSubmit, setIsOpenLoginForm } = viewSlice.actions
-  const { setAuthState } = authSlice.actions
   const dispatch = useDispatch()
   const { login } = useAuth()
 
