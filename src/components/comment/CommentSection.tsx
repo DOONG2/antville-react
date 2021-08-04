@@ -12,7 +12,7 @@ import {
   TopWrapper,
 } from '../../lib/styles/feed'
 import { Image } from '../../lib/styles/post'
-import FeedBody from '../feed2/FeedBody'
+import FeedBody from '../feed/FeedBody'
 import MomentDateChange from '../common/MomentDateChange'
 import SubCommentSection from './SubCommentSection'
 import UserIcon50 from '../../static/svg/UserIcon50'
