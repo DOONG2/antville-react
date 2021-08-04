@@ -7,6 +7,7 @@ import { useRootState } from '../common/hooks/useRootState'
 import postSlice from '../../reducers/Slices/post'
 import { useDispatch } from 'react-redux'
 import UserIcon from '../../static/img/UserIcon.png'
+import { debounceCallback } from '../../lib/utils'
 
 type DataType = {
   id: number
@@ -14,10 +15,6 @@ type DataType = {
   avartar?: string
   subTitle?: string
   renderString?: string
-}
-
-function debounceCallback(callback: (...arg: any) => any, duration: number) {
-  return debounce(callback, duration)
 }
 
 export default function PostEditor() {

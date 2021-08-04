@@ -120,15 +120,11 @@ export default function UserEdit({ user }: Props) {
                 {...getFieldProps('editIntroduction')}
                 placeholder={user.bio}
               />
-              {touched.editNickname ? (
-                errors.editIntroduction ? (
-                  <Description>{errors.editIntroduction}</Description>
-                ) : (
-                  ''
-                )
-              ) : (
-                ''
-              )}
+              {touched.editNickname
+                ? errors.editIntroduction && (
+                    <Description>{errors.editIntroduction}</Description>
+                  )
+                : ''}
             </Item>
             <ButtonWrapper>
               <Button type="submit" disabled={!(dirty && isValid)}>

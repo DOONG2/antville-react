@@ -11,7 +11,7 @@ function AuthNicknameRule() {
         <Group>
           <Row>
             <NewNoticeGridIcons />
-            영어 3-29자, 한글 2014자 이내
+            영어 3-29자, 한글 14자 이내
           </Row>
           <Row>
             <NewNoticeGridIcons />

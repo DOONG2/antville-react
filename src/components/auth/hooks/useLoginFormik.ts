@@ -12,7 +12,7 @@ const useLoginFormik = () => {
   const { setIsFailLoginSubmit, setIsOpenLoginForm } = viewSlice.actions
   const { setAuthState } = authSlice.actions
   const dispatch = useDispatch()
-  const { authorize } = useAuth()
+  const { login } = useAuth()
 
   const formik = useFormik({
     initialValues: { emailLogin: '', passwordLogin: '', saveIdLogin: true },
@@ -24,19 +24,10 @@ const useLoginFormik = () => {
         .min(6, '비밀번호는 6자 이상이어야 합니다.')
         .required('비밀번호를 입력하세요.'),
     }),
-    onSubmit: async (
-      { emailLogin, passwordLogin, saveIdLogin },
-      { setSubmitting, resetForm }
-    ) => {
+    onSubmit: async ({ emailLogin, passwordLogin }, { setSubmitting }) => {
+      setSubmitting(true)
       try {
-        const { accessToken, refreshToken } = await postLogin({
-          email: emailLogin,
-          password: passwordLogin,
-        })
-        authStorage.set({ accessToken, refreshToken })
-        dispatch(setAuthState({ accessToken, refreshToken }))
-        const user = await getCurrentUser()
-        authorize(user)
+        await login({ email: emailLogin, password: passwordLogin })
         dispatch(setIsOpenLoginForm(false))
       } catch (error) {
         if (error.data.errorCode === 602 || error.data.errorCode === 603) {
@@ -44,6 +35,7 @@ const useLoginFormik = () => {
           console.log(error.data.message)
         }
       }
+      setSubmitting(false)
     },
   })
 
