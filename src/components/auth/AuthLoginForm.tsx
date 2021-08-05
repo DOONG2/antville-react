@@ -105,12 +105,12 @@ function AuthLoginForm() {
           )}
         </ButtonWrapper>
       </form>
-      <NewSubDescription>
+      {/* <NewSubDescription>
         비밀번호를 잊으셨나요?{' '}
         <NewFontBlue onClick={() => dispatch(setIsOpenFindPasswordForm(true))}>
           비밀번호 찾기
         </NewFontBlue>
-      </NewSubDescription>
+      </NewSubDescription> */}
     </Wrapper>
   )
 }
