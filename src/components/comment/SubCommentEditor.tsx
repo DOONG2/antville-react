@@ -17,6 +17,7 @@ type Props = {
   body: string
   setBody(value: string): void
   setIsFocusInput(value: boolean): void
+  setBodyLength(value: number): void
 }
 
 function debounceCallback(callback: (...arg: any) => any, duration: number) {
@@ -27,6 +28,7 @@ export default function SubCommentEditor({
   body,
   setBody,
   setIsFocusInput,
+  setBodyLength,
 }: Props) {
   const postQueryStock = async (query: string) => {
     const result = await postSearchStock(query)
@@ -91,7 +93,10 @@ export default function SubCommentEditor({
     <Block>
       <CustomQuill
         modules={modules}
-        onChange={(value, delta, source, editor) => setBody(value)}
+        onChange={(value, delta, source, editor) => {
+          setBody(value)
+          setBodyLength(editor.getText().length)
+        }}
         placeholder={'답글을 입력해주세요. '}
         onFocus={() => setIsFocusInput(true)}
         value={body}

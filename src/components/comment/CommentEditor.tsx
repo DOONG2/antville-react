@@ -22,7 +22,7 @@ function debounceCallback(callback: (...arg: any) => any, duration: number) {
 
 export default function CommentEditor() {
   const { body } = useRootState((state) => state.comment)
-  const { setBody, setIsFocusInput } = commentSlice.actions
+  const { setBody, setIsFocusInput, setBodyLength } = commentSlice.actions
   const dispatch = useDispatch()
 
   const postQueryStock = async (query: string) => {
@@ -88,9 +88,11 @@ export default function CommentEditor() {
     <Block>
       <CustomQuill
         modules={modules}
-        onChange={(value, delta, source, editor) => dispatch(setBody(value))}
+        onChange={(value, delta, source, editor) => {
+          dispatch(setBody(value))
+          dispatch(setBodyLength(editor.getText().length - 1))
+        }}
         value={body}
-        defaultValue={body}
         placeholder={'댓글을 입력해주세요. '}
         onFocus={() => dispatch(setIsFocusInput(true))}
       ></CustomQuill>

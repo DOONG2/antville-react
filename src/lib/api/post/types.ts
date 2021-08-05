@@ -13,5 +13,6 @@ export interface gifDto {
 
 export type PostState = {
   body: string
+  bodyLength: number
   isFocusInput: boolean
 }
