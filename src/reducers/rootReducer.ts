@@ -9,6 +9,7 @@ import searchSlice from './Slices/search'
 import profileSlice from './Slices/profile'
 import userEditSlice from './Slices/userEdit'
 import notificationSlice from './Slices/notification'
+import formSlice from './Slices/form'
 
 const rootReducer = combineReducers({
   view: viewSlice.reducer,
@@ -17,6 +18,7 @@ const rootReducer = combineReducers({
   post: postSlice.reducer,
   comment: commentSlice.reducer,
   notification: notificationSlice.reducer,
+  form: formSlice.reducer,
   search: searchSlice.reducer,
   profile: profileSlice.reducer,
   watchlist: watchlistSlice.reducer,
