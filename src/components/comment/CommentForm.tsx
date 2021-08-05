@@ -34,10 +34,10 @@ interface Props {
 }
 
 function CommentForm({ parentCommentId, addComment }: Props) {
-  const {
-    user,
-    comment: { isFocusInput, body, bodyLength },
-  } = useRootState((state) => state)
+  const user = useRootState((state) => state.comment)
+  const { isFocusInput, body, bodyLength } = useRootState(
+    (state) => state.comment
+  )
   const { setIsFocusInput, setBody } = commentSlice.actions
   const { setIsOpenLoginForm } = viewSlice.actions
   const [uploadImage, setUploadImage] = useState<File>()

@@ -18,9 +18,7 @@ interface Props {
 }
 
 const GifUpload = ({ setUploadImage, setGifDto, setPreviewUrl }: Props) => {
-  const {
-    view: { isOpenGifForm },
-  } = useRootState((state) => state)
+  const { isOpenGifForm } = useRootState((state) => state.view)
   const { categorys } = useGetTenorCategories()
   const { setIsOpenGifForm } = viewSlice.actions
   const { setGifs, setQuery } = formSlice.actions

@@ -29,14 +29,12 @@ function Header() {
     setIsOpenNoticeDropDown,
   } = viewSlice.actions
   const {
-    view: {
-      isOpenLoginForm,
-      isOpenSignUpForm,
-      isOpenFindPasswordForm,
-      isOpenProfileDropDown,
-      isOpenNoticeDropDown,
-    },
-  } = useRootState((state) => state)
+    isOpenLoginForm,
+    isOpenSignUpForm,
+    isOpenFindPasswordForm,
+    isOpenProfileDropDown,
+    isOpenNoticeDropDown,
+  } = useRootState((state) => state.view)
   const dispatch = useDispatch()
   const history = useHistory()
 

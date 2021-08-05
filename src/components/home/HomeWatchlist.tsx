@@ -18,7 +18,7 @@ import useGetWatchlist from './hooks/useGetWatchlist'
 function HomeWatchlist() {
   const history = useHistory()
 
-  const { watchlist } = useRootState((state) => state)
+  const watchlist = useRootState((state) => state.watchlist)
 
   const { isLoading } = useGetWatchlist()
 

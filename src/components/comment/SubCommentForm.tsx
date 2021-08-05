@@ -33,7 +33,7 @@ interface Props {
 }
 
 function SubCommentForm({ parentCommentId, addComment }: Props) {
-  const { user } = useRootState((state) => state)
+  const user = useRootState((state) => state.user)
   const [isFocusInput, setIsFocusInput] = useState(false)
   const [body, setBody] = useState('')
   const [bodyLength, setBodyLength] = useState(0)

@@ -7,7 +7,7 @@ import { Route } from 'react-router-dom'
 import { useRootState } from '../../components/common/hooks/useRootState'
 
 function HomePage() {
-  const { user } = useRootState((state) => state)
+  const user = useRootState((state) => state.user)
 
   if (!user) return <></>
 

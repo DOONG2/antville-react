@@ -35,10 +35,8 @@ interface Props {
 }
 
 const PostForm = ({ addPost }: Props) => {
-  const {
-    user,
-    post: { body, isFocusInput, bodyLength },
-  } = useRootState((state) => state)
+  const user = useRootState((state) => state.user)
+  const { body, isFocusInput, bodyLength } = useRootState((state) => state.post)
   const { setIsOpenLoginForm } = viewSlice.actions
   const { setBody, setIsFocusInput } = postSlice.actions
   const [uploadImage, setUploadImage] = useState<File>()
