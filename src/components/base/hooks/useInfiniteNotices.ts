@@ -18,19 +18,19 @@ export default function useInfiniteNotices({ key, callback, ref }: Props) {
   const { setNotices } = notificationSlice.actions
   const dispatch = useDispatch()
   const { isLoading, data, error, isFetching, fetchNextPage, hasNextPage } =
-    useInfiniteQuery(key, ({ pageParam: cursor }) => callback(cursor), {
+    useInfiniteQuery([key], ({ pageParam: cursor }) => callback(cursor), {
       staleTime: cacheStableTime,
       getNextPageParam: (lastPage) => lastPage[lastPage.length - 1]?.id,
+      select: (data) => ({
+        pages: data.pages.flat(),
+        pageParams: data.pageParams,
+      }),
     })
+
   useEffect(() => {
-    if (data) {
-      if (notices) {
-        dispatch(setNotices([...notices, ...data.pages[data.pages.length - 1]]))
-      } else {
-        dispatch(setNotices([...data.pages[0]]))
-      }
-    } else setNotices(undefined)
+    if (data) dispatch(setNotices(data.pages))
   }, [data])
+
   useInfiniteScroll({
     onLoadMore: () => {
       if (!isLoading && !isFetching && hasNextPage) {

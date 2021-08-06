@@ -26,10 +26,10 @@ function AuthLoginForm() {
     initialValues,
     submitCount,
     handleSubmit,
-    resetForm,
     getFieldProps,
   } = useLoginFormik()
   const dispatch = useDispatch()
+  const { isFailFindPasswordSubmit } = useRootState((state) => state.view)
   const { setIsFailLoginSubmit } = viewSlice.actions
 
   const { isOpenLoginForm, isFailLoginSubmit } = useRootState(
@@ -37,15 +37,14 @@ function AuthLoginForm() {
   )
 
   useEffect(() => {
-    resetForm()
-    dispatch(setIsFailLoginSubmit(false))
-  }, [isOpenLoginForm, resetForm, setIsFailLoginSubmit, dispatch])
+    return () => {}
+  }, [])
 
   useEffect(() => {
     if (isValidating && submitCount > 0) {
       dispatch(setIsFailLoginSubmit(false))
     }
-  }, [dispatch, isValidating, setIsFailLoginSubmit, submitCount])
+  }, [isValidating, isFailFindPasswordSubmit, submitCount])
 
   const ref = useAutoFocus({ watcher: isOpenLoginForm })
 

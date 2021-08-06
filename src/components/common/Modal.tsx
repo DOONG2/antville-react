@@ -80,20 +80,24 @@ const Modal = ({
 
   return (
     <>
-      <ModalOverlay shown={shown} onClick={close} />
-      <Wrapper
-        ref={modalParentRef}
-        shown={shown}
-        tabIndex={-1}
-        onClick={(e) => e.stopPropagation()}
-      >
-        <ModalInner width={width} height={height}>
-          <LeftItem>
-            <NewCloseIcon onClick={close} />
-          </LeftItem>
-          {children}
-        </ModalInner>
-      </Wrapper>
+      {shown && (
+        <>
+          <ModalOverlay shown={shown} onClick={close} />
+          <Wrapper
+            ref={modalParentRef}
+            shown={shown}
+            tabIndex={-1}
+            onClick={(e) => e.stopPropagation()}
+          >
+            <ModalInner width={width} height={height}>
+              <LeftItem>
+                <NewCloseIcon onClick={close} />
+              </LeftItem>
+              {children}
+            </ModalInner>
+          </Wrapper>
+        </>
+      )}
     </>
   )
 }

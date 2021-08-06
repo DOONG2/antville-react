@@ -42,7 +42,7 @@ function AuthSignUpForm() {
 
   useEffect(() => {
     resetForm()
-  }, [isOpenSignUpForm, resetForm])
+  }, [isOpenSignUpForm])
 
   const ref = useAutoFocus({ watcher: isOpenSignUpForm })
 

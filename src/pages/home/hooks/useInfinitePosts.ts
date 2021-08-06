@@ -15,15 +15,13 @@ export default function useInfinitePosts({ key, callback }: Props) {
     useInfiniteQuery(key, ({ pageParam: cursor }) => callback(cursor), {
       staleTime: cacheStableTime,
       getNextPageParam: (lastPage) => lastPage[lastPage.length - 1]?.id,
+      select: (data) => ({
+        pages: data.pages.flat(),
+        pageParams: data.pageParams,
+      }),
     })
   useEffect(() => {
-    if (data) {
-      if (posts) {
-        setPosts([...posts, ...data.pages[data.pages.length - 1]])
-      } else {
-        setPosts([...data.pages[0]])
-      }
-    }
+    if (data) setPosts(data.pages)
   }, [data])
   useInfiniteScroll({
     onLoadMore: () => {

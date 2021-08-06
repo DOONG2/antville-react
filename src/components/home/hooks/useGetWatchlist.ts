@@ -12,8 +12,8 @@ export default function useGetWatchlist() {
   const watchlist = useRootState((state) => state.watchlist)
 
   useEffect(() => {
+    setIsLoading(true)
     try {
-      setIsLoading(true)
       if (!user) {
         dispatch(setWatchlistState(null))
         return setIsLoading(false)
