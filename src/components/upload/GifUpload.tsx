@@ -8,6 +8,7 @@ import viewSlice from '../../reducers/Slices/view'
 import GifForm from './GifForm'
 import Modal from '../common/Modal'
 import useGetTenorCategories from './hooks/useGetTenorCategories'
+import formSlice from '../../reducers/Slices/form'
 
 interface Props {
   setUploadImage(value?: File): void
@@ -17,17 +18,22 @@ interface Props {
 }
 
 const GifUpload = ({ setUploadImage, setGifDto, setPreviewUrl }: Props) => {
-  const {
-    view: { isOpenGifForm },
-  } = useRootState((state) => state)
+  const { isOpenGifForm } = useRootState((state) => state.view)
   const { categorys } = useGetTenorCategories()
   const { setIsOpenGifForm } = viewSlice.actions
+  const { setGifs, setQuery } = formSlice.actions
   const modalParentRef = useRef<HTMLDivElement>(null)
   const dispatch = useDispatch()
 
   return (
     <>
-      <Wrapper onClick={() => dispatch(setIsOpenGifForm(true))}>
+      <Wrapper
+        onClick={() => {
+          dispatch(setIsOpenGifForm(true))
+          dispatch(setGifs(undefined))
+          dispatch(setQuery(''))
+        }}
+      >
         <GifUploadButton />
       </Wrapper>
       <DefaultCursor>

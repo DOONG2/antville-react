@@ -30,19 +30,22 @@ const Group = styled.div<{ shown: boolean }>`
 export function DropDown({
   children,
   shown,
-
   parentHeight,
   placement,
 }: DropDownProps) {
   return (
-    <Wrapper
-      shown={shown}
-      parentHeight={parentHeight}
-      placement={placement}
-      onClick={(e) => e.stopPropagation()}
-    >
-      <Group shown={shown}>{children}</Group>
-    </Wrapper>
+    <>
+      {shown && (
+        <Wrapper
+          shown={shown}
+          parentHeight={parentHeight}
+          placement={placement}
+          onClick={(e) => e.stopPropagation()}
+        >
+          <Group shown={shown}>{children}</Group>
+        </Wrapper>
+      )}
+    </>
   )
 }
 

@@ -22,7 +22,7 @@ function AuthFindPasswordForm() {
 
   useEffect(() => {
     resetForm()
-  }, [isOpenFindPasswordForm, resetForm])
+  }, [isOpenFindPasswordForm])
 
   const { isFailFindPasswordSubmit } = useRootState((state) => state.view)
   return (

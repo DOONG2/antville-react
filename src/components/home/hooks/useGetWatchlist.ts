@@ -8,11 +8,12 @@ export default function useGetWatchlist() {
   const [isLoading, setIsLoading] = useState(false)
   const dispatch = useDispatch()
   const { setWatchlistState } = watchlistSlice.actions
-  const { watchlist, user } = useRootState((state) => state)
+  const user = useRootState((state) => state.user)
+  const watchlist = useRootState((state) => state.watchlist)
 
   useEffect(() => {
+    setIsLoading(true)
     try {
-      setIsLoading(true)
       if (!user) {
         dispatch(setWatchlistState(null))
         return setIsLoading(false)

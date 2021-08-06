@@ -38,25 +38,27 @@ export default function SearchPreview({ query }: Props) {
   if (query === '')
     return (
       <>
-        <HotStockListWrapper isOpen={isFocusSearchBar}>
-          <StockListHeader>
-            <Title>최근 검색 종목</Title>
-            <Button
-              onClick={() => {
-                clear()
-                dispatch(setHistoryStocks(null))
-                dispatch(setHistoryUsers(null))
-              }}
-            >
-              전체삭제
-            </Button>
-          </StockListHeader>
-          <SearchStockHistory />
-          <NewStockListHeader>
-            <Title>최근 검색 유저</Title>
-          </NewStockListHeader>
-          <SearchUserHistory />
-        </HotStockListWrapper>
+        {isFocusSearchBar && (
+          <HotStockListWrapper isOpen={isFocusSearchBar}>
+            <StockListHeader>
+              <Title>최근 검색 종목</Title>
+              <Button
+                onClick={() => {
+                  clear()
+                  dispatch(setHistoryStocks(null))
+                  dispatch(setHistoryUsers(null))
+                }}
+              >
+                전체삭제
+              </Button>
+            </StockListHeader>
+            <SearchStockHistory />
+            <NewStockListHeader>
+              <Title>최근 검색 유저</Title>
+            </NewStockListHeader>
+            <SearchUserHistory />
+          </HotStockListWrapper>
+        )}
       </>
     )
 

@@ -1,8 +1,11 @@
-import { RefObject, useEffect, useState } from 'react'
+import { RefObject, useEffect } from 'react'
 import { useInfiniteQuery } from 'react-query'
+import { useDispatch } from 'react-redux'
 import { useInfiniteScroll } from '../../../components/common/hooks/useInfiniteScroll'
 import { NoticeObject } from '../../../lib/api/notice/types'
 import { cacheStableTime } from '../../../lib/variable'
+import notificationSlice from '../../../reducers/Slices/notification'
+import { useRootState } from '../../common/hooks/useRootState'
 
 export interface Props {
   key: string
@@ -11,21 +14,23 @@ export interface Props {
 }
 
 export default function useInfiniteNotices({ key, callback, ref }: Props) {
-  const [notices, setNotices] = useState<NoticeObject[] | undefined>()
+  const { notices } = useRootState((state) => state.notification)
+  const { setNotices } = notificationSlice.actions
+  const dispatch = useDispatch()
   const { isLoading, data, error, isFetching, fetchNextPage, hasNextPage } =
-    useInfiniteQuery(key, ({ pageParam: cursor }) => callback(cursor), {
+    useInfiniteQuery([key], ({ pageParam: cursor }) => callback(cursor), {
       staleTime: cacheStableTime,
       getNextPageParam: (lastPage) => lastPage[lastPage.length - 1]?.id,
+      select: (data) => ({
+        pages: data.pages.flat(),
+        pageParams: data.pageParams,
+      }),
     })
+
   useEffect(() => {
-    if (data) {
-      if (notices) {
-        setNotices([...notices, ...data.pages[data.pages.length - 1]])
-      } else {
-        setNotices([...data.pages[0]])
-      }
-    } else setNotices(undefined)
+    if (data) dispatch(setNotices(data.pages))
   }, [data])
+
   useInfiniteScroll({
     onLoadMore: () => {
       if (!isLoading && !isFetching && hasNextPage) {

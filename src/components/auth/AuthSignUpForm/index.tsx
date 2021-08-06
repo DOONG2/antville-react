@@ -13,6 +13,7 @@ import { useEffect } from 'react'
 import NickNameRuleLabel from '../AuthNicknameRule'
 import { useDispatch } from 'react-redux'
 import viewSlice from '../../../reducers/Slices/view'
+import useAutoFocus from '../hooks/useAutoFocus'
 
 function AuthSignUpForm() {
   const {
@@ -41,7 +42,9 @@ function AuthSignUpForm() {
 
   useEffect(() => {
     resetForm()
-  }, [isOpenSignUpForm, resetForm])
+  }, [isOpenSignUpForm])
+
+  const ref = useAutoFocus({ watcher: isOpenSignUpForm })
 
   return (
     <Wrapper>
@@ -54,6 +57,7 @@ function AuthSignUpForm() {
             {...getFieldProps('emailSignup')}
             onChange={onChangeEmail}
             placeholder={'아이디 (이메일 형식)'}
+            ref={ref}
           />
           {(touched.emailSignup ||
             values.emailSignup !== initialValues.emailSignup) && (

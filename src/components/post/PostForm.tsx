@@ -13,12 +13,12 @@ import ImageUpload from '../upload/ImageUpload'
 import GifUpload from '../upload/GifUpload'
 import PreviewImage from './PreviewImage'
 import {
-  EmailCheck,
+  BodyLengthView,
+  ButtonWrapper,
   Form,
   FormInner,
   InputWrapper,
   LockedLabel,
-  NewFontBlue,
   PostInnerButtonsWrapper,
   PostItem,
   SubmitButton,
@@ -35,10 +35,8 @@ interface Props {
 }
 
 const PostForm = ({ addPost }: Props) => {
-  const {
-    user,
-    post: { body, isFocusInput },
-  } = useRootState((state) => state)
+  const user = useRootState((state) => state.user)
+  const { body, isFocusInput, bodyLength } = useRootState((state) => state.post)
   const { setIsOpenLoginForm } = viewSlice.actions
   const { setBody, setIsFocusInput } = postSlice.actions
   const [uploadImage, setUploadImage] = useState<File>()
@@ -79,66 +77,62 @@ const PostForm = ({ addPost }: Props) => {
         <InputWrapper isFocus={isFocusInput}>
           {user ? (
             <>
-              {user.isEmailVerified ? (
-                <>
-                  <PostEditor />
-                  <PreviewImage
-                    previewUrl={previewUrl}
-                    setPreviewUrl={setPreviewUrl}
-                    setGifDto={setGifDto}
+              {/* {user.isEmailVerified ? (
+                <> */}
+              <PostEditor />
+              <PreviewImage
+                previewUrl={previewUrl}
+                setPreviewUrl={setPreviewUrl}
+                setGifDto={setGifDto}
+                setUploadImage={setUploadImage}
+              />
+              <PostInnerButtonsWrapper>
+                <PostItem
+                  onClick={() => {
+                    setIsOnUp(!isOnUp)
+                    if (!isOnUp) {
+                      setIsOnDown(false)
+                      setSentiment('UP')
+                    }
+                  }}
+                >
+                  {isOnUp ? <StockUpButtonClicked /> : <StockUpButton />}
+                </PostItem>
+                <PostItem
+                  onClick={() => {
+                    setIsOnDown(!isOnDown)
+                    if (!isOnDown) {
+                      setIsOnUp(false)
+                      setSentiment('DOWN')
+                    }
+                  }}
+                >
+                  {isOnDown ? <StockDownButtonClicked /> : <StockDownButton />}
+                </PostItem>
+                <PostItem>
+                  <ImageUpload
                     setUploadImage={setUploadImage}
+                    setGifDto={setGifDto}
+                    setPreviewUrl={setPreviewUrl}
                   />
-                  <PostInnerButtonsWrapper>
-                    <PostItem
-                      onClick={() => {
-                        setIsOnUp(!isOnUp)
-                        if (!isOnUp) {
-                          setIsOnDown(false)
-                          setSentiment('UP')
-                        }
-                      }}
-                    >
-                      {isOnUp ? <StockUpButtonClicked /> : <StockUpButton />}
-                    </PostItem>
-                    <PostItem
-                      onClick={() => {
-                        setIsOnDown(!isOnDown)
-                        if (!isOnDown) {
-                          setIsOnUp(false)
-                          setSentiment('DOWN')
-                        }
-                      }}
-                    >
-                      {isOnDown ? (
-                        <StockDownButtonClicked />
-                      ) : (
-                        <StockDownButton />
-                      )}
-                    </PostItem>
-                    <PostItem>
-                      <ImageUpload
-                        setUploadImage={setUploadImage}
-                        setGifDto={setGifDto}
-                        setPreviewUrl={setPreviewUrl}
-                      />
-                    </PostItem>
-                    <PostItem>
-                      <GifUpload
-                        setUploadImage={setUploadImage}
-                        setGifDto={setGifDto}
-                        setPreviewUrl={setPreviewUrl}
-                      />
-                    </PostItem>
-                  </PostInnerButtonsWrapper>
-                </>
-              ) : (
-                <EmailCheck>
-                  게시글 작성을 위해 이메일 인증을 완료해주세요.{' '}
-                  <NewFontBlue>이메일 인증 요청하기</NewFontBlue>
-                </EmailCheck>
-              )}
+                </PostItem>
+                <PostItem>
+                  <GifUpload
+                    setUploadImage={setUploadImage}
+                    setGifDto={setGifDto}
+                    setPreviewUrl={setPreviewUrl}
+                  />
+                </PostItem>
+              </PostInnerButtonsWrapper>
             </>
           ) : (
+            //   ) : (
+            //     <EmailCheck>
+            //       게시글 작성을 위해 이메일 인증을 완료해주세요.{' '}
+            //       <NewFontBlue>이메일 인증 요청하기</NewFontBlue>
+            //     </EmailCheck>
+            //   )}
+            // </>
             <>
               <LockedLabel onClick={() => dispatch(setIsOpenLoginForm(true))}>
                 당신의 생각을 공유해주세요! ($ 태그 사용 후, 종목 입력)
@@ -162,12 +156,21 @@ const PostForm = ({ addPost }: Props) => {
             </>
           )}
         </InputWrapper>
-        <SubmitButton
-          type="submit"
-          disabled={body.length < 1 || body === '<p><br></p>'}
-        >
-          게시
-        </SubmitButton>
+        <ButtonWrapper>
+          <SubmitButton
+            type="submit"
+            disabled={
+              body.length < 1 || body === '<p><br></p>' || bodyLength > 1000
+            }
+          >
+            게시
+          </SubmitButton>
+          {isFocusInput && (
+            <BodyLengthView isLimited={bodyLength > 1000}>
+              {1000 - bodyLength}
+            </BodyLengthView>
+          )}
+        </ButtonWrapper>
       </FormInner>
     </Form>
   )

@@ -9,6 +9,7 @@ import {
   grey050,
   grey060,
   grey080,
+  red050,
   sky010,
   sky040,
 } from './colors'
@@ -270,4 +271,21 @@ export const CustomQuill = styled(ReactQuill)`
       line-height: 13px;
     }
   }
+`
+
+export const ButtonWrapper = styled.div`
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+`
+
+export const BodyLengthView = styled.div<{ isLimited: boolean }>`
+  font-family: Roboto;
+  font-weight: 500;
+  font-size: 13px;
+  line-height: 15px;
+  text-align: right;
+  margin-top: 8px;
+
+  color: ${(p) => (p.isLimited ? red050 : grey050)};
 `

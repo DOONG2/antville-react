@@ -12,6 +12,7 @@ function AllFeedPage({ id }: HomePageProps) {
     callback: (cursor) => getPostsByUrl('all', cursor),
   })
   if (!posts) return <></>
+
   return (
     <>
       <PostForm
