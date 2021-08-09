@@ -7,6 +7,7 @@ import GooglePlayButton from './GooglePlayButton'
 import { SignUpButton } from '../../lib/styles/buttons'
 import { FontBlue, SubDescription } from '../../lib/styles/texts'
 import viewSlice from '../../reducers/Slices/view'
+import { APPLE_STORE_LINK, GOOGLE_PLAYSTORE_LINK } from '../../lib/variable'
 
 function Landing() {
   const { setIsOpenLoginForm, setIsOpenSignUpForm } = viewSlice.actions
@@ -33,8 +34,16 @@ function Landing() {
           </NewFontBlue>
         </BoldSubDescription>
         <StoreWrapper>
-          <GooglePlayButton />
-          <NewAppleStoreButton />
+          <GoogleWrapper
+            onClick={() => window.location.assign(GOOGLE_PLAYSTORE_LINK)}
+          >
+            <NewGooglePlayButton />
+          </GoogleWrapper>
+          <AppleWrapper
+            onClick={() => window.location.assign(APPLE_STORE_LINK)}
+          >
+            <NewAppleStoreButton />
+          </AppleWrapper>
         </StoreWrapper>
       </ContentsWrapper>
       <MockUpVideo autoPlay loop playsInline muted>
@@ -101,5 +110,11 @@ const StoreWrapper = styled.div`
 `
 
 const NewAppleStoreButton = styled(AppleStoreButton)``
+
+const NewGooglePlayButton = styled(GooglePlayButton)``
+
+const GoogleWrapper = styled.div``
+
+const AppleWrapper = styled.div``
 
 export default Landing

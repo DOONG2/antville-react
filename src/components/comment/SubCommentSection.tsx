@@ -1,5 +1,5 @@
 import styled from '@emotion/styled'
-import React, { useEffect, useState } from 'react'
+import React, { useEffect, useRef, useState } from 'react'
 import { useHistory } from 'react-router'
 import {
   CommentObject,
@@ -53,6 +53,7 @@ export default function SubCommentSection({ comment }: Props) {
   }, [isLoaded])
 
   const history = useHistory()
+  const inputRef = useRef<any>(null)
 
   return (
     <>
@@ -68,6 +69,7 @@ export default function SubCommentSection({ comment }: Props) {
           onClick={() => {
             setIsOpenCommentForm(true)
             setIsOpen(true)
+            inputRef.current.focus()
           }}
         >
           <TalkIcon cursor={'pointer'} />
@@ -154,7 +156,7 @@ export default function SubCommentSection({ comment }: Props) {
                   commentId={comment.id}
                 />
               </BottomItem>
-              <BottomItem onClick={() => {}}>
+              <BottomItem onClick={() => inputRef.current.focus()}>
                 <TalkIcon cursor={'pointer'} />
                 <Count>답글 달기</Count>
               </BottomItem>
@@ -166,6 +168,7 @@ export default function SubCommentSection({ comment }: Props) {
             <SubCommentForm
               parentCommentId={comment.id.toString()}
               addComment={addComment}
+              inputRef={inputRef}
             />
           </CommentFormWrapper>
         )}
@@ -176,6 +179,7 @@ export default function SubCommentSection({ comment }: Props) {
               <SubCommentForm
                 parentCommentId={comment.id.toString()}
                 addComment={addComment}
+                inputRef={inputRef}
               />
             </CommentFormWrapper>
           )}

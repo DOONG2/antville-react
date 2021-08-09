@@ -12,18 +12,17 @@ export default function useGetWatchlist() {
   const watchlist = useRootState((state) => state.watchlist)
 
   useEffect(() => {
-    setIsLoading(true)
     try {
-      if (!user) {
-        dispatch(setWatchlistState(null))
-        return setIsLoading(false)
+      if (!user) dispatch(setWatchlistState(null))
+      if (!watchlist) {
+        setIsLoading(true)
+        const getWatchlistApi = async () => {
+          const watchlist = await getWatchList()
+          if (watchlist?.stocks) dispatch(setWatchlistState(watchlist.stocks))
+          setIsLoading(false)
+        }
+        getWatchlistApi()
       }
-      const getWatchlistApi = async () => {
-        const watchlist = await getWatchList()
-        if (watchlist?.stocks) dispatch(setWatchlistState(watchlist.stocks))
-        setIsLoading(false)
-      }
-      getWatchlistApi()
     } catch (error) {
       console.log(error)
       setIsLoading(false)

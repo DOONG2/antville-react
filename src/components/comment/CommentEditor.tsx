@@ -1,4 +1,4 @@
-import React, { useMemo } from 'react'
+import React, { RefObject, useMemo } from 'react'
 import debounce from 'lodash.debounce'
 import postSearchStock from '../../lib/api/stock/postSearchStock'
 import getSearchUser from '../../lib/api/user/getSearchUser'
@@ -16,11 +16,15 @@ type DataType = {
   renderString?: string
 }
 
+type Props = {
+  inputRef?: RefObject<any>
+}
+
 function debounceCallback(callback: (...arg: any) => any, duration: number) {
   return debounce(callback, duration)
 }
 
-export default function CommentEditor() {
+export default function CommentEditor({ inputRef }: Props) {
   const { body } = useRootState((state) => state.comment)
   const { setBody, setIsFocusInput, setBodyLength } = commentSlice.actions
   const dispatch = useDispatch()
@@ -95,6 +99,7 @@ export default function CommentEditor() {
         value={body}
         placeholder={'댓글을 입력해주세요. '}
         onFocus={() => dispatch(setIsFocusInput(true))}
+        ref={inputRef}
       ></CustomQuill>
     </Block>
   )

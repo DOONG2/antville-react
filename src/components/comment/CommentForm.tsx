@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react'
+import React, { RefObject, useEffect, useState } from 'react'
 import { useDispatch } from 'react-redux'
 import GifUploadButton from '../../static/svg/GifUploadButton'
 import PictureUploadButton from '../../static/svg/PictureUploadButton'
@@ -31,9 +31,10 @@ import CommentEditor from './CommentEditor'
 interface Props {
   parentCommentId?: string
   addComment?: (value?: CommentObject) => void
+  inputRef?: RefObject<any>
 }
 
-function CommentForm({ parentCommentId, addComment }: Props) {
+function CommentForm({ parentCommentId, addComment, inputRef }: Props) {
   const user = useRootState((state) => state.comment)
   const { isFocusInput, body, bodyLength } = useRootState(
     (state) => state.comment
@@ -77,7 +78,7 @@ function CommentForm({ parentCommentId, addComment }: Props) {
             <>
               {/* {user.isEmailVerified ? (
                 <> */}
-              <CommentEditor />
+              <CommentEditor inputRef={inputRef} />
               <PreviewImage
                 previewUrl={previewUrl}
                 setPreviewUrl={setPreviewUrl}

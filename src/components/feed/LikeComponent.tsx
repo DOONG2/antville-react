@@ -53,11 +53,27 @@ export default function LikeComponent({
           }
         }}
       />
-      <Count>좋아요 {likeCount}</Count>
+      <Count
+        onClick={() => {
+          if (!isLoggedIn) return dispatch(setIsOpenLoginForm(true))
+          setLiked(!liked)
+          if (liked) {
+            setLikeCount(likeCount - 1)
+            postId && deleteUnLikePost(postId)
+            commentId && deleteUnLikeComment(commentId)
+          } else {
+            setLikeCount(likeCount + 1)
+            postId && putLikePost(postId)
+            commentId && putLikeComment(commentId)
+          }
+        }}
+      >
+        좋아요 {likeCount}
+      </Count>
     </>
   )
 }
 
 const Count = styled.div`
-  user-select: none;
+  cursor: pointer;
 `
