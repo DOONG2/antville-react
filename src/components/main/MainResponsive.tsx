@@ -1,6 +1,5 @@
 import styled from '@emotion/styled'
 import React from 'react'
-import { mediaQuery } from '../../lib/styles/media'
 import HomeWatchlist from '../home/HomeWatchlist'
 
 export type MainResponsiveProps = {
@@ -36,9 +35,6 @@ const Inner = styled.div`
 const Block = styled.div`
   width: 1440px;
   margin: 0 auto;
-  ${mediaQuery(767)} {
-    width: calc(100% - 2rem);
-  }
 `
 
 export default MainResponsive

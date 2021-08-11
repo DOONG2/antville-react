@@ -4,6 +4,7 @@ import { GifObject } from '../../lib/api/tenor/types'
 type FormState = {
   query: string
   gifs?: GifObject[]
+  previewUrl?: string | ArrayBuffer
 }
 
 const initialState = {
@@ -20,6 +21,12 @@ const formSlice = createSlice({
     },
     setQuery(state, action: PayloadAction<string>) {
       state.query = action.payload
+    },
+    setPreviewUrl(
+      state,
+      action: PayloadAction<string | ArrayBuffer | undefined>
+    ) {
+      state.previewUrl = action.payload
     },
   },
 })

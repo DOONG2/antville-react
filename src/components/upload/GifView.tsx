@@ -15,7 +15,7 @@ type GifViewProps = {
   isFetching: boolean
   setUploadImage(value?: File): void
   setGifDto(value?: gifDto): void
-  setPreviewUrl(value: string | ArrayBuffer | null): void
+  setPreviewUrl(value?: string | ArrayBuffer): void
   modalParentRef: RefObject<HTMLDivElement>
 }
 

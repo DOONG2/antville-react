@@ -6,7 +6,7 @@ import { gifDto } from '../../lib/api/post/types'
 
 interface Props {
   previewUrl?: string | ArrayBuffer | null
-  setPreviewUrl: (value: string | ArrayBuffer | null) => void
+  setPreviewUrl: (value?: string | ArrayBuffer) => void
   setUploadImage: (value: File | undefined) => void
   setGifDto: (value: gifDto | undefined) => void
 }
@@ -24,7 +24,7 @@ export default function PreviewImage({
           <Image src={previewUrl.toString()} alt={'upload-preview'}></Image>
           <CloseButton
             onClick={() => {
-              setPreviewUrl(null)
+              setPreviewUrl(undefined)
               setUploadImage(undefined)
               setGifDto(undefined)
             }}

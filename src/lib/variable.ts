@@ -19,3 +19,8 @@ export const follower = 'follower'
 export const TYPE_FOLLOW = 'FOLLOW'
 export const TYPE_TAG = 'TAG'
 export const TYPE_LIKE = 'LIKE'
+
+export const GOOGLE_PLAYSTORE_LINK =
+  'https://play.google.com/store/apps/details?id=com.antville'
+
+export const APPLE_STORE_LINK = 'https://apps.apple.com/app/id1564378681?l=ko'
