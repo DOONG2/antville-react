@@ -8,7 +8,7 @@ type Props = {
 }
 
 export default function HeaderUserDropDown({ close }: Props) {
-  const { user } = useRootState((state) => state)
+  const user = useRootState((state) => state.user)
   const { logout } = useAuth()
   const history = useHistory()
 

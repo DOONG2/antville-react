@@ -2,8 +2,8 @@ import React from 'react'
 import styled from '@emotion/styled'
 import { LoginButton } from '../../lib/styles/buttons'
 import {
-  FontBlue,
-  SubDescription,
+  // FontBlue,
+  // SubDescription,
   ValidatorLabel,
 } from '../../lib/styles/texts'
 import { grey050, navy040 } from '../../lib/styles/colors'
@@ -13,6 +13,7 @@ import { useEffect } from 'react'
 import { useRootState } from '../common/hooks/useRootState'
 import { useDispatch } from 'react-redux'
 import viewSlice from '../../reducers/Slices/view'
+import useAutoFocus from './hooks/useAutoFocus'
 
 function AuthLoginForm() {
   const {
@@ -25,26 +26,27 @@ function AuthLoginForm() {
     initialValues,
     submitCount,
     handleSubmit,
-    resetForm,
     getFieldProps,
   } = useLoginFormik()
   const dispatch = useDispatch()
-  const { setIsFailLoginSubmit, setIsOpenFindPasswordForm } = viewSlice.actions
+  const { isFailFindPasswordSubmit } = useRootState((state) => state.view)
+  const { setIsFailLoginSubmit } = viewSlice.actions
 
   const { isOpenLoginForm, isFailLoginSubmit } = useRootState(
     (state) => state.view
   )
 
   useEffect(() => {
-    resetForm()
-    dispatch(setIsFailLoginSubmit(false))
-  }, [isOpenLoginForm, resetForm, setIsFailLoginSubmit, dispatch])
+    return () => {}
+  }, [])
 
   useEffect(() => {
     if (isValidating && submitCount > 0) {
       dispatch(setIsFailLoginSubmit(false))
     }
-  }, [dispatch, isValidating, setIsFailLoginSubmit, submitCount])
+  }, [isValidating, isFailFindPasswordSubmit, submitCount])
+
+  const ref = useAutoFocus({ watcher: isOpenLoginForm })
 
   return (
     <Wrapper>
@@ -56,6 +58,7 @@ function AuthLoginForm() {
             type="email"
             {...getFieldProps('emailLogin')}
             placeholder={'아이디 (이메일 형식)'}
+            ref={ref}
           />
           {(touched.emailLogin ||
             values.emailLogin !== initialValues.emailLogin) && (
@@ -105,12 +108,12 @@ function AuthLoginForm() {
           )}
         </ButtonWrapper>
       </form>
-      <NewSubDescription>
+      {/* <NewSubDescription>
         비밀번호를 잊으셨나요?{' '}
         <NewFontBlue onClick={() => dispatch(setIsOpenFindPasswordForm(true))}>
           비밀번호 찾기
         </NewFontBlue>
-      </NewSubDescription>
+      </NewSubDescription> */}
     </Wrapper>
   )
 }
@@ -153,10 +156,10 @@ const NewLoginButton = styled(LoginButton)`
   color: #fff;
 `
 
-const NewFontBlue = styled(FontBlue)`
-  font-size: 1.2rem;
-  cursor: pointer;
-`
+// const NewFontBlue = styled(FontBlue)`
+//   font-size: 1.2rem;
+//   cursor: pointer;
+// `
 
 const CheckBoxLabel = styled.div`
   font-family: Roboto;
@@ -168,9 +171,9 @@ const CheckBoxLabel = styled.div`
   display: inline;
 `
 
-const NewSubDescription = styled(SubDescription)`
-  margin-top: 1.5rem;
-`
+// const NewSubDescription = styled(SubDescription)`
+//   margin-top: 1.5rem;
+// `
 
 const Input = styled.input`
   width: 100%;

@@ -2,45 +2,43 @@ import styled from '@emotion/styled'
 import { RefObject } from 'react'
 import { useDispatch } from 'react-redux'
 import { gifDto } from '../../lib/api/post/types'
-import { getCategoriesResponse, GifObject } from '../../lib/api/tenor/types'
+import { getCategoriesResponse } from '../../lib/api/tenor/types'
 import randomColor from '../../lib/randomColor'
+import formSlice from '../../reducers/Slices/form'
 import viewSlice from '../../reducers/Slices/view'
 import BackIcon from '../../static/svg/BackIcon'
+import { useRootState } from '../common/hooks/useRootState'
 
 type GifViewProps = {
-  gifs?: GifObject[]
   categorys?: getCategoriesResponse
   query: string
   isFetching: boolean
-  setGifs(gifs?: GifObject[]): void
-  setQuery(query: string): void
   setUploadImage(value?: File): void
   setGifDto(value?: gifDto): void
-  setPreviewUrl(value: string | ArrayBuffer | null): void
+  setPreviewUrl(value?: string | ArrayBuffer): void
   modalParentRef: RefObject<HTMLDivElement>
 }
 
 export default function GifView({
-  gifs,
   categorys,
   modalParentRef,
   query,
   isFetching,
-  setGifs,
-  setQuery,
   setUploadImage,
   setGifDto,
   setPreviewUrl,
 }: GifViewProps) {
   const { setIsOpenGifForm } = viewSlice.actions
+  const { gifs } = useRootState((state) => state.form)
+  const { setGifs, setQuery } = formSlice.actions
   const dispatch = useDispatch()
   if (query !== '' || isFetching)
     return (
       <>
         <ResetWrapper
           onClick={() => {
-            setGifs(undefined)
-            setQuery('')
+            dispatch(setGifs(undefined))
+            dispatch(setQuery(''))
           }}
         >
           <BackIcon />
@@ -76,7 +74,7 @@ export default function GifView({
         <Item
           key={`${category.name}-gif-form-category`}
           onClick={() => {
-            setQuery(category.searchterm)
+            dispatch(setQuery(category.searchterm))
             modalParentRef.current?.scrollTo(0, 0)
           }}
         >

@@ -18,9 +18,9 @@ type Props = {
 }
 
 export default function UserInfo({ user }: Props) {
-  const {
-    view: { isOpenFollowingModal, isOpenFollwerModal },
-  } = useRootState((state) => state)
+  const { isOpenFollowingModal, isOpenFollwerModal } = useRootState(
+    (state) => state.view
+  )
   const { setIsOpenFollowingModal, setIsOpenFollwerModal } = viewSlice.actions
   const dispatch = useDispatch()
 

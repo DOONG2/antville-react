@@ -67,10 +67,6 @@ interface CommentImg {
 
 export type CommentState = {
   body: string
-  isFocusInput: boolean
-}
-
-export type SubCommentState = {
-  body: string
+  bodyLength: number
   isFocusInput: boolean
 }

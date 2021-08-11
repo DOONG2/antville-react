@@ -8,21 +8,21 @@ export default function useGetWatchlist() {
   const [isLoading, setIsLoading] = useState(false)
   const dispatch = useDispatch()
   const { setWatchlistState } = watchlistSlice.actions
-  const { watchlist, user } = useRootState((state) => state)
+  const user = useRootState((state) => state.user)
+  const watchlist = useRootState((state) => state.watchlist)
 
   useEffect(() => {
     try {
-      setIsLoading(true)
-      if (!user) {
-        dispatch(setWatchlistState(null))
-        return setIsLoading(false)
+      if (!user) dispatch(setWatchlistState(null))
+      if (!watchlist) {
+        setIsLoading(true)
+        const getWatchlistApi = async () => {
+          const watchlist = await getWatchList()
+          if (watchlist?.stocks) dispatch(setWatchlistState(watchlist.stocks))
+          setIsLoading(false)
+        }
+        getWatchlistApi()
       }
-      const getWatchlistApi = async () => {
-        const watchlist = await getWatchList()
-        if (watchlist?.stocks) dispatch(setWatchlistState(watchlist.stocks))
-        setIsLoading(false)
-      }
-      getWatchlistApi()
     } catch (error) {
       console.log(error)
       setIsLoading(false)

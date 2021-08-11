@@ -3,14 +3,14 @@ import { useHistory } from 'react-router-dom'
 import { getCurrentUser } from '../../../lib/api/auth/getCurrentUser'
 import postLogin from '../../../lib/api/auth/postLogin'
 import { postLoginRequest } from '../../../lib/api/auth/types'
-import authStorage from '../../../lib/authStorage'
-import userStorage from '../../../lib/userStorage'
 import authSlice from '../../../reducers/Slices/auth'
+import notificationSlice from '../../../reducers/Slices/notification'
 import userSlice from '../../../reducers/Slices/user'
 
 export default function useAuth() {
   const { setUserState } = userSlice.actions
   const { setAuthState } = authSlice.actions
+  const { setNotices } = notificationSlice.actions
   const dispatch = useDispatch()
   const history = useHistory()
 
@@ -28,7 +28,6 @@ export default function useAuth() {
       email: input.email,
       password: input.password,
     })
-
     dispatch(setAuthState({ accessToken, refreshToken }))
     await getUser()
   }
@@ -36,8 +35,7 @@ export default function useAuth() {
   const logout = () => {
     dispatch(setUserState(null))
     dispatch(setAuthState(null))
-    userStorage.clear()
-    authStorage.clear()
+    dispatch(setNotices(undefined))
     history.push('/')
   }
 

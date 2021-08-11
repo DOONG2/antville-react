@@ -1,4 +1,4 @@
-import React, { useMemo } from 'react'
+import React, { RefObject, useEffect, useMemo } from 'react'
 import debounce from 'lodash.debounce'
 import postSearchStock from '../../lib/api/stock/postSearchStock'
 import getSearchUser from '../../lib/api/user/getSearchUser'
@@ -17,6 +17,8 @@ type Props = {
   body: string
   setBody(value: string): void
   setIsFocusInput(value: boolean): void
+  setBodyLength(value: number): void
+  inputRef?: RefObject<any>
 }
 
 function debounceCallback(callback: (...arg: any) => any, duration: number) {
@@ -27,6 +29,8 @@ export default function SubCommentEditor({
   body,
   setBody,
   setIsFocusInput,
+  setBodyLength,
+  inputRef,
 }: Props) {
   const postQueryStock = async (query: string) => {
     const result = await postSearchStock(query)
@@ -87,14 +91,22 @@ export default function SubCommentEditor({
     }
   }, [])
 
+  useEffect(() => {
+    inputRef?.current.focus()
+  }, [])
+
   return (
     <Block>
       <CustomQuill
         modules={modules}
-        onChange={(value, delta, source, editor) => setBody(value)}
+        onChange={(value, delta, source, editor) => {
+          setBody(value)
+          setBodyLength(editor.getText().length)
+        }}
         placeholder={'답글을 입력해주세요. '}
         onFocus={() => setIsFocusInput(true)}
         value={body}
+        ref={inputRef}
       ></CustomQuill>
     </Block>
   )

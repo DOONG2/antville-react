@@ -1,5 +1,5 @@
 import styled from '@emotion/styled'
-import React from 'react'
+import React, { RefObject } from 'react'
 import { useHistory } from 'react-router'
 import LeftArrow from '../../../static/svg/LeftArrow'
 import StockDownIcon from '../../../static/svg/StockDownIcon'
@@ -33,9 +33,13 @@ import UserIcon50 from '../../../static/svg/UserIcon50'
 
 type FeedDetailInfoProps = {
   post: Post
+  inputRef?: RefObject<any>
 }
 
-export default function FeedDetailInfo({ post }: FeedDetailInfoProps) {
+export default function FeedDetailInfo({
+  post,
+  inputRef,
+}: FeedDetailInfoProps) {
   const history = useHistory()
 
   return (
@@ -108,7 +112,7 @@ export default function FeedDetailInfo({ post }: FeedDetailInfoProps) {
                 postId={post.id}
               />
             </BottomItem>
-            <BottomItem>
+            <BottomItem onClick={() => inputRef?.current.focus()}>
               <TalkIcon cursor={'pointer'} />
               <Count>댓글 {post.postCount.commentCount}</Count>
             </BottomItem>

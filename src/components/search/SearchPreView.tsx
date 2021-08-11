@@ -57,6 +57,7 @@ export default function SearchPreview({ query }: Props) {
           </NewStockListHeader>
           <SearchUserHistory />
         </HotStockListWrapper>
+        )
       </>
     )
 

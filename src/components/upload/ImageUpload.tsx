@@ -6,7 +6,7 @@ import PictureUploadButton from '../../static/svg/PictureUploadButton'
 interface Props {
   setUploadImage(value: File | undefined): void
   setGifDto(value: gifDto | undefined): void
-  setPreviewUrl(value: string | ArrayBuffer | null): void
+  setPreviewUrl(value?: string | ArrayBuffer): void
 }
 
 export default function ImageUpload({

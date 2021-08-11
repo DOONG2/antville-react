@@ -2,7 +2,6 @@ import styled from '@emotion/styled'
 import { LoginButton, SignUpButton } from '../../lib/styles/buttons'
 import AuthSignUpForm from '../auth/AuthSignUpForm'
 import AuthLoginForm from '../auth/AuthLoginForm'
-import FindPasswordForm from '../auth/AuthFindPasswordForm'
 import { useRootState } from '../common/hooks/useRootState'
 import viewSlice from '../../reducers/Slices/view'
 import { useDispatch } from 'react-redux'
@@ -24,19 +23,15 @@ function Header() {
   const {
     setIsOpenLoginForm,
     setIsOpenSignUpForm,
-    setIsOpenFindPasswordForm,
     setIsOpenProfileDropDown,
     setIsOpenNoticeDropDown,
   } = viewSlice.actions
   const {
-    view: {
-      isOpenLoginForm,
-      isOpenSignUpForm,
-      isOpenFindPasswordForm,
-      isOpenProfileDropDown,
-      isOpenNoticeDropDown,
-    },
-  } = useRootState((state) => state)
+    isOpenLoginForm,
+    isOpenSignUpForm,
+    isOpenProfileDropDown,
+    isOpenNoticeDropDown,
+  } = useRootState((state) => state.view)
   const dispatch = useDispatch()
   const history = useHistory()
 
@@ -137,7 +132,7 @@ function Header() {
               >
                 <AuthSignUpForm />
               </Modal>
-              <Modal
+              {/* <Modal
                 modalParentRef={modalParentRef}
                 shown={isOpenFindPasswordForm}
                 width="44.7rem"
@@ -147,7 +142,7 @@ function Header() {
                 }}
               >
                 <FindPasswordForm />
-              </Modal>
+              </Modal> */}
             </>
           )}
         </ButtonWrapper>

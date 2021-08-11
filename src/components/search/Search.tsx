@@ -37,7 +37,7 @@ function Search() {
           setQuery(e.target.value)
         }}
       />
-      <SearchPreView query={query} />
+      {isFocusSearchBar && <SearchPreView query={query} />}
     </SerchBar>
   )
 }

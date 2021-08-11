@@ -18,7 +18,7 @@ type DataType = {
 
 export default function PostEditor() {
   const { body } = useRootState((state) => state.post)
-  const { setBody, setIsFocusInput } = postSlice.actions
+  const { setBody, setIsFocusInput, setBodyLength } = postSlice.actions
   const dispatch = useDispatch()
 
   const postQueryStock = async (query: string) => {
@@ -84,7 +84,10 @@ export default function PostEditor() {
     <Block>
       <CustomQuill
         modules={modules}
-        onChange={(value, delta, source, editor) => dispatch(setBody(value))}
+        onChange={(value, delta, source, editor) => {
+          dispatch(setBody(value))
+          dispatch(setBodyLength(editor.getText().length - 1))
+        }}
         value={body}
         placeholder={
           '당신의 생각을 공유해주세요! ($ 태그 사용 후, 종목  입력) '

@@ -13,7 +13,7 @@ type Prop = {
 }
 
 export default function UserTopRightButton({ user }: Prop) {
-  const { user: loginUser } = useRootState((state) => state)
+  const loginUser = useRootState((state) => state.user)
   const { setIsOpenLoginForm } = viewSlice.actions
   const history = useHistory()
   const dispatch = useDispatch()
