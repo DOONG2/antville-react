@@ -13,7 +13,7 @@ import formSlice from '../../reducers/Slices/form'
 interface Props {
   setUploadImage(value?: File): void
   setGifDto(value?: gifDto): void
-  setPreviewUrl(value: string | ArrayBuffer | null): void
+  setPreviewUrl(value?: string | ArrayBuffer): void
   query?: string
 }
 

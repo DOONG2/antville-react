@@ -41,9 +41,7 @@ function SubCommentForm({ parentCommentId, addComment, inputRef }: Props) {
   const { setIsOpenLoginForm } = viewSlice.actions
   const [uploadImage, setUploadImage] = useState<File>()
   const [gifDto, setGifDto] = useState<GifDto>()
-  const [previewUrl, setPreviewUrl] = useState<string | ArrayBuffer | null>(
-    null
-  )
+  const [previewUrl, setPreviewUrl] = useState<string | ArrayBuffer>()
 
   const { id: postId } = useParams<{ id: string }>()
 
@@ -52,7 +50,7 @@ function SubCommentForm({ parentCommentId, addComment, inputRef }: Props) {
   const { postDataApi } = useCommentData({ addComment })
 
   useEffect(() => {
-    if (previewUrl !== null) setIsFocusInput(true)
+    if (previewUrl) setIsFocusInput(true)
   }, [previewUrl])
 
   return (
@@ -64,7 +62,7 @@ function SubCommentForm({ parentCommentId, addComment, inputRef }: Props) {
         setIsFocusInput(false)
         setGifDto(undefined)
         setBody('')
-        setPreviewUrl(null)
+        setPreviewUrl(undefined)
       }}
     >
       <FormInner>

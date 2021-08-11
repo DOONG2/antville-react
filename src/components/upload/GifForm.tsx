@@ -15,7 +15,7 @@ import { useDispatch } from 'react-redux'
 interface Props {
   setUploadImage(value: File | undefined): void
   setGifDto(value: gifDto | undefined): void
-  setPreviewUrl(value: string | ArrayBuffer | null): void
+  setPreviewUrl(value?: string | ArrayBuffer): void
   categorys?: getCategoriesResponse
   modalParentRef: RefObject<HTMLDivElement>
 }
