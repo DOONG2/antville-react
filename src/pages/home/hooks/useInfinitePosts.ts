@@ -5,7 +5,7 @@ import { Post } from '../../../lib/api/types'
 import { cacheStableTime } from '../../../lib/variable'
 
 export interface Props {
-  key: string
+  key: [string, number, { page: string }]
   callback: (cursor?: number) => Promise<Post[]>
 }
 
