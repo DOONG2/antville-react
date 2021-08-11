@@ -69,7 +69,7 @@ export default function SubCommentSection({ comment }: Props) {
           onClick={() => {
             setIsOpenCommentForm(true)
             setIsOpen(true)
-            inputRef.current.focus()
+            inputRef.current?.focus()
           }}
         >
           <TalkIcon cursor={'pointer'} />
@@ -156,7 +156,7 @@ export default function SubCommentSection({ comment }: Props) {
                   commentId={comment.id}
                 />
               </BottomItem>
-              <BottomItem onClick={() => inputRef.current.focus()}>
+              <BottomItem onClick={() => inputRef.current?.focus()}>
                 <TalkIcon cursor={'pointer'} />
                 <Count>답글 달기</Count>
               </BottomItem>
