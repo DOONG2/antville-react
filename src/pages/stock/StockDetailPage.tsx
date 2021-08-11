@@ -8,7 +8,7 @@ import { StockPageProps } from './type'
 
 function StockDetailPage({ stock }: StockPageProps) {
   const { isLoading, posts } = useInfinitePosts({
-    key: `stock-detail-${stock.id}`,
+    key: ['post', stock.id, { page: 'stock-detail' }],
     callback: (cursor) => getPostsByStock(stock.id, cursor),
   })
 
