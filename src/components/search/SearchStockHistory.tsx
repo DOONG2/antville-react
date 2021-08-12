@@ -1,5 +1,6 @@
 import { useDispatch } from 'react-redux'
 import { useHistory } from 'react-router-dom'
+import AVStock from '../../lib/models/av_stock'
 import searchStorage from '../../lib/searchStorage'
 import {
   EmptyWrapper,
@@ -27,35 +28,38 @@ export default function SearchStockHistory() {
   return (
     <>
       {stocks ? (
-        stocks.slice(0, 5).map((stock) => (
-          <HoverListWrapper
-            key={`${stock.id}-search-bar`}
-            onClick={() => {
-              history.push(`/stock/${stock.cashTagName}`)
-              set(stock)
-              dispatch(setHistoryStocks(get()))
-              dispatch(setIsFocusSearchBar(false))
-            }}
-          >
-            <NewStockListGroup>
-              <StockListItem>
-                <StockName>{stock.cashTagName}</StockName>
-              </StockListItem>
-              <StockListItem>
-                <CompanyName>{stock.enName}</CompanyName>
-              </StockListItem>
-            </NewStockListGroup>
-            <HistoryIconWrapper
-              onClick={(e) => {
-                e.stopPropagation()
-                searchStorage.deleteStock(stock.cashTagName)
+        stocks
+          .slice(0, 5)
+          .map((stock) => new AVStock(stock))
+          .map((avStock) => (
+            <HoverListWrapper
+              key={`${avStock.id}-search-bar`}
+              onClick={() => {
+                history.push(`/stock/${avStock.stock.cashTagName}`)
+                set(avStock.stock)
                 dispatch(setHistoryStocks(get()))
+                dispatch(setIsFocusSearchBar(false))
               }}
             >
-              <CloseIconGrey />
-            </HistoryIconWrapper>
-          </HoverListWrapper>
-        ))
+              <NewStockListGroup>
+                <StockListItem>
+                  <StockName>{avStock.title}</StockName>
+                </StockListItem>
+                <StockListItem>
+                  <CompanyName>{avStock.description}</CompanyName>
+                </StockListItem>
+              </NewStockListGroup>
+              <HistoryIconWrapper
+                onClick={(e) => {
+                  e.stopPropagation()
+                  searchStorage.deleteStock(avStock.stock.cashTagName)
+                  dispatch(setHistoryStocks(get()))
+                }}
+              >
+                <CloseIconGrey />
+              </HistoryIconWrapper>
+            </HoverListWrapper>
+          ))
       ) : (
         <EmptyWrapper>최근 검색 종목이 없습니다.</EmptyWrapper>
       )}

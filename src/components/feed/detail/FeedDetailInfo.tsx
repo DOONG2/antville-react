@@ -30,6 +30,7 @@ import LikeComponent from '../LikeComponent'
 import MomentDateChange from '../../common/MomentDateChange'
 import FeedHistoryComponent from './FeedHistoryComponent'
 import UserIcon50 from '../../../static/svg/UserIcon50'
+import PostStock from '../../../lib/models/post_stock'
 
 type FeedDetailInfoProps = {
   post: Post
@@ -102,7 +103,13 @@ export default function FeedDetailInfo({
             )}
           </NewMiddleWrapper>
           <SubWrapper>
-            <FeedHistoryComponent />
+            {post.postStockPrice && (
+              <SubWrapper>
+                <FeedHistoryComponent
+                  postStock={new PostStock(post.postStockPrice)}
+                />
+              </SubWrapper>
+            )}
           </SubWrapper>
           <NewBottomWrapper>
             <BottomItem>

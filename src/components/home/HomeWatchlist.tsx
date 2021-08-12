@@ -1,26 +1,11 @@
 import styled from '@emotion/styled'
-import { useHistory } from 'react-router-dom'
-import { grey040, grey050, sky010 } from '../../lib/styles/colors'
-import {
-  StockListWrapper,
-  StockListHeader,
-  StockName,
-  StockPrice,
-  CompanyName,
-  UpDownRate,
-  UpDownIcon,
-  StockListGroup,
-  StockListItem,
-} from '../../lib/styles/stockList'
-import { useRootState } from '../common/hooks/useRootState'
+import { grey040, grey050 } from '../../lib/styles/colors'
+import { StockListWrapper, StockListHeader } from '../../lib/styles/stockList'
+import { WatchListStockGroup } from '../stock/WatchlistStockGroup'
 import useGetWatchlist from './hooks/useGetWatchlist'
 
 function HomeWatchlist() {
-  const history = useHistory()
-
-  const watchlist = useRootState((state) => state.watchlist)
-
-  const { isLoading } = useGetWatchlist()
+  const { isLoading, watchlist } = useGetWatchlist()
 
   if (isLoading) return <></>
 
@@ -50,21 +35,7 @@ function HomeWatchlist() {
           {watchlist.length > 1 ? (
             <ScrollBar>
               {watchlist.map((stock) => (
-                <NewStockListGroup
-                  key={`${stock.id}-side-bar`}
-                  onClick={() => history.push(`/stock/${stock.cashTagName}`)}
-                >
-                  <StockListItem>
-                    <StockName>{stock.cashTagName}</StockName>
-                    <StockPrice>₩64,551,100</StockPrice>
-                  </StockListItem>
-                  <StockListItem>
-                    <CompanyName>{stock.enName}/KRW</CompanyName>
-                    <UpDownRate>
-                      <UpDownIcon>*</UpDownIcon>20.21 (-2.91%)
-                    </UpDownRate>
-                  </StockListItem>
-                </NewStockListGroup>
+                <WatchListStockGroup stock={stock} />
               ))}
             </ScrollBar>
           ) : (
@@ -141,13 +112,6 @@ const ScrollBar = styled.div`
   ::-webkit-scrollbar-thumb {
     background-color: ${grey050}; /*스크롤바의 색상*/
     border-radius: 7px;
-  }
-`
-
-const NewStockListGroup = styled(StockListGroup)`
-  cursor: pointer;
-  :hover {
-    background-color: ${sky010};
   }
 `
 

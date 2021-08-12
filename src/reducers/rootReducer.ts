@@ -2,7 +2,6 @@ import { combineReducers } from 'redux'
 import viewSlice from './Slices/view'
 import userSlice from './Slices/user'
 import authSlice from './Slices/auth'
-import watchlistSlice from './Slices/watchlist'
 import postSlice from './Slices/post'
 import commentSlice from './Slices/comment'
 import searchSlice from './Slices/search'
@@ -10,6 +9,7 @@ import profileSlice from './Slices/profile'
 import userEditSlice from './Slices/userEdit'
 import notificationSlice from './Slices/notification'
 import formSlice from './Slices/form'
+import stockSlice from './Slices/stock'
 
 const rootReducer = combineReducers({
   view: viewSlice.reducer,
@@ -21,7 +21,7 @@ const rootReducer = combineReducers({
   form: formSlice.reducer,
   search: searchSlice.reducer,
   profile: profileSlice.reducer,
-  watchlist: watchlistSlice.reducer,
+  stock: stockSlice.reducer,
   userEdit: userEditSlice.reducer,
 })
 

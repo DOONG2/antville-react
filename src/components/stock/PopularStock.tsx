@@ -1,12 +1,11 @@
 import styled from '@emotion/styled'
 import React from 'react'
 import Polygon from '../../static/svg/Polygon'
-import PolygonDown from '../../static/svg/PolygonDown'
-import PolygonUp from '../../static/svg/PolygonUp'
 import useStockPopularQuery from './hooks/useStockPopularQuery'
+import { PopularStockGroup } from './PopularStockGroup'
 
 function PopularStock() {
-  const { isLoading, data } = useStockPopularQuery()
+  const { isLoading, stocks } = useStockPopularQuery()
 
   return (
     <Wrapper>
@@ -17,14 +16,8 @@ function PopularStock() {
           ''
         ) : (
           <Group>
-            {data?.stocks.map((stock) => (
-              <Item key={`${stock.id}-stock-bar`}>
-                <TickerLabel>{stock.symbol}</TickerLabel>
-                <UpDownIconWrapper>
-                  {true ? <PolygonUp /> : <PolygonDown />}
-                </UpDownIconWrapper>
-                <RateLabel isUp={true}>3.17%</RateLabel>
-              </Item>
+            {stocks?.map((stock) => (
+              <PopularStockGroup stock={stock} />
             ))}
           </Group>
         )}
@@ -58,34 +51,6 @@ const Label = styled.div`
 
 const Group = styled.div`
   display: flex;
-`
-
-const Item = styled.div`
-  margin-left: 3.1rem;
-  display: flex;
-  align-items: center;
-`
-
-const TickerLabel = styled.div`
-  font-family: Roboto;
-  font-weight: 500;
-  font-size: 16px;
-  line-height: 19px;
-  color: #202020;
-`
-
-const UpDownIconWrapper = styled.div`
-  margin-left: 1.1rem;
-`
-
-const RateLabel = styled.div<{ isUp: boolean }>`
-  font-family: Roboto;
-  font-weight: bold;
-  font-size: 16px;
-  line-height: 19px;
-  margin-left: 0.6rem;
-
-  color: ${(props) => (props.isUp ? '#ff3f3e' : 'rgba(48, 130, 245, 1)')};
 `
 
 export default PopularStock

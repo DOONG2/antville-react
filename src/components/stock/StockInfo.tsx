@@ -1,35 +1,40 @@
 import styled from '@emotion/styled'
-import PolygonDown from '../../static/svg/PolygonDown'
-import PolygonUp from '../../static/svg/PolygonUp'
 import { grey070, grey080, red050 } from '../../lib/styles/colors'
 import AddWatchlistComponent from './StockTopRightButton'
-import { Stock } from '../../lib/api/types'
+import AVStock from '../../lib/models/av_stock'
+import { SignIcon } from './SignIcon'
 
 type Props = {
-  stock: Stock
+  avStock: AVStock
 }
 
-export default function StockInfo({ stock }: Props) {
+export default function StockInfo({ avStock }: Props) {
   return (
     <Wrapper>
       <Inner>
-        <TopWrapper>{stock.enName}</TopWrapper>
+        <TopWrapper>{avStock.title}</TopWrapper>
         <TitleWrapper>
-          <Ticker>{stock.cashTagName}</Ticker>
-          <Price>＄83.15</Price>
-          <LastItem>
-            <Top>66,089,152</Top>
-            <Bottom>
-              <IconWrapper>
-                {true ? <PolygonUp /> : <PolygonDown />}
-              </IconWrapper>
-              <Rate>0.41 (0.48%)</Rate>
-            </Bottom>
-          </LastItem>
+          <Ticker>{avStock.description}</Ticker>
+          {avStock.hasPrice && (
+            <>
+              <Price>{avStock.latest}</Price>
+              <LastItem>
+                <Top>{avStock.volume}</Top>
+                <Bottom>
+                  <IconWrapper>
+                    <SignIcon sign={avStock.sign} width={10} height={11} />
+                  </IconWrapper>
+                  <Rate>
+                    {avStock.change} ({avStock.changePercent}%)
+                  </Rate>
+                </Bottom>
+              </LastItem>
+            </>
+          )}
         </TitleWrapper>
       </Inner>
       <Inner>
-        <AddWatchlistComponent stock={stock} isWatching={false} />
+        <AddWatchlistComponent avStock={avStock} />
       </Inner>
     </Wrapper>
   )

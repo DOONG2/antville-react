@@ -1,5 +1,6 @@
 import { useDispatch } from 'react-redux'
 import { useHistory } from 'react-router-dom'
+import AVStock from '../../lib/models/av_stock'
 import searchStorage from '../../lib/searchStorage'
 import {
   EmptyWrapper,
@@ -30,26 +31,28 @@ export default function SearchStock() {
   return (
     <>
       {stocks.length >= 1 ? (
-        stocks.map((stock) => (
-          <HoverListWrapper
-            key={`${stock.id}-search-bar`}
-            onClick={() => {
-              history.push(`/stock/${stock.cashTagName}`)
-              set(stock)
-              dispatch(setHistoryStocks(get()))
-              dispatch(setIsFocusSearchBar(false))
-            }}
-          >
-            <NewStockListGroup>
-              <StockListItem>
-                <StockName>{stock.cashTagName}</StockName>
-              </StockListItem>
-              <StockListItem>
-                <CompanyName>{stock.enName}</CompanyName>
-              </StockListItem>
-            </NewStockListGroup>
-          </HoverListWrapper>
-        ))
+        stocks
+          .map((stock) => new AVStock(stock))
+          .map((avStock) => (
+            <HoverListWrapper
+              key={`${avStock.id}-search-bar`}
+              onClick={() => {
+                history.push(`/stock/${avStock.stock.cashTagName}`)
+                set(avStock.stock)
+                dispatch(setHistoryStocks(get()))
+                dispatch(setIsFocusSearchBar(false))
+              }}
+            >
+              <NewStockListGroup>
+                <StockListItem>
+                  <StockName>{avStock.title}</StockName>
+                </StockListItem>
+                <StockListItem>
+                  <CompanyName>{avStock.description}</CompanyName>
+                </StockListItem>
+              </NewStockListGroup>
+            </HoverListWrapper>
+          ))
       ) : (
         <EmptyWrapper>검색 결과가 없습니다.</EmptyWrapper>
       )}

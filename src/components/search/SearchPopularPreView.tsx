@@ -1,54 +1,21 @@
 import styled from '@emotion/styled'
-import { useDispatch } from 'react-redux'
-import { useHistory } from 'react-router-dom'
 import useStockPopularQuery from '../stock/hooks/useStockPopularQuery'
+import { StockListHeader, StockListWrapper } from '../../lib/styles/stockList'
 import { useRootState } from '../common/hooks/useRootState'
-import {
-  CompanyName,
-  StockListGroup,
-  StockListHeader,
-  StockListItem,
-  StockListWrapper,
-  StockName,
-  StockPrice,
-  UpDownIcon,
-  UpDownRate,
-} from '../../lib/styles/stockList'
-import viewSlice from '../../reducers/Slices/view'
-import { sky010 } from '../../lib/styles/colors'
+import { WatchListStockGroup } from '../stock/WatchlistStockGroup'
 
 export default function PopularPreView() {
   const { isFocusSearchBar } = useRootState((state) => state.view)
-  const { setIsFocusSearchBar } = viewSlice.actions
-  const history = useHistory()
-  const dispatch = useDispatch()
-  const { data } = useStockPopularQuery()
+  const { stocks } = useStockPopularQuery()
 
-  if (!data) return <></>
+  if (!stocks) return <></>
 
   return (
     <>
       <HotStockListWrapper isOpen={isFocusSearchBar}>
         <StockListHeader>실시간 인기 종목</StockListHeader>
-        {data?.stocks.map((stock) => (
-          <NewStockListGroup
-            key={`${stock.id}-search-bar`}
-            onClick={() => {
-              dispatch(setIsFocusSearchBar(false))
-              history.push(`/stock/${stock.cashTagName}`)
-            }}
-          >
-            <StockListItem>
-              <StockName>{stock.cashTagName}</StockName>
-              <StockPrice>₩64,551,100</StockPrice>
-            </StockListItem>
-            <StockListItem>
-              <CompanyName>{stock.enName}</CompanyName>
-              <UpDownRate>
-                <UpDownIcon>*</UpDownIcon>20.21 (-2.91%)
-              </UpDownRate>
-            </StockListItem>
-          </NewStockListGroup>
+        {stocks?.map((stock) => (
+          <WatchListStockGroup stock={stock} />
         ))}
       </HotStockListWrapper>
     </>
@@ -63,11 +30,4 @@ const HotStockListWrapper = styled(StockListWrapper)<{ isOpen: boolean }>`
   top: 5.2rem;
 
   z-index: 2;
-`
-
-const NewStockListGroup = styled(StockListGroup)`
-  cursor: pointer;
-  :hover {
-    background-color: ${sky010};
-  }
 `
