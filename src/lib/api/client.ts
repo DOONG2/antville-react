@@ -8,7 +8,7 @@ const client = axios.create()
 client.defaults.baseURL =
   process.env.NODE_ENV === 'development'
     ? 'http://54.180.188.129:3000'
-    : 'https://54.180.188.129:3000'
+    : 'http://54.180.188.129:3000'
 
 client.interceptors.response.use(
   function (response) {
