@@ -19,6 +19,14 @@ const userSlice = createSlice({
         return (state = action.payload)
       }
     },
+    setNickanme(state, action: PayloadAction<string>) {
+      if (!state) return
+      state.nickname = action.payload
+    },
+    setBio(state, action: PayloadAction<string>) {
+      if (!state) return
+      state.bio = action.payload
+    },
   },
 })
 

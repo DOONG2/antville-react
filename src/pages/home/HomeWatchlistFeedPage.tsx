@@ -8,7 +8,7 @@ import { HomePageProps } from './type'
 
 function WatchlistFeedPage({ id }: HomePageProps) {
   const { isLoading, posts } = useInfinitePosts({
-    key: `watchlist-${id}`,
+    key: ['post', id, { page: 'watchlist' }],
     callback: (cursor) => getPostsByUrl('watchlist', cursor),
   })
   if (!posts) return <></>

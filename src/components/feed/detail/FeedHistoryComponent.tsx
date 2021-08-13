@@ -1,23 +1,28 @@
 import styled from '@emotion/styled'
 import PolygonUp from '../../../static/svg/PolygonUp'
 import { red010, red050 } from '../../../lib/styles/colors'
+import PostStock from '../../../lib/models/post_stock'
 
-export default function FeedHistoryComponent() {
+type Props = {
+  postStock: PostStock
+}
+
+export default function FeedHistoryComponent({ postStock }: Props) {
   return (
     <PaddingWrapper>
       <Wrapper>
         <VerticleLine />
         <InnerWrapper>
           <LeftItem>
-            <div>비트코인</div>
+            <div>{postStock.name}</div>
             <StockPriceText>
               <PolygonUp />
-              <MarginWrapper>13,939,400 (+3.04%) </MarginWrapper>
+              <MarginWrapper>{`${postStock.change} (${postStock.sign}${postStock.changePercent}%) `}</MarginWrapper>
             </StockPriceText>
           </LeftItem>
           <RightItem>
-            <PrePrice>그때는 42,403,000</PrePrice>
-            <NowPrice>지금은 56,342,400</NowPrice>
+            <PrePrice>{`그때는 ${postStock.thenPrice}`}</PrePrice>
+            <NowPrice>{`지금은 ${postStock.nowPrice}`}</NowPrice>
           </RightItem>
         </InnerWrapper>
       </Wrapper>

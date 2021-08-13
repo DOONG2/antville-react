@@ -5,17 +5,19 @@ export interface StockPopularType {
 
 export interface StockType {
   stock: Stock
-  stockPriceInfos: StockPriceInfo
+  stockPriceInfo: StockPriceInfo
 }
 
 export interface StockPriceInfo {
   symbol: string
-  latest: number
-  dayHigh: number
-  dayLow: number
-  open: number
-  previousClose: number
-  volume: number
+  latest?: number
+  dayHigh?: number
+  dayLow?: number
+  open?: number
+  previousClose?: number
+  change?: number
+  changePercentage?: number
+  volume?: number
   timestamp: string
 }
 
@@ -163,6 +165,7 @@ export interface Post {
   reports: [Report]
   link: PostLink
   gifImage?: GifImage
+  postStockPrice?: PostStockPrice
   author: User
   postCount: PostCount
 }
@@ -170,4 +173,11 @@ export interface Post {
 export interface Auth {
   accessToken: string
   refreshToken: string
+}
+
+export interface PostStockPrice {
+  id: number
+  price: number
+  stock: Stock
+  nowPrice: number
 }

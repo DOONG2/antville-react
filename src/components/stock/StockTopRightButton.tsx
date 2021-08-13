@@ -1,36 +1,17 @@
 import styled from '@emotion/styled'
-import { useEffect, useState } from 'react'
-import deleteWatchlist from '../../lib/api/stock/deleteWatchlist'
-import putAddWatchlist from '../../lib/api/stock/putAddWatchlist'
-import { Stock } from '../../lib/api/types'
 import BlueStarIcon from '../../static/svg/BlueStarIcon'
 import { antblue050, grey080 } from '../../lib/styles/colors'
-import watchlistSlice from '../../reducers/Slices/watchlist'
-import { useDispatch } from 'react-redux'
-import useCheckLogin from '../common/hooks/useCheckLogin'
-import viewSlice from '../../reducers/Slices/view'
+import AuthComponent from '../common/AuthComponent'
+import AVStock from '../../lib/models/av_stock'
+import { useStockInfo } from './hooks/useStockInfo'
 
 type Props = {
-  stock: Stock
-  isWatching: boolean
+  avStock: AVStock
 }
 
-export default function AddWatchlistComponent({
-  stock,
-  isWatching: intialState,
-}: Props) {
-  const [isWatching, setIsWatching] = useState(intialState)
-  const [watchUserCount, setWatchUserCount] = useState(
-    stock.stockCount.watchUserCount
-  )
-  const { setAddWatchlist, setDeleteWatchlist } = watchlistSlice.actions
-  const { setIsOpenLoginForm } = viewSlice.actions
-  const dispatch = useDispatch()
-  const isLoggedIn = useCheckLogin()
-
-  useEffect(() => {
-    setIsWatching(intialState)
-  }, [intialState])
+export default function AddWatchlistComponent({ avStock }: Props) {
+  const { isWatchlist, watchUserCount, clickAddWatchlistButton } =
+    useStockInfo(avStock)
 
   return (
     <>
@@ -38,24 +19,11 @@ export default function AddWatchlistComponent({
         <BlueStarIcon />
         <WatchListCount>{watchUserCount}</WatchListCount>
       </WatchWrapper>
-      <WatchButton
-        isWatching={isWatching}
-        onClick={() => {
-          if (!isLoggedIn) return dispatch(setIsOpenLoginForm(true))
-          if (isWatching) {
-            deleteWatchlist(stock.id)
-            setWatchUserCount(watchUserCount - 1)
-            dispatch(setDeleteWatchlist(stock))
-          } else {
-            putAddWatchlist(stock.id)
-            setWatchUserCount(watchUserCount + 1)
-            dispatch(setAddWatchlist(stock))
-          }
-          setIsWatching(!isWatching)
-        }}
-      >
-        {isWatching ? '관심 종목 삭제' : '관심 종목 등록'}
-      </WatchButton>
+      <AuthComponent callback={clickAddWatchlistButton}>
+        <WatchButton isWatching={isWatchlist}>
+          {isWatchlist ? '관심 종목 삭제' : '관심 종목 등록'}
+        </WatchButton>
+      </AuthComponent>
     </>
   )
 }

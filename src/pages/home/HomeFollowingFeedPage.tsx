@@ -8,7 +8,7 @@ import { HomePageProps } from './type'
 
 function FollowingFeedPage({ id }: HomePageProps) {
   const { isLoading, posts } = useInfinitePosts({
-    key: `following-${id}`,
+    key: ['post', id, { page: 'following' }],
     callback: (cursor) => getPostsByUrl('following', cursor),
   })
   if (!posts) return <></>

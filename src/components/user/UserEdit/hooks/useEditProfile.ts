@@ -1,4 +1,6 @@
+import { useDispatch } from 'react-redux'
 import { useHistory } from 'react-router-dom'
+import userSlice from '../../../../reducers/Slices/user'
 import useUserAvatar from './useUserAvatar'
 import useUserEditForm from './useUserEditForm'
 
@@ -10,6 +12,8 @@ type TryEditProps = {
 
 export default function useEditProfile() {
   const history = useHistory()
+  const { setNickanme, setBio } = userSlice.actions
+  const dispatch = useDispatch()
 
   const { editFormApi } = useUserEditForm()
 
@@ -20,6 +24,8 @@ export default function useEditProfile() {
       if (avatar) await UserAvatarApi({ avatar })
       if (!nickname && !bio) return
       await editFormApi({ nickname, bio })
+      if (nickname) dispatch(setNickanme(nickname))
+      if (bio) dispatch(setBio(bio))
       history.push('/')
     } catch (error) {
       console.log(error)

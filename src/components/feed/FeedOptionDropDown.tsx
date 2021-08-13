@@ -11,8 +11,9 @@ export default function FeedOptionDropDown({ close }: Props) {
     <>
       <Wrapper onClick={close}>
         <Group>
-          <Item>게시글 신고</Item>
-          <Item>계정 차단</Item>
+          <Item>준비중</Item>
+          {/* <Item>게시글 신고</Item>
+          <Item>계정 차단</Item> */}
         </Group>
       </Wrapper>
     </>

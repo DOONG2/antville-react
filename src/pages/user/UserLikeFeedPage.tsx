@@ -6,7 +6,7 @@ import { UserFeedPageProps } from './type'
 
 function UserLikeFeedPage({ user }: UserFeedPageProps) {
   const { isLoading, posts } = useInfinitePosts({
-    key: `user-like-${user.id}`,
+    key: ['post', user.id, { page: 'user-like' }],
     callback: (cursor) => getPostsByUserLike(user.id, cursor),
   })
   if (!posts) return <></>

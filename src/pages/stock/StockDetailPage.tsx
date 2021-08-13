@@ -4,21 +4,25 @@ import FeedSection from '../../components/feed/FeedSection'
 import PostForm from '../../components/post/PostForm'
 import StockInfo from '../../components/stock/StockInfo'
 import getPostsByStock from '../../lib/api/post/getPostsByStock'
-import { StockPageProps } from './type'
+import AVStock from '../../lib/models/av_stock'
 
-function StockDetailPage({ stock }: StockPageProps) {
+type StockPageProps = {
+  avStock: AVStock
+}
+
+function StockDetailPage({ avStock }: StockPageProps) {
   const { isLoading, posts } = useInfinitePosts({
-    key: `stock-detail-${stock.id}`,
-    callback: (cursor) => getPostsByStock(stock.id, cursor),
+    key: ['post', avStock.id, { page: 'stock-detail' }],
+    callback: (cursor) => getPostsByStock(avStock.id, cursor),
   })
 
   if (!posts) return <></>
   return (
     <>
-      <StockInfo stock={stock} />
+      <StockInfo avStock={avStock} />
       <PostForm />
       <FeedSection
-        sectionKey={`stock-detail-${stock.id}`}
+        sectionKey={`stock-detail-${avStock.id}`}
         posts={posts}
         loading={isLoading}
         emptyComponent={<NomalEmpty />}

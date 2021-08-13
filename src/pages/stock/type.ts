@@ -1,5 +1,11 @@
-import { Stock } from '../../lib/api/types'
+import { Stock, StockPriceInfo } from '../../lib/api/types'
 
-export type StockPageProps = {
-  stock: Stock
+export interface getStockPopularResponse {
+  stocks: [Stock]
+  stockPriceInfos: [StockPriceInfo?]
+}
+
+export interface getWatchListResponse {
+  stocks: [Stock]
+  stockPriceInfos: [StockPriceInfo?]
 }

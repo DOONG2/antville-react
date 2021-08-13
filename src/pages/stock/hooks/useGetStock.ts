@@ -1,15 +1,15 @@
 import { useEffect, useState } from 'react'
 import getStockByTicker from '../../../lib/api/stock/getStockByTicker'
-import { StockType } from '../../../lib/api/types'
+import AVStock from '../../../lib/models/av_stock'
 
 export default function useGetStock(ticker: string) {
-  const [stock, setStock] = useState<StockType>()
+  const [avStock, setStock] = useState<AVStock>()
 
   useEffect(() => {
     try {
       const getStockApi = async () => {
         const result = await getStockByTicker(ticker)
-        setStock(result)
+        setStock(new AVStock(result.stock, result.stockPriceInfo))
       }
       getStockApi()
     } catch (error) {
@@ -17,5 +17,5 @@ export default function useGetStock(ticker: string) {
     }
   }, [ticker])
 
-  return { stock }
+  return { avStock }
 }

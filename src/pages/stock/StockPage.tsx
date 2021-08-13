@@ -7,9 +7,9 @@ import StockNotFound from './StockNotFound'
 
 export default function StockPage() {
   const { ticker } = useParams<{ ticker: string }>()
-  const { stock } = useGetStock(ticker)
+  const { avStock } = useGetStock(ticker)
 
-  if (!stock?.stock)
+  if (!avStock?.stock)
     return (
       <>
         <MainTemplate
@@ -28,7 +28,7 @@ export default function StockPage() {
         <>
           <Route
             path={['/stock/:ticker']}
-            component={() => <StockDetailPage stock={stock.stock} />}
+            component={() => <StockDetailPage avStock={avStock} />}
             exact
           />
         </>

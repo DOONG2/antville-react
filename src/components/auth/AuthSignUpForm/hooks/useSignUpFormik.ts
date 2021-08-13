@@ -63,13 +63,13 @@ export default function useSignUpFormik() {
           subscribeNewsLetter: subscribeNewsLetterSignup,
         })
       } catch (error) {
+        setSubmitting(false)
         if (error.data.errorCode === 600) {
           setSignUpEmailError('이미 존재하는 이메일입니다.')
         } else if (error.data.errorCode === 601) {
           setNicknameErrorHandler('이미 존재하는 닉네임 입니다.')
         }
       }
-      setSubmitting(false)
     },
   })
   return {
