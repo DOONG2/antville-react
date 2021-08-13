@@ -1,5 +1,5 @@
 import styled from '@emotion/styled'
-import { grey070, grey080, red050 } from '../../lib/styles/colors'
+import { grey070, grey080 } from '../../lib/styles/colors'
 import AddWatchlistComponent from './StockTopRightButton'
 import AVStock from '../../lib/models/av_stock'
 import { SignIcon } from './SignIcon'
@@ -12,9 +12,9 @@ export default function StockInfo({ avStock }: Props) {
   return (
     <Wrapper>
       <Inner>
-        <TopWrapper>{avStock.title}</TopWrapper>
+        <TopWrapper>{avStock.description}</TopWrapper>
         <TitleWrapper>
-          <Ticker>{avStock.description}</Ticker>
+          <Ticker>{avStock.title}</Ticker>
           {avStock.hasPrice && (
             <>
               <Price>{avStock.latest}</Price>
@@ -24,7 +24,7 @@ export default function StockInfo({ avStock }: Props) {
                   <IconWrapper>
                     <SignIcon sign={avStock.sign} />
                   </IconWrapper>
-                  <Rate>
+                  <Rate color={avStock.textColor}>
                     {avStock.change} ({avStock.changePercent}%)
                   </Rate>
                 </Bottom>
@@ -90,7 +90,7 @@ const Rate = styled.div`
   font-size: 14px;
   line-height: 16px;
 
-  color: ${red050};
+  color: ${(props) => props.color};
   margin-left: 4px;
 `
 

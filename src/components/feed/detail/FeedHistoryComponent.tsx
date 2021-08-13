@@ -1,7 +1,6 @@
 import styled from '@emotion/styled'
-import PolygonUp from '../../../static/svg/PolygonUp'
-import { red010, red050 } from '../../../lib/styles/colors'
 import PostStock from '../../../lib/models/post_stock'
+import { SignIcon } from '../../stock/SignIcon'
 
 type Props = {
   postStock: PostStock
@@ -10,14 +9,14 @@ type Props = {
 export default function FeedHistoryComponent({ postStock }: Props) {
   return (
     <PaddingWrapper>
-      <Wrapper>
-        <VerticleLine />
+      <Wrapper color={postStock.backgroundColor}>
+        <VerticleLine color={postStock.textColor} />
         <InnerWrapper>
           <LeftItem>
             <div>{postStock.name}</div>
-            <StockPriceText>
-              <PolygonUp />
-              <MarginWrapper>{`${postStock.change} (${postStock.sign}${postStock.changePercent}%) `}</MarginWrapper>
+            <StockPriceText color={postStock.textColor}>
+              <SignIcon sign={postStock.sign} />
+              <MarginWrapper>{`${postStock.change} (${postStock.changePercent}%) `}</MarginWrapper>
             </StockPriceText>
           </LeftItem>
           <RightItem>
@@ -38,7 +37,7 @@ const PaddingWrapper = styled.div`
 const Wrapper = styled.div`
   width: 100%;
   padding: 10px 21px;
-  background-color: ${red010};
+  background-color: ${(props) => props.color};
   border-radius: 8px;
 
   display: flex;
@@ -46,7 +45,7 @@ const Wrapper = styled.div`
 
 const VerticleLine = styled.div`
   width: 3px;
-  background-color: ${red050};
+  background-color: ${(props) => props.color};
   border-radius: 8px;
 `
 
@@ -81,7 +80,7 @@ const RightItem = styled.div`
 const StockPriceText = styled.div`
   display: flex;
   align-items: center;
-  color: ${red050};
+  color: ${(props) => props.color};
 
   font-family: Roboto;
   font-weight: 400;

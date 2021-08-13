@@ -1,4 +1,5 @@
 import styled from '@emotion/styled'
+import { useHistory } from 'react-router-dom'
 import { Stock } from '../../lib/api/types'
 import { selectAVStock } from '../../selectors/stockSelectors'
 import { useRootState } from '../common/hooks/useRootState'
@@ -9,10 +10,11 @@ interface StockListGroupProps {
 }
 
 export function PopularStockGroup({ stock }: StockListGroupProps) {
+  const history = useHistory()
   const avStock = useRootState((state) => selectAVStock(state, stock))
 
   return (
-    <Item>
+    <Item onClick={() => history.push(`/stock/${avStock.stock.cashTagName}`)}>
       <TickerLabel>{avStock.title}</TickerLabel>
       {avStock.hasPrice && (
         <>

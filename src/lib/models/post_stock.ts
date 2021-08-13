@@ -1,5 +1,12 @@
 import { PostStockPrice } from './../api/types'
-import { blue050, grey060, red050 } from '../styles/colors'
+import {
+  blue010,
+  blue050,
+  grey010,
+  grey060,
+  red010,
+  red050,
+} from '../styles/colors'
 import NumberFormatUtil from '../utils/number_format'
 
 class PostStock {
@@ -7,6 +14,7 @@ class PostStock {
 
   sign!: string
   textColor!: string
+  backgroundColor!: string
   name!: string
 
   thenPrice!: string
@@ -34,17 +42,23 @@ class PostStock {
       this.stockPrice.nowPrice,
       true
     )
-    this.changePercent = Math.abs(Math.abs(diff) * 100).toFixed(2)
+    this.changePercent = (
+      (Math.abs(diff) / this.stockPrice.nowPrice) *
+      100
+    ).toFixed(2)
     this.change = NumberFormatUtil.format(isUSD, Math.abs(diff), false)
 
     if (diff > 0) {
       this.sign = '+'
       this.textColor = red050
+      this.backgroundColor = red010
     } else if (diff === 0) {
       this.sign = ''
+      this.backgroundColor = grey010
       this.textColor = grey060
     } else {
       this.sign = '-'
+      this.backgroundColor = blue010
       this.textColor = blue050
     }
   }

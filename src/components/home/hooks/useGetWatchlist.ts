@@ -14,18 +14,21 @@ export default function useGetWatchlist() {
 
   useEffect(() => {
     try {
-      if (!user) dispatch(setWatchlistState(null))
-      if (!watchlist) {
-        setIsLoading(true)
-        const getWatchlistApi = async () => {
-          const watchlist = await getWatchList()
-          if (watchlist?.stocks) {
-            dispatch(setWatchlistState(watchlist.stocks))
-            dispatch(addMutiStockPrice(watchlist.stockPriceInfos))
+      if (!user) {
+        dispatch(setWatchlistState(null))
+      } else {
+        if (!watchlist) {
+          setIsLoading(true)
+          const getWatchlistApi = async () => {
+            const watchlist = await getWatchList()
+            if (watchlist?.stocks) {
+              dispatch(setWatchlistState(watchlist.stocks))
+              dispatch(addMutiStockPrice(watchlist.stockPriceInfos))
+            }
+            setIsLoading(false)
           }
-          setIsLoading(false)
+          getWatchlistApi()
         }
-        getWatchlistApi()
       }
     } catch (error) {
       console.log(error)
