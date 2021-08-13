@@ -1,7 +1,6 @@
 import { useDispatch } from 'react-redux'
 import { useHistory } from 'react-router-dom'
 import userSlice from '../../../../reducers/Slices/user'
-import { useRootState } from '../../../common/hooks/useRootState'
 import useUserAvatar from './useUserAvatar'
 import useUserEditForm from './useUserEditForm'
 
