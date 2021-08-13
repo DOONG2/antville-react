@@ -40,10 +40,11 @@ export default function UserEdit({ user }: Props) {
     dirty,
     isValid,
     initialValues,
-    errors,
     touched,
     isSubmitting,
     handleSubmit,
+    isNicknameValid,
+    nicknameError,
     getFieldProps,
     onChangeNickanme,
     onChangeUpload,
@@ -103,10 +104,11 @@ export default function UserEdit({ user }: Props) {
                 {(touched.editNickname ||
                   values.editNickname !== initialValues.editNickname) && (
                   <>
-                    {errors.editNickname ? (
-                      <WarningLabel>{errors.editNickname}</WarningLabel>
+                    {nicknameError ? (
+                      <WarningLabel>{nicknameError}</WarningLabel>
                     ) : (
-                      values.editNickname !== initialValues.editNickname && (
+                      values.editNickname !== initialValues.editNickname &&
+                      isNicknameValid && (
                         <CompleteLabel>올바른 닉네임입니다</CompleteLabel>
                       )
                     )}
@@ -143,7 +145,12 @@ export default function UserEdit({ user }: Props) {
             <ButtonWrapper>
               <Button
                 type="submit"
-                disabled={!(dirty && isValid) || isSubmitting}
+                disabled={
+                  !(dirty && isValid) ||
+                  isSubmitting ||
+                  (!isNicknameValid &&
+                    values.editNickname !== initialValues.editNickname)
+                }
               >
                 완료
               </Button>

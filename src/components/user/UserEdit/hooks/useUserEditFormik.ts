@@ -57,22 +57,22 @@ export default function useUserEditFormik({
       ),
     }),
     onSubmit: async ({ editIntroduction, editNickname }, { setSubmitting }) => {
-      setSubmitting(true)
       let bio = editIntroduction as string | undefined
       let nickname = editNickname as string | undefined
       if (initialNickname === editNickname) nickname = undefined
       if (initialBio === editIntroduction) bio = undefined
       try {
+        setSubmitting(true)
         await tryEdit({
           bio,
           nickname,
           avatar: avatar,
         })
       } catch (error) {
+        setSubmitting(false)
         if (error.data.errorCode === 601)
           setNicknameErrorHandler('이미 존재하는 닉네임 입니다.')
       }
-      setSubmitting(false)
     },
   })
 

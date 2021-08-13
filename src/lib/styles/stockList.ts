@@ -64,12 +64,15 @@ export const CompanyName = styled.div`
 
 export const UpDownRate = styled.div`
   font-family: Roboto;
-  font-style: normal;
   font-weight: 500;
   font-size: 10px;
   line-height: 12px;
 
   color: #3082f5;
+
+  display: flex;
+  align-items: center;
+  column-gap: 3.7px;
 `
 
 export const UpDownIcon = styled.div`

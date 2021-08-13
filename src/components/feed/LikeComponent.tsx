@@ -3,11 +3,12 @@ import React, { useEffect, useState } from 'react'
 import { useDispatch } from 'react-redux'
 import deleteUnLikeComment from '../../lib/api/comment/deleteUnLikeComment'
 import putLikeComment from '../../lib/api/comment/putLikeComment'
-import putLikePost from '../../lib/api/post/putLikePost'
 import deleteUnLikePost from '../../lib/api/post/deleteUnLikePost'
 import HeartIcon from '../../static/svg/HeartIcon'
 import useCheckLogin from '../common/hooks/useCheckLogin'
 import viewSlice from '../../reducers/Slices/view'
+import putLikePost from '../../lib/api/post/putLikePost'
+// import useMutationLike from './hooks/useMutationLike'
 
 interface Props {
   isLiked: boolean
@@ -32,6 +33,8 @@ export default function LikeComponent({
     setLiked(isLiked)
     setLikeCount(count)
   }, [isLiked, count])
+
+  // const mustation = useMutationLike()
 
   return (
     <>

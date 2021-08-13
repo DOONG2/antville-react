@@ -8,7 +8,7 @@ import { HomePageProps } from './type'
 
 function AllFeedPage({ id }: HomePageProps) {
   const { isLoading, posts, setPosts } = useInfinitePosts({
-    key: `all-${id}`,
+    key: ['post', id, { page: 'all' }],
     callback: (cursor) => getPostsByUrl('all', cursor),
   })
   if (!posts) return <></>

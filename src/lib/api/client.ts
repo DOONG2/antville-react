@@ -7,8 +7,8 @@ const client = axios.create()
 //client.defaults.withCredentials = true
 client.defaults.baseURL =
   process.env.NODE_ENV === 'development'
-    ? 'http://localhost:3000'
-    : 'https://antvile.api.com'
+    ? 'http://54.180.188.129:3000'
+    : 'https://54.180.188.129:3000'
 
 client.interceptors.response.use(
   function (response) {
