@@ -37,6 +37,7 @@ export const checkNicknameLength = (nickname: string | undefined) => {
       nickLength += 1
     }
   }
+
   if (nickLength >= 3 && nickLength <= 29) {
     return true
   } else {

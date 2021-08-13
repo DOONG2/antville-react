@@ -12,12 +12,12 @@ export function PopularStockGroup({ stock }: StockListGroupProps) {
   const avStock = useRootState((state) => selectAVStock(state, stock))
 
   return (
-    <Item key={`${avStock.id}-stock-bar`}>
+    <Item>
       <TickerLabel>{avStock.title}</TickerLabel>
       {avStock.hasPrice && (
         <>
           <UpDownIconWrapper>
-            <SignIcon sign={avStock.sign} width={10} height={11} />
+            <SignIcon sign={avStock.sign} />
           </UpDownIconWrapper>
           <RateLabel color={avStock.textColor}>
             {avStock.changePercent}%
@@ -44,6 +44,8 @@ const TickerLabel = styled.div`
 
 const UpDownIconWrapper = styled.div`
   margin-left: 1.1rem;
+  display: flex;
+  align-items: center;
 `
 
 const RateLabel = styled.div<{ color: string }>`

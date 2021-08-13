@@ -15,7 +15,10 @@ export default function PopularPreView() {
       <HotStockListWrapper isOpen={isFocusSearchBar}>
         <StockListHeader>실시간 인기 종목</StockListHeader>
         {stocks?.map((stock) => (
-          <WatchListStockGroup stock={stock} />
+          <WatchListStockGroup
+            key={`${stock.id}-search-popular-stock-preivew`}
+            stock={stock}
+          />
         ))}
       </HotStockListWrapper>
     </>

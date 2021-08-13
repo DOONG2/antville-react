@@ -1,18 +1,22 @@
-import MemoPolygon from '../../static/svg/Polygon'
-import MemoPolygonDown from '../../static/svg/PolygonDown'
-import MemoPolygonUp from '../../static/svg/PolygonUp'
+import Polygon from '../../static/svg/Polygon'
+import PolygonDown from '../../static/svg/PolygonDown'
+import PolygonDownSmall from '../../static/svg/PolygonDownSmall'
+import PolygonUp from '../../static/svg/PolygonUp'
+import PolygonUpSmall from '../../static/svg/PolygonUpSmall'
 
 type Props = {
-  width: number
-  height: number
   sign: string
+  isSmall?: boolean
 }
-export function SignIcon({ width, height, sign }: Props) {
+export function SignIcon({ sign, isSmall }: Props) {
   if (sign === '') {
-    return <MemoPolygon width={width} height={height} />
+    if (isSmall) return <></>
+    return <Polygon />
   } else if (sign === '+') {
-    return <MemoPolygonUp width={width} height={height} />
+    if (isSmall) return <PolygonUpSmall />
+    return <PolygonUp />
   } else {
-    return <MemoPolygonDown width={width} height={height} />
+    if (isSmall) return <PolygonDownSmall />
+    return <PolygonDown />
   }
 }

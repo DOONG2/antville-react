@@ -22,7 +22,7 @@ export default function StockInfo({ avStock }: Props) {
                 <Top>{avStock.volume}</Top>
                 <Bottom>
                   <IconWrapper>
-                    <SignIcon sign={avStock.sign} width={10} height={11} />
+                    <SignIcon sign={avStock.sign} />
                   </IconWrapper>
                   <Rate>
                     {avStock.change} ({avStock.changePercent}%)

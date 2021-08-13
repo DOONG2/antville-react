@@ -35,7 +35,10 @@ function HomeWatchlist() {
           {watchlist.length > 1 ? (
             <ScrollBar>
               {watchlist.map((stock) => (
-                <WatchListStockGroup stock={stock} />
+                <WatchListStockGroup
+                  key={`${stock.id}-side-bar`}
+                  stock={stock}
+                />
               ))}
             </ScrollBar>
           ) : (

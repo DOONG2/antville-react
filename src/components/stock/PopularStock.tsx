@@ -10,14 +10,20 @@ function PopularStock() {
   return (
     <Wrapper>
       <BarWrapper>
-        <Label>실시간 인기 종목</Label>
-        <Polygon />
+        <LabelWrapper>
+          <Label>실시간 인기 종목</Label>
+          <NewPolygon />
+        </LabelWrapper>
+
         {isLoading ? (
           ''
         ) : (
           <Group>
             {stocks?.map((stock) => (
-              <PopularStockGroup stock={stock} />
+              <PopularStockGroup
+                key={`${stock.id}-stock-bar-popular`}
+                stock={stock}
+              />
             ))}
           </Group>
         )}
@@ -45,12 +51,21 @@ const Label = styled.div`
   font-size: 1.6rem;
   font-weight: 500;
   line-height: 22px;
+`
 
+const LabelWrapper = styled.div`
   margin-right: 0.9rem;
+  display: flex;
+  column-gap: 9px;
+  align-items: center;
 `
 
 const Group = styled.div`
   display: flex;
+`
+
+const NewPolygon = styled(Polygon)`
+  margin-top: 2.8px;
 `
 
 export default PopularStock

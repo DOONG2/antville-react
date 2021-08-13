@@ -31,7 +31,7 @@ function Search() {
       </IconWrapper>
       <SearchInput
         type="search"
-        placeholder="키워드 혹은 @닉네임을 입력해주세요."
+        placeholder="키워드 혹은 닉네임을 입력해주세요."
         onFocus={() => dispatch(setIsFocusSearchBar(true))}
         onChange={(e) => {
           setQuery(e.target.value)

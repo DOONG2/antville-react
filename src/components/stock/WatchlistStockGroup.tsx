@@ -23,7 +23,6 @@ export function WatchListStockGroup({ stock }: StockListGroupProps) {
   const avStock = useRootState((state) => selectAVStock(state, stock))
   return (
     <NewStockListGroup
-      key={`${avStock.id}-side-bar`}
       onClick={() => history.push(`/stock/${avStock.stock.cashTagName}`)}
     >
       <StockListItem>
@@ -34,7 +33,7 @@ export function WatchListStockGroup({ stock }: StockListGroupProps) {
         <CompanyName>{avStock.description}</CompanyName>
         {avStock.hasPrice && (
           <UpDownRate>
-            <SignIcon sign={avStock.sign} width={6} height={7} />
+            <SignIcon sign={avStock.sign} isSmall={true} />
             <RateLabel color={avStock.textColor}>
               {avStock.change} ({avStock.changePercent}%)
             </RateLabel>
