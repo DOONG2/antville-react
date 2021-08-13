@@ -146,7 +146,10 @@ export default function UserEdit({ user }: Props) {
               <Button
                 type="submit"
                 disabled={
-                  !(dirty && isValid) || isSubmitting || !isNicknameValid
+                  !(dirty && isValid) ||
+                  isSubmitting ||
+                  (!isNicknameValid &&
+                    values.editNickname !== initialValues.editNickname)
                 }
               >
                 완료
