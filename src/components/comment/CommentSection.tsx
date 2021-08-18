@@ -11,11 +11,12 @@ import {
   PostTime,
   TopWrapper,
 } from '../../lib/styles/feed'
-import { AvatarImage, Image } from '../../lib/styles/post'
+import { AvatarImage } from '../../lib/styles/post'
 import FeedBody from '../feed/FeedBody'
 import MomentDateChange from '../common/MomentDateChange'
 import SubCommentSection from './SubCommentSection'
 import UserIcon50 from '../../static/svg/UserIcon50'
+import ImageComponent from '../feed/ImageComponent'
 
 interface Props {
   comments: CommentObject[]
@@ -60,10 +61,7 @@ export default function CommentSection({ comments, loading }: Props) {
           <MiddleWrapper>
             <FeedBody body={comment.body} isDetail={true} />
             {comment.commentImgs[0] && (
-              <Image
-                src={comment.commentImgs[0].image.toString()}
-                alt={`${comment.id}-comment-image`}
-              />
+              <ImageComponent url={comment.commentImgs[0].image.toString()} />
             )}
             {comment.gifImage?.gifUrl && (
               <GifImage

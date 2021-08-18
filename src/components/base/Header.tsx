@@ -16,7 +16,7 @@ import React, { useRef } from 'react'
 import HeaderUserDropDown from './HeaderUserDropDown'
 import HeaderNoticeDropDown from './HeaderNoticeDropDown'
 import DropDown from '../common/DropDown'
-import Modal from '../common/Modal'
+import Modal from '../common/FormModal'
 import userStorage from '../../lib/userStorage'
 
 function Header() {

@@ -24,9 +24,10 @@ import {
 import FeedBody from '../feed/FeedBody'
 import LikeComponent from '../feed/LikeComponent'
 import MomentDateChange from '../common/MomentDateChange'
-import { AvatarImage, Image } from '../../lib/styles/post'
+import { AvatarImage } from '../../lib/styles/post'
 import SubCommentForm from './SubCommentForm'
 import UserIcon50 from '../../static/svg/UserIcon50'
+import ImageComponent from '../feed/ImageComponent'
 
 interface Props {
   comment: CommentObject
@@ -139,10 +140,7 @@ export default function SubCommentSection({ comment }: Props) {
             <NewMiddleWrapper>
               <FeedBody body={comment.body} isDetail={true} />
               {comment.commentImgs[0] && (
-                <Image
-                  src={comment.commentImgs[0].image.toString()}
-                  alt={`${comment.id}-comment-image`}
-                />
+                <ImageComponent url={comment.commentImgs[0].image.toString()} />
               )}
               {comment.gifImage?.gifUrl && (
                 <GifImage

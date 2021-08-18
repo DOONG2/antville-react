@@ -11,7 +11,7 @@ function PopularStock() {
   const [isPause, setIsPause] = useState<boolean>(
     userOptionStorage.getIsPause()
   )
-  console.log(userOptionStorage.getIsPause(), isPause)
+
   return (
     <Wrapper>
       <BarWrapper>
@@ -23,7 +23,7 @@ function PopularStock() {
               setIsPause(!isPause)
             }}
           >
-            {isPause ? <PauseIcon /> : <PlayIcon />}
+            {isPause ? <NewPauseIcon /> : <PlayIcon />}
           </IconWrapper>
         </LabelWrapper>
 
@@ -55,8 +55,13 @@ function PopularStock() {
 }
 
 const IconWrapper = styled.div`
-  margin-top: 2.8px;
+  margin-top: 2.9px;
   cursor: pointer;
+  display: flex;
+`
+
+const NewPauseIcon = styled(PauseIcon)`
+  margin-top: 0.1px;
 `
 
 const Wrapper = styled.div`

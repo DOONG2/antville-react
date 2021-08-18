@@ -18,12 +18,13 @@ import {
   PostTime,
   TopWrapper,
 } from '../../lib/styles/feed'
-import { AvatarImage, Image } from '../../lib/styles/post'
+import { AvatarImage } from '../../lib/styles/post'
 import FeedBody from './FeedBody'
 import FeedOption from './FeedOption'
 import LikeComponent from './LikeComponent'
 import MomentDateChange from '../common/MomentDateChange'
 import UserIcon50 from '../../static/svg/UserIcon50'
+import ImageComponent from './ImageComponent'
 
 interface Props {
   posts: Post[]
@@ -77,11 +78,7 @@ const FeedSection = ({ posts, loading, emptyComponent, sectionKey }: Props) => {
           <MiddleWrapper>
             <FeedBody body={post.body} />
             {post.postImgs[0] && (
-              <Image
-                src={post.postImgs[0].image.toString()}
-                alt={`${post.id}-feed-image`}
-                style={{ objectFit: 'cover' }}
-              />
+              <ImageComponent url={post.postImgs[0].image.toString()} />
             )}
             {post.gifImage?.gifUrl && (
               <GifImage
