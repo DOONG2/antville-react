@@ -18,7 +18,7 @@ import {
   PostTime,
   TopWrapper,
 } from '../../lib/styles/feed'
-import { Image } from '../../lib/styles/post'
+import { AvatarImage, Image } from '../../lib/styles/post'
 import FeedBody from './FeedBody'
 import FeedOption from './FeedOption'
 import LikeComponent from './LikeComponent'
@@ -49,7 +49,10 @@ const FeedSection = ({ posts, loading, emptyComponent, sectionKey }: Props) => {
                 }
               >
                 {post.author.profileImg ? (
-                  <img src={post.author.profileImg} alt="profile_image" />
+                  <AvatarImage
+                    src={post.author.profileImg}
+                    alt="profile_image"
+                  />
                 ) : (
                   <UserIcon50 />
                 )}
@@ -77,6 +80,7 @@ const FeedSection = ({ posts, loading, emptyComponent, sectionKey }: Props) => {
               <Image
                 src={post.postImgs[0].image.toString()}
                 alt={`${post.id}-feed-image`}
+                style={{ objectFit: 'cover' }}
               />
             )}
             {post.gifImage?.gifUrl && (

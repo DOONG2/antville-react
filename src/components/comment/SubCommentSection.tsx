@@ -24,7 +24,7 @@ import {
 import FeedBody from '../feed/FeedBody'
 import LikeComponent from '../feed/LikeComponent'
 import MomentDateChange from '../common/MomentDateChange'
-import { Image } from '../../lib/styles/post'
+import { AvatarImage, Image } from '../../lib/styles/post'
 import SubCommentForm from './SubCommentForm'
 import UserIcon50 from '../../static/svg/UserIcon50'
 
@@ -116,7 +116,10 @@ export default function SubCommentSection({ comment }: Props) {
                   }
                 >
                   {comment.author.profileImg ? (
-                    <img src={comment.author.profileImg} alt="profile_image" />
+                    <AvatarImage
+                      src={comment.author.profileImg}
+                      alt="profile_image"
+                    />
                   ) : (
                     <UserIcon50 />
                   )}

@@ -2,7 +2,9 @@ import styled from '@emotion/styled'
 import { grey030, grey060, grey080 } from './colors'
 
 export const GifImage = styled.img`
-  margin: 15px auto;
+  margin: 0 auto;
+  margin-top: 15px;
+
   height: 270px;
 
   border: 1px solid ${grey030};
@@ -79,7 +81,7 @@ export const MiddleWrapper = styled.div`
   line-height: 150%;
 `
 export const BottomWrapper = styled.div`
-  margin-top: 13px;
+  margin-top: 30px;
   display: flex;
   align-items: center;
   padding-left: 97px;

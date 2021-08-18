@@ -31,13 +31,15 @@ export function PopularStockGroup({ stock }: StockListGroupProps) {
 }
 
 const Item = styled.div`
-  margin-left: 3.1rem;
   display: flex;
   align-items: center;
+  cursor: pointer;
+  padding: 0 15px;
 `
 
 const TickerLabel = styled.div`
   font-family: Roboto;
+  white-space: nowrap;
   font-weight: 500;
   font-size: 16px;
   line-height: 19px;

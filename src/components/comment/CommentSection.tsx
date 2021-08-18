@@ -11,7 +11,7 @@ import {
   PostTime,
   TopWrapper,
 } from '../../lib/styles/feed'
-import { Image } from '../../lib/styles/post'
+import { AvatarImage, Image } from '../../lib/styles/post'
 import FeedBody from '../feed/FeedBody'
 import MomentDateChange from '../common/MomentDateChange'
 import SubCommentSection from './SubCommentSection'
@@ -37,7 +37,10 @@ export default function CommentSection({ comments, loading }: Props) {
                 }
               >
                 {comment.author.profileImg ? (
-                  <img src={comment.author.profileImg} alt="profile_image" />
+                  <AvatarImage
+                    src={comment.author.profileImg}
+                    alt="profile_image"
+                  />
                 ) : (
                   <UserIcon50 />
                 )}

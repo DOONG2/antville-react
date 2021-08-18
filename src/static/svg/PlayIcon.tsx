@@ -1,6 +1,6 @@
 import * as React from 'react'
 
-function Polygon(props: any) {
+function PlayIcon(props: any) {
   return (
     <svg width={15} height={18} fill="none" {...props}>
       <path
@@ -11,5 +11,5 @@ function Polygon(props: any) {
   )
 }
 
-const MemoPolygon = React.memo(Polygon)
-export default MemoPolygon
+const MemoPlayIcon = React.memo(PlayIcon)
+export default MemoPlayIcon

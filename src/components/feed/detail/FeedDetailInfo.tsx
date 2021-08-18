@@ -136,6 +136,7 @@ const Wrapper = styled.div``
 
 const NewMiddleWrapper = styled(MiddleWrapper)`
   padding: 0 22px;
+  margin-top: 15px;
 `
 
 const SubWrapper = styled.div`

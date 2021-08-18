@@ -1,8 +1,8 @@
 import styled from '@emotion/styled'
-import { grey070, grey080 } from '../../lib/styles/colors'
-import AddWatchlistComponent from './StockTopRightButton'
+import { grey080 } from '../../lib/styles/colors'
 import AVStock from '../../lib/models/av_stock'
 import { SignIcon } from './SignIcon'
+import AddWatchlistComponent from './AddWatchlistComponent'
 
 type Props = {
   avStock: AVStock
@@ -19,7 +19,6 @@ export default function StockInfo({ avStock }: Props) {
             <>
               <Price>{avStock.latest}</Price>
               <LastItem>
-                <Top>{avStock.volume}</Top>
                 <Bottom>
                   <IconWrapper>
                     <SignIcon sign={avStock.sign} />
@@ -44,7 +43,7 @@ const Wrapper = styled.div`
   display: flex;
   justify-content: space-between;
   align-items: center;
-  margin-bottom: 20px;
+  margin-bottom: 10px;
 `
 
 const Inner = styled.div`
@@ -68,8 +67,8 @@ const TitleWrapper = styled.div`
 const Ticker = styled.div`
   font-family: Roboto;
   font-weight: bold;
-  font-size: 26px;
-  line-height: 30px;
+  font-size: 36px;
+  line-height: 42px;
 
   color: ${grey080};
 `
@@ -77,8 +76,8 @@ const Ticker = styled.div`
 const Price = styled.div`
   font-family: Roboto;
   font-weight: 500;
-  font-size: 24px;
-  line-height: 30px;
+  font-size: 34px;
+  line-height: 40px;
   margin-left: 5px;
 
   color: ${grey080};
@@ -102,17 +101,19 @@ const LastItem = styled.div`
   display: flex;
   flex-direction: column;
   align-items: flex-end;
+  justify-content: flex-end;
+  margin-bottom: 6px;
 `
 
-const Top = styled.div`
-  font-family: Roboto;
-  font-style: normal;
-  font-weight: normal;
-  font-size: 10px;
-  line-height: 12px;
+// const Top = styled.div`
+//   font-family: Roboto;
+//   font-style: normal;
+//   font-weight: normal;
+//   font-size: 10px;
+//   line-height: 12px;
 
-  color: ${grey070};
-`
+//   color: ${grey070};
+// `
 
 const Bottom = styled.div`
   display: flex;

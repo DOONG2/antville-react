@@ -18,6 +18,10 @@ import 'quill-mention'
 import 'quill-mention/dist/quill.mention.css'
 import 'react-quill/dist/quill.snow.css'
 
+export const AvatarImage = styled.img`
+  object-fit: cover;
+`
+
 export const Image = styled.img`
   height: 270px;
   margin: 15px auto;
@@ -25,6 +29,7 @@ export const Image = styled.img`
 
   border: 1px solid ${grey030};
   border-radius: 8px;
+  object-fit: cover;
 `
 
 export const Form = styled.form`
@@ -223,10 +228,13 @@ export const CustomQuill = styled(ReactQuill)`
   }
 
   .ql-editor {
-    padding: 0 15px;
+    padding: 0 0;
   }
   .ql-blank {
     color: ${grey050};
+    ::before {
+      left: 0;
+    }
   }
 
   span.mention {
