@@ -28,12 +28,14 @@ export default function ImageComponent({ url }: Props) {
           <DetailImage src={url} alt={`feed-image-detail`} />
         </ImageWrapper>
       </Modal>
-      <CloseButtonWrapper
-        shown={isOpenImageModal}
-        onClick={() => setIsOpenImageModal(false)}
-      >
-        <ImageDetailCloseIcon />
-      </CloseButtonWrapper>
+      {isOpenImageModal && (
+        <CloseButtonWrapper
+          shown={isOpenImageModal}
+          onClick={() => setIsOpenImageModal(false)}
+        >
+          <ImageDetailCloseIcon />
+        </CloseButtonWrapper>
+      )}
     </>
   )
 }
