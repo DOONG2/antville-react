@@ -4,6 +4,7 @@ import { useDispatch } from 'react-redux'
 import * as Yup from 'yup'
 import userEditSlice from '../../../../reducers/Slices/userEdit'
 import useNicknameValidation from '../../../auth/AuthSignUpForm/hooks/useNicknameValidation'
+import useUploadFileValidation from './useUploadFileValidation'
 import useEditProfile from './useEditProfile'
 
 type Props = {
@@ -24,6 +25,8 @@ export default function useUserEditFormik({
     setNicknameErrorHandler,
     validateNickname,
   } = useNicknameValidation()
+  const { validateUloadFile, uploadFileError, isUploadFileValid } =
+    useUploadFileValidation()
 
   const onChangeNickanme = useCallback((e: React.ChangeEvent<any>) => {
     const value = e.target.value
@@ -34,8 +37,12 @@ export default function useUserEditFormik({
 
   const onChangeUpload = useCallback(
     (e: React.ChangeEvent<HTMLInputElement>) => {
-      let file = e.currentTarget.files?.[0]
-      if (!file) return
+      let file = e.currentTarget?.files?.[0]
+      if (!validateUloadFile(file)) {
+        setAvatar(undefined)
+        dispatch(setUploadFileUrl(undefined))
+        return
+      }
       formik.handleChange(e)
       setAvatar(file)
       dispatch(setUploadFileUrl(URL.createObjectURL(file)))
@@ -80,6 +87,8 @@ export default function useUserEditFormik({
     ...formik,
     nicknameError,
     isNicknameValid,
+    uploadFileError,
+    isUploadFileValid,
     onChangeNickanme,
     onChangeUpload,
   }

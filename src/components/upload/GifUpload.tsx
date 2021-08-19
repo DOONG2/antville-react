@@ -6,7 +6,7 @@ import GifUploadButton from '../../static/svg/GifUploadButton'
 import { useRootState } from '../common/hooks/useRootState'
 import viewSlice from '../../reducers/Slices/view'
 import GifForm from './GifForm'
-import Modal from '../common/Modal'
+import Modal from '../common/FormModal'
 import useGetTenorCategories from './hooks/useGetTenorCategories'
 import formSlice from '../../reducers/Slices/form'
 

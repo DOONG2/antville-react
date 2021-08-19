@@ -3,7 +3,7 @@ import { useInfiniteQuery } from 'react-query'
 import { useDispatch } from 'react-redux'
 import { useInfiniteScroll } from '../../../components/common/hooks/useInfiniteScroll'
 import { NoticeObject } from '../../../lib/api/notice/types'
-import { cacheStableTime } from '../../../lib/variable'
+import { cacheStableTime, notificationLimit } from '../../../lib/variable'
 import notificationSlice from '../../../reducers/Slices/notification'
 import { useRootState } from '../../common/hooks/useRootState'
 
@@ -20,7 +20,9 @@ export default function useInfiniteNotices({ key, callback, ref }: Props) {
   const { isLoading, data, error, isFetching, fetchNextPage, hasNextPage } =
     useInfiniteQuery([key], ({ pageParam: cursor }) => callback(cursor), {
       staleTime: cacheStableTime,
-      getNextPageParam: (lastPage) => lastPage[lastPage.length - 1]?.id,
+      getNextPageParam: (lastPage) =>
+        lastPage.length === notificationLimit &&
+        lastPage[lastPage.length - 1]?.id,
       select: (data) => ({
         pages: data.pages.flat(),
         pageParams: data.pageParams,

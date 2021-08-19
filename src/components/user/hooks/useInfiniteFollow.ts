@@ -1,7 +1,7 @@
 import { RefObject, useEffect, useState } from 'react'
 import { useInfiniteQuery } from 'react-query'
 import { useInfiniteScroll } from '../../common/hooks/useInfiniteScroll'
-import { cacheStableTime } from '../../../lib/variable'
+import { cacheStableTime, userFollowListLimit } from '../../../lib/variable'
 import { User } from '../../../lib/api/types'
 
 export interface Props {
@@ -15,7 +15,9 @@ export default function useInfiniteFollow({ key, callback, ref }: Props) {
   const { isLoading, data, error, isFetching, fetchNextPage, hasNextPage } =
     useInfiniteQuery(key, ({ pageParam: cursor }) => callback(cursor), {
       staleTime: cacheStableTime,
-      getNextPageParam: (lastPage) => lastPage[lastPage.length - 1]?.id,
+      getNextPageParam: (lastPage) =>
+        lastPage.length === userFollowListLimit &&
+        lastPage[lastPage.length - 1]?.id,
     })
   useEffect(() => {
     if (data) {

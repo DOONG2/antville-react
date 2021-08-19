@@ -5,17 +5,17 @@ import {
   FeedAvatar,
   FeedWrapper,
   LeftItem,
-  GifImage,
   MiddleWrapper,
   NickNameWrapper,
   PostTime,
   TopWrapper,
 } from '../../lib/styles/feed'
-import { Image } from '../../lib/styles/post'
+import { AvatarImage } from '../../lib/styles/post'
 import FeedBody from '../feed/FeedBody'
 import MomentDateChange from '../common/MomentDateChange'
 import SubCommentSection from './SubCommentSection'
 import UserIcon50 from '../../static/svg/UserIcon50'
+import ImageComponent from '../feed/ImageComponent'
 
 interface Props {
   comments: CommentObject[]
@@ -37,7 +37,10 @@ export default function CommentSection({ comments, loading }: Props) {
                 }
               >
                 {comment.author.profileImg ? (
-                  <img src={comment.author.profileImg} alt="profile_image" />
+                  <AvatarImage
+                    src={comment.author.profileImg}
+                    alt="profile_image"
+                  />
                 ) : (
                   <UserIcon50 />
                 )}
@@ -57,16 +60,10 @@ export default function CommentSection({ comments, loading }: Props) {
           <MiddleWrapper>
             <FeedBody body={comment.body} isDetail={true} />
             {comment.commentImgs[0] && (
-              <Image
-                src={comment.commentImgs[0].image.toString()}
-                alt={`${comment.id}-comment-image`}
-              />
+              <ImageComponent url={comment.commentImgs[0].image.toString()} />
             )}
             {comment.gifImage?.gifUrl && (
-              <GifImage
-                src={comment.gifImage.gifUrl}
-                alt={`${comment.id}-comment-gif-image`}
-              />
+              <ImageComponent url={comment.gifImage.gifUrl} isGif={true} />
             )}
           </MiddleWrapper>
           <SubCommentSection comment={comment} />

@@ -1,7 +1,7 @@
 import { useEffect, useState } from 'react'
 import { useInfiniteQuery } from 'react-query'
 import { useInfiniteScroll } from '../../../components/common/hooks/useInfiniteScroll'
-import { cacheStableTime } from '../../../lib/variable'
+import { cacheStableTime, commentsLimit } from '../../../lib/variable'
 import { CommentObject } from '../../../lib/api/comment/types'
 
 export interface Props {
@@ -14,7 +14,8 @@ export default function useInfiniteComment({ key, callback }: Props) {
   const { isLoading, data, error, isFetching, fetchNextPage, hasNextPage } =
     useInfiniteQuery(key, ({ pageParam: cursor }) => callback(cursor), {
       staleTime: cacheStableTime,
-      getNextPageParam: (lastPage) => lastPage[lastPage.length - 1]?.id,
+      getNextPageParam: (lastPage) =>
+        lastPage.length === commentsLimit && lastPage[lastPage.length - 1]?.id,
     })
   useEffect(() => {
     if (data) {
