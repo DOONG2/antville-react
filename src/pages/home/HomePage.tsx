@@ -5,6 +5,7 @@ import FollowingFeedPage from './HomeFollowingFeedPage'
 import WatchlistFeedPage from './HomeWatchlistFeedPage'
 import { Route } from 'react-router-dom'
 import { useRootState } from '../../components/common/hooks/useRootState'
+import HomeRecomendFeedPage from './HomeRecomendFeedPage'
 
 function HomePage() {
   const user = useRootState((state) => state.user)
@@ -16,8 +17,8 @@ function HomePage() {
       children={
         <>
           <Route
-            path={['/', '/all']}
-            render={() => <AllFeedPage id={user.id} />}
+            path={['/', '/recomend']}
+            render={() => <HomeRecomendFeedPage id={user.id} />}
             exact
           />
           <Route
@@ -27,6 +28,11 @@ function HomePage() {
           <Route
             path={['/following']}
             render={() => <FollowingFeedPage id={user.id} />}
+          />
+          <Route
+            path={['/all']}
+            render={() => <AllFeedPage id={user.id} />}
+            exact
           />
         </>
       }

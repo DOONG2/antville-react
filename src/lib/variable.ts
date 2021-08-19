@@ -8,6 +8,7 @@ export const userFollowListLimit = 7
 export const activated_watchlist = 'watchlist'
 export const activated_following = 'following'
 export const activated_all = 'all'
+export const activated_recommend = 'recommend'
 export const activated_user = 'user'
 export const activated_user_like = 'user_like'
 
