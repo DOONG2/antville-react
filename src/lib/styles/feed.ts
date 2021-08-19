@@ -9,6 +9,8 @@ export const GifImage = styled.img`
 
   border: 1px solid ${grey030};
   border-radius: 8px;
+
+  cursor: pointer;
 `
 
 export const FeedWrapper = styled.div`

@@ -5,7 +5,6 @@ import {
   FeedAvatar,
   FeedWrapper,
   LeftItem,
-  GifImage,
   MiddleWrapper,
   NickNameWrapper,
   PostTime,
@@ -64,10 +63,7 @@ export default function CommentSection({ comments, loading }: Props) {
               <ImageComponent url={comment.commentImgs[0].image.toString()} />
             )}
             {comment.gifImage?.gifUrl && (
-              <GifImage
-                src={comment.gifImage.gifUrl}
-                alt={`${comment.id}-comment-gif-image`}
-              />
+              <ImageComponent url={comment.gifImage.gifUrl} isGif={true} />
             )}
           </MiddleWrapper>
           <SubCommentSection comment={comment} />

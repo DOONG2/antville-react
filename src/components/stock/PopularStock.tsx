@@ -19,11 +19,11 @@ function PopularStock() {
           <Label>실시간 인기 종목</Label>
           <IconWrapper
             onClick={() => {
-              userOptionStorage.setIsPause(!isPause)
               setIsPause(!isPause)
+              userOptionStorage.setIsPause(!isPause)
             }}
           >
-            {isPause ? <NewPauseIcon /> : <PlayIcon />}
+            {isPause ? <PlayIcon /> : <NewPauseIcon />}
           </IconWrapper>
         </LabelWrapper>
 
@@ -85,7 +85,7 @@ const Label = styled.div`
 `
 
 const LabelWrapper = styled.div<{ isPause: boolean }>`
-  margin-right: ${(p) => (p.isPause ? '30px' : '15px')};
+  margin-right: ${(p) => (p.isPause ? '15px' : '30px')};
   display: flex;
   column-gap: 9px;
   align-items: center;
@@ -105,7 +105,7 @@ const Inner = styled.div<{ isPause: boolean }>`
   display: flex;
 
   ${(p) =>
-    p.isPause &&
+    !p.isPause &&
     `transition: transform 30s linear 0s, -webkit-transform 30s linear 0s;
   animation: 30s linear 0s infinite normal none running slidein;
 
@@ -125,7 +125,7 @@ const Inner = styled.div<{ isPause: boolean }>`
 `
 
 const RightSpan = styled.div<{ isPause: boolean }>`
-  display: ${(p) => (p.isPause ? '' : 'none')};
+  display: ${(p) => (p.isPause ? 'none' : '')};
   position: absolute;
   height: 100%;
   z-index: 2;

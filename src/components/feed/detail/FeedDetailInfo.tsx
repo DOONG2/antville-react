@@ -14,7 +14,6 @@ import {
   FeedText,
   FeedTitle,
   FeedWrapper,
-  GifImage,
   IconWrapper,
   LeftItem,
   MiddleWrapper,
@@ -23,7 +22,6 @@ import {
   TitleIconWrapper,
   TopWrapper,
 } from '../../../lib/styles/feed'
-import { Image } from '../../../lib/styles/post'
 import FeedBody from '../FeedBody'
 import FeedOption from '../FeedOption'
 import LikeComponent from '../LikeComponent'
@@ -31,6 +29,7 @@ import MomentDateChange from '../../common/MomentDateChange'
 import FeedHistoryComponent from './FeedHistoryComponent'
 import UserIcon50 from '../../../static/svg/UserIcon50'
 import PostStock from '../../../lib/models/post_stock'
+import ImageComponent from '../ImageComponent'
 
 type FeedDetailInfoProps = {
   post: Post
@@ -90,16 +89,10 @@ export default function FeedDetailInfo({
           <NewMiddleWrapper>
             <FeedBody body={post.body} isDetail={true} />
             {post.postImgs[0] && (
-              <Image
-                src={post.postImgs[0].image.toString()}
-                alt={`${post.id}-feed-image`}
-              />
+              <ImageComponent url={post.postImgs[0].image.toString()} />
             )}
             {post.gifImage?.gifUrl && (
-              <GifImage
-                src={post.gifImage.gifUrl}
-                alt={`${post.id}-gif-image`}
-              />
+              <ImageComponent url={post.gifImage.gifUrl} isGif={true} />
             )}
           </NewMiddleWrapper>
           <SubWrapper>

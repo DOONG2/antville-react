@@ -14,7 +14,6 @@ import {
   BottomWrapper,
   Count,
   FeedAvatar,
-  GifImage,
   LeftItem,
   MiddleWrapper,
   NickNameWrapper,
@@ -143,10 +142,7 @@ export default function SubCommentSection({ comment }: Props) {
                 <ImageComponent url={comment.commentImgs[0].image.toString()} />
               )}
               {comment.gifImage?.gifUrl && (
-                <GifImage
-                  src={comment.gifImage.gifUrl}
-                  alt={`${comment.id}-comment-gif-image`}
-                />
+                <ImageComponent url={comment.gifImage.gifUrl} isGif={true} />
               )}
             </NewMiddleWrapper>
             <NewBottomWrapper>

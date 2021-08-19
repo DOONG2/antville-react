@@ -1,23 +1,35 @@
 import styled from '@emotion/styled'
 import { useState } from 'react'
+import { GifImage } from '../../lib/styles/feed'
 import { Image } from '../../lib/styles/post'
 import ImageDetailCloseIcon from '../../static/svg/ImageDetailCloseIcon'
 import Modal from '../common/Modal'
 
 type Props = {
   url: string
+  isGif?: boolean
 }
-export default function ImageComponent({ url }: Props) {
+export default function ImageComponent({ url, isGif }: Props) {
   const [isOpenImageModal, setIsOpenImageModal] = useState(false)
 
   return (
     <>
-      <Image
-        onClick={() => setIsOpenImageModal(true)}
-        src={url}
-        alt={`feed-image`}
-        style={{ objectFit: 'cover' }}
-      />
+      {isGif ? (
+        <GifImage
+          onClick={() => setIsOpenImageModal(true)}
+          src={url}
+          alt={`feed-gif`}
+          style={{ objectFit: 'cover' }}
+        />
+      ) : (
+        <Image
+          onClick={() => setIsOpenImageModal(true)}
+          src={url}
+          alt={`feed-image`}
+          style={{ objectFit: 'cover' }}
+        />
+      )}
+
       <Modal
         shown={isOpenImageModal}
         close={() => {
@@ -51,6 +63,7 @@ const CloseButtonWrapper = styled.div<{ shown: boolean }>`
 
 const ImageWrapper = styled.div`
   border-radius: 2%;
+  overflow: hidden;
 `
 
 const DetailImage = styled.img`

@@ -10,7 +10,6 @@ import {
   Count,
   FeedAvatar,
   FeedWrapper,
-  GifImage,
   IconWrapper,
   LeftItem,
   MiddleWrapper,
@@ -81,10 +80,7 @@ const FeedSection = ({ posts, loading, emptyComponent, sectionKey }: Props) => {
               <ImageComponent url={post.postImgs[0].image.toString()} />
             )}
             {post.gifImage?.gifUrl && (
-              <GifImage
-                src={post.gifImage.gifUrl}
-                alt={`${post.id}-gif-image`}
-              />
+              <ImageComponent url={post.gifImage.gifUrl} isGif={true} />
             )}
           </MiddleWrapper>
           <BottomWrapper>
