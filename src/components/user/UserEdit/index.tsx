@@ -152,7 +152,8 @@ export default function UserEdit({ user }: Props) {
                 disabled={
                   !(dirty && isValid) ||
                   isSubmitting ||
-                  !isUploadFileValid ||
+                  (!isUploadFileValid &&
+                    values.editFile !== initialValues.editFile) ||
                   (!isNicknameValid &&
                     values.editNickname !== initialValues.editNickname)
                 }

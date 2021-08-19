@@ -1,5 +1,5 @@
 import debounce from 'lodash.debounce'
-import { useCallback, useState } from 'react'
+import { useCallback, useEffect, useState } from 'react'
 import { useDispatch } from 'react-redux'
 import deleteWatchlist from '../../../lib/api/stock/deleteWatchlist'
 import putAddWatchlist from '../../../lib/api/stock/putAddWatchlist'
@@ -8,7 +8,11 @@ import stockSlice from '../../../reducers/Slices/stock'
 import { selectIsWatchlist } from '../../../selectors/stockSelectors'
 import { useRootState } from '../../common/hooks/useRootState'
 
-export function useStockInfo(avStock: AVStock) {
+type Props = {
+  avStock: AVStock
+}
+
+export function useStockInfo({ avStock }: Props) {
   const initialWatching = useRootState((state) =>
     selectIsWatchlist(state, avStock.stock.symbol)
   )
@@ -20,10 +24,14 @@ export function useStockInfo(avStock: AVStock) {
   const { addWatchlist, deleteOneWatchlist, addOrReplaceStockPrice } =
     stockSlice.actions
 
+  useEffect(() => {
+    setIsWatchlist(initialWatching)
+  }, [initialWatching])
+
   const dispatch = useDispatch()
 
   const clickAddWatchlistButton = () => {
-    const captureValue = isWatchlist
+    const capturedValue = isWatchlist
     if (isWatchlist) {
       setIsWatchlist(false)
       if (watchUserCount > 0) {
@@ -33,7 +41,7 @@ export function useStockInfo(avStock: AVStock) {
       setIsWatchlist(true)
       setWatchUserCount(watchUserCount + 1)
     }
-    debounceApiCallback(captureValue)
+    debounceApiCallback(capturedValue)
   }
   const debounceApiCallback = useCallback(
     debounce((isWatch: boolean) => {
@@ -43,7 +51,7 @@ export function useStockInfo(avStock: AVStock) {
         addWatchListApi()
       }
     }, 300),
-    []
+    [avStock.id]
   )
 
   const addWatchListApi = async () => {

@@ -10,8 +10,9 @@ type Props = {
 }
 
 export default function AddWatchlistComponent({ avStock }: Props) {
-  const { isWatchlist, watchUserCount, clickAddWatchlistButton } =
-    useStockInfo(avStock)
+  const { isWatchlist, watchUserCount, clickAddWatchlistButton } = useStockInfo(
+    { avStock }
+  )
 
   return (
     <Wrapper>

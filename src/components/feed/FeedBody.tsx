@@ -1,8 +1,6 @@
 import styled from '@emotion/styled'
 import { useState } from 'react'
 import { grey050 } from '../../lib/styles/colors'
-import Autolinker from 'autolinker'
-import parse from 'html-react-parser'
 import useMentionToUrl from './hooks/useMentionToUrl'
 
 interface Props {
@@ -12,7 +10,6 @@ interface Props {
 
 export default function FeedBody({ body, isDetail }: Props) {
   const [isExtended, setIsExtended] = useState<boolean>(body.length > 300)
-  const autolinker = new Autolinker()
 
   const { mentionToUrl } = useMentionToUrl()
 
@@ -25,7 +22,7 @@ export default function FeedBody({ body, isDetail }: Props) {
             .split('\n')
             .map((line, index) => (
               <div key={`${index}-feed-body`}>
-                {parse(mentionToUrl(autolinker.link(line)))}
+                {mentionToUrl(line)}
                 <br />
               </div>
             ))}
@@ -37,7 +34,7 @@ export default function FeedBody({ body, isDetail }: Props) {
       ) : (
         body.split('\n').map((line, index) => (
           <div key={`${index}-feed-body-all`}>
-            {parse(mentionToUrl(autolinker.link(line)))}
+            {mentionToUrl(line)}
             <br />
           </div>
         ))
