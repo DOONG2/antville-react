@@ -1,6 +1,7 @@
 import styled from '@emotion/styled'
 import React, { useState } from 'react'
 import userOptionStorage from '../../lib/optionStorage'
+import { popularStockCountLimit } from '../../lib/variable'
 import PauseIcon from '../../static/svg/PauseIcon'
 import PlayIcon from '../../static/svg/PlayIcon'
 import useStockPopularQuery from './hooks/useStockPopularQuery'
@@ -11,6 +12,8 @@ function PopularStock() {
   const [isPause, setIsPause] = useState<boolean>(
     userOptionStorage.getIsPause()
   )
+
+  if (!stocks) return <></>
 
   return (
     <Wrapper>
@@ -32,19 +35,22 @@ function PopularStock() {
         ) : (
           <Group>
             <LeftSpan isPause={isPause} />
-            <Inner isPause={isPause}>
-              {stocks?.map((stock) => (
-                <PopularStockGroup
-                  key={`${stock.id}-stock-bar-popular`}
-                  stock={stock}
-                />
-              ))}
-              {stocks?.map((stock) => (
-                <PopularStockGroup
-                  key={`${stock.id}-stock-bar-popular2`}
-                  stock={stock}
-                />
-              ))}
+            <Inner isPause={isPause} length={stocks.length}>
+              {stocks.length >= popularStockCountLimit
+                ? [...stocks, ...stocks].map((stock) => (
+                    <PopularStockGroup
+                      key={`${stock.id}-stock-bar-popular`}
+                      stock={stock}
+                    />
+                  ))
+                : [...stocks, ...stocks, ...stocks, ...stocks].map(
+                    (stock, idx) => (
+                      <PopularStockGroup
+                        key={`${stock.id}-stock-bar-popular-${idx}`}
+                        stock={stock}
+                      />
+                    )
+                  )}
             </Inner>
             <RightSpan isPause={isPause} />
           </Group>
@@ -99,15 +105,17 @@ const Group = styled.div`
   overflow: hidden;
 `
 
-const Inner = styled.div<{ isPause: boolean }>`
+const Inner = styled.div<{ isPause: boolean; length: number }>`
   position: relative;
   z-index: 1;
   display: flex;
 
   ${(p) =>
     !p.isPause &&
-    `transition: transform 30s linear 0s, -webkit-transform 30s linear 0s;
-  animation: 30s linear 0s infinite normal none running slidein;
+    `transition: transform ${p.length * 6}s linear 0s, -webkit-transform ${
+      p.length * 6
+    }s linear 0s;
+  animation: ${p.length * 6}s linear 0s infinite normal none running slidein;
 
   
   @keyframes slidein {
