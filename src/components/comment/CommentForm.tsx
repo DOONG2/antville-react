@@ -24,13 +24,13 @@ import { GifDto } from '../../types/post'
 import useCommentData from './hooks/useCommentData'
 import { useParams } from 'react-router-dom'
 import PreviewImage from '../post/PreviewImage'
-import { CommentObject } from '../../lib/api/comment/types'
+import { Comment } from '../../lib/api/comment/types'
 import commentSlice from '../../reducers/Slices/comment'
 import CommentEditor from './CommentEditor'
 
 interface Props {
   parentCommentId?: string
-  addComment?: (value?: CommentObject) => void
+  addComment?: (value?: Comment) => void
   inputRef?: RefObject<any>
 }
 
@@ -49,10 +49,10 @@ function CommentForm({ parentCommentId, addComment, inputRef }: Props) {
 
   const dispatch = useDispatch()
 
-  const { postDataApi } = useCommentData({ addComment })
+  const { postDataApi } = useCommentData()
 
   useEffect(() => {
-    if (previewUrl !== null) dispatch(setIsFocusInput(true))
+    if (previewUrl !== undefined) dispatch(setIsFocusInput(true))
   }, [previewUrl])
 
   return (

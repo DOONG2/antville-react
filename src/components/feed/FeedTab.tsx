@@ -9,32 +9,32 @@ import {
 } from '../../lib/variable'
 
 export default function FeedTab() {
-  const pathanme = useGetRoutePath()
+  const pathname = useGetRoutePath()
   const history = useHistory()
 
   return (
     <>
       <FeedTabWraaper>
         <TabItem
-          isClicked={pathanme === activated_recommend}
+          isClicked={pathname === activated_recommend}
           onClick={() => history.push('/')}
         >
           추천
         </TabItem>
         <TabItem
-          isClicked={pathanme === activated_following}
+          isClicked={pathname === activated_following}
           onClick={() => history.push('/following')}
         >
           팔로잉
         </TabItem>
         <TabItem
-          isClicked={pathanme === activated_watchlist}
+          isClicked={pathname === activated_watchlist}
           onClick={() => history.push('/watchlist')}
         >
           관심종목
         </TabItem>
         <TabItem
-          isClicked={pathanme === activated_all}
+          isClicked={pathname === activated_all}
           onClick={() => history.push('/all')}
         >
           전체

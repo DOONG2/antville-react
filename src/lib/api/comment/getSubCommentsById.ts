@@ -2,7 +2,7 @@ import { subCommentsLimit } from '../../variable'
 import client from '../client'
 import { getCommentsByIdResponse } from './types'
 
-export default async function getSubCommentsById(id: number, cursor?: string) {
+export default async function getSubCommentsById(id: number, cursor?: number) {
   const response = await client.get<getCommentsByIdResponse>(
     `/comment/${id}/second`,
     {

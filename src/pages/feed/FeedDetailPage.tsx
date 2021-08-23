@@ -8,7 +8,7 @@ import { useRef } from 'react'
 
 export default function FeedDetailPage({ id, post }: FeedPageProps) {
   const { isLoading, comments, setComments } = useInfiniteComment({
-    key: `feed-detail-${id}`,
+    key: ['comment', id],
     callback: (cursor) => getCommentsById(id, cursor),
   })
   const inputRef = useRef<any>(null)

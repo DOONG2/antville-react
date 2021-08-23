@@ -1,8 +1,8 @@
 import client from '../client'
-import { CommentObject } from './types'
+import { Comment } from './types'
 
 export default async function postFormData(formData: FormData) {
-  const response = await client.post<CommentObject>('/comment/create', formData)
+  const response = await client.post<Comment>('/comment/create', formData)
 
   return response.data
 }

@@ -1,5 +1,5 @@
 import styled from '@emotion/styled'
-import React, { RefObject } from 'react'
+import React, { RefObject, useState } from 'react'
 import { useHistory } from 'react-router'
 import LeftArrow from '../../../static/svg/LeftArrow'
 import StockDownIcon from '../../../static/svg/StockDownIcon'
@@ -41,6 +41,8 @@ export default function FeedDetailInfo({
   inputRef,
 }: FeedDetailInfoProps) {
   const history = useHistory()
+  const [isLiked, setIsLiked] = useState(post.isLikedSelf)
+  const [count, setCount] = useState(post.postCount.likeCount)
 
   return (
     <Wrapper>
@@ -105,11 +107,18 @@ export default function FeedDetailInfo({
             )}
           </SubWrapper>
           <NewBottomWrapper>
-            <BottomItem>
+            <BottomItem
+              onClick={() => {
+                if (isLiked) setCount(count - 1)
+                else setCount(count + 1)
+                setIsLiked(!isLiked)
+              }}
+            >
               <LikeComponent
-                count={post.postCount.likeCount}
-                isLiked={post.isLikedSelf}
-                postId={post.id}
+                count={count}
+                isLiked={isLiked}
+                id={post.id}
+                isPost={true}
               />
             </BottomItem>
             <BottomItem onClick={() => inputRef?.current.focus()}>

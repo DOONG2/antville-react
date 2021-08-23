@@ -26,3 +26,5 @@ export const GOOGLE_PLAYSTORE_LINK =
   'https://play.google.com/store/apps/details?id=com.antville'
 
 export const APPLE_STORE_LINK = 'https://apps.apple.com/app/id1564378681?l=ko'
+
+export const popularStockCountLimit = 9

@@ -1,4 +1,4 @@
-import React, { RefObject, useEffect, useMemo } from 'react'
+import React, { RefObject, useMemo } from 'react'
 import debounce from 'lodash.debounce'
 import postSearchStock from '../../lib/api/stock/postSearchStock'
 import getSearchUser from '../../lib/api/user/getSearchUser'
@@ -89,10 +89,6 @@ export default function SubCommentEditor({
         ),
       },
     }
-  }, [])
-
-  useEffect(() => {
-    inputRef?.current.focus()
   }, [])
 
   return (

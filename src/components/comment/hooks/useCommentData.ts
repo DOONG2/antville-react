@@ -1,5 +1,4 @@
 import { useState } from 'react'
-import { CommentObject } from '../../../lib/api/comment/types'
 import postFormData from '../../../lib/api/comment/postFormData'
 import { gifDto } from '../../../lib/api/post/types'
 
@@ -11,11 +10,7 @@ interface ApiProps {
   parentCommentId?: string
 }
 
-interface Props {
-  addComment?: (value?: CommentObject) => void
-}
-
-export default function useCommentData({ addComment }: Props) {
+export default function useCommentData() {
   const [isLoaded, setIsLoaded] = useState<boolean>(false)
 
   const postDataApi = async ({
@@ -41,8 +36,7 @@ export default function useCommentData({ addComment }: Props) {
       if (gifDto) formData.append('gif', JSON.stringify(gifDto))
       if (uploadImage) formData.append('comments', uploadImage)
       if (parentCommentId) formData.append('parentCommentId', parentCommentId)
-      const result = await postFormData(formData)
-      if (addComment) addComment(result)
+      await postFormData(formData) // add: result mutation
       setIsLoaded(true)
     } catch (error) {
       console.log(error)

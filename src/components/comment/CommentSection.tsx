@@ -1,6 +1,6 @@
 import styled from '@emotion/styled'
 import { useHistory } from 'react-router'
-import { CommentObject } from '../../lib/api/comment/types'
+import { Comment } from '../../lib/api/comment/types'
 import {
   FeedAvatar,
   FeedWrapper,
@@ -13,17 +13,19 @@ import {
 import { AvatarImage } from '../../lib/styles/post'
 import FeedBody from '../feed/FeedBody'
 import MomentDateChange from '../common/MomentDateChange'
-import SubCommentSection from './SubCommentSection'
 import UserIcon50 from '../../static/svg/UserIcon50'
 import ImageComponent from '../feed/ImageComponent'
+import CommentBottom from './CommentBottom'
 
 interface Props {
-  comments: CommentObject[]
+  comments: Comment[]
   loading?: boolean
 }
 
 export default function CommentSection({ comments, loading }: Props) {
   const history = useHistory()
+
+  if (!comments) return <></>
 
   return (
     <>
@@ -66,7 +68,7 @@ export default function CommentSection({ comments, loading }: Props) {
               <ImageComponent url={comment.gifImage.gifUrl} isGif={true} />
             )}
           </MiddleWrapper>
-          <SubCommentSection comment={comment} />
+          <CommentBottom comment={comment} />
         </NewFeedWrapper>
       ))}
     </>

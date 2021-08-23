@@ -24,16 +24,15 @@ import { GifDto } from '../../types/post'
 import useCommentData from './hooks/useCommentData'
 import { useParams } from 'react-router-dom'
 import PreviewImage from '../post/PreviewImage'
-import { CommentObject } from '../../lib/api/comment/types'
+
 import SubCommentEditor from './SubCommentEditor'
 
 interface Props {
   parentCommentId?: string
-  addComment?: (value?: CommentObject) => void
   inputRef?: RefObject<any>
 }
 
-function SubCommentForm({ parentCommentId, addComment, inputRef }: Props) {
+function SubCommentForm({ parentCommentId, inputRef }: Props) {
   const user = useRootState((state) => state.user)
   const [isFocusInput, setIsFocusInput] = useState(false)
   const [body, setBody] = useState('')
@@ -47,10 +46,10 @@ function SubCommentForm({ parentCommentId, addComment, inputRef }: Props) {
 
   const dispatch = useDispatch()
 
-  const { postDataApi } = useCommentData({ addComment })
+  const { postDataApi } = useCommentData()
 
   useEffect(() => {
-    if (previewUrl) setIsFocusInput(true)
+    if (previewUrl !== undefined) setIsFocusInput(true)
   }, [previewUrl])
 
   return (

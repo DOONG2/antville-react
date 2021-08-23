@@ -72,11 +72,12 @@ const NewPauseIcon = styled(PauseIcon)`
 
 const Wrapper = styled.div`
   border-bottom: 0.5px solid #e0e0e0;
+  width: 100%;
 `
 
 const BarWrapper = styled.div`
   display: flex;
-  width: 144rem;
+  width: 100%;
   padding: 0 2.4rem;
   height: 5.6rem;
   margin: 0 auto;
@@ -101,6 +102,7 @@ const LabelWrapper = styled.div<{ isPause: boolean }>`
 const Group = styled.div`
   display: flex;
   position: relative;
+  margin-top: 2.5px;
 
   overflow: hidden;
 `

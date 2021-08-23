@@ -88,7 +88,8 @@ const FeedSection = ({ posts, loading, emptyComponent, sectionKey }: Props) => {
               <LikeComponent
                 count={post.postCount.likeCount}
                 isLiked={post.isLikedSelf}
-                postId={post.id}
+                id={post.id}
+                isPost={true}
               />
             </BottomItem>
             <BottomItem
