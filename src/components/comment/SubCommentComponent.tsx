@@ -62,10 +62,7 @@ export default function SubCommentComponent({
       <BottomWrapper>
         {isOpen && (
           <CommentFormWrapper isOpen={isOpen}>
-            <SubCommentForm
-              parentCommentId={comment.id.toString()}
-              inputRef={inputRef}
-            />
+            <SubCommentForm parentCommentId={comment.id} inputRef={inputRef} />
           </CommentFormWrapper>
         )}
       </BottomWrapper>

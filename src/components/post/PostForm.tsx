@@ -24,12 +24,13 @@ import {
   SubmitButton,
   UserIconWrapper,
 } from '../../lib/styles/post'
-import usePostData from './hooks/usePostData'
 import { GifDto } from '../../types/post'
 import { Post } from '../../lib/api/types'
 import PostEditor from './PostEditor'
 import postSlice from '../../reducers/Slices/post'
 import formSlice from '../../reducers/Slices/form'
+import usePostMutation from './hooks/usePostMutation'
+import postFormData from '../../lib/api/post/postFormData'
 
 interface Props {
   addPost?: (value?: Post) => void
@@ -51,26 +52,28 @@ const PostForm = ({ addPost }: Props) => {
 
   const dispatch = useDispatch()
 
-  const { postDataApi } = usePostData({ addPost })
+  const { mutation } = usePostMutation({
+    callback: (formData: FormData) => postFormData(formData),
+  })
 
   useEffect(() => {
-    if (previewUrl) dispatch(setIsFocusInput(true))
+    if (previewUrl !== undefined) dispatch(setIsFocusInput(true))
   }, [previewUrl])
 
+  const onSubmit = (e: React.FormEvent<HTMLFormElement>) => {
+    e.preventDefault()
+    mutation.mutate({ body, sentiment, gifDto, uploadImage })
+    setUploadImage(undefined)
+    dispatch(setIsFocusInput(false))
+    setGifDto(undefined)
+    dispatch(setBody(''))
+    dispatch(setPreviewUrl(undefined))
+    setIsOnUp(false)
+    setIsOnDown(false)
+  }
+
   return (
-    <Form
-      onSubmit={(e) => {
-        e.preventDefault()
-        postDataApi({ body, sentiment, gifDto, uploadImage })
-        setUploadImage(undefined)
-        dispatch(setIsFocusInput(false))
-        setGifDto(undefined)
-        dispatch(setBody(''))
-        dispatch(setPreviewUrl(undefined))
-        setIsOnUp(false)
-        setIsOnDown(false)
-      }}
-    >
+    <Form onSubmit={onSubmit}>
       <FormInner>
         <UserIconWrapper>
           <UserIcon />

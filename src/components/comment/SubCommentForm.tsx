@@ -21,14 +21,15 @@ import {
 } from '../../lib/styles/post'
 import styled from '@emotion/styled'
 import { GifDto } from '../../types/post'
-import useCommentData from './hooks/useCommentData'
 import { useParams } from 'react-router-dom'
 import PreviewImage from '../post/PreviewImage'
 
 import SubCommentEditor from './SubCommentEditor'
+import postCommentFormData from '../../lib/api/comment/postCommentFormData'
+import useCommentMutation from './hooks/useCommentMutation'
 
 interface Props {
-  parentCommentId?: string
+  parentCommentId?: number
   inputRef?: RefObject<any>
 }
 
@@ -46,24 +47,26 @@ function SubCommentForm({ parentCommentId, inputRef }: Props) {
 
   const dispatch = useDispatch()
 
-  const { postDataApi } = useCommentData()
+  const { mutation } = useCommentMutation({
+    callback: (formData: FormData) => postCommentFormData(formData),
+  })
 
   useEffect(() => {
     if (previewUrl !== undefined) setIsFocusInput(true)
   }, [previewUrl])
 
+  const onSubmit = (e: React.FormEvent<HTMLFormElement>) => {
+    e.preventDefault()
+    mutation.mutate({ body, postId, gifDto, uploadImage, parentCommentId })
+    setUploadImage(undefined)
+    setIsFocusInput(false)
+    setGifDto(undefined)
+    setBody('')
+    setPreviewUrl(undefined)
+  }
+
   return (
-    <Form
-      onSubmit={(e) => {
-        e.preventDefault()
-        postDataApi({ body, gifDto, uploadImage, postId, parentCommentId })
-        setUploadImage(undefined)
-        setIsFocusInput(false)
-        setGifDto(undefined)
-        setBody('')
-        setPreviewUrl(undefined)
-      }}
-    >
+    <Form onSubmit={onSubmit}>
       <FormInner>
         <UserIconWrapper>
           <UserIcon />

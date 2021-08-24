@@ -21,20 +21,19 @@ import {
 } from '../../lib/styles/post'
 import styled from '@emotion/styled'
 import { GifDto } from '../../types/post'
-import useCommentData from './hooks/useCommentData'
 import { useParams } from 'react-router-dom'
 import PreviewImage from '../post/PreviewImage'
-import { Comment } from '../../lib/api/comment/types'
 import commentSlice from '../../reducers/Slices/comment'
 import CommentEditor from './CommentEditor'
+import useCommentMutation from './hooks/useCommentMutation'
+import postCommentFormData from '../../lib/api/comment/postCommentFormData'
 
 interface Props {
-  parentCommentId?: string
-  addComment?: (value?: Comment) => void
+  parentCommentId?: number
   inputRef?: RefObject<any>
 }
 
-function CommentForm({ parentCommentId, addComment, inputRef }: Props) {
+function CommentForm({ parentCommentId, inputRef }: Props) {
   const user = useRootState((state) => state.comment)
   const { isFocusInput, body, bodyLength } = useRootState(
     (state) => state.comment
@@ -49,24 +48,26 @@ function CommentForm({ parentCommentId, addComment, inputRef }: Props) {
 
   const dispatch = useDispatch()
 
-  const { postDataApi } = useCommentData()
+  const { mutation } = useCommentMutation({
+    callback: (formData: FormData) => postCommentFormData(formData),
+  })
 
   useEffect(() => {
     if (previewUrl !== undefined) dispatch(setIsFocusInput(true))
   }, [previewUrl])
 
+  const onSubmit = (e: React.FormEvent<HTMLFormElement>) => {
+    e.preventDefault()
+    mutation.mutate({ body, postId, gifDto, uploadImage, parentCommentId })
+    setUploadImage(undefined)
+    dispatch(setIsFocusInput(false))
+    setGifDto(undefined)
+    dispatch(setBody(''))
+    setPreviewUrl(undefined)
+  }
+
   return (
-    <Form
-      onSubmit={(e) => {
-        e.preventDefault()
-        postDataApi({ body, gifDto, uploadImage, postId, parentCommentId })
-        setUploadImage(undefined)
-        dispatch(setIsFocusInput(false))
-        setGifDto(undefined)
-        dispatch(setBody(''))
-        setPreviewUrl(undefined)
-      }}
-    >
+    <Form onSubmit={onSubmit}>
       <FormInner>
         <UserIconWrapper>
           <UserIcon />
