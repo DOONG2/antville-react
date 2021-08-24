@@ -5,10 +5,11 @@ import FeedTab from '../../components/feed/FeedTab'
 import PostForm from '../../components/post/PostForm'
 import getPostsByUrl from '../../lib/api/post/getPostsByUrl'
 import { HomePageProps } from './type'
+import { post_query_key } from '../../lib/variable'
 
 function AllFeedPage({ id }: HomePageProps) {
   const { isLoading, posts, setPosts } = useInfinitePosts({
-    key: ['post', id, { page: 'all' }],
+    key: [post_query_key, id, { page: 'all' }],
     callback: (cursor) => getPostsByUrl('all', cursor),
   })
   if (!posts) return <></>

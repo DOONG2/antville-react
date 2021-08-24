@@ -1,9 +1,13 @@
 export const commentsLimit = 10
-export const subCommentsLimit = 10
+export const subCommentsLimit = 3
 export const postLimit = 15
 export const notificationLimit = 15
 export const cacheStableTime = 6 * 1000 * 5
 export const userFollowListLimit = 7
+
+export const post_query_key = 'post'
+export const comment_query_key = 'comment'
+export const sub_comment_query_key = 'subComment'
 
 export const activated_watchlist = 'watchlist'
 export const activated_following = 'following'

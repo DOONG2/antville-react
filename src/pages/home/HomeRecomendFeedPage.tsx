@@ -5,10 +5,11 @@ import FeedTab from '../../components/feed/FeedTab'
 import PostForm from '../../components/post/PostForm'
 import getPostsByUrl from '../../lib/api/post/getPostsByUrl'
 import { HomePageProps } from './type'
+import { post_query_key } from '../../lib/variable'
 
 function HomeRecomendFeedPage({ id }: HomePageProps) {
   const { isLoading, posts } = useInfinitePosts({
-    key: ['post', id, { page: 'recommend' }],
+    key: [post_query_key, id, { page: 'recommend' }],
     callback: (cursor) => getPostsByUrl('recommend', cursor),
   })
   if (!posts) return <></>

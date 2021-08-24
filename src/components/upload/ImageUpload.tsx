@@ -33,7 +33,6 @@ export default function ImageUpload({
   return (
     <>
       <Input
-        id="imageFile"
         name="file"
         type="file"
         ref={hiddenFileInput}

@@ -4,6 +4,7 @@ import LikeComponent from '../feed/LikeComponent'
 import TalkIcon from '../../static/svg/TalkIcon'
 import { Comment } from '../../lib/api/comment/types'
 import SubCommentComponent from './SubCommentComponent'
+import { comment_query_key } from '../../lib/variable'
 
 type Props = {
   comment: Comment
@@ -11,8 +12,6 @@ type Props = {
 
 export default function CommentBottom({ comment }: Props) {
   const [isOpen, setIsOpen] = useState<boolean>(false)
-  const [isOpenCommentForm, setIsOpenCommentForm] = useState<boolean>(false)
-
   const inputRef = useRef<any>(null)
 
   return (
@@ -23,11 +22,11 @@ export default function CommentBottom({ comment }: Props) {
             count={comment.commentCount.likeCount}
             isLiked={comment.isLikedSelf}
             id={comment.id}
+            queryKey={comment_query_key}
           />
         </BottomItem>
         <BottomItem
           onClick={() => {
-            setIsOpenCommentForm(true)
             setIsOpen(true)
             inputRef.current?.focus()
           }}
@@ -40,8 +39,6 @@ export default function CommentBottom({ comment }: Props) {
         comment={comment}
         isOpen={isOpen}
         setIsOpen={setIsOpen}
-        isOpenCommentForm={isOpenCommentForm}
-        setIsOpenCommentForm={setIsOpenCommentForm}
         inputRef={inputRef}
       />
     </>

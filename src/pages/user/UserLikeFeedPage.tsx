@@ -3,10 +3,11 @@ import UserLikeEmpty from '../../components/feed/empty/UserLikeEmpty'
 import FeedSection from '../../components/feed/FeedSection'
 import getPostsByUserLike from '../../lib/api/post/getPostsByUserLike'
 import { UserFeedPageProps } from './type'
+import { post_query_key } from '../../lib/variable'
 
 function UserLikeFeedPage({ user }: UserFeedPageProps) {
   const { isLoading, posts } = useInfinitePosts({
-    key: ['post', user.id, { page: 'user-like' }],
+    key: [post_query_key, user.id, { page: 'user-like' }],
     callback: (cursor) => getPostsByUserLike(user.id, cursor),
   })
   if (!posts) return <></>

@@ -3,6 +3,7 @@ import { RefObject } from 'react'
 import getSubCommentsById from '../../lib/api/comment/getSubCommentsById'
 import { Comment } from '../../lib/api/comment/types'
 import { grey060 } from '../../lib/styles/colors'
+import { sub_comment_query_key } from '../../lib/variable'
 import CommentArrow from '../../static/svg/CommentArrow'
 import useInfiniteSubComment from './hooks/useInfiniteSubComment'
 import SubCommentForm from './SubCommentForm'
@@ -11,8 +12,6 @@ import SubCommentSection from './SubCommentSection'
 type Props = {
   comment: Comment
   setIsOpen: (value: boolean) => void
-  setIsOpenCommentForm: (value: boolean) => void
-  isOpenCommentForm: boolean
   isOpen: boolean
   inputRef: RefObject<any>
 }
@@ -20,13 +19,11 @@ type Props = {
 export default function SubCommentComponent({
   comment,
   setIsOpen,
-  setIsOpenCommentForm,
   isOpen,
-  isOpenCommentForm,
   inputRef,
 }: Props) {
   const { subComments, hasNextPage, onLoadMore } = useInfiniteSubComment({
-    key: ['subComment', comment.id],
+    key: [sub_comment_query_key, comment.id],
     callback: (cursor) => getSubCommentsById(comment.id, cursor),
     isOpen,
   })
@@ -63,7 +60,7 @@ export default function SubCommentComponent({
       </SubCommentWrapper>
       <SubCommentSection subComments={subComments} isOpen={isOpen} />
       <BottomWrapper>
-        {!hasNextPage && (
+        {isOpen && (
           <CommentFormWrapper isOpen={isOpen}>
             <SubCommentForm
               parentCommentId={comment.id.toString()}
@@ -71,16 +68,6 @@ export default function SubCommentComponent({
             />
           </CommentFormWrapper>
         )}
-        {comment.commentCount.nextCommentCount < 1 &&
-          isOpenCommentForm &&
-          !isOpen && (
-            <CommentFormWrapper isOpen={isOpenCommentForm}>
-              <SubCommentForm
-                parentCommentId={comment.id.toString()}
-                inputRef={inputRef}
-              />
-            </CommentFormWrapper>
-          )}
       </BottomWrapper>
     </>
   )

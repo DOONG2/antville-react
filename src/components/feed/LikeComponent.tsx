@@ -9,40 +9,48 @@ import viewSlice from '../../reducers/Slices/view'
 import putLikePost from '../../lib/api/post/putLikePost'
 import useMutationLike from './hooks/useMutationLike'
 import useMutationUnlike from './hooks/useMutationUnlike'
+import { post_query_key } from '../../lib/variable'
 
 interface Props {
   isLiked: boolean
   count: number
   id: number
-  isPost?: boolean
+  parentId?: number
+  queryKey: string
 }
 
-export default function LikeComponent({ isLiked, count, id, isPost }: Props) {
+export default function LikeComponent({
+  isLiked,
+  count,
+  id,
+  queryKey,
+  parentId,
+}: Props) {
   const { setIsOpenLoginForm } = viewSlice.actions
   const isLoggedIn = useCheckLogin()
   const dispatch = useDispatch()
 
   const { mutation: likeMutation } = useMutationLike({
     callback: () => {
-      if (isPost) return putLikePost(id)
+      if (queryKey === post_query_key) return putLikePost(id)
       else return putLikeComment(id)
     },
-    isPost,
+    queryKey,
   })
   const { mutation: unLikeMutation } = useMutationUnlike({
     callback: () => {
-      if (isPost) return deleteUnLikePost(id)
+      if (queryKey === post_query_key) return deleteUnLikePost(id)
       else return deleteUnLikeComment(id)
     },
-    isPost,
+    queryKey,
   })
 
   return (
     <Wrapper
       onClick={() => {
         if (!isLoggedIn) return dispatch(setIsOpenLoginForm(true))
-        if (isLiked) unLikeMutation.mutate(id)
-        else likeMutation.mutate(id)
+        if (isLiked) unLikeMutation.mutate({ id, parentId })
+        else likeMutation.mutate({ id, parentId })
       }}
     >
       <HeartIcon

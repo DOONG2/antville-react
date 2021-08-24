@@ -30,6 +30,7 @@ import FeedHistoryComponent from './FeedHistoryComponent'
 import UserIcon50 from '../../../static/svg/UserIcon50'
 import PostStock from '../../../lib/models/post_stock'
 import ImageComponent from '../ImageComponent'
+import { post_query_key } from '../../../lib/variable'
 
 type FeedDetailInfoProps = {
   post: Post
@@ -118,7 +119,7 @@ export default function FeedDetailInfo({
                 count={count}
                 isLiked={isLiked}
                 id={post.id}
-                isPost={true}
+                queryKey={post_query_key}
               />
             </BottomItem>
             <BottomItem onClick={() => inputRef?.current.focus()}>

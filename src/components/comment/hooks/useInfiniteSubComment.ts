@@ -1,6 +1,6 @@
 import { useEffect, useState } from 'react'
 import { useInfiniteQuery } from 'react-query'
-import { cacheStableTime, commentsLimit } from '../../../lib/variable'
+import { cacheStableTime, subCommentsLimit } from '../../../lib/variable'
 import { Comment } from '../../../lib/api/comment/types'
 
 export interface Props {
@@ -20,9 +20,11 @@ export default function useInfiniteSubComment({
       enabled: isOpen,
       staleTime: cacheStableTime,
       getNextPageParam: (lastPage) =>
-        lastPage.length === commentsLimit && lastPage[lastPage.length - 1]?.id,
+        lastPage.length === subCommentsLimit &&
+        lastPage[lastPage.length - 1]?.id,
+
       select: (data) => ({
-        pages: data.pages.flat().reverse(),
+        pages: data.pages.flat(),
         pageParams: data.pageParams,
       }),
     })

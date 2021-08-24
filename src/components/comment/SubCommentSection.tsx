@@ -20,6 +20,7 @@ import MomentDateChange from '../common/MomentDateChange'
 import { AvatarImage } from '../../lib/styles/post'
 import UserIcon50 from '../../static/svg/UserIcon50'
 import ImageComponent from '../feed/ImageComponent'
+import { sub_comment_query_key } from '../../lib/variable'
 
 type Props = {
   subComments?: Comment[]
@@ -79,6 +80,8 @@ export default function SubCommentSection({ subComments, isOpen }: Props) {
                 count={comment.commentCount.likeCount}
                 isLiked={comment.isLikedSelf}
                 id={comment.id}
+                queryKey={sub_comment_query_key}
+                parentId={comment.parentCommentId}
               />
             </BottomItem>
             <BottomItem onClick={() => inputRef.current?.focus()}>
