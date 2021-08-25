@@ -17,7 +17,7 @@ export default function ImageComponent({ url, isGif }: Props) {
       {isGif ? (
         <GifImage
           onClick={() => setIsOpenImageModal(true)}
-          src={url}
+          src={optimizeImage(url, 640)}
           alt={`feed-gif`}
           style={{ objectFit: 'cover' }}
         />
@@ -37,7 +37,7 @@ export default function ImageComponent({ url, isGif }: Props) {
         }}
       >
         <ImageWrapper>
-          <DetailImage src={url} alt={`feed-image-detail`} />
+          <DetailImage src={optimizeImage(url)} alt={`feed-image-detail`} />
         </ImageWrapper>
       </Modal>
       {isOpenImageModal && (

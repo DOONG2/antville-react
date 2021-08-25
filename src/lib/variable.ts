@@ -26,6 +26,11 @@ export const TYPE_FOLLOW = 'FOLLOW'
 export const TYPE_TAG = 'TAG'
 export const TYPE_LIKE = 'LIKE'
 
+export const CDN_HOST_URL = 'dli0p67dj8elg.cloudfront.net'
+export const S3_HOST_URL = 'antville-s3.s3.ap-northeast-2.amazonaws.com'
+export const SENTRY_DNS =
+  'https://1e1826dc59fb42118cfe9b47c4fd7a7c@o876495.ingest.sentry.io/5924983'
+
 export const GOOGLE_PLAYSTORE_LINK =
   'https://play.google.com/store/apps/details?id=com.antville'
 

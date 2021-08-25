@@ -34,7 +34,10 @@ export default function UserInfo({ user }: Props) {
         <Info>
           <UserAvatar>
             {user.profileImg ? (
-              <img src={user.profileImg} alt="profile_image" />
+              <img
+                src={optimizeImage(user.profileImg, 120)}
+                alt="profile_image"
+              />
             ) : (
               <UserIcon133 />
             )}
