@@ -12,8 +12,8 @@ export const SerchBar = styled.div<{ isLoggedIn: boolean }>`
 export const IconWrapper = styled.div`
   position: absolute;
   z-index: 2;
-  top: 1.3rem;
-  left: 1.4rem;
+  top: 14px;
+  left: 14px;
 `
 
 export const SearchInput = styled.input`
@@ -21,10 +21,9 @@ export const SearchInput = styled.input`
   top: 0;
   left: 0;
   width: 100%;
-  padding: 1rem 2rem 0.8rem 3.8rem;
+  padding: 9px 20px 9px 38px;
   font-size: 1.6rem;
   font-weight: 500;
-  line-height: 2.2rem;
 
   background: #ffffff;
   border: 1px solid #bbbbbb;

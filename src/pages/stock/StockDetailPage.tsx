@@ -5,6 +5,7 @@ import PostForm from '../../components/post/PostForm'
 import StockInfo from '../../components/stock/StockInfo'
 import getPostsByStock from '../../lib/api/post/getPostsByStock'
 import AVStock from '../../lib/models/av_stock'
+import StockChart from '../../components/stock/StockChart'
 
 type StockPageProps = {
   avStock: AVStock
@@ -20,6 +21,7 @@ function StockDetailPage({ avStock }: StockPageProps) {
   return (
     <>
       <StockInfo avStock={avStock} />
+      <StockChart symbol={avStock.stock.symbol} />
       <PostForm />
       <FeedSection
         sectionKey={`stock-detail-${avStock.id}`}

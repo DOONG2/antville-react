@@ -10,7 +10,6 @@ import {
   Count,
   FeedAvatar,
   FeedWrapper,
-  GifImage,
   IconWrapper,
   LeftItem,
   MiddleWrapper,
@@ -18,12 +17,13 @@ import {
   PostTime,
   TopWrapper,
 } from '../../lib/styles/feed'
-import { Image } from '../../lib/styles/post'
+import { AvatarImage } from '../../lib/styles/post'
 import FeedBody from './FeedBody'
 import FeedOption from './FeedOption'
 import LikeComponent from './LikeComponent'
 import MomentDateChange from '../common/MomentDateChange'
 import UserIcon50 from '../../static/svg/UserIcon50'
+import ImageComponent from './ImageComponent'
 
 interface Props {
   posts: Post[]
@@ -49,7 +49,10 @@ const FeedSection = ({ posts, loading, emptyComponent, sectionKey }: Props) => {
                 }
               >
                 {post.author.profileImg ? (
-                  <img src={post.author.profileImg} alt="profile_image" />
+                  <AvatarImage
+                    src={post.author.profileImg}
+                    alt="profile_image"
+                  />
                 ) : (
                   <UserIcon50 />
                 )}
@@ -74,16 +77,10 @@ const FeedSection = ({ posts, loading, emptyComponent, sectionKey }: Props) => {
           <MiddleWrapper>
             <FeedBody body={post.body} />
             {post.postImgs[0] && (
-              <Image
-                src={post.postImgs[0].image.toString()}
-                alt={`${post.id}-feed-image`}
-              />
+              <ImageComponent url={post.postImgs[0].image.toString()} />
             )}
             {post.gifImage?.gifUrl && (
-              <GifImage
-                src={post.gifImage.gifUrl}
-                alt={`${post.id}-gif-image`}
-              />
+              <ImageComponent url={post.gifImage.gifUrl} isGif={true} />
             )}
           </MiddleWrapper>
           <BottomWrapper>

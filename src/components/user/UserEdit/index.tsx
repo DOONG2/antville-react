@@ -45,6 +45,8 @@ export default function UserEdit({ user }: Props) {
     handleSubmit,
     isNicknameValid,
     nicknameError,
+    isUploadFileValid,
+    uploadFileError,
     getFieldProps,
     onChangeNickanme,
     onChangeUpload,
@@ -78,8 +80,10 @@ export default function UserEdit({ user }: Props) {
               <UserIcon66 />
             )}
           </ProfileAvatar>
-
-          <EditButton onClick={handleClick}>프로필 사진 변경하기</EditButton>
+          <EditButton onClick={handleClick}>
+            프로필 사진 변경하기
+            <NewWarningLabel>{uploadFileError}</NewWarningLabel>
+          </EditButton>
         </Profile>
         <FormWrapper>
           <form onSubmit={handleSubmit}>
@@ -87,9 +91,9 @@ export default function UserEdit({ user }: Props) {
               ref={hiddenFileInput}
               id="editFile"
               type="file"
-              {...getFieldProps('editFile')}
               onChange={onChangeUpload}
             />
+
             <Item>
               <Span>닉네임</Span>
               <NicknameWrapper>
@@ -148,6 +152,8 @@ export default function UserEdit({ user }: Props) {
                 disabled={
                   !(dirty && isValid) ||
                   isSubmitting ||
+                  (!isUploadFileValid &&
+                    values.editFile !== initialValues.editFile) ||
                   (!isNicknameValid &&
                     values.editNickname !== initialValues.editNickname)
                 }
@@ -211,6 +217,11 @@ const WarningLabel = styled.div`
   bottom: -15px;
 
   color: #fa4a61;
+`
+
+const NewWarningLabel = styled(WarningLabel)`
+  left: 0;
+  top: 40px;
 `
 
 const CompleteLabel = styled(WarningLabel)`
@@ -322,6 +333,7 @@ const ProfileAvatar = styled.div`
 
 const EditButton = styled.div`
   padding: 11px;
+  position: relative;
   background: ${grey010};
 
   font-size: 12px;

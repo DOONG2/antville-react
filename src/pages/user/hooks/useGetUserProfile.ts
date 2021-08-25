@@ -15,6 +15,10 @@ export default function useGetUserProfile(nickname: string) {
       dispatch(setProfileUser(result))
     }
     getUserApi()
+
+    return () => {
+      dispatch(setProfileUser(null))
+    }
   }, [nickname])
 
   return { user }

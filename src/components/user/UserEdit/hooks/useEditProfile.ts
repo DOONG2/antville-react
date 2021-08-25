@@ -22,7 +22,7 @@ export default function useEditProfile() {
   const tryEdit = async ({ nickname, bio, avatar }: TryEditProps) => {
     try {
       if (avatar) await UserAvatarApi({ avatar })
-      if (!nickname && !bio) return
+      if (!nickname && !bio) return history.push('/')
       await editFormApi({ nickname, bio })
       if (nickname) dispatch(setNickanme(nickname))
       if (bio) dispatch(setBio(bio))
