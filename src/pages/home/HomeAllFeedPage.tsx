@@ -8,7 +8,7 @@ import { HomePageProps } from './type'
 import { post_query_key } from '../../lib/variable'
 
 function AllFeedPage({ id }: HomePageProps) {
-  const { isLoading, posts, setPosts } = useInfinitePosts({
+  const { isLoading, posts } = useInfinitePosts({
     key: [post_query_key, id, { page: 'all' }],
     callback: (cursor) => getPostsByUrl('all', cursor),
   })
@@ -16,12 +16,7 @@ function AllFeedPage({ id }: HomePageProps) {
 
   return (
     <>
-      <PostForm
-        addPost={(post) => {
-          if (!post) return
-          setPosts([post].concat(posts))
-        }}
-      />
+      <PostForm />
       <FeedTab />
       <FeedSection
         sectionKey={`all-${id}`}

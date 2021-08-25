@@ -25,18 +25,13 @@ import {
   UserIconWrapper,
 } from '../../lib/styles/post'
 import { GifDto } from '../../types/post'
-import { Post } from '../../lib/api/types'
 import PostEditor from './PostEditor'
 import postSlice from '../../reducers/Slices/post'
 import formSlice from '../../reducers/Slices/form'
 import usePostMutation from './hooks/usePostMutation'
 import postFormData from '../../lib/api/post/postFormData'
 
-interface Props {
-  addPost?: (value?: Post) => void
-}
-
-const PostForm = ({ addPost }: Props) => {
+const PostForm = () => {
   const user = useRootState((state) => state.user)
   const { body, isFocusInput, bodyLength } = useRootState((state) => state.post)
   const { previewUrl } = useRootState((state) => state.form)

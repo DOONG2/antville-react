@@ -1,5 +1,6 @@
 import styled from '@emotion/styled'
-import { RefObject } from 'react'
+import { RefObject, useState } from 'react'
+import ReactQuill from 'react-quill'
 import getSubCommentsById from '../../lib/api/comment/getSubCommentsById'
 import { Comment } from '../../lib/api/comment/types'
 import { grey060 } from '../../lib/styles/colors'
@@ -13,7 +14,7 @@ type Props = {
   comment: Comment
   setIsOpen: (value: boolean) => void
   isOpen: boolean
-  inputRef: RefObject<any>
+  inputRef: RefObject<ReactQuill>
 }
 
 export default function SubCommentComponent({
@@ -27,6 +28,7 @@ export default function SubCommentComponent({
     callback: (cursor) => getSubCommentsById(comment.id, cursor),
     isOpen,
   })
+  const [body, setBody] = useState('')
 
   return (
     <>
@@ -58,13 +60,22 @@ export default function SubCommentComponent({
           </ExtendWrapper>
         )}
       </SubCommentWrapper>
-      <SubCommentSection subComments={subComments} isOpen={isOpen} />
+      <SubCommentSection
+        subComments={subComments}
+        isOpen={isOpen}
+        inputRef={inputRef}
+        setBody={setBody}
+        body={body}
+      />
       <BottomWrapper>
-        {isOpen && (
-          <CommentFormWrapper isOpen={isOpen}>
-            <SubCommentForm parentCommentId={comment.id} inputRef={inputRef} />
-          </CommentFormWrapper>
-        )}
+        <CommentFormWrapper isOpen={isOpen}>
+          <SubCommentForm
+            parentCommentId={comment.id}
+            inputRef={inputRef}
+            setBody={setBody}
+            body={body}
+          />
+        </CommentFormWrapper>
       </BottomWrapper>
     </>
   )

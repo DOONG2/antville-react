@@ -1,5 +1,5 @@
 import styled from '@emotion/styled'
-import React, { useRef } from 'react'
+import React, { RefObject } from 'react'
 import { useHistory } from 'react-router'
 import { Comment } from '../../lib/api/comment/types'
 import TalkIcon from '../../static/svg/TalkIcon'
@@ -21,15 +21,26 @@ import { AvatarImage } from '../../lib/styles/post'
 import UserIcon50 from '../../static/svg/UserIcon50'
 import ImageComponent from '../feed/ImageComponent'
 import { sub_comment_query_key } from '../../lib/variable'
+import ReactQuill from 'react-quill'
+import useGetTagHtml from '../post/hooks/useGetTagHtml'
 
 type Props = {
   subComments?: Comment[]
   isOpen: boolean
+  inputRef: RefObject<ReactQuill>
+  setBody: (value: string) => void
+  body: string
 }
 
-export default function SubCommentSection({ subComments, isOpen }: Props) {
+export default function SubCommentSection({
+  subComments,
+  isOpen,
+  inputRef,
+  setBody,
+  body,
+}: Props) {
   const history = useHistory()
-  const inputRef = useRef<any>(null)
+  const { getMentionTagHtml } = useGetTagHtml()
 
   if (!subComments) return <></>
 
@@ -84,7 +95,19 @@ export default function SubCommentSection({ subComments, isOpen }: Props) {
                 parentId={comment.parentCommentId}
               />
             </BottomItem>
-            <BottomItem onClick={() => inputRef.current?.focus()}>
+            <BottomItem
+              onClick={() => {
+                if (!inputRef.current?.editor) return
+                inputRef.current.focus()
+                if (body === '' || body === '<p><br></p>') {
+                  setBody(getMentionTagHtml(comment.author.nickname))
+                  inputRef.current.setEditorSelection(inputRef.current.editor, {
+                    index: 2,
+                    length: 0,
+                  })
+                }
+              }}
+            >
               <TalkIcon cursor={'pointer'} />
               <Count>답글 달기</Count>
             </BottomItem>

@@ -99,9 +99,9 @@ export default function SubCommentEditor({
           setBody(value)
           setBodyLength(editor.getText().length)
         }}
+        value={body}
         placeholder={'답글을 입력해주세요. '}
         onFocus={() => setIsFocusInput(true)}
-        value={body}
         ref={inputRef}
       ></CustomQuill>
     </Block>

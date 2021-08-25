@@ -27,16 +27,18 @@ import PreviewImage from '../post/PreviewImage'
 import SubCommentEditor from './SubCommentEditor'
 import postCommentFormData from '../../lib/api/comment/postCommentFormData'
 import useCommentMutation from './hooks/useCommentMutation'
+import ReactQuill from 'react-quill'
 
 interface Props {
   parentCommentId?: number
-  inputRef?: RefObject<any>
+  inputRef: RefObject<ReactQuill>
+  setBody: (value: string) => void
+  body: string
 }
 
-function SubCommentForm({ parentCommentId, inputRef }: Props) {
+function SubCommentForm({ parentCommentId, inputRef, setBody, body }: Props) {
   const user = useRootState((state) => state.user)
   const [isFocusInput, setIsFocusInput] = useState(false)
-  const [body, setBody] = useState('')
   const [bodyLength, setBodyLength] = useState(0)
   const { setIsOpenLoginForm } = viewSlice.actions
   const [uploadImage, setUploadImage] = useState<File>()
