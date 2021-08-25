@@ -13,6 +13,7 @@ import useGetRoutePath from './useGetPath'
 type Props = {
   callback: () => Promise<any>
   queryKey: string
+  stockId?: number
 }
 
 type MutationProps = {
@@ -20,7 +21,11 @@ type MutationProps = {
   parentId?: number
 }
 
-export default function useMutationLike({ callback, queryKey }: Props) {
+export default function useMutationLike({
+  callback,
+  queryKey,
+  stockId,
+}: Props) {
   const queryClient = useQueryClient()
   const user = useRootState((state) => state.user)
   const pathname = useGetRoutePath()
@@ -32,7 +37,9 @@ export default function useMutationLike({ callback, queryKey }: Props) {
       let previousQuery
       switch (queryKey) {
         case post_query_key:
-          key = [post_query_key, user!.id, { page: pathname }]
+          key = stockId
+            ? [post_query_key, stockId, { page: pathname }]
+            : [post_query_key, user!.id, { page: pathname }]
           await queryClient.cancelQueries(key)
           previousQuery = queryClient.getQueryData<InfiniteData<Post[]>>(key)
           if (previousQuery) {

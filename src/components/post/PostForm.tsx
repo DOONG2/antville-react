@@ -30,6 +30,7 @@ import postSlice from '../../reducers/Slices/post'
 import formSlice from '../../reducers/Slices/form'
 import usePostMutation from './hooks/usePostMutation'
 import postFormData from '../../lib/api/post/postFormData'
+import { useParams } from 'react-router-dom'
 
 const PostForm = () => {
   const user = useRootState((state) => state.user)
@@ -40,6 +41,7 @@ const PostForm = () => {
   const { setPreviewUrl } = formSlice.actions
   const [uploadImage, setUploadImage] = useState<File>()
   const [gifDto, setGifDto] = useState<GifDto>()
+  const { ticker } = useParams<{ ticker: string }>()
 
   const [isOnUp, setIsOnUp] = useState(false)
   const [isOnDown, setIsOnDown] = useState(false)
@@ -66,6 +68,10 @@ const PostForm = () => {
     setIsOnUp(false)
     setIsOnDown(false)
   }
+
+  useEffect(() => {
+    dispatch(setBody(''))
+  }, [ticker])
 
   return (
     <Form onSubmit={onSubmit}>

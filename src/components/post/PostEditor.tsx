@@ -100,11 +100,9 @@ export default function PostEditor() {
         }
         onFocus={(range, source, editor) => {
           dispatch(setIsFocusInput(true))
-
           if (body === '' || body === '<p><br></p>') {
             ticker && dispatch(setBody(getCacheTagHtml(ticker)))
             if (!inputRef.current?.editor) return
-            console.log(inputRef)
             inputRef.current.setEditorSelection(inputRef.current.editor, {
               index: 2,
               length: 0,

@@ -17,6 +17,7 @@ interface Props {
   id: number
   parentId?: number
   queryKey: string
+  stockId?: number
 }
 
 export default function LikeComponent({
@@ -25,6 +26,7 @@ export default function LikeComponent({
   id,
   queryKey,
   parentId,
+  stockId,
 }: Props) {
   const { setIsOpenLoginForm } = viewSlice.actions
   const isLoggedIn = useCheckLogin()
@@ -36,6 +38,7 @@ export default function LikeComponent({
       else return putLikeComment(id)
     },
     queryKey,
+    stockId,
   })
   const { mutation: unLikeMutation } = useMutationUnlike({
     callback: () => {
@@ -43,6 +46,7 @@ export default function LikeComponent({
       else return deleteUnLikeComment(id)
     },
     queryKey,
+    stockId,
   })
 
   return (

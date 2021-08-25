@@ -32,9 +32,16 @@ interface Props {
   loading?: boolean
   emptyComponent: ReactNode
   sectionKey: string
+  stockId?: number
 }
 
-const FeedSection = ({ posts, loading, emptyComponent, sectionKey }: Props) => {
+const FeedSection = ({
+  posts,
+  loading,
+  emptyComponent,
+  sectionKey,
+  stockId,
+}: Props) => {
   const history = useHistory()
 
   if (posts.length < 1) return <>{emptyComponent}</>
@@ -92,6 +99,7 @@ const FeedSection = ({ posts, loading, emptyComponent, sectionKey }: Props) => {
                 isLiked={post.isLikedSelf}
                 id={post.id}
                 queryKey={post_query_key}
+                stockId={stockId}
               />
             </BottomItem>
             <BottomItem
