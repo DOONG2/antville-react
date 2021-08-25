@@ -18,7 +18,7 @@ function App() {
   return (
     <>
       <Helmet>
-        <title>antville</title>
+        <title>앤트빌</title>
         <meta
           name="description"
           content="1000만 투자자들을 위한 투자정보공유마을. 고민하지 말고 앤트빌에서 시작하세요."
