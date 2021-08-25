@@ -12,7 +12,6 @@ import {
   StockListItem,
   StockName,
 } from '../../lib/styles/stockList'
-import searchSlice from '../../reducers/Slices/search'
 import viewSlice from '../../reducers/Slices/view'
 import { useRootState } from '../common/hooks/useRootState'
 
@@ -20,11 +19,10 @@ export default function SearchStock() {
   const {
     search: { stocks },
   } = useRootState((state) => state.search)
-  const { setHistoryStocks } = searchSlice.actions
   const { setIsFocusSearchBar } = viewSlice.actions
   const dispatch = useDispatch()
   const history = useHistory()
-  const { setHistoryStocks: set, getHistoryStocks: get } = searchStorage
+  const { setHistoryStocks: set } = searchStorage
 
   if (!stocks) return <></>
 
@@ -37,10 +35,10 @@ export default function SearchStock() {
             <HoverListWrapper
               key={`${avStock.id}-search-bar`}
               onClick={() => {
-                history.push(`/stock/${avStock.stock.cashTagName}`)
                 set(avStock.stock)
-                dispatch(setHistoryStocks(get()))
+                // dispatch(setHistoryStocks(get()))
                 dispatch(setIsFocusSearchBar(false))
+                history.push(`/stock/${avStock.stock.cashTagName}`)
               }}
             >
               <NewStockListGroup>

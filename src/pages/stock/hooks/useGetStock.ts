@@ -1,23 +1,28 @@
 import { useEffect, useState } from 'react'
+import { useDispatch } from 'react-redux'
 import getStockByTicker from '../../../lib/api/stock/getStockByTicker'
-import AVStock from '../../../lib/models/av_stock'
+import { Stock } from '../../../lib/api/types'
+import stockSlice from '../../../reducers/Slices/stock'
 
 export default function useGetStock(ticker: string) {
-  const [avStock, setStock] = useState<AVStock>()
+  const [stock, setStock] = useState<Stock>()
   const [loading, setLoading] = useState<boolean>(true)
+  const dispatch = useDispatch()
+  const { addOrReplaceStockPrice } = stockSlice.actions
+
   useEffect(() => {
     try {
       const getStockApi = async () => {
         const result = await getStockByTicker(ticker)
-        setStock(new AVStock(result.stock, result.stockPriceInfo))
+        setStock(result.stock)
+        dispatch(addOrReplaceStockPrice(result.stockPriceInfo))
         setLoading(false)
       }
       getStockApi()
     } catch (error) {
-      console.log(error)
       setLoading(false)
     }
   }, [ticker])
 
-  return { avStock, loading }
+  return { stock, loading }
 }

@@ -1,7 +1,8 @@
 import styled from '@emotion/styled'
+import { useMemo } from 'react'
 import { useHistory } from 'react-router-dom'
 import { Stock } from '../../lib/api/types'
-import { selectAVStock } from '../../selectors/stockSelectors'
+import { selectAvStock } from '../../selectors/stockSelectors'
 import { useRootState } from '../common/hooks/useRootState'
 import { SignIcon } from './SignIcon'
 
@@ -11,7 +12,8 @@ interface StockListGroupProps {
 
 export function PopularStockGroup({ stock }: StockListGroupProps) {
   const history = useHistory()
-  const avStock = useRootState((state) => selectAVStock(state, stock))
+  const memoizeSelectAvStock = useMemo(selectAvStock, [])
+  const avStock = useRootState((state) => memoizeSelectAvStock(state, stock))
 
   return (
     <Item onClick={() => history.push(`/stock/${avStock.stock.cashTagName}`)}>

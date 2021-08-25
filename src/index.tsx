@@ -8,6 +8,7 @@ import { Provider } from 'react-redux'
 import store from './store'
 import { HelmetProvider } from 'react-helmet-async'
 import * as dotenv from 'dotenv'
+import { WebsocketProvider } from './lib/websocket'
 
 dotenv.config()
 
@@ -26,7 +27,9 @@ ReactDOM.render(
       <QueryClientProvider client={queryClient}>
         <BrowserRouter>
           <HelmetProvider>
-            <App />
+            <WebsocketProvider>
+              <App />
+            </WebsocketProvider>
             <ReactQueryDevtools />
           </HelmetProvider>
         </BrowserRouter>
