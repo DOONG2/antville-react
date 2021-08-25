@@ -16,7 +16,7 @@ export default function HeaderNoticeDropDown({ id }: Props) {
   const scrollRef = useRef<HTMLDivElement>(null)
 
   const { isLoading, notices } = useInfiniteNotices({
-    key: `notification-${id}`,
+    key: ['notification', id],
     callback: (cursor) => {
       return getNotification(cursor)
     },

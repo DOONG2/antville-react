@@ -4,33 +4,40 @@ import useGetRoutePath from './hooks/useGetPath'
 import {
   activated_all,
   activated_following,
+  activated_recommend,
   activated_watchlist,
 } from '../../lib/variable'
 
 export default function FeedTab() {
-  const pathanme = useGetRoutePath()
+  const pathname = useGetRoutePath()
   const history = useHistory()
 
   return (
     <>
       <FeedTabWraaper>
         <TabItem
-          isClicked={pathanme === activated_all}
+          isClicked={pathname === activated_recommend}
           onClick={() => history.push('/')}
         >
-          전체
+          추천
         </TabItem>
         <TabItem
-          isClicked={pathanme === activated_watchlist}
+          isClicked={pathname === activated_following}
+          onClick={() => history.push('/following')}
+        >
+          팔로잉
+        </TabItem>
+        <TabItem
+          isClicked={pathname === activated_watchlist}
           onClick={() => history.push('/watchlist')}
         >
           관심종목
         </TabItem>
         <TabItem
-          isClicked={pathanme === activated_following}
-          onClick={() => history.push('/following')}
+          isClicked={pathname === activated_all}
+          onClick={() => history.push('/all')}
         >
-          팔로잉
+          전체
         </TabItem>
       </FeedTabWraaper>
     </>

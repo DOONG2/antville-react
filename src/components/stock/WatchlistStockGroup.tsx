@@ -11,8 +11,9 @@ import {
   UpDownRate,
 } from '../../lib/styles/stockList'
 import { useRootState } from '../common/hooks/useRootState'
-import { selectAVStock } from '../../selectors/stockSelectors'
+import { selectAvStock } from '../../selectors/stockSelectors'
 import { SignIcon } from './SignIcon'
+import { useMemo } from 'react'
 
 interface StockListGroupProps {
   stock: Stock
@@ -20,7 +21,8 @@ interface StockListGroupProps {
 
 export function WatchListStockGroup({ stock }: StockListGroupProps) {
   const history = useHistory()
-  const avStock = useRootState((state) => selectAVStock(state, stock))
+  const memoizeSelectAvStock = useMemo(selectAvStock, [])
+  const avStock = useRootState((state) => memoizeSelectAvStock(state, stock))
   return (
     <NewStockListGroup
       onClick={() => history.push(`/stock/${avStock.stock.cashTagName}`)}

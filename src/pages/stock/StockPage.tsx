@@ -7,7 +7,7 @@ import StockNotFound from './StockNotFound'
 
 export default function StockPage() {
   const { ticker } = useParams<{ ticker: string }>()
-  const { avStock, loading } = useGetStock(ticker)
+  const { stock, loading } = useGetStock(ticker)
 
   return (
     <>
@@ -15,11 +15,7 @@ export default function StockPage() {
         children={
           <>
             {!loading &&
-              (avStock ? (
-                <StockDetailPage avStock={avStock!} />
-              ) : (
-                <StockNotFound />
-              ))}
+              (stock ? <StockDetailPage stock={stock!} /> : <StockNotFound />)}
           </>
         }
       ></MainTemplate>

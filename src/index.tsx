@@ -8,6 +8,9 @@ import { Provider } from 'react-redux'
 import store from './store'
 import { HelmetProvider } from 'react-helmet-async'
 import * as dotenv from 'dotenv'
+import { WebsocketProvider } from './lib/websocket'
+import * as Sentry from '@sentry/react'
+import { SENTRY_DNS } from './lib/variable'
 
 dotenv.config()
 
@@ -20,13 +23,21 @@ const queryClient = new QueryClient({
   },
 })
 
+Sentry.init({
+  enabled: process.env.NODE_ENV === 'production',
+  dsn: SENTRY_DNS,
+  environment: process.env.NODE_ENV,
+})
+
 ReactDOM.render(
   <React.StrictMode>
     <Provider store={store}>
       <QueryClientProvider client={queryClient}>
         <BrowserRouter>
           <HelmetProvider>
-            <App />
+            <WebsocketProvider>
+              <App />
+            </WebsocketProvider>
             <ReactQueryDevtools />
           </HelmetProvider>
         </BrowserRouter>

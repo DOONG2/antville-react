@@ -46,7 +46,7 @@ export const HotStockListWrapper = styled(StockListWrapper)<{
   width: 32.8rem;
   top: 5.2rem;
 
-  z-index: 2;
+  z-index: 1000;
 `
 
 export const Title = styled.div``

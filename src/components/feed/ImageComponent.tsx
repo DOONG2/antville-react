@@ -2,6 +2,7 @@ import styled from '@emotion/styled'
 import { useState } from 'react'
 import { GifImage } from '../../lib/styles/feed'
 import { Image } from '../../lib/styles/post'
+import optimizeImage from '../../lib/utils/optimizeImage'
 import ImageDetailCloseIcon from '../../static/svg/ImageDetailCloseIcon'
 import Modal from '../common/Modal'
 
@@ -17,7 +18,7 @@ export default function ImageComponent({ url, isGif }: Props) {
       {isGif ? (
         <GifImage
           onClick={() => setIsOpenImageModal(true)}
-          src={url}
+          src={optimizeImage(url, 640)}
           alt={`feed-gif`}
           style={{ objectFit: 'cover' }}
         />
@@ -37,7 +38,7 @@ export default function ImageComponent({ url, isGif }: Props) {
         }}
       >
         <ImageWrapper>
-          <DetailImage src={url} alt={`feed-image-detail`} />
+          <DetailImage src={optimizeImage(url)} alt={`feed-image-detail`} />
         </ImageWrapper>
       </Modal>
       {isOpenImageModal && (

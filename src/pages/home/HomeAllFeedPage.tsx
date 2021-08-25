@@ -5,22 +5,18 @@ import FeedTab from '../../components/feed/FeedTab'
 import PostForm from '../../components/post/PostForm'
 import getPostsByUrl from '../../lib/api/post/getPostsByUrl'
 import { HomePageProps } from './type'
+import { post_query_key } from '../../lib/variable'
 
 function AllFeedPage({ id }: HomePageProps) {
-  const { isLoading, posts, setPosts } = useInfinitePosts({
-    key: ['post', id, { page: 'all' }],
+  const { isLoading, posts } = useInfinitePosts({
+    key: [post_query_key, id, { page: 'all' }],
     callback: (cursor) => getPostsByUrl('all', cursor),
   })
   if (!posts) return <></>
 
   return (
     <>
-      <PostForm
-        addPost={(post) => {
-          if (!post) return
-          setPosts([post].concat(posts))
-        }}
-      />
+      <PostForm />
       <FeedTab />
       <FeedSection
         sectionKey={`all-${id}`}

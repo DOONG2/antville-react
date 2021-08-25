@@ -11,7 +11,7 @@ const getStockChart = async (type: StockChartType, symbol: string) => {
   )
   return response.data
     ?.map<LightWeightChartData>((v, _, __) => {
-      v.time = new Date(v.date!).getTime() as UTCTimestamp
+      v.time = new Date(v.date!.replace(/-/g, '/')).getTime() as UTCTimestamp
       v.value = v.volume
       delete v.date
       delete v.volume

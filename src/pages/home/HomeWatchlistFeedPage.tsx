@@ -5,10 +5,11 @@ import FeedTab from '../../components/feed/FeedTab'
 import PostForm from '../../components/post/PostForm'
 import getPostsByUrl from '../../lib/api/post/getPostsByUrl'
 import { HomePageProps } from './type'
+import { post_query_key } from '../../lib/variable'
 
 function WatchlistFeedPage({ id }: HomePageProps) {
   const { isLoading, posts } = useInfinitePosts({
-    key: ['post', id, { page: 'watchlist' }],
+    key: [post_query_key, id, { page: 'watchlist' }],
     callback: (cursor) => getPostsByUrl('watchlist', cursor),
   })
   if (!posts) return <></>

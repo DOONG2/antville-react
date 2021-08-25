@@ -33,11 +33,11 @@ export default function ImageUpload({
   return (
     <>
       <Input
-        id="imageFile"
         name="file"
         type="file"
         ref={hiddenFileInput}
         onChange={handleChange}
+        accept="image/png,image/jpg,image/jpeg"
       />
       <PictureUploadButton onClick={handleClick} />
     </>
