@@ -70,7 +70,6 @@ const MockUpVideo = styled.video`
 `
 
 const Title = styled.div`
-  font-family: Roboto;
   font-weight: 700;
   font-size: 4.8rem;
   line-height: 5.6rem;

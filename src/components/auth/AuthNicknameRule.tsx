@@ -42,7 +42,6 @@ const HiddenAnswerForm = styled.div`
   top: 30px;
   padding: 13px;
 
-  font-family: Roboto;
   font-size: 13px;
   line-height: 15px;
   color: ${grey060};

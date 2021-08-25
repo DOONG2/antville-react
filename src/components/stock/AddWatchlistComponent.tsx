@@ -49,7 +49,6 @@ const WatchButton = styled.div<{ isWatching: boolean }>`
 `
 
 const WatchListCount = styled.div`
-  font-family: Roboto;
   font-weight: bold;
   font-size: 14px;
   line-height: 16px;

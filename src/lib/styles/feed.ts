@@ -89,7 +89,6 @@ export const BottomWrapper = styled.div`
   padding-left: 97px;
   column-gap: 30px;
 
-  font-family: Roboto;
   font-style: normal;
   font-weight: normal;
   font-size: 12px;

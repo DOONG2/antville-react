@@ -169,7 +169,7 @@ export const PostMention = styled(Mention)`
 export const MentionItem = styled.div<{ focus: boolean }>`
   width: 264px;
   padding: 10px 12px;
-  font-family: Roboto;
+
   font-weight: 500;
   font-size: 14px;
   line-height: 16px;
@@ -264,7 +264,6 @@ export const CustomQuill = styled(ReactQuill)`
     }
 
     div:first-of-type {
-      font-family: Roboto;
       font-weight: 500;
       font-size: 14px;
       line-height: 16px;
@@ -274,7 +273,6 @@ export const CustomQuill = styled(ReactQuill)`
       align-items: center;
     }
     div:last-child {
-      font-family: Roboto;
       font-size: 11px;
       color: ${grey060};
       line-height: 13px;
@@ -289,7 +287,6 @@ export const ButtonWrapper = styled.div`
 `
 
 export const BodyLengthView = styled.div<{ isLimited: boolean }>`
-  font-family: Roboto;
   font-weight: 500;
   font-size: 13px;
   line-height: 15px;

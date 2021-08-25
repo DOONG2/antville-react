@@ -13,7 +13,6 @@ export const Icon = styled.div`
 `
 
 export const MainText = styled.div`
-  font-family: Roboto;
   font-size: 24px;
   line-height: 150%;
 
@@ -23,7 +22,6 @@ export const MainText = styled.div`
 `
 
 export const SubText = styled.div`
-  font-family: Roboto;
   font-size: 16px;
   line-height: 180%;
 

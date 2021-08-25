@@ -52,7 +52,6 @@ export const HotStockListWrapper = styled(StockListWrapper)<{
 export const Title = styled.div``
 
 export const Button = styled.div`
-  font-family: Roboto;
   font-weight: 500;
   font-size: 10px;
   line-height: 0;
@@ -148,7 +147,6 @@ export const FeedAvatar = styled.div`
 `
 
 export const Nickname = styled.div`
-  font-family: Roboto;
   font-weight: 600;
   font-size: 13px;
   line-height: 15px;
