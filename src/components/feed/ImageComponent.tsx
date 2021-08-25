@@ -2,6 +2,7 @@ import styled from '@emotion/styled'
 import { useState } from 'react'
 import { GifImage } from '../../lib/styles/feed'
 import { Image } from '../../lib/styles/post'
+import optimizeImage from '../../lib/utils/optimizeImage'
 import ImageDetailCloseIcon from '../../static/svg/ImageDetailCloseIcon'
 import Modal from '../common/Modal'
 

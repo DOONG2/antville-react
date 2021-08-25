@@ -12,6 +12,7 @@ import UserFollowerList from './UserFollowerList'
 import { useRef } from 'react'
 import UserIcon133 from '../../static/svg/UserIcon133'
 import { User } from '../../lib/api/types'
+import optimizeImage from '../../lib/utils/optimizeImage'
 
 type Props = {
   user: User
