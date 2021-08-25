@@ -6,6 +6,7 @@ import StockInfo from '../../components/stock/StockInfo'
 import getPostsByStock from '../../lib/api/post/getPostsByStock'
 import AVStock from '../../lib/models/av_stock'
 import StockChart from '../../components/stock/StockChart'
+import { post_query_key } from '../../lib/variable'
 
 type StockPageProps = {
   avStock: AVStock
@@ -13,7 +14,7 @@ type StockPageProps = {
 
 function StockDetailPage({ avStock }: StockPageProps) {
   const { isLoading, posts } = useInfinitePosts({
-    key: ['post', avStock.id, { page: 'stock-detail' }],
+    key: [post_query_key, avStock.id, { page: 'stock-detail' }],
     callback: (cursor) => getPostsByStock(avStock.id, cursor),
   })
 

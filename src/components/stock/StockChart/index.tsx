@@ -131,7 +131,12 @@ export default function StockChart({ symbol }: Props) {
   }, [data])
 
   return (
-    <div>
+    <div
+      style={{
+        marginBottom: '10px',
+        marginTop: '20px',
+      }}
+    >
       <div
         style={{
           position: 'relative',

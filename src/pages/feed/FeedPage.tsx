@@ -10,5 +10,7 @@ export default function FeedPage() {
 
   if (!post) return <></>
 
-  return <MainTemplate children={<FeedDetailPage id={id} post={post} />} />
+  return (
+    <MainTemplate children={<FeedDetailPage id={Number(id)} post={post} />} />
+  )
 }

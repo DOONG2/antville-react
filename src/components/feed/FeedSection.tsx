@@ -24,6 +24,7 @@ import LikeComponent from './LikeComponent'
 import MomentDateChange from '../common/MomentDateChange'
 import UserIcon50 from '../../static/svg/UserIcon50'
 import ImageComponent from './ImageComponent'
+import { post_query_key } from '../../lib/variable'
 
 interface Props {
   posts: Post[]
@@ -88,7 +89,8 @@ const FeedSection = ({ posts, loading, emptyComponent, sectionKey }: Props) => {
               <LikeComponent
                 count={post.postCount.likeCount}
                 isLiked={post.isLikedSelf}
-                postId={post.id}
+                id={post.id}
+                queryKey={post_query_key}
               />
             </BottomItem>
             <BottomItem

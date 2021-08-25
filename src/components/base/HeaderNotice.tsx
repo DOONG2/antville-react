@@ -15,7 +15,6 @@ import MomentDateChange from '../common/MomentDateChange'
 import usePatchNotice from './hooks/usePatchNotice'
 import { grey030, grey080 } from '../../lib/styles/colors'
 import styled from '@emotion/styled'
-import { useState } from 'react'
 
 type Props = {
   notice: NoticeObject
@@ -25,22 +24,20 @@ export default function HeaderNotice({ notice }: Props) {
   const { setIsOpenNoticeDropDown } = viewSlice.actions
   const dispatch = useDispatch()
   const history = useHistory()
-  const [isChecked, setIsChecked] = useState(notice.isChecked)
 
-  const { patchNoticeApi } = usePatchNotice()
+  const { mutation } = usePatchNotice({ id: notice.id })
 
   return (
     <Wrapper
       onClick={() => {
         dispatch(setIsOpenNoticeDropDown(false))
-        patchNoticeApi(notice.id)
-        setIsChecked(true)
+        mutation.mutate()
         if (notice.type === TYPE_FOLLOW)
           return history.push(`/user/${notice.sender.nickname}/profile`)
         else return history.push(`/feed/detail/${notice.param}`)
       }}
     >
-      {!isChecked && <NoticePot />}
+      {!notice.isChecked && <NoticePot />}
       <Inner>
         <Item>
           <FeedAvatar>

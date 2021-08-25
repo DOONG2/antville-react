@@ -6,7 +6,7 @@ import { subCommentsLimit } from '../../../lib/variable'
 export default function useSubCommentsById(
   id: number,
   isOpen: boolean,
-  cursor?: string
+  cursor?: number
 ) {
   const [comments, setCommnets] = useState<getCommentsByIdResponse>([])
   const [isEnded, setIsEnded] = useState<boolean>(false)

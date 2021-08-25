@@ -5,10 +5,11 @@ import FeedTab from '../../components/feed/FeedTab'
 import PostForm from '../../components/post/PostForm'
 import getPostsByUrl from '../../lib/api/post/getPostsByUrl'
 import { HomePageProps } from './type'
+import { post_query_key } from '../../lib/variable'
 
 function FollowingFeedPage({ id }: HomePageProps) {
   const { isLoading, posts } = useInfinitePosts({
-    key: ['post', id, { page: 'following' }],
+    key: [post_query_key, id, { page: 'following' }],
     callback: (cursor) => getPostsByUrl('following', cursor),
   })
   if (!posts) return <></>

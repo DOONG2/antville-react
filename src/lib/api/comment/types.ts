@@ -12,7 +12,7 @@ export type getCommentsByIdResponse = {
   isLikedSelf: boolean
 }[]
 
-export type CommentObject = {
+export type Comment = {
   id: number
   body: string
   createdAt: string

@@ -1,42 +1,48 @@
 import { useEffect, useState } from 'react'
 import { useInfiniteQuery } from 'react-query'
-import { useInfiniteScroll } from '../../../components/common/hooks/useInfiniteScroll'
-import { cacheStableTime, commentsLimit } from '../../../lib/variable'
+import { cacheStableTime, subCommentsLimit } from '../../../lib/variable'
 import { Comment } from '../../../lib/api/comment/types'
 
 export interface Props {
   key: [string, number]
   callback: (cursor?: number) => Promise<Comment[]>
+  isOpen: boolean
 }
 
-export default function useInfiniteComment({ key, callback }: Props) {
-  const [comments, setComments] = useState<Comment[] | undefined>()
+export default function useInfiniteSubComment({
+  key,
+  callback,
+  isOpen,
+}: Props) {
+  const [subComments, setSubComments] = useState<Comment[] | undefined>()
   const { isLoading, data, error, isFetching, fetchNextPage, hasNextPage } =
     useInfiniteQuery(key, ({ pageParam: cursor }) => callback(cursor), {
+      enabled: isOpen,
       staleTime: cacheStableTime,
       getNextPageParam: (lastPage) =>
-        lastPage.length === commentsLimit && lastPage[lastPage.length - 1]?.id,
+        lastPage.length === subCommentsLimit &&
+        lastPage[lastPage.length - 1]?.id,
+
       select: (data) => ({
         pages: data.pages.flat(),
         pageParams: data.pageParams,
       }),
     })
   useEffect(() => {
-    if (data) setComments(data.pages)
+    if (data) setSubComments(data.pages)
   }, [data])
-  useInfiniteScroll({
+
+  return {
+    isLoading,
+    subComments,
+    error,
+    isFetching,
+    hasNextPage,
+    setSubComments,
     onLoadMore: () => {
       if (!isLoading && !isFetching && hasNextPage) {
         fetchNextPage()
       }
     },
-  })
-
-  return {
-    isLoading,
-    comments,
-    error,
-    isFetching,
-    setComments,
   }
 }

@@ -3,10 +3,11 @@ import UserEmpty from '../../components/feed/empty/UserEmpty'
 import FeedSection from '../../components/feed/FeedSection'
 import getPostsByUser from '../../lib/api/post/getPostsByUser'
 import { UserFeedPageProps } from './type'
+import { post_query_key } from '../../lib/variable'
 
 function UserAllFeedPage({ user }: UserFeedPageProps) {
   const { isLoading, posts } = useInfinitePosts({
-    key: ['post', user.id, { page: 'user-all' }],
+    key: [post_query_key, user.id, { page: 'user-all' }],
     callback: (cursor) => getPostsByUser(user.id, cursor),
   })
   if (!posts) return <></>

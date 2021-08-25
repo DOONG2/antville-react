@@ -20,7 +20,7 @@ type MutationProps = {
   parentId?: number
 }
 
-export default function useMutationLike({ callback, queryKey }: Props) {
+export default function useMutationUnlike({ callback, queryKey }: Props) {
   const queryClient = useQueryClient()
   const user = useRootState((state) => state.user)
   const pathname = useGetRoutePath()
@@ -44,8 +44,8 @@ export default function useMutationLike({ callback, queryKey }: Props) {
             const postCount = data.pages[findIndex].postCount
             data.pages[findIndex] = {
               ...data.pages[findIndex],
-              isLikedSelf: true,
-              postCount: { ...postCount, likeCount: postCount.likeCount + 1 },
+              isLikedSelf: false,
+              postCount: { ...postCount, likeCount: postCount.likeCount - 1 },
             }
             queryClient.setQueriesData(key, data)
           }
@@ -63,10 +63,10 @@ export default function useMutationLike({ callback, queryKey }: Props) {
             const commentCount = data.pages[findIndex].commentCount
             data.pages[findIndex] = {
               ...data.pages[findIndex],
-              isLikedSelf: true,
+              isLikedSelf: false,
               commentCount: {
                 ...commentCount,
-                likeCount: commentCount.likeCount + 1,
+                likeCount: commentCount.likeCount - 1,
               },
             }
             queryClient.setQueriesData(key, data)
@@ -85,10 +85,10 @@ export default function useMutationLike({ callback, queryKey }: Props) {
             const commentCount = data.pages[findIndex].commentCount
             data.pages[findIndex] = {
               ...data.pages[findIndex],
-              isLikedSelf: true,
+              isLikedSelf: false,
               commentCount: {
                 ...commentCount,
-                likeCount: commentCount.likeCount + 1,
+                likeCount: commentCount.likeCount - 1,
               },
             }
             queryClient.setQueriesData(key, data)

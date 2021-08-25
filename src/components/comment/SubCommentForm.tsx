@@ -21,22 +21,24 @@ import {
 } from '../../lib/styles/post'
 import styled from '@emotion/styled'
 import { GifDto } from '../../types/post'
-import useCommentData from './hooks/useCommentData'
 import { useParams } from 'react-router-dom'
 import PreviewImage from '../post/PreviewImage'
-import { CommentObject } from '../../lib/api/comment/types'
+
 import SubCommentEditor from './SubCommentEditor'
+import postCommentFormData from '../../lib/api/comment/postCommentFormData'
+import useCommentMutation from './hooks/useCommentMutation'
+import ReactQuill from 'react-quill'
 
 interface Props {
-  parentCommentId?: string
-  addComment?: (value?: CommentObject) => void
-  inputRef?: RefObject<any>
+  parentCommentId?: number
+  inputRef: RefObject<ReactQuill>
+  setBody: (value: string) => void
+  body: string
 }
 
-function SubCommentForm({ parentCommentId, addComment, inputRef }: Props) {
+function SubCommentForm({ parentCommentId, inputRef, setBody, body }: Props) {
   const user = useRootState((state) => state.user)
   const [isFocusInput, setIsFocusInput] = useState(false)
-  const [body, setBody] = useState('')
   const [bodyLength, setBodyLength] = useState(0)
   const { setIsOpenLoginForm } = viewSlice.actions
   const [uploadImage, setUploadImage] = useState<File>()
@@ -47,24 +49,26 @@ function SubCommentForm({ parentCommentId, addComment, inputRef }: Props) {
 
   const dispatch = useDispatch()
 
-  const { postDataApi } = useCommentData({ addComment })
+  const { mutation } = useCommentMutation({
+    callback: (formData: FormData) => postCommentFormData(formData),
+  })
 
   useEffect(() => {
-    if (previewUrl) setIsFocusInput(true)
+    if (previewUrl !== undefined) setIsFocusInput(true)
   }, [previewUrl])
 
+  const onSubmit = (e: React.FormEvent<HTMLFormElement>) => {
+    e.preventDefault()
+    mutation.mutate({ body, postId, gifDto, uploadImage, parentCommentId })
+    setUploadImage(undefined)
+    setIsFocusInput(false)
+    setGifDto(undefined)
+    setBody('')
+    setPreviewUrl(undefined)
+  }
+
   return (
-    <Form
-      onSubmit={(e) => {
-        e.preventDefault()
-        postDataApi({ body, gifDto, uploadImage, postId, parentCommentId })
-        setUploadImage(undefined)
-        setIsFocusInput(false)
-        setGifDto(undefined)
-        setBody('')
-        setPreviewUrl(undefined)
-      }}
-    >
+    <Form onSubmit={onSubmit}>
       <FormInner>
         <UserIconWrapper>
           <UserIcon />

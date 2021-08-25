@@ -7,19 +7,18 @@ import getPostsByUrl from '../../lib/api/post/getPostsByUrl'
 import { HomePageProps } from './type'
 import { post_query_key } from '../../lib/variable'
 
-function AllFeedPage({ id }: HomePageProps) {
+function HomeRecomendFeedPage({ id }: HomePageProps) {
   const { isLoading, posts } = useInfinitePosts({
-    key: [post_query_key, id, { page: 'all' }],
-    callback: (cursor) => getPostsByUrl('all', cursor),
+    key: [post_query_key, id, { page: 'recommend' }],
+    callback: (cursor) => getPostsByUrl('recommend', cursor),
   })
   if (!posts) return <></>
-
   return (
     <>
       <PostForm />
       <FeedTab />
       <FeedSection
-        sectionKey={`all-${id}`}
+        sectionKey={`recommend-${id}`}
         posts={posts}
         loading={isLoading}
         emptyComponent={<FollowingEmpty />}
@@ -28,4 +27,4 @@ function AllFeedPage({ id }: HomePageProps) {
   )
 }
 
-export default AllFeedPage
+export default HomeRecomendFeedPage

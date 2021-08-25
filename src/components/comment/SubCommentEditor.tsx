@@ -1,4 +1,4 @@
-import React, { RefObject, useEffect, useMemo } from 'react'
+import React, { RefObject, useMemo } from 'react'
 import debounce from 'lodash.debounce'
 import postSearchStock from '../../lib/api/stock/postSearchStock'
 import getSearchUser from '../../lib/api/user/getSearchUser'
@@ -91,10 +91,6 @@ export default function SubCommentEditor({
     }
   }, [])
 
-  useEffect(() => {
-    inputRef?.current.focus()
-  }, [])
-
   return (
     <Block>
       <CustomQuill
@@ -103,9 +99,9 @@ export default function SubCommentEditor({
           setBody(value)
           setBodyLength(editor.getText().length)
         }}
+        value={body}
         placeholder={'답글을 입력해주세요. '}
         onFocus={() => setIsFocusInput(true)}
-        value={body}
         ref={inputRef}
       ></CustomQuill>
     </Block>

@@ -1,6 +1,6 @@
 import { Post } from '../../lib/api/types'
 
 export type FeedPageProps = {
-  id: string
+  id: number
   post: Post
 }

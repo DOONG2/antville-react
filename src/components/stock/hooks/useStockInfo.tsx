@@ -26,7 +26,8 @@ export function useStockInfo({ avStock }: Props) {
 
   useEffect(() => {
     setIsWatchlist(initialWatching)
-  }, [initialWatching])
+    setWatchUserCount(avStock.stock.stockCount.watchUserCount)
+  }, [avStock])
 
   const dispatch = useDispatch()
 
