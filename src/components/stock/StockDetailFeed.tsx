@@ -16,7 +16,7 @@ type StockPageProps = {
 
 function StockDetailFeed({ stock }: StockPageProps) {
   const { isLoading, posts } = useInfinitePosts({
-    key: [post_query_key, stock.id, { page: 'stock-detail' }],
+    key: [post_query_key, stock.id, { page: 'stock' }],
     callback: (cursor) => getPostsByStock(stock.id, cursor),
   })
   const { reset } = newPostSlice.actions
@@ -35,6 +35,7 @@ function StockDetailFeed({ stock }: StockPageProps) {
       posts={[...newPost, ...(posts ?? [])]}
       loading={isLoading}
       emptyComponent={<NomalEmpty />}
+      stockId={stock.id}
     />
   )
 }
