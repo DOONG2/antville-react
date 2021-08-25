@@ -57,7 +57,6 @@ const InnerWrapper = styled.div`
 `
 
 const LeftItem = styled.div`
-  font-family: Roboto;
   font-weight: 500;
   font-size: 16px;
   line-height: 20px;
@@ -67,7 +66,6 @@ const LeftItem = styled.div`
 `
 
 const RightItem = styled.div`
-  font-family: Roboto;
   font-size: 14px;
   line-height: 20px;
 
@@ -82,7 +80,6 @@ const StockPriceText = styled.div`
   align-items: center;
   color: ${(props) => props.color};
 
-  font-family: Roboto;
   font-weight: 400;
   font-size: 16px;
   line-height: 19px;

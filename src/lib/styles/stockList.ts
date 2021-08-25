@@ -35,7 +35,6 @@ export const StockListItem = styled.div`
 `
 
 export const StockName = styled.div`
-  font-family: Roboto;
   font-weight: 500;
   font-size: 13px;
   line-height: 15px;
@@ -44,7 +43,6 @@ export const StockName = styled.div`
 `
 
 export const StockPrice = styled.div`
-  font-family: Roboto;
   font-weight: 500;
   font-size: 13px;
   line-height: 15px;
@@ -54,7 +52,6 @@ export const StockPrice = styled.div`
 `
 
 export const CompanyName = styled.div`
-  font-family: Roboto;
   font-weight: normal;
   font-size: 10px;
   line-height: 12px;
@@ -63,7 +60,6 @@ export const CompanyName = styled.div`
 `
 
 export const UpDownRate = styled.div`
-  font-family: Roboto;
   font-weight: 500;
   font-size: 10px;
   line-height: 12px;

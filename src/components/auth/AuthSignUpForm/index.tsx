@@ -210,7 +210,6 @@ const NewFontBlue = styled(FontBlue)`
 `
 
 const CheckBoxLabel = styled.div`
-  font-family: Roboto;
   font-size: 1.2rem;
   line-height: 2.2rem;
   margin-left: 0.6rem;

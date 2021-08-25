@@ -57,7 +57,6 @@ const Inner = styled.div`
 `
 
 const TopWrapper = styled.div`
-  font-family: Roboto;
   font-size: 12px;
   line-height: 14px;
 
@@ -70,7 +69,6 @@ const TitleWrapper = styled.div`
 `
 
 const Ticker = styled.div`
-  font-family: Roboto;
   font-weight: bold;
   font-size: 36px;
   line-height: 42px;
@@ -79,7 +77,6 @@ const Ticker = styled.div`
 `
 
 const Price = styled.div`
-  font-family: Roboto;
   font-weight: 500;
   font-size: 34px;
   line-height: 40px;
@@ -89,7 +86,6 @@ const Price = styled.div`
 `
 
 const Rate = styled.div`
-  font-family: Roboto;
   font-weight: 500;
   font-size: 14px;
   line-height: 16px;
@@ -111,7 +107,7 @@ const LastItem = styled.div`
 `
 
 // const Top = styled.div`
-//   font-family: Roboto;
+//
 //   font-style: normal;
 //   font-weight: normal;
 //   font-size: 10px;

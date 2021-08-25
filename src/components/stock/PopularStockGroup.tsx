@@ -40,10 +40,10 @@ const Item = styled.div`
 `
 
 const TickerLabel = styled.div`
-  font-family: Roboto;
   white-space: nowrap;
   font-weight: 500;
   font-size: 16px;
+  font-family: -apple-system;
   line-height: 19px;
   color: #202020;
 `
@@ -55,7 +55,6 @@ const UpDownIconWrapper = styled.div`
 `
 
 const RateLabel = styled.div<{ color: string }>`
-  font-family: Roboto;
   font-weight: bold;
   font-size: 16px;
   line-height: 19px;

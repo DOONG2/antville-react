@@ -25,6 +25,7 @@ import MomentDateChange from '../common/MomentDateChange'
 import UserIcon50 from '../../static/svg/UserIcon50'
 import ImageComponent from './ImageComponent'
 import { post_query_key } from '../../lib/variable'
+import optimizeImage from '../../lib/utils/optimizeImage'
 
 interface Props {
   posts: Post[]
@@ -51,7 +52,7 @@ const FeedSection = ({ posts, loading, emptyComponent, sectionKey }: Props) => {
               >
                 {post.author.profileImg ? (
                   <AvatarImage
-                    src={post.author.profileImg}
+                    src={optimizeImage(post.author.profileImg, 120)}
                     alt="profile_image"
                   />
                 ) : (

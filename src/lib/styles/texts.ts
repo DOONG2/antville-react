@@ -15,7 +15,6 @@ export const SubDescription = styled.div`
 `
 
 export const ValidatorLabel = styled.div`
-  font-family: Roboto;
   white-space: nowrap;
   font-size: 13px;
   line-height: 16px;

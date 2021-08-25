@@ -127,7 +127,6 @@ const UserDetail = styled.div`
 `
 
 const Nickname = styled.div`
-  font-family: Roboto;
   font-weight: bold;
   font-size: 24px;
   line-height: 19px;
@@ -147,7 +146,6 @@ const FollowWrapper = styled.div`
   column-gap: 14px;
   margin-top: 10px;
 
-  font-family: Roboto;
   font-weight: 500;
   font-size: 16px;
   line-height: 19px;
@@ -156,7 +154,6 @@ const FollowWrapper = styled.div`
 `
 
 const DateText = styled.div`
-  font-family: Roboto;
   font-weight: 500;
   font-size: 16px;
   line-height: 19px;

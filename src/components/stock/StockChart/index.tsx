@@ -175,7 +175,6 @@ export const TypeWrapper = styled.div`
   column-gap: 21px;
   padding-top: 5px;
   padding-bottom: 5px;
-  font-family: Roboto;
   font-style: normal;
   font-weight: normal;
   font-size: 12px;

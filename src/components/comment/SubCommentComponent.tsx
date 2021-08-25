@@ -103,7 +103,6 @@ const ExtendWrapper = styled.div`
 
 const ExtendButton = styled.div`
   padding-left: 10px;
-  font-family: Roboto;
   font-size: 12px;
   line-height: 14px;
 

@@ -74,7 +74,6 @@ const FlexWrapper = styled.div`
 `
 
 const Text = styled.div`
-  font-family: Roboto;
   font-weight: 400;
   font-size: 13px;
   line-height: 15px;

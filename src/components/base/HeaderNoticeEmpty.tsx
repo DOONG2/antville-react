@@ -33,7 +33,6 @@ const NoticeEmpty = styled.div`
 `
 
 const EmptyLabel = styled.div`
-  font-family: Roboto;
   font-size: 24px;
   line-height: 150%;
   text-align: center;
@@ -42,7 +41,6 @@ const EmptyLabel = styled.div`
 `
 
 const SmallEmptyLabel = styled.div`
-  font-family: Roboto;
   font-size: 16px;
   line-height: 150%;
   margin-top: 17px;

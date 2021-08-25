@@ -48,7 +48,6 @@ const Group = styled.div<{ isClicked: boolean }>`
   justify-content: center;
   align-items: center;
 
-  font-family: Roboto;
   font-style: normal;
   font-weight: 500;
   font-size: 16px;
