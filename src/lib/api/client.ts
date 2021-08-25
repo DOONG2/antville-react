@@ -1,14 +1,13 @@
 import axios, { AxiosError } from 'axios'
+import userSlice from '../../reducers/Slices/user'
+import store from '../../store'
 import authStorage from '../authStorage'
 import postRefreshToken from './auth/postRefreshToken'
 
 const client = axios.create()
 
 //client.defaults.withCredentials = true
-client.defaults.baseURL =
-  process.env.NODE_ENV === 'development'
-    ? 'http://54.180.188.129:3000'
-    : 'http://54.180.188.129:3000'
+client.defaults.baseURL = process.env.REACT_APP_SERVER_URL
 
 client.interceptors.response.use(
   function (response) {
@@ -18,11 +17,29 @@ client.interceptors.response.use(
     if (axios.isAxiosError(error)) {
       const { config, response } = error
       if (response?.status === 401) {
-        const data = await postRefreshToken()
-        config.headers.Authorization = data
-          ? `Bearer ${data.accessToken}`
-          : null
-        return client.request(config)
+        const token = authStorage.get()
+        if (!token?.refreshToken) {
+          logOut()
+        } else {
+          const refreshToken = token.refreshToken
+          try {
+            const data = await postRefreshToken(refreshToken)
+            authStorage.set({
+              refreshToken,
+              accessToken: response.data.accessToken,
+            })
+            if (data.accessToken) {
+              config.headers.Authorization = `Bearer ${data.accessToken}`
+            }
+            return client.request(config)
+          } catch (err) {
+            if (axios.isAxiosError(err)) {
+              if (err.response?.status === 401) {
+                logOut()
+              }
+            }
+          }
+        }
       }
       if (response) {
         return Promise.reject(response)
@@ -32,9 +49,16 @@ client.interceptors.response.use(
   }
 )
 
+function logOut() {
+  const { setUserState } = userSlice.actions
+  store.dispatch(setUserState(null))
+}
+
 client.interceptors.request.use((config) => {
   const token = authStorage.get()
-  config.headers.Authorization = token ? `Bearer ${token.accessToken}` : null
+  if (token) {
+    config.headers.Authorization = `Bearer ${token.accessToken}`
+  }
   return config
 })
 

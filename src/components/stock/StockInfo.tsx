@@ -1,14 +1,19 @@
 import styled from '@emotion/styled'
 import { grey080 } from '../../lib/styles/colors'
-import AVStock from '../../lib/models/av_stock'
 import { SignIcon } from './SignIcon'
 import AddWatchlistComponent from './AddWatchlistComponent'
+import { Stock } from '../../lib/api/types'
+import { useMemo } from 'react'
+import { selectAvStock } from '../../selectors/stockSelectors'
+import { useRootState } from '../common/hooks/useRootState'
 
 type Props = {
-  avStock: AVStock
+  stock: Stock
 }
 
-export default function StockInfo({ avStock }: Props) {
+export default function StockInfo({ stock }: Props) {
+  const memoizeSelectAvStock = useMemo(selectAvStock, [])
+  const avStock = useRootState((state) => memoizeSelectAvStock(state, stock))
   return (
     <Wrapper>
       <Inner>

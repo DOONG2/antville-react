@@ -48,6 +48,7 @@ class NumberFormatUtil {
     }
     return formattedString
   }
+
   fullTimeFormat(time: UTCTimestamp) {
     const date = new Date(time as number)
     return this.fullDateFormatter.format(date)

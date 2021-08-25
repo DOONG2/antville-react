@@ -1,15 +1,17 @@
-import authStorage from '../../authStorage'
-import client from '../client'
+import axios from 'axios'
 import { refreshTokenResponse } from './types'
 
-const postRefreshToken = async () => {
-  const token = authStorage.get()
-  if (!token) return
-  const { refreshToken } = token
-  const response = await client.post<refreshTokenResponse>('/auth/refresh', {
-    refreshToken,
-  })
-  authStorage.set({ refreshToken, accessToken: response.data.accessToken })
+const refreshClient = axios.create()
+
+refreshClient.defaults.baseURL = process.env.REACT_APP_SERVER_URL
+
+const postRefreshToken = async (refreshToken: string) => {
+  const response = await refreshClient.post<refreshTokenResponse>(
+    '/auth/refresh',
+    {
+      refreshToken,
+    }
+  )
   return response.data
 }
 
