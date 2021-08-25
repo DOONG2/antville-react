@@ -43,7 +43,6 @@ const TickerLabel = styled.div`
   white-space: nowrap;
   font-weight: 500;
   font-size: 16px;
-  font-family: -apple-system;
   line-height: 19px;
   color: #202020;
 `

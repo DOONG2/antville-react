@@ -77,7 +77,7 @@ const Wrapper = styled.div`
 
 const BarWrapper = styled.div`
   display: flex;
-  width: 100%;
+  width: 1440px;
   padding: 0 2.4rem;
   height: 5.6rem;
   margin: 0 auto;

@@ -7,6 +7,7 @@ import { useDispatch } from 'react-redux'
 import UserIcon from '../../static/img/UserIcon.png'
 import { Block, CustomQuill } from '../../lib/styles/post'
 import commentSlice from '../../reducers/Slices/comment'
+import optimizeImage from '../../lib/utils/optimizeImage'
 
 type DataType = {
   id: number
@@ -65,7 +66,9 @@ export default function CommentEditor({ inputRef }: Props) {
         renderItem: (item: DataType, mentionChar: string) => {
           if (mentionChar === '@') {
             if (item.avartar) {
-              return `<div><img src=${item.avartar} />${item.value}</div><div></div>`
+              return `<div><img src=${optimizeImage(item.avartar, 120)} />${
+                item.value
+              }</div><div></div>`
             } else
               return `<div><img src=${UserIcon} />${item.value}</div><div></div>`
           } else {

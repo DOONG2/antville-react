@@ -15,6 +15,7 @@ import MomentDateChange from '../common/MomentDateChange'
 import usePatchNotice from './hooks/usePatchNotice'
 import { grey030, grey080 } from '../../lib/styles/colors'
 import styled from '@emotion/styled'
+import optimizeImage from '../../lib/utils/optimizeImage'
 
 type Props = {
   notice: NoticeObject
@@ -42,7 +43,10 @@ export default function HeaderNotice({ notice }: Props) {
         <Item>
           <FeedAvatar>
             {notice.sender.profileImg ? (
-              <img src={notice.sender.profileImg} alt="profile_image" />
+              <img
+                src={optimizeImage(notice.sender.profileImg, 120)}
+                alt="profile_image"
+              />
             ) : (
               <UserIcon30 />
             )}

@@ -9,6 +9,7 @@ const globalStyle = css`
   html * {
     margin: 0;
     padding: 0;
+    box-sizing: border-box;
 
     a {
       color: ${sky040};
@@ -44,7 +45,6 @@ const globalStyle = css`
       Tahoma, Geneva, sans-serif;
     -webkit-font-smoothing: antialiased;
     -moz-osx-font-smoothing: grayscale;
-    box-sizing: border-box;
   }
 `
 

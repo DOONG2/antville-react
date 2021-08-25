@@ -19,6 +19,7 @@ import { User } from '../../../lib/api/types'
 import { useRootState } from '../../common/hooks/useRootState'
 import userEditSlice from '../../../reducers/Slices/userEdit'
 import { useDispatch } from 'react-redux'
+import optimizeImage from '../../../lib/utils/optimizeImage'
 
 type Props = {
   user: User
@@ -75,7 +76,10 @@ export default function UserEdit({ user }: Props) {
         <Profile>
           <ProfileAvatar>
             {uploadFileUrl ? (
-              <img src={uploadFileUrl} alt="profile_edit_image" />
+              <img
+                src={optimizeImage(uploadFileUrl, 120)}
+                alt="profile_edit_image"
+              />
             ) : (
               <UserIcon66 />
             )}

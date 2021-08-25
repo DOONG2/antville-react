@@ -5,6 +5,7 @@ import { FeedAvatar } from '../../lib/styles/feed'
 import UserIcon50 from '../../static/svg/UserIcon50'
 import { useDispatch } from 'react-redux'
 import viewSlice from '../../reducers/Slices/view'
+import optimizeImage from '../../lib/utils/optimizeImage'
 
 type Prop = {
   users: User[]
@@ -46,7 +47,10 @@ export default function UserSection({
             }}
           >
             {user.profileImg ? (
-              <img src={user.profileImg} alt="profile_image" />
+              <img
+                src={optimizeImage(user.profileImg, 120)}
+                alt="profile_image"
+              />
             ) : (
               <UserIcon50 />
             )}

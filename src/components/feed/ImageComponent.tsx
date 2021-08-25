@@ -18,14 +18,14 @@ export default function ImageComponent({ url, isGif }: Props) {
       {isGif ? (
         <GifImage
           onClick={() => setIsOpenImageModal(true)}
-          src={optimizeImage(url, 640)}
+          src={url}
           alt={`feed-gif`}
           style={{ objectFit: 'cover' }}
         />
       ) : (
         <Image
           onClick={() => setIsOpenImageModal(true)}
-          src={url}
+          src={optimizeImage(url, 640)}
           alt={`feed-image`}
           style={{ objectFit: 'cover' }}
         />

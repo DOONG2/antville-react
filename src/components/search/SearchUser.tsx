@@ -9,6 +9,7 @@ import {
   Nickname,
   Wrapper,
 } from '../../lib/styles/search'
+import optimizeImage from '../../lib/utils/optimizeImage'
 import searchSlice from '../../reducers/Slices/search'
 import viewSlice from '../../reducers/Slices/view'
 import UserIcon30 from '../../static/svg/UserIcon30'
@@ -42,7 +43,10 @@ export default function SearchUser() {
               >
                 <FeedAvatar>
                   {user.profileImg ? (
-                    <img src={user.profileImg} alt="profile_image" />
+                    <img
+                      src={optimizeImage(user.profileImg, 120)}
+                      alt="profile_image"
+                    />
                   ) : (
                     <UserIcon30 />
                   )}

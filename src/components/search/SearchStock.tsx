@@ -12,6 +12,7 @@ import {
   StockListItem,
   StockName,
 } from '../../lib/styles/stockList'
+import searchSlice from '../../reducers/Slices/search'
 import viewSlice from '../../reducers/Slices/view'
 import { useRootState } from '../common/hooks/useRootState'
 
@@ -20,9 +21,10 @@ export default function SearchStock() {
     search: { stocks },
   } = useRootState((state) => state.search)
   const { setIsFocusSearchBar } = viewSlice.actions
+  const { setHistoryStocks } = searchSlice.actions
   const dispatch = useDispatch()
   const history = useHistory()
-  const { setHistoryStocks: set } = searchStorage
+  const { setHistoryStocks: set, getHistoryStocks: get } = searchStorage
 
   if (!stocks) return <></>
 
@@ -36,7 +38,7 @@ export default function SearchStock() {
               key={`${avStock.id}-search-bar`}
               onClick={() => {
                 set(avStock.stock)
-                // dispatch(setHistoryStocks(get()))
+                dispatch(setHistoryStocks(get()))
                 dispatch(setIsFocusSearchBar(false))
                 history.push(`/stock/${avStock.stock.cashTagName}`)
               }}
