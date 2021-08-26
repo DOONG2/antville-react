@@ -44,3 +44,5 @@ export const document_privacy_url =
   'https://www.notion.so/c058ccb025c4416dbd6b6d1e1701d709'
 export const document_notice_url =
   'https://www.notion.so/vivaces/Antville-81d118b732ca449b8b7697a91ca9a3a7'
+
+export const TENOR_API_KEY = 'WUD6F5G7M1KQ'

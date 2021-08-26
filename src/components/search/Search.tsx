@@ -24,8 +24,6 @@ function Search() {
     isOpen: isOpenSearchBar,
   })
 
-  console.log('component ', isOpenSearchBar)
-
   return (
     <SerchBar isLoggedIn={isLoggedIn} ref={outSideClickRef}>
       <IconWrapper>
