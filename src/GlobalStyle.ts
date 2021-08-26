@@ -34,6 +34,7 @@ const globalStyle = css`
     }
     input:-webkit-autofill {
       -webkit-box-shadow: 0 0 0px 1000px #ffffff inset;
+      box-shadow: 0 0 0px 1000px #ffffff inset;
     }
   }
   body {

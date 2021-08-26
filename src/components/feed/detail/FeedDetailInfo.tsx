@@ -130,7 +130,6 @@ export default function FeedDetailInfo({
               <TalkIcon cursor={'pointer'} />
               <Count>댓글 {post.postCount.commentCount}</Count>
             </BottomItem>
-            <BottomItem>2021/04/05 08:46AM</BottomItem>
           </NewBottomWrapper>
         </FeedWrapper>
       )}

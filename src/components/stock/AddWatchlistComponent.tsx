@@ -44,7 +44,7 @@ const WatchButton = styled.div<{ isWatching: boolean }>`
   border: 1px solid ${antblue050};
   color: ${(props) => (props.isWatching ? antblue050 : '#ededed')};
   margin-top: 3px;
-
+  white-space: nowrap;
   cursor: pointer;
 `
 

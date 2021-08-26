@@ -119,4 +119,5 @@ const LastItem = styled.div`
 const Bottom = styled.div`
   display: flex;
   align-items: center;
+  white-space: nowrap;
 `

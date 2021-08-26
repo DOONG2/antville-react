@@ -10,7 +10,6 @@ interface ViewState {
   isOpenFollwerModal: boolean
   isOpenGifForm: boolean
   isOpenSearchBar: boolean
-  isFocusPostInput: boolean
   isFocusSearchBar: boolean
   isFailLoginSubmit: boolean
   isFailFindPasswordSubmit: boolean
@@ -24,9 +23,8 @@ const initialState: ViewState = {
   isOpenNoticeDropDown: false,
   isOpenFollowingModal: false,
   isOpenFollwerModal: false,
-  isOpenSearchBar: false,
   isOpenGifForm: false,
-  isFocusPostInput: false,
+  isOpenSearchBar: false,
   isFocusSearchBar: false,
   isFailLoginSubmit: false,
   isFailFindPasswordSubmit: false,
@@ -53,10 +51,8 @@ const viewSlice = createSlice({
     },
     setIsOpenProfileDropDown(state, action: PayloadAction<boolean>) {
       state.isOpenProfileDropDown = action.payload
-      state.isOpenNoticeDropDown = false
     },
     setIsOpenNoticeDropDown(state, action: PayloadAction<boolean>) {
-      state.isOpenProfileDropDown = false
       state.isOpenNoticeDropDown = action.payload
     },
     setIsOpenFollowingModal(state, action: PayloadAction<boolean>) {
@@ -68,15 +64,11 @@ const viewSlice = createSlice({
     setIsOpenGifForm(state, action: PayloadAction<boolean>) {
       state.isOpenGifForm = action.payload
     },
-    setIsFocusPostInput(state, action: PayloadAction<boolean>) {
-      state.isFocusPostInput = action.payload
+    setIsOpenSearchBar(state, action: PayloadAction<boolean>) {
+      state.isOpenSearchBar = action.payload
     },
     setIsFocusSearchBar(state, action: PayloadAction<boolean>) {
       state.isFocusSearchBar = action.payload
-      if (action.payload === true) {
-        state.isOpenProfileDropDown = false
-        state.isOpenNoticeDropDown = false
-      }
     },
     setIsFailLoginSubmit(state, action: PayloadAction<boolean>) {
       state.isFailLoginSubmit = action.payload

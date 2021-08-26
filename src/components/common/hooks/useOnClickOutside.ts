@@ -5,26 +5,28 @@ interface Props {
   isOpen: boolean
 }
 
-const useClickOutsideListenerRef = ({ close, isOpen }: Props) => {
+const useOnClickOutside = ({ close, isOpen }: Props) => {
   const ref = useRef<HTMLDivElement>(null)
 
   const escapeListener = useCallback(
     (e: KeyboardEvent) => {
-      if (e.key === 'Escape' && isOpen) {
+      if (isOpen && e.key === 'Escape') {
         close()
       }
     },
-    [close, isOpen]
+    [isOpen]
   )
   const clickListener = useCallback(
     (e: MouseEvent) => {
       const el = ref?.current
-      if (!el || el.contains(e.target as Node) || !isOpen) {
+
+      if (!el || !isOpen || el.contains(e.target as Node)) {
         return
       }
+      console.log('outside', isOpen)
       close()
     },
-    [close, isOpen]
+    [isOpen]
   )
   useEffect(() => {
     document.addEventListener('click', clickListener)
@@ -37,4 +39,4 @@ const useClickOutsideListenerRef = ({ close, isOpen }: Props) => {
   return ref
 }
 
-export default useClickOutsideListenerRef
+export default useOnClickOutside

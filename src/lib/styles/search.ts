@@ -12,7 +12,7 @@ export const SerchBar = styled.div<{ isLoggedIn: boolean }>`
 export const IconWrapper = styled.div`
   position: absolute;
   z-index: 2;
-  top: 14px;
+  top: 12px;
   left: 14px;
 `
 
@@ -21,7 +21,7 @@ export const SearchInput = styled.input`
   top: 0;
   left: 0;
   width: 100%;
-  padding: 9px 20px 9px 38px;
+  padding: 11px 20px 9px 38px;
   font-size: 1.6rem;
   font-weight: 500;
 
@@ -37,11 +37,8 @@ export const SearchInput = styled.input`
   }
 `
 
-export const HotStockListWrapper = styled(StockListWrapper)<{
-  isOpen: boolean
-}>`
+export const HotStockListWrapper = styled(StockListWrapper)`
   position: absolute;
-  visibility: ${(props) => (props.isOpen ? 'visible' : 'hidden')};
 
   width: 32.8rem;
   top: 5.2rem;
@@ -79,12 +76,17 @@ export const HoverListWrapper = styled(ListWrapper)`
   :hover {
     background-color: ${sky010};
   }
+  position: relative;
+  z-index: 1000;
 `
 
 export const HistoryIconWrapper = styled.div`
-  margin-right: 12px;
+  position: absolute;
+  right: 12px;
+  top: 10px;
   padding: 10px;
   cursor: pointer;
+  z-index: 1001;
 `
 
 export const NewStockListGroup = styled(StockListGroup)`
@@ -106,22 +108,18 @@ export const EmptyWrapper = styled.div`
 `
 
 export const Wrapper = styled.div`
-  display: flex;
-  align-items: center;
-  width: 100%;
-  padding: 10px 0;
   position: relative;
-
-  cursor: pointer;
-  :hover {
-    background-color: ${sky010};
-  }
 `
 
 export const Inner = styled.div`
   display: flex;
-  justify-content: space-between;
+  align-items: center;
   width: 100%;
+  padding: 10px 0;
+  cursor: pointer;
+  :hover {
+    background-color: ${sky010};
+  }
 `
 
 export const Item = styled.div`
@@ -156,9 +154,9 @@ export const Nickname = styled.div`
 `
 
 export const Icon = styled.div`
-  display: flex;
-  align-items: center;
+  position: absolute;
+  top: 10px;
   cursor: pointer;
   padding: 10px;
-  margin-right: 12px;
+  right: 12px;
 `

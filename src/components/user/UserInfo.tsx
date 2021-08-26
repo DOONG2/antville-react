@@ -4,7 +4,7 @@ import CalendarIcon from '../../static/svg/CalendarIcon'
 import { useRootState } from '../common/hooks/useRootState'
 import viewSlice from '../../reducers/Slices/view'
 import MonthDate from '../common/MomentMonthDate'
-import SectionButtonComponent from './UserTopRightButton'
+import UserTopRightButton from './UserTopRightButton'
 import { grey050, grey080 } from '../../lib/styles/colors'
 import Modal from '../common/FormModal'
 import FollowingList from './UserFollowingList'
@@ -90,7 +90,7 @@ export default function UserInfo({ user }: Props) {
             </FollowWrapper>
           </UserDetail>
         </Info>
-        <SectionButtonComponent user={user} />
+        <UserTopRightButton user={user} />
       </Wrapper>
       <Introduction>{user.bio}</Introduction>
     </>

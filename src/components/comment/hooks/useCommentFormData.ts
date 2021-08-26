@@ -8,7 +8,7 @@ interface Props {
   parentCommentId?: number
 }
 
-export default function useCommentForm() {
+export default function useCommentFormData() {
   const getFormData = ({
     body,
     postId,

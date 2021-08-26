@@ -9,7 +9,7 @@ export default function FeedOption() {
   const [isOpen, setIsOpen] = useState(false)
   const outSideClickRef = useOnClickOutside({
     close: () => {
-      if (isOpen) setIsOpen(false)
+      setIsOpen(false)
     },
     isOpen: isOpen,
   })

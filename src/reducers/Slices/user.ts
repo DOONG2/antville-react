@@ -1,7 +1,6 @@
 import { createSlice, PayloadAction } from '@reduxjs/toolkit'
 import { User } from '../../lib/api/types'
 import authStorage from '../../lib/authStorage'
-import searchStorage from '../../lib/searchStorage'
 import userStorage from '../../lib/userStorage'
 
 export type UserState = User | null
@@ -16,7 +15,6 @@ const userSlice = createSlice({
       if (action.payload === null) {
         userStorage.clear()
         authStorage.clear()
-        searchStorage.clear()
         return (state = null)
       } else {
         userStorage.set(action.payload)

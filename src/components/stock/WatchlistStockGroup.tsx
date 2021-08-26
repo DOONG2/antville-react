@@ -55,4 +55,5 @@ const NewStockListGroup = styled(StockListGroup)`
 
 const RateLabel = styled.span<{ color: string }>`
   color: ${(props) => props.color};
+  white-space: nowrap;
 `
