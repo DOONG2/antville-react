@@ -7,6 +7,7 @@ import usePutFollow from './hooks/usePutFollow'
 import { useRootState } from '../common/hooks/useRootState'
 import { antblue050, grey010 } from '../../lib/styles/colors'
 import viewSlice from '../../reducers/Slices/view'
+import { followEvent } from '../../lib/utils/ga'
 
 type Prop = {
   user: User
@@ -34,7 +35,10 @@ export default function UserTopRightButton({ user }: Prop) {
             onClick={() => {
               if (!loginUser) return dispatch(setIsOpenLoginForm(true))
               else if (isFollowing) deleteFollowApi(user.id)
-              else putFollowApi(user.id)
+              else {
+                putFollowApi(user.id)
+                followEvent(user.nickname)
+              }
               setIsFollowing(!isFollowing)
             }}
           >

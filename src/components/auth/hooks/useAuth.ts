@@ -4,6 +4,7 @@ import { getCurrentUser } from '../../../lib/api/auth/getCurrentUser'
 import postLogin from '../../../lib/api/auth/postLogin'
 import { postLoginRequest } from '../../../lib/api/auth/types'
 import authStorage from '../../../lib/authStorage'
+import { gaSetUserInfo } from '../../../lib/utils/ga'
 import userSlice from '../../../reducers/Slices/user'
 
 export default function useAuth() {
@@ -15,6 +16,7 @@ export default function useAuth() {
     try {
       const user = await getCurrentUser()
       dispatch(setUserState(user))
+      gaSetUserInfo({ id: user.id, nickname: user.nickname })
     } catch (_) {
       logout()
     }

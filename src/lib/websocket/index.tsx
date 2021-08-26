@@ -23,12 +23,12 @@ export function WebsocketProvider({ children }: Props) {
   const rws = useMemo(
     () =>
       new ReconnectingWebSocket(process.env.REACT_APP_WS_URL!, uuid, {
-        maxReconnectionDelay: 10000,
+        maxReconnectionDelay: 60000,
         minReconnectionDelay: 3000,
         reconnectionDelayGrowFactor: 1.3,
         minUptime: 2000,
         connectionTimeout: 5000,
-        maxRetries: Infinity,
+        maxRetries: 20,
         maxEnqueuedMessages: 10,
         startClosed: false,
         debug: false,

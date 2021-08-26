@@ -27,6 +27,7 @@ import commentSlice from '../../reducers/Slices/comment'
 import CommentEditor from './CommentEditor'
 import useCommentMutation from './hooks/useCommentMutation'
 import postCommentFormData from '../../lib/api/comment/postCommentFormData'
+import { commentEvent } from '../../lib/utils/ga'
 
 interface Props {
   parentCommentId?: number
@@ -64,6 +65,7 @@ function CommentForm({ parentCommentId, inputRef }: Props) {
     setGifDto(undefined)
     dispatch(setBody(''))
     setPreviewUrl(undefined)
+    commentEvent()
   }
 
   return (
