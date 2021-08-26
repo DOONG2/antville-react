@@ -1,4 +1,3 @@
-import React from 'react'
 import { Helmet } from 'react-helmet-async'
 import useCheckUserEffect from './components/common/hooks/useCheckUserEffect'
 import { Route, Switch } from 'react-router-dom'

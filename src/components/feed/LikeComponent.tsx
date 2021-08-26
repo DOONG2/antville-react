@@ -10,6 +10,7 @@ import putLikePost from '../../lib/api/post/putLikePost'
 import useMutationLike from './hooks/useMutationLike'
 import useMutationUnlike from './hooks/useMutationUnlike'
 import { post_query_key } from '../../lib/variable'
+import { likeEvent } from '../../lib/utils/ga'
 
 interface Props {
   isLiked: boolean
@@ -54,7 +55,10 @@ export default function LikeComponent({
       onClick={() => {
         if (!isLoggedIn) return dispatch(setIsOpenLoginForm(true))
         if (isLiked) unLikeMutation.mutate({ id, parentId })
-        else likeMutation.mutate({ id, parentId })
+        else {
+          likeMutation.mutate({ id, parentId })
+          likeEvent()
+        }
       }}
     >
       <HeartIcon

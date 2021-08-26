@@ -4,6 +4,7 @@ import { useDispatch } from 'react-redux'
 import deleteWatchlist from '../../../lib/api/stock/deleteWatchlist'
 import putAddWatchlist from '../../../lib/api/stock/putAddWatchlist'
 import AVStock from '../../../lib/models/av_stock'
+import { addWatchlistEvent } from '../../../lib/utils/ga'
 import stockSlice from '../../../reducers/Slices/stock'
 import { selectIsWatchlist } from '../../../selectors/stockSelectors'
 import { useRootState } from '../../common/hooks/useRootState'
@@ -59,6 +60,7 @@ export function useStockInfo({ avStock }: Props) {
     try {
       await putAddWatchlist(avStock.id)
       dispatch(addWatchlist(avStock.stock))
+      addWatchlistEvent(avStock.title)
       if (avStock.hasPrice) {
         dispatch(addOrReplaceStockPrice(avStock.priceInfo!))
       }

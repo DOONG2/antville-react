@@ -24,12 +24,11 @@ client.interceptors.response.use(
           const refreshToken = token.refreshToken
           try {
             const data = await postRefreshToken(refreshToken)
-            authStorage.set({
-              refreshToken,
-              accessToken: response.data.accessToken,
-            })
             if (data.accessToken) {
-              config.headers.Authorization = `Bearer ${data.accessToken}`
+              authStorage.set({
+                refreshToken,
+                accessToken: data.accessToken,
+              })
             }
             return client.request(config)
           } catch (err) {
@@ -52,6 +51,7 @@ client.interceptors.response.use(
 function logOut() {
   const { setUserState } = userSlice.actions
   store.dispatch(setUserState(null))
+  window.location.reload()
 }
 
 client.interceptors.request.use((config) => {
