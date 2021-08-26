@@ -1,6 +1,5 @@
 import { useDispatch } from 'react-redux'
 import { useHistory } from 'react-router-dom'
-import searchStorage from '../../lib/searchStorage'
 import {
   EmptyWrapper,
   FeedAvatar,
@@ -19,11 +18,10 @@ export default function SearchUser() {
   const {
     search: { users },
   } = useRootState((state) => state.search)
-  const { setHistoryUsers } = searchSlice.actions
-  const { setIsFocusSearchBar } = viewSlice.actions
+  const { setQuery } = searchSlice.actions
+  const { setIsOpenSearchBar } = viewSlice.actions
   const dispatch = useDispatch()
   const history = useHistory()
-  const { setHistoryUsers: set, getHistoryUsers: get } = searchStorage
 
   if (!users) return <></>
 
@@ -35,9 +33,8 @@ export default function SearchUser() {
             <Inner>
               <Item
                 onClick={() => {
-                  dispatch(setIsFocusSearchBar(false))
-                  set(user)
-                  dispatch(setHistoryUsers(get()))
+                  dispatch(setIsOpenSearchBar(false))
+                  dispatch(setQuery(''))
                   history.push(`/user/${user.nickname}/profile`)
                 }}
               >

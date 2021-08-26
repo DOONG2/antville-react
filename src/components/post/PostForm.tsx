@@ -71,6 +71,7 @@ const PostForm = () => {
 
   useEffect(() => {
     dispatch(setBody(''))
+    dispatch(setIsFocusInput(false))
   }, [ticker])
 
   return (

@@ -28,7 +28,7 @@ export default function CommentBottom({ comment }: Props) {
         <BottomItem
           onClick={() => {
             setIsOpen(true)
-            inputRef.current?.focus()
+            setTimeout(() => inputRef.current?.focus(), 2)
           }}
         >
           <TalkIcon cursor={'pointer'} />

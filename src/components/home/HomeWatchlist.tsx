@@ -1,6 +1,7 @@
 import styled from '@emotion/styled'
-import { grey040, grey050 } from '../../lib/styles/colors'
+import { grey040, grey050, grey080 } from '../../lib/styles/colors'
 import { StockListWrapper, StockListHeader } from '../../lib/styles/stockList'
+import { document_privacy_url, document_rules_url } from '../../lib/variable'
 import { WatchListStockGroup } from '../stock/WatchlistStockGroup'
 import useGetWatchlist from './hooks/useGetWatchlist'
 
@@ -53,8 +54,16 @@ function HomeWatchlist() {
         </NewStockListWrapper>
         <Footer>
           <Group>
-            <Item>약관</Item>
-            <Item>개인정보 처리 방침</Item>
+            <CursorItem
+              onClick={() => window.open(document_rules_url, '_black')}
+            >
+              약관
+            </CursorItem>
+            <CursorItem
+              onClick={() => window.open(document_privacy_url, '_black')}
+            >
+              개인정보 처리방침
+            </CursorItem>
             <Item>© 2021 Antville, Inc.</Item>
           </Group>
         </Footer>
@@ -100,6 +109,13 @@ const Item = styled.div`
   font-weight: 500;
   font-size: 1.3rem;
   line-height: 1.8rem;
+`
+
+const CursorItem = styled(Item)`
+  cursor: pointer;
+  :hover {
+    color: ${grey080};
+  }
 `
 
 const NewStockListWrapper = styled(StockListWrapper)`

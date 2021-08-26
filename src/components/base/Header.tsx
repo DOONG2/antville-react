@@ -7,7 +7,7 @@ import viewSlice from '../../reducers/Slices/view'
 import { useDispatch } from 'react-redux'
 import { useHistory } from 'react-router'
 import SearchBar from '../search/Search'
-import LogoWithIcon from '../../static/svg/LogoWithIcon'
+import HeaderLogo from '../../static/svg/HeaderLogo'
 import NoticeIcon from '../../static/svg/NoticeIcon'
 import ProfileIcon from '../../static/svg/ProfileIcon'
 import useOnClickOutside from '../common/hooks/useOnClickOutside'
@@ -37,13 +37,13 @@ function Header() {
 
   const ProfileRef = useOnClickOutside({
     close: () => {
-      if (isOpenProfileDropDown) dispatch(setIsOpenProfileDropDown(false))
+      dispatch(setIsOpenProfileDropDown(false))
     },
     isOpen: isOpenProfileDropDown,
   })
   const NoticeRef = useOnClickOutside({
     close: () => {
-      if (isOpenNoticeDropDown) dispatch(setIsOpenNoticeDropDown(false))
+      dispatch(setIsOpenNoticeDropDown(false))
     },
     isOpen: isOpenNoticeDropDown,
   })
@@ -57,7 +57,7 @@ function Header() {
     <Wrapper>
       <HeaderWrapper isLoggedIn={user !== null}>
         <LogoWrapper onClick={() => history.push('/')}>
-          <LogoWithIcon />
+          <HeaderLogo width={180} height={34} />
         </LogoWrapper>
         <SearchBar />
         <ButtonWrapper>

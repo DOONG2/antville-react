@@ -106,10 +106,17 @@ export default function PostEditor() {
           if (body === '' || body === '<p><br></p>') {
             ticker && dispatch(setBody(getCacheTagHtml(ticker)))
             if (!inputRef.current?.editor) return
-            inputRef.current.setEditorSelection(inputRef.current.editor, {
-              index: 2,
-              length: 0,
-            })
+            setTimeout(
+              () =>
+                inputRef.current!.setEditorSelection(
+                  inputRef.current!.editor!,
+                  {
+                    index: 2,
+                    length: 0,
+                  }
+                ),
+              1
+            )
           }
         }}
         ref={inputRef}

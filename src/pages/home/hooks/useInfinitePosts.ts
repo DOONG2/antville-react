@@ -13,7 +13,7 @@ export default function useInfinitePosts({ key, callback }: Props) {
   const [posts, setPosts] = useState<Post[] | undefined>()
   const { isLoading, data, error, isFetching, fetchNextPage, hasNextPage } =
     useInfiniteQuery(key, ({ pageParam: cursor }) => callback(cursor), {
-      staleTime: cacheStableTime,
+      staleTime: key[2].page === 'stock' ? undefined : cacheStableTime,
       getNextPageParam: (lastPage) =>
         lastPage.length === postLimit && lastPage[lastPage.length - 1]?.id,
       select: (data) => ({

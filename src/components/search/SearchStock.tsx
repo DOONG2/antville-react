@@ -1,7 +1,6 @@
 import { useDispatch } from 'react-redux'
 import { useHistory } from 'react-router-dom'
 import AVStock from '../../lib/models/av_stock'
-import searchStorage from '../../lib/searchStorage'
 import {
   EmptyWrapper,
   HoverListWrapper,
@@ -20,11 +19,10 @@ export default function SearchStock() {
   const {
     search: { stocks },
   } = useRootState((state) => state.search)
-  const { setIsFocusSearchBar } = viewSlice.actions
-  const { setHistoryStocks } = searchSlice.actions
+  const { setIsOpenSearchBar } = viewSlice.actions
+  const { setQuery } = searchSlice.actions
   const dispatch = useDispatch()
   const history = useHistory()
-  const { setHistoryStocks: set, getHistoryStocks: get } = searchStorage
 
   if (!stocks) return <></>
 
@@ -37,9 +35,8 @@ export default function SearchStock() {
             <HoverListWrapper
               key={`${avStock.id}-search-bar`}
               onClick={() => {
-                set(avStock.stock)
-                dispatch(setHistoryStocks(get()))
-                dispatch(setIsFocusSearchBar(false))
+                dispatch(setIsOpenSearchBar(false))
+                dispatch(setQuery(''))
                 history.push(`/stock/${avStock.stock.cashTagName}`)
               }}
             >

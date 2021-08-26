@@ -37,3 +37,12 @@ export const GOOGLE_PLAYSTORE_LINK =
 export const APPLE_STORE_LINK = 'https://apps.apple.com/app/id1564378681?l=ko'
 
 export const popularStockCountLimit = 9
+
+export const document_rules_url =
+  'https://www.notion.so/6b2115f6fd52418ba836779d70aee05a'
+export const document_privacy_url =
+  'https://www.notion.so/c058ccb025c4416dbd6b6d1e1701d709'
+export const document_notice_url =
+  'https://www.notion.so/vivaces/Antville-81d118b732ca449b8b7697a91ca9a3a7'
+
+export const TENOR_API_KEY = 'WUD6F5G7M1KQ'

@@ -97,14 +97,21 @@ export default function SubCommentSection({
             </BottomItem>
             <BottomItem
               onClick={() => {
+                setTimeout(() => inputRef.current?.focus(), 1)
                 if (!inputRef.current?.editor) return
-                inputRef.current.focus()
                 if (body === '' || body === '<p><br></p>') {
                   setBody(getMentionTagHtml(comment.author.nickname))
-                  inputRef.current.setEditorSelection(inputRef.current.editor, {
-                    index: 2,
-                    length: 0,
-                  })
+                  setTimeout(
+                    () =>
+                      inputRef.current!.setEditorSelection(
+                        inputRef.current!.editor!,
+                        {
+                          index: 2,
+                          length: 0,
+                        }
+                      ),
+                    1
+                  )
                 }
               }}
             >
