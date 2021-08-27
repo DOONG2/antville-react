@@ -207,10 +207,10 @@ export const UserAvatar = styled.div`
   background-color: blue;
 `
 
-export const Block = styled.div`
+export const Block = styled.div<{ isFocus: boolean }>`
   align-self: center;
   width: 100%;
-  height: 100%;
+  height: ${(p) => (p.isFocus ? '100%' : 'auto')};
 `
 
 export const CustomQuill = styled(ReactQuill)`

@@ -17,6 +17,7 @@ type DataType = {
 type Props = {
   body: string
   setBody(value: string): void
+  isFocusInput: boolean
   setIsFocusInput(value: boolean): void
   setBodyLength(value: number): void
   inputRef?: RefObject<any>
@@ -29,6 +30,7 @@ function debounceCallback(callback: (...arg: any) => any, duration: number) {
 export default function SubCommentEditor({
   body,
   setBody,
+  isFocusInput,
   setIsFocusInput,
   setBodyLength,
   inputRef,
@@ -95,7 +97,7 @@ export default function SubCommentEditor({
   }, [])
 
   return (
-    <Block>
+    <Block isFocus={isFocusInput}>
       <CustomQuill
         modules={modules}
         onChange={(value, delta, source, editor) => {

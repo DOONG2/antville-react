@@ -21,8 +21,8 @@ type DataType = {
 }
 
 export default function PostEditor() {
-  const { body } = useRootState((state) => state.post)
-  const { setBody, setIsFocusInput, setBodyLength } = postSlice.actions
+  const { body, isFocusInput } = useRootState((state) => state.post)
+  const { setBody, setBodyLength, setIsFocusInput } = postSlice.actions
   const dispatch = useDispatch()
   const { getCacheTagHtml } = useGetTagHtml()
   const { ticker } = useParams<{ ticker: string }>()
@@ -90,7 +90,7 @@ export default function PostEditor() {
   }, [])
 
   return (
-    <Block>
+    <Block isFocus={isFocusInput}>
       <CustomQuill
         modules={modules}
         onChange={(value, delta, source, editor) => {

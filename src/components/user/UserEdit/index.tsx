@@ -177,7 +177,6 @@ const NicknameWrapper = styled.div`
   display: flex;
   align-items: center;
   border: 1px solid ${grey040};
-  box-sizing: border-box;
   border-radius: 3px;
 `
 

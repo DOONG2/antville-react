@@ -11,8 +11,6 @@ export default function FeedPage() {
   const { post, isLoading } = usePostById(id)
   usePageView('피드상세')
 
-  if (!post) return <></>
-
   return (
     <MainTemplate
       children={

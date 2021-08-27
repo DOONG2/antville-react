@@ -26,7 +26,7 @@ function debounceCallback(callback: (...arg: any) => any, duration: number) {
 }
 
 export default function CommentEditor({ inputRef }: Props) {
-  const { body } = useRootState((state) => state.comment)
+  const { body, isFocusInput } = useRootState((state) => state.comment)
   const { setBody, setIsFocusInput, setBodyLength } = commentSlice.actions
   const dispatch = useDispatch()
 
@@ -92,7 +92,7 @@ export default function CommentEditor({ inputRef }: Props) {
   }, [])
 
   return (
-    <Block>
+    <Block isFocus={isFocusInput}>
       <CustomQuill
         modules={modules}
         onChange={(value, delta, source, editor) => {
