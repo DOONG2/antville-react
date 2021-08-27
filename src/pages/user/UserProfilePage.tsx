@@ -10,12 +10,13 @@ import UserNotFound from './UserNotFound'
 
 export default function UserProfilePage() {
   const { nickname } = useParams<{ nickname: string }>()
-  const { user } = useGetUserProfile(nickname)
+  const { user, isLoading } = useGetUserProfile(nickname)
 
   return (
     <MainTemplate
       children={
-        user ? (
+        !isLoading &&
+        (user ? (
           <>
             <ProfileUserInfo user={user} />
             <ProfileTab user={user} />
@@ -31,7 +32,7 @@ export default function UserProfilePage() {
           </>
         ) : (
           <UserNotFound />
-        )
+        ))
       }
     />
   )

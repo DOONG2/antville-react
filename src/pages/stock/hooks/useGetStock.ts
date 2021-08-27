@@ -10,18 +10,19 @@ export default function useGetStock(ticker: string) {
   const dispatch = useDispatch()
   const { addOrReplaceStockPrice } = stockSlice.actions
 
-  useEffect(() => {
+  const getStockApi = async () => {
     try {
-      const getStockApi = async () => {
-        const result = await getStockByTicker(ticker)
-        setStock(result.stock)
-        dispatch(addOrReplaceStockPrice(result.stockPriceInfo))
-        setLoading(false)
-      }
-      getStockApi()
-    } catch (error) {
+      const result = await getStockByTicker(ticker)
+      setStock(result.stock)
+      dispatch(addOrReplaceStockPrice(result.stockPriceInfo))
+      setLoading(false)
+    } catch (err) {
       setLoading(false)
     }
+  }
+
+  useEffect(() => {
+    getStockApi()
   }, [ticker])
 
   return { stock, loading }

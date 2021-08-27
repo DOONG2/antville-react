@@ -4,13 +4,19 @@ import { Post } from '../../../lib/api/types'
 
 export default function usePostById(id: string) {
   const [post, setPost] = useState<Post>()
+  const [isLoading, setIsLoading] = useState(true)
   useEffect(() => {
     const getPostByIdApi = async () => {
-      const result = await getPostById(id)
-      setPost(result)
+      try {
+        const result = await getPostById(id)
+        setPost(result)
+        setIsLoading(false)
+      } catch (error) {
+        setIsLoading(false)
+      }
     }
     getPostByIdApi()
   }, [id])
 
-  return post
+  return { post, isLoading }
 }
