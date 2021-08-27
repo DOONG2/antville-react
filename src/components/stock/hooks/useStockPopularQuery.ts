@@ -6,13 +6,21 @@ import stockSlice from '../../../reducers/Slices/stock'
 import { useRootState } from '../../common/hooks/useRootState'
 
 const useStockPopularQuery = () => {
-  const { isLoading, data } = useQuery('stockPopular', () => getStockPopular())
+  const { isLoading, data, refetch } = useQuery('stockPopular', () =>
+    getStockPopular()
+  )
   const { setPopularlistState, addMutiStockPrice } = stockSlice.actions
   const popularList = useRootState((state) => state.stock.popularList)
   const dispatch = useDispatch()
 
   useEffect(() => {
-    if (data && !popularList) {
+    if (!popularList) {
+      refetch()
+    }
+  }, [])
+
+  useEffect(() => {
+    if (data) {
       dispatch(setPopularlistState(data.stocks))
       dispatch(addMutiStockPrice(data.stockPriceInfos))
     }
