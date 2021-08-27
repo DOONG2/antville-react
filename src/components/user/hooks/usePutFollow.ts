@@ -5,17 +5,13 @@ export default function usePutFollow() {
   const putFollowApi = async (id: number) => {
     try {
       await putFollow(id)
-    } catch (error) {
-      console.log(error)
-    }
+    } catch (error) {}
   }
 
   const deleteFollowApi = async (id: number) => {
     try {
       await deleteFollow(id)
-    } catch (error) {
-      console.log(error)
-    }
+    } catch (error) {}
   }
   return { putFollowApi, deleteFollowApi }
 }

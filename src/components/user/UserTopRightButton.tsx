@@ -3,11 +3,12 @@ import { useState } from 'react'
 import { useDispatch } from 'react-redux'
 import { useHistory } from 'react-router-dom'
 import { User } from '../../lib/api/types'
-import usePutFollow from './hooks/usePutFollow'
 import { useRootState } from '../common/hooks/useRootState'
 import { antblue050, grey010 } from '../../lib/styles/colors'
 import viewSlice from '../../reducers/Slices/view'
 import { followEvent } from '../../lib/utils/ga'
+import putFollow from '../../lib/api/user/putFollow'
+import deleteFollow from '../../lib/api/user/deleteFollow'
 
 type Prop = {
   user: User
@@ -18,7 +19,6 @@ export default function UserTopRightButton({ user }: Prop) {
   const { setIsOpenLoginForm } = viewSlice.actions
   const history = useHistory()
   const dispatch = useDispatch()
-  const { putFollowApi, deleteFollowApi } = usePutFollow()
 
   const [isFollowing, setIsFollowing] = useState(user.isFollowing)
   return (
@@ -34,9 +34,9 @@ export default function UserTopRightButton({ user }: Prop) {
             isFollowing={isFollowing}
             onClick={() => {
               if (!loginUser) return dispatch(setIsOpenLoginForm(true))
-              else if (isFollowing) deleteFollowApi(user.id)
+              else if (isFollowing) deleteFollow(user.id)
               else {
-                putFollowApi(user.id)
+                putFollow(user.id)
                 followEvent(user.nickname)
               }
               setIsFollowing(!isFollowing)

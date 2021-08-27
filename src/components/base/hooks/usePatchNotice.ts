@@ -10,15 +10,8 @@ type Props = {
 export default function usePatchNotice({ id }: Props) {
   const queryClient = useQueryClient()
   const user = useRootState((state) => state.user)
-  const patchNoticeApi = async () => {
-    try {
-      await patchNotification(id)
-    } catch (error) {
-      console.log(error)
-    }
-  }
 
-  const mutation = useMutation(patchNoticeApi, {
+  const mutation = useMutation(() => patchNotification(id), {
     onMutate: async () => {
       const key = ['notification', user!.id]
       await queryClient.cancelQueries(key)

@@ -3,6 +3,7 @@ import { useDispatch } from 'react-redux'
 import getWatchList from '../../../lib/api/stock/getWatchList'
 import stockSlice from '../../../reducers/Slices/stock'
 import { useRootState } from '../../common/hooks/useRootState'
+import * as Sentry from '@sentry/react'
 
 export default function useGetWatchlist() {
   const [isLoading, setIsLoading] = useState(false)
@@ -11,27 +12,28 @@ export default function useGetWatchlist() {
   const watchlist = useRootState((state) => state.stock.watchlist)
   const user = useRootState((state) => state.user)
 
-  useEffect(() => {
+  const getWatchlistApi = async () => {
     try {
-      if (!user) {
-        dispatch(setWatchlistState(null))
-      } else {
-        if (!watchlist) {
-          setIsLoading(true)
-          const getWatchlistApi = async () => {
-            const watchlist = await getWatchList()
-            if (watchlist?.stocks) {
-              dispatch(setWatchlistState(watchlist.stocks))
-              dispatch(addMutiStockPrice(watchlist.stockPriceInfos))
-            }
-            setIsLoading(false)
-          }
-          getWatchlistApi()
-        }
+      const watchlist = await getWatchList()
+      if (watchlist?.stocks) {
+        dispatch(setWatchlistState(watchlist.stocks))
+        dispatch(addMutiStockPrice(watchlist.stockPriceInfos))
       }
-    } catch (error) {
-      console.log(error)
+    } catch (err) {
+      Sentry.captureException(err)
+    } finally {
       setIsLoading(false)
+    }
+  }
+
+  useEffect(() => {
+    if (!user) {
+      dispatch(setWatchlistState(null))
+    } else {
+      if (!watchlist) {
+        setIsLoading(true)
+        getWatchlistApi()
+      }
     }
   }, [user])
 

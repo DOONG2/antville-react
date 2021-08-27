@@ -13,9 +13,7 @@ export default function useUserEditForm() {
     try {
       await putUserEdit(bio, nickname)
       setIsLoaded(true)
-    } catch (error) {
-      console.log(error)
-    }
+    } catch (error) {}
   }
 
   return { isLoaded, editFormApi }

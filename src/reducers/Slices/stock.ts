@@ -20,7 +20,7 @@ const stockSlice = createSlice({
   initialState,
   reducers: {
     reset(state) {
-      state = initialState
+      return (state = initialState)
     },
     setWatchlistState(state, action: PayloadAction<StockState>) {
       state.watchlist = action.payload

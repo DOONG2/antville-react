@@ -7,7 +7,6 @@ import useGetWatchlist from './hooks/useGetWatchlist'
 
 function HomeWatchlist() {
   const { isLoading, watchlist } = useGetWatchlist()
-
   if (isLoading) return <></>
 
   if (watchlist === null)
@@ -33,7 +32,7 @@ function HomeWatchlist() {
       <Wrapper>
         <NewStockListWrapper>
           <StockListHeader>관심 종목</StockListHeader>
-          {watchlist.length > 1 ? (
+          {watchlist.length > 0 ? (
             <ScrollBar>
               {watchlist.map((stock) => (
                 <WatchListStockGroup

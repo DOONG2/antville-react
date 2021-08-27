@@ -20,16 +20,12 @@ export default function useEditProfile() {
   const { UserAvatarApi } = useUserAvatar()
 
   const tryEdit = async ({ nickname, bio, avatar }: TryEditProps) => {
-    try {
-      if (avatar) await UserAvatarApi({ avatar })
-      if (!nickname && !bio) return history.push('/')
-      await editFormApi({ nickname, bio })
-      if (nickname) dispatch(setNickanme(nickname))
-      if (bio) dispatch(setBio(bio))
-      history.push('/')
-    } catch (error) {
-      console.log(error)
-    }
+    if (avatar) await UserAvatarApi({ avatar })
+    if (!nickname && !bio) return history.push('/')
+    await editFormApi({ nickname, bio })
+    if (nickname) dispatch(setNickanme(nickname))
+    if (bio) dispatch(setBio(bio))
+    history.push('/')
   }
 
   return {
