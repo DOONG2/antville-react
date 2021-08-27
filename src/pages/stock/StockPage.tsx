@@ -8,7 +8,6 @@ import StockNotFound from './StockNotFound'
 export default function StockPage() {
   const { ticker } = useParams<{ ticker: string }>()
   const { stock, loading } = useGetStock(ticker)
-
   return (
     <>
       <MainTemplate

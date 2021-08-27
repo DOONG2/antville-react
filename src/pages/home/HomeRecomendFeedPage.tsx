@@ -12,6 +12,7 @@ function HomeRecomendFeedPage({ id }: HomePageProps) {
     key: [post_query_key, id, { page: 'recommend' }],
     callback: (cursor) => getPostsByUrl('recommend', cursor),
   })
+
   if (!posts) return <></>
   return (
     <>
