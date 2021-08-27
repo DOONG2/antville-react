@@ -31,6 +31,7 @@ import formSlice from '../../reducers/Slices/form'
 import usePostMutation from './hooks/usePostMutation'
 import postFormData from '../../lib/api/post/postFormData'
 import { useParams } from 'react-router-dom'
+import { postEvent } from '../../lib/utils/ga'
 
 const PostForm = () => {
   const user = useRootState((state) => state.user)
@@ -67,6 +68,7 @@ const PostForm = () => {
     dispatch(setPreviewUrl(undefined))
     setIsOnUp(false)
     setIsOnDown(false)
+    postEvent()
   }
 
   useEffect(() => {

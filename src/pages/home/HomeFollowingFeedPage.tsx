@@ -6,12 +6,14 @@ import PostForm from '../../components/post/PostForm'
 import getPostsByUrl from '../../lib/api/post/getPostsByUrl'
 import { HomePageProps } from './type'
 import { post_query_key } from '../../lib/variable'
+import usePageView from '../../components/common/hooks/usePageView'
 
 function FollowingFeedPage({ id }: HomePageProps) {
   const { isLoading, posts } = useInfinitePosts({
     key: [post_query_key, id, { page: 'following' }],
     callback: (cursor) => getPostsByUrl('following', cursor),
   })
+  usePageView('홈/팔로잉')
   if (!posts) return <></>
   return (
     <>
