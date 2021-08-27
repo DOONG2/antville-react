@@ -10,7 +10,7 @@ import HomeRecomendFeedPage from './HomeRecomendFeedPage'
 function HomePage() {
   const user = useRootState((state) => state.user)
 
-  if (!user) return <>{}</>
+  if (!user) return <></>
 
   return (
     <MainTemplate

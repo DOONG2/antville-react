@@ -1,17 +1,15 @@
 import styled from '@emotion/styled'
 
 export const LoginButton = styled.button`
-  width: 9.5rem;
-  height: 4rem;
-  padding: 0.5rem;
+  padding: 9px 25px;
 
   background: #fafafa;
   color: #1942e0;
   border: 1px solid #1942e0;
   border-radius: 5px;
 
-  font-weight: 600;
-  font-size: 1.6rem;
+  font-weight: 700;
+  font-size: 16px;
   line-height: 2.2rem;
 
   cursor: pointer;
