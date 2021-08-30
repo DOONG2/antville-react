@@ -14,15 +14,16 @@ const useOnClickOutside = ({ close, isOpen }: Props) => {
         close()
       }
     },
-    [isOpen]
+    [ref.current, isOpen]
   )
   const clickListener = useCallback(
     (e: MouseEvent) => {
       const el = ref?.current
       if (!el || !isOpen || el.contains(e.target as Node)) return
+      console.log('done')
       close()
     },
-    [isOpen]
+    [ref.current, isOpen]
   )
   useEffect(() => {
     document.addEventListener('click', clickListener)
