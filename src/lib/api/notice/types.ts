@@ -35,17 +35,15 @@ export function getRoutePath(notice: NoticeObject) {
 export function getContent(notice: NoticeObject) {
   switch (notice.type) {
     case NoticeType.TAG:
-      return `@${
-        notice.sender!.nickname
-      } 님이 게시글에 회원님을 태그하였습니다.`
+      return '님이 게시글에 회원님을 태그하였습니다.'
     case NoticeType.LIKE:
-      return `@${notice.sender!.nickname} 님이 회원님의 게시글을 좋아합니다.`
+      return '님이 회원님의 게시글을 좋아합니다.'
     case NoticeType.COMMENT_TAG:
-      return `@${notice.sender!.nickname} 님이 댓글에 회원님을 태그하였습니다.`
+      return '님이 댓글에 회원님을 태그하였습니다.'
     case NoticeType.COMMENT_LIKE:
-      return `@${notice.sender!.nickname} 님이 회원님의 댓글을 좋아합니다.`
+      return '님이 회원님의 댓글을 좋아합니다.'
     case NoticeType.FOLLOW:
-      return `@${notice.sender!.nickname} 님이 회원님을 팔로우 합니다.`
+      return '님이 회원님을 팔로우 합니다.'
     default:
       return null
   }
