@@ -17,9 +17,9 @@ import HeaderUserDropDown from './HeaderUserDropDown'
 import HeaderNoticeDropDown from './HeaderNoticeDropDown'
 import DropDown from '../common/DropDown'
 import Modal from '../common/FormModal'
-import userStorage from '../../lib/userStorage'
 
 function Header() {
+  const user = useRootState((state) => state.user)
   const {
     setIsOpenLoginForm,
     setIsOpenSignUpForm,
@@ -37,6 +37,7 @@ function Header() {
 
   const ProfileRef = useOnClickOutside({
     close: () => {
+      console.log('done')
       dispatch(setIsOpenProfileDropDown(false))
     },
     isOpen: isOpenProfileDropDown,
@@ -52,11 +53,15 @@ function Header() {
   const modalParentRef = useRef<HTMLDivElement>(null)
 
   const { height } = useElementSize(IconWrapperRef)
-  const user = userStorage.get()
+
   return (
     <Wrapper>
       <HeaderWrapper isLoggedIn={user !== null}>
-        <LogoWrapper onClick={() => history.push('/')}>
+        <LogoWrapper
+          onClick={() => {
+            history.push('/')
+          }}
+        >
           <HeaderLogo width={180} height={34} />
         </LogoWrapper>
         <SearchBar />
@@ -64,9 +69,9 @@ function Header() {
           {user ? (
             <IconWrapper ref={IconWrapperRef}>
               <NoticeWrapper
-                onClick={() =>
+                onClick={() => {
                   dispatch(setIsOpenNoticeDropDown(!isOpenNoticeDropDown))
-                }
+                }}
                 ref={NoticeRef}
               >
                 <NoticeIcon />
