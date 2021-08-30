@@ -1,7 +1,6 @@
 import { useEffect, useState } from 'react'
 import getPostById from '../../../lib/api/post/getPostById'
 import { Post } from '../../../lib/api/types'
-import * as Sentry from '@sentry/react'
 
 export default function usePostById(id: string) {
   const [post, setPost] = useState<Post>()
@@ -11,8 +10,7 @@ export default function usePostById(id: string) {
       try {
         const result = await getPostById(id)
         setPost(result)
-      } catch (error) {
-        Sentry.captureException(error)
+      } catch (_) {
       } finally {
         setIsLoading(false)
       }
