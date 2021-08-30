@@ -21,6 +21,7 @@ export function useStockInfo({ avStock }: Props) {
   const [watchUserCount, setWatchUserCount] = useState<number>(
     avStock.stock.stockCount.watchUserCount
   )
+  const [isWatchlistLimit, setIsWatchlistLimit] = useState(false)
 
   const { addWatchlist, deleteOneWatchlist, addOrReplaceStockPrice } =
     stockSlice.actions
@@ -65,7 +66,8 @@ export function useStockInfo({ avStock }: Props) {
         dispatch(addOrReplaceStockPrice(avStock.priceInfo!))
       }
     } catch (err) {
-      setIsWatchlist(false)
+      if (err.data.errorCode) setIsWatchlist(false)
+      if (err.data.errorCode === 700) setIsWatchlistLimit(true)
       if (watchUserCount > 0) {
         setWatchUserCount(avStock.stock.stockCount.watchUserCount)
       }
@@ -82,5 +84,11 @@ export function useStockInfo({ avStock }: Props) {
     }
   }
 
-  return { isWatchlist, watchUserCount, clickAddWatchlistButton }
+  return {
+    isWatchlist,
+    watchUserCount,
+    clickAddWatchlistButton,
+    setIsWatchlistLimit,
+    isWatchlistLimit,
+  }
 }
