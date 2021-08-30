@@ -4,28 +4,41 @@ import { antblue050, grey080 } from '../../lib/styles/colors'
 import AuthComponent from '../common/AuthComponent'
 import AVStock from '../../lib/models/av_stock'
 import { useStockInfo } from './hooks/useStockInfo'
+import WatchlistLimitAlert from './WatchlistLimitAlert'
+import Alert from '../common/Alert'
 
 type Props = {
   avStock: AVStock
 }
 
 export default function AddWatchlistComponent({ avStock }: Props) {
-  const { isWatchlist, watchUserCount, clickAddWatchlistButton } = useStockInfo(
-    { avStock }
-  )
+  const {
+    isWatchlist,
+    watchUserCount,
+    clickAddWatchlistButton,
+    isWatchlistLimit,
+    setIsWatchlistLimit,
+  } = useStockInfo({ avStock })
 
   return (
-    <Wrapper>
-      <WatchWrapper>
-        <PeopleIcon />
-        <WatchListCount>{watchUserCount.toLocaleString()}</WatchListCount>
-      </WatchWrapper>
-      <AuthComponent callback={clickAddWatchlistButton}>
-        <WatchButton isWatching={isWatchlist}>
-          {isWatchlist ? '관심 종목 삭제' : '관심 종목 등록'}
-        </WatchButton>
-      </AuthComponent>
-    </Wrapper>
+    <>
+      <Wrapper>
+        <WatchWrapper>
+          <PeopleIcon />
+          <WatchListCount>{watchUserCount.toLocaleString()}</WatchListCount>
+        </WatchWrapper>
+        <AuthComponent callback={clickAddWatchlistButton}>
+          <WatchButton isWatching={isWatchlist}>
+            {isWatchlist ? '관심 종목 삭제' : '관심 종목 등록'}
+          </WatchButton>
+        </AuthComponent>
+      </Wrapper>
+      {isWatchlistLimit && (
+        <Alert close={() => setIsWatchlistLimit(false)}>
+          <WatchlistLimitAlert />
+        </Alert>
+      )}
+    </>
   )
 }
 
