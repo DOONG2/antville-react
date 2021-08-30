@@ -31,8 +31,8 @@ class AVStock {
   get hasPrice(): boolean {
     if (
       this.priceInfo &&
-      this.priceInfo.change &&
-      this.priceInfo.changePercentage &&
+      this.priceInfo.change !== undefined &&
+      this.priceInfo.changePercentage !== undefined &&
       this.priceInfo.latest &&
       this.priceInfo.volume
     ) {
