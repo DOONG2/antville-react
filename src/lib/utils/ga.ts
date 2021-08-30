@@ -7,12 +7,13 @@ export function gaSetUserInfo({
   id: number
   nickname: string
 }) {
+  if (process.env.NODE_ENV !== 'production') return
   if (GA4React.isInitialized()) {
     GA4React.getGA4React()?.gtag('set', { id, nickname })
   } else {
     const ga4React = new GA4React('G-W1N0NF60VB', {
       debug_mode: process.env.NODE_ENV !== 'production',
-      send_page_view: true,
+      send_page_view: process.env.NODE_ENV === 'production',
     })
     ga4React.initialize().then((ga4) => {
       ga4.gtag('set', 'user_properties', { id, nickname })
@@ -46,5 +47,6 @@ function sendGaEvent(
   category: string,
   nonInteraction?: boolean
 ) {
+  if (process.env.NODE_ENV !== 'production') return
   GA4React.getGA4React()?.event(action, label, category, nonInteraction)
 }
