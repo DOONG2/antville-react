@@ -22,10 +22,6 @@ export const search_preview_page = '0'
 export const following = 'following'
 export const follower = 'follower'
 
-export const TYPE_FOLLOW = 'FOLLOW'
-export const TYPE_TAG = 'TAG'
-export const TYPE_LIKE = 'LIKE'
-
 export const CDN_HOST_URL = 'dli0p67dj8elg.cloudfront.net'
 export const S3_HOST_URL = 'antville-s3.s3.ap-northeast-2.amazonaws.com'
 export const SENTRY_DNS =

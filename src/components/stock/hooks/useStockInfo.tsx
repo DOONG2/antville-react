@@ -69,7 +69,7 @@ export function useStockInfo({ avStock }: Props) {
       if (err.data.errorCode) setIsWatchlist(false)
       if (err.data.errorCode === 700) setIsWatchlistLimit(true)
       if (watchUserCount > 0) {
-        setWatchUserCount(watchUserCount - 1)
+        setWatchUserCount(avStock.stock.stockCount.watchUserCount)
       }
     }
   }
@@ -80,7 +80,7 @@ export function useStockInfo({ avStock }: Props) {
       dispatch(deleteOneWatchlist(avStock.id))
     } catch (err) {
       setIsWatchlist(true)
-      setWatchUserCount(watchUserCount + 1)
+      setWatchUserCount(avStock.stock.stockCount.watchUserCount)
     }
   }
 

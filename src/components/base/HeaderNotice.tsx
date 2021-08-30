@@ -1,4 +1,8 @@
-import { NoticeObject } from '../../lib/api/notice/types'
+import {
+  getContent,
+  getRoutePath,
+  NoticeObject,
+} from '../../lib/api/notice/types'
 import {
   FeedAvatar,
   Inner,
@@ -10,12 +14,12 @@ import UserIcon30 from '../../static/svg/UserIcon30'
 import viewSlice from '../../reducers/Slices/view'
 import { useDispatch } from 'react-redux'
 import { useHistory } from 'react-router-dom'
-import { TYPE_FOLLOW, TYPE_LIKE, TYPE_TAG } from '../../lib/variable'
 import MomentDateChange from '../common/MomentDateChange'
 import usePatchNotice from './hooks/usePatchNotice'
 import { grey030, grey080 } from '../../lib/styles/colors'
 import styled from '@emotion/styled'
 import optimizeImage from '../../lib/utils/optimizeImage'
+import { useMemo } from 'react'
 
 type Props = {
   notice: NoticeObject
@@ -27,15 +31,13 @@ export default function HeaderNotice({ notice }: Props) {
   const history = useHistory()
 
   const { mutation } = usePatchNotice({ id: notice.id })
-
+  const content = useMemo(() => getContent(notice), [])
   return (
     <Wrapper
       onClick={() => {
         dispatch(setIsOpenNoticeDropDown(false))
         mutation.mutate()
-        if (notice.type === TYPE_FOLLOW)
-          return history.push(`/user/${notice.sender.nickname}/profile`)
-        else return history.push(`/feed/detail/${notice.param}`)
+        history.push(getRoutePath(notice))
       }}
     >
       {!notice.isChecked && <NoticePot />}
@@ -53,13 +55,7 @@ export default function HeaderNotice({ notice }: Props) {
           </FeedAvatar>
           <FlexWrapper>
             <NewNickname>@{notice.sender.nickname}</NewNickname>
-            <Text>
-              {notice.type === TYPE_LIKE &&
-                '님이 회원님의 게시글을 좋아합니다.'}
-              {notice.type === TYPE_FOLLOW && '님이 회원님을 팔로우합니다.'}
-              {notice.type === TYPE_TAG &&
-                '님이 게시글에 회원님을 태그하였습니다.'}
-            </Text>
+            {content && <Text>{content}</Text>}
           </FlexWrapper>
         </Item>
       </Inner>
