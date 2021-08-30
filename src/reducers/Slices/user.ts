@@ -5,7 +5,7 @@ import userStorage from '../../lib/userStorage'
 
 export type UserState = User | null
 
-const initialState = null as UserState
+const initialState = userStorage.get() as UserState
 
 const userSlice = createSlice({
   name: 'user',
