@@ -16,9 +16,12 @@ export default function usePageView(title: string) {
         debug_mode: process.env.NODE_ENV !== 'production',
         send_page_view: process.env.NODE_ENV === 'production',
       })
-      ga4React.initialize().then((ga4) => {
-        ga4.pageview(window.location.pathname + window.location.search, title)
-      })
+      ga4React
+        .initialize()
+        .then((ga4) => {
+          ga4.pageview(window.location.pathname + window.location.search, title)
+        })
+        .catch((_) => {})
     }
   }, [])
 }

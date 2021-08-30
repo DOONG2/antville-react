@@ -63,7 +63,7 @@ function HomeWatchlist() {
             >
               개인정보 처리방침
             </CursorItem>
-            <Item>© 2021 Antville, Inc.</Item>
+            <Item>© 2021 Vivaces, Inc.</Item>
           </Group>
         </Footer>
       </Wrapper>

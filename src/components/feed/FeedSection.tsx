@@ -19,7 +19,6 @@ import {
 } from '../../lib/styles/feed'
 import { AvatarImage } from '../../lib/styles/post'
 import FeedBody from './FeedBody'
-import FeedOption from './FeedOption'
 import LikeComponent from './LikeComponent'
 import MomentDateChange from '../common/MomentDateChange'
 import UserIcon50 from '../../static/svg/UserIcon50'
@@ -81,7 +80,6 @@ const FeedSection = ({
                 {post.sentiment === 'DOWN' && <StockDownIcon />}
               </IconWrapper>
             </LeftItem>
-            <FeedOption />
           </TopWrapper>
           <MiddleWrapper>
             <FeedBody body={post.body} />

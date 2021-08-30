@@ -19,7 +19,7 @@ function Footer() {
         <CursorItem onClick={() => window.open(document_privacy_url, '_black')}>
           개인정보 처리방침
         </CursorItem>
-        <Item>© 2021 Antville, Inc.</Item>
+        <Item>© 2021 Vivaces, Inc.</Item>
       </Wrapper>
     </>
   )
