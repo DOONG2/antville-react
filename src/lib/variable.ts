@@ -1,5 +1,5 @@
 export const commentsLimit = 10
-export const subCommentsLimit = 3
+export const subCommentsLimit = 5
 export const postLimit = 15
 export const notificationLimit = 15
 export const cacheStableTime = 6 * 1000 * 5

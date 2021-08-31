@@ -55,7 +55,7 @@ class AVStock {
   }
 
   setPriceInfo() {
-    var isUSD: boolean
+    let isUSD: boolean
     if (this.stock.exchange.countryCode !== 'KR') {
       isUSD = true
       this.changePercent = Math.abs(this.priceInfo!.changePercentage!).toFixed(

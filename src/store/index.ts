@@ -3,7 +3,7 @@ import reducer from '../reducers/rootReducer'
 
 const store = configureStore({
   reducer,
-  devTools: true,
+  devTools: process.env.NODE_ENV === 'test',
 })
 export type RootState = ReturnType<typeof store.getState>
 export type Dispatch = typeof store.dispatch
