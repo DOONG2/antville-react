@@ -24,7 +24,7 @@ export default function useInfiniteSubComment({
         lastPage[lastPage.length - 1]?.id,
 
       select: (data) => ({
-        pages: data.pages.flat(),
+        pages: data.pages.flat().reverse(),
         pageParams: data.pageParams,
       }),
     })
