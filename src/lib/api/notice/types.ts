@@ -44,6 +44,10 @@ export function getContent(notice: NoticeObject) {
       return '님이 회원님의 댓글을 좋아합니다.'
     case NoticeType.FOLLOW:
       return '님이 회원님을 팔로우 합니다.'
+    case NoticeType.COMMENT_COMMENT:
+      return '님이 회원님의 댓글에 답글을 남기셨습니다.'
+    case NoticeType.POST_COMMENT:
+      return '님이 회원님의 게시글에 답글을 남기셨습니다.'
     default:
       return null
   }
