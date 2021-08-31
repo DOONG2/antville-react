@@ -9,6 +9,7 @@ export default async function getSubCommentsById(id: number, cursor?: number) {
       params: {
         limit: subCommentsLimit,
         cursor,
+        order: 'DESC',
       },
     }
   )

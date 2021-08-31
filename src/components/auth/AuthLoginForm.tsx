@@ -13,7 +13,7 @@ import { useEffect } from 'react'
 import { useRootState } from '../common/hooks/useRootState'
 import { useDispatch } from 'react-redux'
 import viewSlice from '../../reducers/Slices/view'
-import useAutoFocus from './hooks/useAutoFocus'
+import useAutoFocus from '../common/hooks/useAutoFocus'
 
 function AuthLoginForm() {
   const {

@@ -17,19 +17,20 @@ const useOnClickOutside = ({ close, isOpen }: Props) => {
     [ref.current, isOpen]
   )
   const clickListener = useCallback(
-    (e: MouseEvent) => {
+    (e: MouseEvent | TouchEvent) => {
       const el = ref?.current
       if (!el || !isOpen || el.contains(e.target as Node)) return
-      console.log('done')
       close()
     },
     [ref.current, isOpen]
   )
   useEffect(() => {
-    document.addEventListener('click', clickListener)
+    document.addEventListener('mousedown', clickListener)
+    document.addEventListener('touchstart', clickListener)
     document.addEventListener('keyup', escapeListener)
     return () => {
-      document.removeEventListener('click', clickListener)
+      document.removeEventListener('mousedown', clickListener)
+      document.removeEventListener('touchstart', clickListener)
       document.removeEventListener('keyup', escapeListener)
     }
   }, [clickListener, escapeListener])

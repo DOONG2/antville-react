@@ -37,7 +37,6 @@ function Header() {
 
   const ProfileRef = useOnClickOutside({
     close: () => {
-      console.log('done')
       dispatch(setIsOpenProfileDropDown(false))
     },
     isOpen: isOpenProfileDropDown,
