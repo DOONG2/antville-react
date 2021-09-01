@@ -3,7 +3,7 @@ import getNotification from '../../lib/api/notice/getNotification'
 import HeaderNoticeEmpty from './HeaderNoticeEmpty'
 
 import styled from '@emotion/styled'
-import { grey080 } from '../../lib/styles/colors'
+import { grey050, grey080 } from '../../lib/styles/colors'
 
 import { useRef } from 'react'
 import HeaderNotice from './HeaderNotice'
@@ -70,4 +70,11 @@ const NoticeHeader = styled.div`
 const ScrollWrapper = styled.div`
   height: 425px;
   overflow: auto;
+  ::-webkit-scrollbar {
+    width: 5px; /*스크롤바의 너비*/
+  }
+  ::-webkit-scrollbar-thumb {
+    background-color: ${grey050}; /*스크롤바의 색상*/
+    border-radius: 7px;
+  }
 `
