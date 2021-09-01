@@ -35,7 +35,7 @@ interface Props {
 }
 
 function CommentForm({ parentCommentId, inputRef }: Props) {
-  const user = useRootState((state) => state.comment)
+  const user = useRootState((state) => state.user)
   const { isFocusInput, body, bodyLength } = useRootState(
     (state) => state.comment
   )
@@ -72,7 +72,11 @@ function CommentForm({ parentCommentId, inputRef }: Props) {
     <Form onSubmit={onSubmit}>
       <FormInner>
         <UserIconWrapper>
-          <UserIcon />
+          {user?.profileImg ? (
+            <img src={user.profileImg} alt="post_form_avatar" />
+          ) : (
+            <UserIcon />
+          )}
         </UserIconWrapper>
         <InputWrapper isFocus={isFocusInput}>
           {user ? (
