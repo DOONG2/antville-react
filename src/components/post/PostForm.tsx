@@ -32,6 +32,7 @@ import usePostMutation from './hooks/usePostMutation'
 import postFormData from '../../lib/api/post/postFormData'
 import { useParams } from 'react-router-dom'
 import { postEvent } from '../../lib/utils/ga'
+import optimizeImage from '../../lib/utils/optimizeImage'
 
 const PostForm = () => {
   const user = useRootState((state) => state.user)
@@ -81,7 +82,10 @@ const PostForm = () => {
       <FormInner>
         <UserIconWrapper>
           {user?.profileImg ? (
-            <img src={user.profileImg} alt="post_form_avatar" />
+            <img
+              src={optimizeImage(user.profileImg, 120)}
+              alt="post_form_avatar"
+            />
           ) : (
             <UserIcon />
           )}

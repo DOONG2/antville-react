@@ -28,6 +28,7 @@ import SubCommentEditor from './SubCommentEditor'
 import postCommentFormData from '../../lib/api/comment/postCommentFormData'
 import useCommentMutation from './hooks/useCommentMutation'
 import ReactQuill from 'react-quill'
+import optimizeImage from '../../lib/utils/optimizeImage'
 
 interface Props {
   parentCommentId?: number
@@ -72,7 +73,10 @@ function SubCommentForm({ parentCommentId, inputRef, setBody, body }: Props) {
       <FormInner>
         <UserIconWrapper>
           {user?.profileImg ? (
-            <img src={user.profileImg} alt="post_form_avatar" />
+            <img
+              src={optimizeImage(user.profileImg, 120)}
+              alt="post_form_avatar"
+            />
           ) : (
             <UserIcon />
           )}
