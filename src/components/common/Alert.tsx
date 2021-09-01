@@ -50,6 +50,7 @@ const alertKeyFrame = keyframes`
 
 const Block = styled.div`
   position: fixed;
+  z-index: 999999;
   margin: 0 auto;
   right: 0;
   left: 0;

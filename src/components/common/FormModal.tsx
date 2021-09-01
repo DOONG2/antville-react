@@ -1,5 +1,6 @@
 import styled from '@emotion/styled'
 import { RefObject, useEffect } from 'react'
+import { grey050 } from '../../lib/styles/colors'
 import CloseIcon from '../../static/svg/CloseIcon'
 
 interface ModalProps {
@@ -68,6 +69,13 @@ const Wrapper = styled.div<{ shown: boolean }>`
   width: inherit;
   outline: 0;
   overflow: auto;
+  ::-webkit-scrollbar {
+    width: 5px; /*스크롤바의 너비*/
+  }
+  ::-webkit-scrollbar-thumb {
+    background-color: ${grey050}; /*스크롤바의 색상*/
+    border-radius: 7px;
+  }
   background-color: #fff;
 
   box-shadow: 0px 4px 14px rgba(32, 32, 32, 0.12),
