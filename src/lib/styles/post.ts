@@ -99,7 +99,14 @@ export const SubmitButton = styled.button`
 `
 
 export const UserIconWrapper = styled.div`
-  margin-top: 3px;
+  margin-top: 7px;
+
+  & > img {
+    width: 40px;
+    height: 40px;
+    border-radius: 40px;
+    border: 0.5px solid ${grey020};
+  }
 `
 
 export const EmailCheck = styled.div`

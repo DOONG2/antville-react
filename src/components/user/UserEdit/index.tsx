@@ -4,6 +4,7 @@ import {
   antblue050,
   grey010,
   grey020,
+  grey030,
   grey040,
   grey050,
   grey060,
@@ -324,7 +325,7 @@ const ProfileAvatar = styled.div`
   width: 66px;
   height: 66px;
   border-radius: 50%;
-  border: 0.5px solid ${grey020};
+  border: 1px solid ${grey030};
 
   img {
     width: 66px;

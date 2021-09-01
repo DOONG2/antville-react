@@ -71,7 +71,11 @@ function SubCommentForm({ parentCommentId, inputRef, setBody, body }: Props) {
     <Form onSubmit={onSubmit}>
       <FormInner>
         <UserIconWrapper>
-          <UserIcon />
+          {user?.profileImg ? (
+            <img src={user.profileImg} alt="post_form_avatar" />
+          ) : (
+            <UserIcon />
+          )}
         </UserIconWrapper>
         <InputWrapper isFocus={isFocusInput}>
           {user ? (
