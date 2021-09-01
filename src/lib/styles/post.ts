@@ -47,7 +47,7 @@ export const FormInner = styled.div`
 `
 
 export const InputWrapper = styled.div<{ isFocus: boolean }>`
-  width: 56.1rem;
+  min-width: 56.1rem;
 
   padding: 12px 10px;
 
@@ -217,6 +217,7 @@ export const CustomQuill = styled(ReactQuill)`
   height: 100%;
 
   .ql-container {
+    white-space: nowrap;
     font-size: 16px;
     line-height: 20px;
     outline: none;
