@@ -2,7 +2,7 @@ import styled from '@emotion/styled'
 import getUserFollowing from '../../lib/api/user/getUserFollowing'
 import useInfiniteFollow from './hooks/useInfiniteFollow'
 import { UserListPros } from './type'
-import UserSection from './UserSection'
+import UserSection from './UserFollowSection'
 
 export default function UserFollowingList({
   user,

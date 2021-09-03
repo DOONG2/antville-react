@@ -6,6 +6,7 @@ import UserIcon50 from '../../static/svg/UserIcon50'
 import { useDispatch } from 'react-redux'
 import viewSlice from '../../reducers/Slices/view'
 import optimizeImage from '../../lib/utils/optimizeImage'
+import { AvatarImage } from '../../lib/styles/post'
 
 type Prop = {
   users: User[]
@@ -15,7 +16,7 @@ type Prop = {
   setUsers(users: User[] | undefined): void
 }
 
-export default function UserSection({
+export default function UserFollowSection({
   users,
   isLoading,
   emptyComponent,
@@ -47,7 +48,7 @@ export default function UserSection({
             }}
           >
             {user.profileImg ? (
-              <img
+              <AvatarImage
                 src={optimizeImage(user.profileImg, 120)}
                 alt="profile_image"
               />
