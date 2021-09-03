@@ -9,7 +9,7 @@ export function gaSetUserInfo({
 }) {
   if (process.env.NODE_ENV !== 'production') return
   if (GA4React.isInitialized()) {
-    GA4React.getGA4React()?.gtag('set', { id, nickname })
+    GA4React.getGA4React()?.gtag('set', 'user_properties', { id, nickname })
   } else {
     const ga4React = new GA4React('G-W1N0NF60VB', {
       debug_mode: process.env.NODE_ENV !== 'production',
