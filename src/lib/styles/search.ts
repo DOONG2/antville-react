@@ -1,5 +1,5 @@
 import styled from '@emotion/styled'
-import { grey040, grey080, sky010 } from './colors'
+import { grey020, grey040, grey080, sky010 } from './colors'
 import { StockListGroup, StockListWrapper } from './stockList'
 
 export const SerchBar = styled.div<{ isLoggedIn: boolean }>`
@@ -139,6 +139,7 @@ export const FeedAvatar = styled.div`
     width: 30px;
     height: 30px;
     border-radius: 30px;
+    border: 0.5px solid ${grey020};
   }
 
   cursor: pointer;
