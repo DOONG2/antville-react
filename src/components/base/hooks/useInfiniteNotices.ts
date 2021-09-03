@@ -5,7 +5,7 @@ import { NoticeObject } from '../../../lib/api/notice/types'
 import { cacheStableTime, notificationLimit } from '../../../lib/variable'
 
 export interface Props {
-  key: [string, number]
+  key: [string, string]
   callback: (cursor?: number) => Promise<NoticeObject[]>
   ref?: RefObject<HTMLDivElement>
 }

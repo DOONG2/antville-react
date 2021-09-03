@@ -8,7 +8,7 @@ import usePageView from '../../components/common/hooks/usePageView'
 
 function UserLikeFeedPage({ user }: UserFeedPageProps) {
   const { isLoading, posts } = useInfinitePosts({
-    key: [post_query_key, user.id, { page: activated_user_like }],
+    key: [post_query_key, String(user.id), { page: activated_user_like }],
     callback: (cursor) => getPostsByUserLike(user.id, cursor),
   })
   usePageView('프로필/좋아하는_게시물')

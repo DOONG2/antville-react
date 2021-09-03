@@ -5,7 +5,7 @@ import { cacheStableTime, commentsLimit } from '../../../lib/variable'
 import { Comment } from '../../../lib/api/comment/types'
 
 export interface Props {
-  key: [string, number]
+  key: [string, string]
   callback: (cursor?: number) => Promise<Comment[]>
 }
 

@@ -18,20 +18,20 @@ function HomePage() {
         <>
           <Route
             path={['/', '/recomend']}
-            render={() => <HomeRecomendFeedPage id={user.id} />}
+            render={() => <HomeRecomendFeedPage id={String(user.id)} />}
             exact
           />
           <Route
             path={['/watchlist']}
-            render={() => <WatchlistFeedPage id={user.id} />}
+            render={() => <WatchlistFeedPage id={String(user.id)} />}
           />
           <Route
             path={['/following']}
-            render={() => <FollowingFeedPage id={user.id} />}
+            render={() => <FollowingFeedPage id={String(user.id)} />}
           />
           <Route
             path={['/all']}
-            render={() => <AllFeedPage id={user.id} />}
+            render={() => <AllFeedPage id={String(user.id)} />}
             exact
           />
         </>

@@ -24,7 +24,7 @@ export default function SubCommentComponent({
   inputRef,
 }: Props) {
   const { subComments, hasNextPage, onLoadMore } = useInfiniteSubComment({
-    key: [sub_comment_query_key, comment.id],
+    key: [sub_comment_query_key, String(comment.id)],
     callback: (cursor) => getSubCommentsById(comment.id, cursor),
     isOpen,
   })

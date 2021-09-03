@@ -3,12 +3,12 @@ import { Stock, StockPriceInfo } from '../../lib/api/types'
 
 type StockState = Stock[] | null
 type StockPriceState = { [key: string]: StockPriceInfo }
-
 type initialType = {
   watchlist: StockState
   popularList: StockState
   priceState: StockPriceState
 }
+
 const initialState = {
   watchlist: null,
   popularList: null,

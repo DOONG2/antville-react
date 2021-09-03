@@ -8,7 +8,7 @@ import usePageView from '../../components/common/hooks/usePageView'
 
 function UserAllFeedPage({ user }: UserFeedPageProps) {
   const { isLoading, posts } = useInfinitePosts({
-    key: [post_query_key, user.id, { page: activated_user }],
+    key: [post_query_key, String(user.id), { page: activated_user }],
     callback: (cursor) => getPostsByUser(user.id, cursor),
   })
   usePageView('프로필/활동_내역')

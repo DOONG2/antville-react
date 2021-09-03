@@ -2,11 +2,11 @@ import { createContext, useCallback, useEffect, useMemo, useState } from 'react'
 import { useDispatch } from 'react-redux'
 import ReconnectingWebSocket from 'reconnecting-websocket'
 import { useRootState } from '../../components/common/hooks/useRootState'
-import newPostSlice from '../../reducers/Slices/newPost'
 import stockSlice from '../../reducers/Slices/stock'
 import { Post, StockPriceInfo } from '../api/types'
 import { selectAllPriceSymbolList } from '../../selectors/stockSelectors'
 import { v4 as uuidv4 } from 'uuid'
+import useWebSocketMutation from './hooks/useWebSocketMutation'
 
 export const WebsocketContext = createContext<{
   ws?: ReconnectingWebSocket
@@ -19,6 +19,7 @@ interface Props {
 }
 
 export function WebsocketProvider({ children }: Props) {
+  const { setStockDetailPost } = useWebSocketMutation()
   const uuid = useMemo(() => uuidv4(), [])
   const rws = useMemo(
     () =>
@@ -39,7 +40,6 @@ export function WebsocketProvider({ children }: Props) {
   const symbols = useRootState((state) => selectAllPriceSymbolList(state))
   const dispatch = useDispatch()
   const { addOrReplaceStockPrice } = stockSlice.actions
-  const { addNewPost } = newPostSlice.actions
 
   useEffect(() => {
     rws.addEventListener('open', (_) => {
@@ -53,7 +53,7 @@ export function WebsocketProvider({ children }: Props) {
       if (isStockPriceInfo(data)) {
         dispatch(addOrReplaceStockPrice(data))
       } else if (isStockPost(data)) {
-        dispatch(addNewPost(data))
+        setStockDetailPost(data)
       }
     }
     return () => rws.close()

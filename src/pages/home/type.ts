@@ -1,3 +1,3 @@
 export type HomePageProps = {
-  id: number
+  id: string
 }

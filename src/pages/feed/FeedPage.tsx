@@ -15,11 +15,7 @@ export default function FeedPage() {
     <MainTemplate
       children={
         !isLoading &&
-        (post ? (
-          <FeedDetailPage id={Number(id)} post={post} />
-        ) : (
-          <FeedDetailNotFound />
-        ))
+        (post ? <FeedDetailPage id={id} post={post} /> : <FeedDetailNotFound />)
       }
     />
   )

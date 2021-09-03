@@ -4,7 +4,11 @@ import getStockByTicker from '../../../lib/api/stock/getStockByTicker'
 import { Stock } from '../../../lib/api/types'
 import stockSlice from '../../../reducers/Slices/stock'
 
-export default function useGetStock(ticker: string) {
+type Props = {
+  ticker?: string
+}
+
+export default function useGetStock({ ticker }: Props) {
   const [stock, setStock] = useState<Stock>()
   const [loading, setLoading] = useState<boolean>(true)
   const dispatch = useDispatch()
@@ -12,6 +16,7 @@ export default function useGetStock(ticker: string) {
 
   const getStockApi = async () => {
     try {
+      if (!ticker) return
       const result = await getStockByTicker(ticker)
       setStock(result.stock)
       dispatch(addOrReplaceStockPrice(result.stockPriceInfo))
