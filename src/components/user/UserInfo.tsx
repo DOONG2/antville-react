@@ -13,6 +13,7 @@ import { useRef } from 'react'
 import UserIcon133 from '../../static/svg/UserIcon133'
 import { User } from '../../lib/api/types'
 import optimizeImage from '../../lib/utils/optimizeImage'
+import { AvatarImage } from '../../lib/styles/post'
 
 type Props = {
   user: User
@@ -35,7 +36,7 @@ export default function UserInfo({ user }: Props) {
         <Info>
           <UserAvatar>
             {user.profileImg ? (
-              <img
+              <AvatarImage
                 src={optimizeImage(user.profileImg, 120)}
                 alt="profile_image"
               />
