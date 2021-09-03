@@ -19,6 +19,7 @@ function UserAllFeedPage({ user }: UserFeedPageProps) {
       posts={posts}
       loading={isLoading}
       emptyComponent={<UserEmpty />}
+      keyId={user.id}
     />
   )
 }

@@ -35,7 +35,7 @@ function StockDetailFeed({ stock }: StockPageProps) {
       posts={[...newPost, ...(posts ?? [])]}
       loading={isLoading}
       emptyComponent={<NomalEmpty />}
-      stockId={stock.id}
+      keyId={stock.id}
     />
   )
 }

@@ -31,7 +31,7 @@ interface Props {
   loading?: boolean
   emptyComponent: ReactNode
   sectionKey: string
-  stockId?: number
+  keyId?: number
 }
 
 const FeedSection = ({
@@ -39,7 +39,7 @@ const FeedSection = ({
   loading,
   emptyComponent,
   sectionKey,
-  stockId,
+  keyId,
 }: Props) => {
   const history = useHistory()
 
@@ -97,7 +97,7 @@ const FeedSection = ({
                 isLiked={post.isLikedSelf}
                 id={post.id}
                 queryKey={post_query_key}
-                stockId={stockId}
+                keyId={keyId}
               />
             </BottomItem>
             <BottomItem
