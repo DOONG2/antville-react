@@ -24,7 +24,7 @@ function App() {
           name="description"
           content="1000만 투자자들을 위한 투자정보공유마을. 고민하지 말고 앤트빌에서 시작하세요."
         />
-        <meta name="viewport" content="width=device-width" />
+        <meta name="viewport" content="width=device-width, initial-scale=1" />
       </Helmet>
       <ErrorBoundary>
         <Switch>
