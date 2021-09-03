@@ -13,6 +13,7 @@ import ImageUpload from '../upload/ImageUpload'
 import GifUpload from '../upload/GifUpload'
 import PreviewImage from './PreviewImage'
 import {
+  AvatarImage,
   BodyLengthView,
   ButtonWrapper,
   Form,
@@ -82,7 +83,7 @@ const PostForm = () => {
       <FormInner>
         <UserIconWrapper>
           {user?.profileImg ? (
-            <img
+            <AvatarImage
               src={optimizeImage(user.profileImg, 120)}
               alt="post_form_avatar"
             />

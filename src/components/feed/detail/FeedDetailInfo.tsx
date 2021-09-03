@@ -32,6 +32,7 @@ import PostStock from '../../../lib/models/post_stock'
 import ImageComponent from '../ImageComponent'
 import { post_query_key } from '../../../lib/variable'
 import optimizeImage from '../../../lib/utils/optimizeImage'
+import { AvatarImage } from '../../../lib/styles/post'
 
 type FeedDetailInfoProps = {
   post: Post
@@ -68,7 +69,7 @@ export default function FeedDetailInfo({
                 }
               >
                 {post.author.profileImg ? (
-                  <img
+                  <AvatarImage
                     src={optimizeImage(post.author.profileImg, 120)}
                     alt="profile_image"
                   />

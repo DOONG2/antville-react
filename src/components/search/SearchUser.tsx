@@ -1,5 +1,6 @@
 import { useDispatch } from 'react-redux'
 import { useHistory } from 'react-router-dom'
+import { AvatarImage } from '../../lib/styles/post'
 import {
   EmptyWrapper,
   FeedAvatar,
@@ -40,7 +41,7 @@ export default function SearchUser() {
               >
                 <FeedAvatar>
                   {user.profileImg ? (
-                    <img
+                    <AvatarImage
                       src={optimizeImage(user.profileImg, 120)}
                       alt="profile_image"
                     />

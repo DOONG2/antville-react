@@ -270,6 +270,8 @@ export const CustomQuill = styled(ReactQuill)`
       width: 25px;
       height: 25px;
       margin-right: 14px;
+      object-fit: cover;
+      border-radius: 25px;
     }
 
     div:first-of-type {

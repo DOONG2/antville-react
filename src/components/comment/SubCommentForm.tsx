@@ -8,6 +8,7 @@ import viewSlice from '../../reducers/Slices/view'
 import ImageUpload from '../upload/ImageUpload'
 import GifUpload from '../upload/GifUpload'
 import {
+  AvatarImage,
   BodyLengthView,
   ButtonWrapper,
   Form,
@@ -73,7 +74,7 @@ function SubCommentForm({ parentCommentId, inputRef, setBody, body }: Props) {
       <FormInner>
         <UserIconWrapper>
           {user?.profileImg ? (
-            <img
+            <AvatarImage
               src={optimizeImage(user.profileImg, 120)}
               alt="post_form_avatar"
             />

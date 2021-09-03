@@ -20,6 +20,7 @@ import { grey030, grey080 } from '../../lib/styles/colors'
 import styled from '@emotion/styled'
 import optimizeImage from '../../lib/utils/optimizeImage'
 import { useMemo } from 'react'
+import { AvatarImage } from '../../lib/styles/post'
 
 type Props = {
   notice: NoticeObject
@@ -45,7 +46,7 @@ export default function HeaderNotice({ notice }: Props) {
         <Item>
           <FeedAvatar>
             {notice.sender.profileImg ? (
-              <img
+              <AvatarImage
                 src={optimizeImage(notice.sender.profileImg, 120)}
                 alt="profile_image"
               />
