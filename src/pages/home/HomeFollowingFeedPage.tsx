@@ -5,13 +5,13 @@ import FeedTab from '../../components/feed/FeedTab'
 import PostForm from '../../components/post/PostForm'
 import getPostsByUrl from '../../lib/api/post/getPostsByUrl'
 import { HomePageProps } from './type'
-import { post_query_key } from '../../lib/variable'
+import { activated_following, post_query_key } from '../../lib/variable'
 import usePageView from '../../components/common/hooks/usePageView'
 
 function FollowingFeedPage({ id }: HomePageProps) {
   const { isLoading, posts } = useInfinitePosts({
-    key: [post_query_key, id, { page: 'following' }],
-    callback: (cursor) => getPostsByUrl('following', cursor),
+    key: [post_query_key, id, { page: activated_following }],
+    callback: (cursor) => getPostsByUrl(activated_following, cursor),
   })
   usePageView('홈/팔로잉')
   if (!posts) return <></>

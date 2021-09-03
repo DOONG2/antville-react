@@ -5,12 +5,12 @@ import FeedTab from '../../components/feed/FeedTab'
 import PostForm from '../../components/post/PostForm'
 import getPostsByUrl from '../../lib/api/post/getPostsByUrl'
 import { HomePageProps } from './type'
-import { post_query_key } from '../../lib/variable'
+import { activated_all, post_query_key } from '../../lib/variable'
 import usePageView from '../../components/common/hooks/usePageView'
 
 function AllFeedPage({ id }: HomePageProps) {
   const { isLoading, posts } = useInfinitePosts({
-    key: [post_query_key, id, { page: 'all' }],
+    key: [post_query_key, id, { page: activated_all }],
     callback: (cursor) => getPostsByUrl('all', cursor),
   })
   usePageView('홈/전체')

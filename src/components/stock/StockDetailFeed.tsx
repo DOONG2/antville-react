@@ -4,7 +4,7 @@ import NomalEmpty from '../../components/feed/empty/NomalEmpty'
 import FeedSection from '../../components/feed/FeedSection'
 import getPostsByStock from '../../lib/api/post/getPostsByStock'
 import { Stock } from '../../lib/api/types'
-import { post_query_key } from '../../lib/variable'
+import { activated_stock, post_query_key } from '../../lib/variable'
 import useInfinitePosts from '../../pages/home/hooks/useInfinitePosts'
 import newPostSlice from '../../reducers/Slices/newPost'
 import { useRootState } from '../common/hooks/useRootState'
@@ -16,7 +16,7 @@ type StockPageProps = {
 
 function StockDetailFeed({ stock }: StockPageProps) {
   const { isLoading, posts } = useInfinitePosts({
-    key: [post_query_key, stock.id, { page: 'stock' }],
+    key: [post_query_key, stock.id, { page: activated_stock }],
     callback: (cursor) => getPostsByStock(stock.id, cursor),
   })
   const { reset } = newPostSlice.actions

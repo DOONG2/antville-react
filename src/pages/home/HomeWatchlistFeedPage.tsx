@@ -5,13 +5,13 @@ import FeedTab from '../../components/feed/FeedTab'
 import PostForm from '../../components/post/PostForm'
 import getPostsByUrl from '../../lib/api/post/getPostsByUrl'
 import { HomePageProps } from './type'
-import { post_query_key } from '../../lib/variable'
+import { activated_watchlist, post_query_key } from '../../lib/variable'
 import usePageView from '../../components/common/hooks/usePageView'
 
 function WatchlistFeedPage({ id }: HomePageProps) {
   const { isLoading, posts } = useInfinitePosts({
-    key: [post_query_key, id, { page: 'watchlist' }],
-    callback: (cursor) => getPostsByUrl('watchlist', cursor),
+    key: [post_query_key, id, { page: activated_watchlist }],
+    callback: (cursor) => getPostsByUrl(activated_watchlist, cursor),
   })
   usePageView('홈/관심종목')
   if (!posts) return <></>
