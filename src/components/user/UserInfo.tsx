@@ -5,7 +5,7 @@ import { useRootState } from '../common/hooks/useRootState'
 import viewSlice from '../../reducers/Slices/view'
 import MonthDate from '../common/MomentMonthDate'
 import UserTopRightButton from './UserTopRightButton'
-import { grey050, grey080 } from '../../lib/styles/colors'
+import { grey020, grey050, grey080 } from '../../lib/styles/colors'
 import Modal from '../common/FormModal'
 import FollowingList from './UserFollowingList'
 import UserFollowerList from './UserFollowerList'
@@ -111,7 +111,7 @@ const UserAvatar = styled.div`
   img {
     width: 133px;
     height: 133px;
-
+    border: 0.5px solid ${grey020};
     border-radius: 50%;
   }
 `
