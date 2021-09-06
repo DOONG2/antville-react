@@ -3,8 +3,8 @@ import { grey020, grey040, grey080, sky010 } from './colors'
 import { StockListGroup, StockListWrapper } from './stockList'
 
 export const SerchBar = styled.div<{ isLoggedIn: boolean }>`
-  width: 33rem;
-  height: 4rem;
+  width: 330px;
+  height: 40px;
   position: relative;
   margin-left: ${(props) => (props.isLoggedIn ? 'auto' : '0')};
 `
@@ -22,7 +22,7 @@ export const SearchInput = styled.input`
   left: 0;
   width: 100%;
   padding: 11px 20px 9px 38px;
-  font-size: 1.6rem;
+  font-size: 16px;
   font-weight: 500;
 
   background: #ffffff;
@@ -40,8 +40,8 @@ export const SearchInput = styled.input`
 export const HotStockListWrapper = styled(StockListWrapper)`
   position: absolute;
 
-  width: 32.8rem;
-  top: 5.2rem;
+  width: 328px;
+  top: 52px;
 
   z-index: 1000;
 `

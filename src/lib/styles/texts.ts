@@ -7,8 +7,8 @@ export const FontBlue = styled.div`
 `
 
 export const SubDescription = styled.div`
-  font-size: 1.2rem;
-  line-height: 1.6rem;
+  font-size: 12px;
+  line-height: 16px;
   font-weight: 400;
 
   color: #202020;

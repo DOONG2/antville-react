@@ -48,7 +48,7 @@ const TickerLabel = styled.div`
 `
 
 const UpDownIconWrapper = styled.div`
-  margin-left: 1.1rem;
+  margin-left: 11px;
   display: flex;
   align-items: center;
 `
@@ -57,6 +57,6 @@ const RateLabel = styled.div<{ color: string }>`
   font-weight: bold;
   font-size: 16px;
   line-height: 19px;
-  margin-left: 0.6rem;
+  margin-left: 6px;
   color: ${(props) => props.color};
 `

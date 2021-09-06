@@ -73,11 +73,11 @@ function HomeWatchlist() {
 
 const Wrapper = styled.div`
   position: absolute;
-  left: 2.4rem;
+  left: 24px;
 `
 
 const Main = styled.div`
-  height: 25rem;
+  height: 250px;
   display: flex;
   justify-content: center;
   align-items: center;
@@ -85,7 +85,7 @@ const Main = styled.div`
 
 const MainLabel = styled.div`
   font-weight: 500;
-  font-size: 1.6rem;
+  font-size: 16px;
   line-height: 150%;
 
   text-align: center;
@@ -94,20 +94,20 @@ const MainLabel = styled.div`
 `
 
 const Footer = styled.div`
-  margin-top: 2rem;
+  margin-top: 20px;
 `
 
 const Group = styled.div`
   display: flex;
-  column-gap: 1rem;
+  column-gap: 10px;
 `
 
 const Item = styled.div`
   color: ${grey040};
 
   font-weight: 500;
-  font-size: 1.3rem;
-  line-height: 1.8rem;
+  font-size: 13px;
+  line-height: 18px;
 `
 
 const CursorItem = styled(Item)`

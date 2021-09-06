@@ -41,13 +41,13 @@ export const FormInner = styled.div`
   display: flex;
   justify-content: space-between;
 
-  column-gap: 1.4rem;
+  column-gap: 14px;
 
   margin-bottom: 13px;
 `
 
 export const InputWrapper = styled.div<{ isFocus: boolean }>`
-  width: 56.1rem;
+  width: 561px;
 
   padding: 12px 10px;
 
