@@ -1,7 +1,51 @@
 import { css } from '@emotion/react'
 import { sky040, sky050 } from './lib/styles/colors'
 
+const fontStyle = css`
+  @font-face {
+    font-family: 'Spoqa Han Sans Neo';
+    font-style: normal;
+    font-weight: 100;
+    font-display: swap;
+    src: url('/fonts/SpoqaHanSansNeo-Thin.woff2') format('woff2');
+  }
+
+  @font-face {
+    font-family: 'Spoqa Han Sans Neo';
+    font-style: normal;
+    font-weight: 300;
+    font-display: swap;
+    src: url('/fonts/SpoqaHanSansNeo-Light.woff2') format('woff2');
+  }
+
+  @font-face {
+    font-family: 'Spoqa Han Sans Neo';
+    font-style: normal;
+    font-weight: 400;
+    font-display: swap;
+    src: url('/fonts/SpoqaHanSansNeo-Regular.woff2') format('woff2');
+  }
+
+  @font-face {
+    font-family: 'Spoqa Han Sans Neo';
+    font-style: normal;
+    font-weight: 500;
+    font-display: swap;
+    src: url('/fonts/SpoqaHanSansNeo-Medium.woff2') format('woff2');
+  }
+
+  @font-face {
+    font-family: 'Spoqa Han Sans Neo';
+    font-style: normal;
+    font-weight: 700;
+    font-display: swap;
+    src: url('/fonts/SpoqaHanSansNeo-Bold.woff2') format('woff2');
+  }
+`
+
 const globalStyle = css`
+  ${fontStyle}
+
   html {
     font-size: 62.5%;
   }
@@ -40,10 +84,10 @@ const globalStyle = css`
   body {
     margin: 0;
     padding: 0;
-    font-family: -apple-system, BlinkMacSystemFont, 'Helvetica Neue',
-      'Apple SD Gothic Neo', 'Malgun Gothic', '맑은 고딕', 나눔고딕,
-      'Nanum Gothic', 'Noto Sans KR', 'Noto Sans CJK KR', arial, 돋움, Dotum,
-      Tahoma, Geneva, sans-serif;
+    font-family: 'Spoqa Han Sans Neo', -apple-system, BlinkMacSystemFont,
+      'Helvetica Neue', 'Apple SD Gothic Neo', 'Malgun Gothic', '맑은 고딕',
+      나눔고딕, 'Nanum Gothic', 'Noto Sans KR', 'Noto Sans CJK KR', arial, 돋움,
+      Dotum, Tahoma, Geneva, sans-serif;
     -webkit-font-smoothing: antialiased;
     -moz-osx-font-smoothing: grayscale;
   }
