@@ -66,10 +66,10 @@ function AuthFindPasswordForm() {
 
 const Title = styled.div`
   font-weight: bold;
-  font-size: 2rem;
-  line-height: 2.7rem;
+  font-size: 20px;
+  line-height: 27px;
   text-align: left;
-  margin-top: 3.9rem;
+  margin-top: 39px;
 
   color: #202020;
 `
@@ -78,15 +78,15 @@ const Item = styled.div`
   display: flex;
   align-items: center;
   justify-content: space-between;
-  margin-top: 5rem;
+  margin-top: 50px;
 
   border-bottom: 0.5px solid #e0e0e0;
 `
 
 const Input = styled.input`
   width: 100%;
-  font-size: 1.6rem;
-  line-height: 2.2rem;
+  font-size: 16px;
+  line-height: 22px;
   outline: none;
   border: none;
 
@@ -104,11 +104,11 @@ const NewCompleteCheckIcon = styled(CompleteCheckIcon)`
 
 const ButtonWrapper = styled.div`
   position: relative;
-  margin-top: 3rem;
+  margin-top: 30px;
 `
 
 const NewLoginButton = styled(LoginButton)`
-  margin-top: 1.4rem;
+  margin-top: 14px;
   border: ${(props) =>
     props.disabled ? `1px solid ${grey050}` : '1px solid #1942e0'};
   background: ${(props) => (props.disabled ? `${grey050}` : '#1942e0')};
@@ -118,12 +118,12 @@ const NewLoginButton = styled(LoginButton)`
 
 const NewValidatorLabel = styled(ValidatorLabel)`
   position: absolute;
-  top: 1.4rem;
+  top: 14px;
   left: 102px;
 `
 
 const SubTitle = styled.div`
-  margin-top: 3rem;
+  margin-top: 30px;
   font-weight: 400;
   font-size: 16px;
   line-height: 22px;
