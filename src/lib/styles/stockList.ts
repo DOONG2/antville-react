@@ -17,7 +17,7 @@ export const StockListHeader = styled.div`
   font-weight: bold;
   font-size: 13px;
   line-height: 18px;
-  padding: 1rem;
+  padding: 10px;
 
   display: flex;
   justify-content: space-between;
@@ -25,7 +25,7 @@ export const StockListHeader = styled.div`
 
 export const StockListGroup = styled.div`
   display: grid;
-  padding: 1.1rem;
+  padding: 11px;
 `
 
 export const StockListItem = styled.div`

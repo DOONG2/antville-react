@@ -26,7 +26,7 @@ const globalStyle = css`
     }
 
     h1 {
-      font-size: 4.8rem;
+      font-size: 48px;
       font-weight: bold;
     }
     input {

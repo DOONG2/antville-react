@@ -10,7 +10,7 @@ export const LoginButton = styled.button`
 
   font-weight: 700;
   font-size: 16px;
-  line-height: 2.2rem;
+  line-height: 22px;
 
   cursor: pointer;
 `
@@ -22,10 +22,10 @@ export const SignUpButton = styled(LoginButton)`
 `
 
 export const SocialStoreButton = styled.button`
-  width: 13.5rem;
-  height: 4.8rem;
+  width: 135px;
+  height: 48px;
 
-  padding: 0 0.8rem;
+  padding: 0 8px;
   color: #1942e0;
   background: #fafafa;
   font-weight: 600;

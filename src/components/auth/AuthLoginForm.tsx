@@ -119,15 +119,15 @@ function AuthLoginForm() {
 }
 
 const Wrapper = styled.div`
-  padding: 2.5rem;
+  padding: 25px;
 `
 
 const Title = styled.div`
   font-weight: bold;
-  font-size: 2rem;
-  line-height: 2.7rem;
+  font-size: 20px;
+  line-height: 27px;
   text-align: left;
-  margin-top: 3.9rem;
+  margin-top: 39px;
 
   color: #202020;
 `
@@ -136,19 +136,19 @@ const Item = styled.div`
   display: flex;
   align-items: center;
   justify-content: space-between;
-  margin-top: 5rem;
+  margin-top: 50px;
 
   border-bottom: 0.5px solid #e0e0e0;
 `
 
 const CheckBoxWrapper = styled.div`
-  margin-top: 4.4rem;
+  margin-top: 44px;
   display: flex;
   align-items: center;
 `
 
 const NewLoginButton = styled(LoginButton)`
-  margin-top: 1.4rem;
+  margin-top: 14px;
   border: ${(props) =>
     props.disabled ? `1px solid ${grey050}` : '1px solid #1942e0'};
   background: ${(props) => (props.disabled ? `${grey050}` : '#1942e0')};
@@ -157,27 +157,27 @@ const NewLoginButton = styled(LoginButton)`
 `
 
 // const NewFontBlue = styled(FontBlue)`
-//   font-size: 1.2rem;
+//   font-size: 12px;
 //   cursor: pointer;
 // `
 
 const CheckBoxLabel = styled.div`
-  font-size: 1.2rem;
-  line-height: 2.2rem;
-  margin-left: 0.6rem;
+  font-size: 12px;
+  line-height: 22px;
+  margin-left: 6px;
 
   color: #424242;
   display: inline;
 `
 
 // const NewSubDescription = styled(SubDescription)`
-//   margin-top: 1.5rem;
+//   margin-top: 15px;
 // `
 
 const Input = styled.input`
   width: 100%;
-  font-size: 1.6rem;
-  line-height: 2.2rem;
+  font-size: 16px;
+  line-height: 22px;
   outline: none;
   border: none;
 
@@ -190,8 +190,8 @@ const Input = styled.input`
 `
 
 const SaveIdCheckBox = styled.input`
-  width: 1.9rem;
-  height: 1.9rem;
+  width: 19px;
+  height: 19px;
 
   outline: none;
 
@@ -208,7 +208,7 @@ const NewCompleteCheckIcon = styled(CompleteCheckIcon)`
 
 const NewValidatorLabel = styled(ValidatorLabel)`
   position: absolute;
-  top: 1.4rem;
+  top: 14px;
   left: 102px;
 `
 

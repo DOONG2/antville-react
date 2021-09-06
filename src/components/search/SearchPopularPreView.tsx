@@ -32,8 +32,8 @@ export default function PopularPreView() {
 const HotStockListWrapper = styled(StockListWrapper)`
   position: absolute;
 
-  width: 32.8rem;
-  top: 5.2rem;
+  width: 328px;
+  top: 52px;
 
   z-index: 1001;
 `

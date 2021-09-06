@@ -27,16 +27,16 @@ function Footer() {
 
 const Wrapper = styled.div`
   display: flex;
-  width: 144rem;
-  padding: 2.5rem;
+  width: 1440px;
+  padding: 25px;
   margin: 0 auto;
 `
 
 const Item = styled.div`
   font-weight: 500;
-  font-size: 1.3rem;
-  line-height: 1.8rem;
-  margin-left: 2rem;
+  font-size: 13px;
+  line-height: 18px;
+  margin-left: 20px;
 
   color: #202020;
 `

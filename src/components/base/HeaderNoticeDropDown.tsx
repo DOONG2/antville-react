@@ -62,7 +62,7 @@ const NoticeHeader = styled.div`
   font-weight: bold;
   font-size: 13px;
   line-height: 18px;
-  padding: 1rem;
+  padding: 10px;
   display: flex;
   justify-content: space-between;
 `

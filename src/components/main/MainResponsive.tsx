@@ -19,14 +19,14 @@ function MainResponsive({ className, children }: MainResponsiveProps) {
 }
 
 const Wrapper = styled.div`
-  width: 68.4rem;
+  width: 684px;
   margin: 0 auto;
   padding-bottom: 30px;
   position: relative;
 `
 
 const Inner = styled.div`
-  width: 144rem;
+  width: 1440px;
   padding: 3rem 0 0 0;
   margin: 0 auto;
   position: relative;
