@@ -48,6 +48,7 @@ const globalStyle = css`
 
   html {
     font-size: 62.5%;
+    word-break: keep-all;
   }
 
   html * {

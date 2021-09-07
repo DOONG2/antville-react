@@ -11,6 +11,7 @@ import useGetTagHtml from './hooks/useGetTagHtml'
 import { useParams } from 'react-router-dom'
 import ReactQuill from 'react-quill'
 import optimizeImage from '../../lib/utils/optimizeImage'
+import { place_holder_post } from '../../lib/variable'
 
 type DataType = {
   id: number
@@ -98,9 +99,7 @@ export default function PostEditor() {
           dispatch(setBodyLength(editor.getText().length - 1))
         }}
         value={body}
-        placeholder={
-          '당신의 생각을 공유해주세요! ($ 태그 사용 후, 종목  입력) '
-        }
+        placeholder={place_holder_post}
         onFocus={(range, source, editor) => {
           dispatch(setIsFocusInput(true))
           if (body === '' || body === '<p><br></p>') {

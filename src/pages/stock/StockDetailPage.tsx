@@ -3,6 +3,7 @@ import StockInfo from '../../components/stock/StockInfo'
 import StockDetailFeed from '../../components/stock/StockDetailFeed'
 import { Stock } from '../../lib/api/types'
 import StockChart from '../../components/stock/StockChart'
+import { FeedWapper, Wrapper } from '../../lib/styles/feed'
 
 type StockPageProps = {
   stock: Stock
@@ -11,10 +12,14 @@ type StockPageProps = {
 function StockDetailPage({ stock }: StockPageProps) {
   return (
     <>
-      <StockInfo stock={stock} />
-      <StockChart symbol={stock.symbol} />
-      <PostForm />
-      <StockDetailFeed stock={stock} />
+      <Wrapper>
+        <StockInfo stock={stock} />
+        <StockChart symbol={stock.symbol} />
+      </Wrapper>
+      <FeedWapper>
+        <PostForm />
+        <StockDetailFeed stock={stock} />
+      </FeedWapper>
     </>
   )
 }

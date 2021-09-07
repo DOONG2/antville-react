@@ -45,7 +45,7 @@ const Wrapper = styled.div<{ shown: boolean }>`
   transform: translate(-50%, -50%);
   z-index: 1000;
   outline: 0;
-  overflow: auto;
+  overflow: overlay;
   ::-webkit-scrollbar {
     width: 5px; /*스크롤바의 너비*/
   }

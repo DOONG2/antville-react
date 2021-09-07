@@ -8,6 +8,7 @@ import {
   MiddleWrapper,
   NickNameWrapper,
   PostTime,
+  RightItem,
   TopWrapper,
 } from '../../lib/styles/feed'
 import { AvatarImage } from '../../lib/styles/post'
@@ -31,22 +32,24 @@ export default function CommentSection({ comments, loading }: Props) {
     <>
       {comments?.map((comment) => (
         <NewFeedWrapper key={`${comment.id}-feed-comment`}>
-          <TopWrapper>
-            <LeftItem>
-              <FeedAvatar
-                onClick={() =>
-                  history.push(`/user/${comment.author.nickname}/profile`)
-                }
-              >
-                {comment.author.profileImg ? (
-                  <AvatarImage
-                    src={comment.author.profileImg}
-                    alt="profile_image"
-                  />
-                ) : (
-                  <UserIcon50 />
-                )}
-              </FeedAvatar>
+          <LeftItem>
+            <FeedAvatar
+              onClick={() =>
+                history.push(`/user/${comment.author.nickname}/profile`)
+              }
+            >
+              {comment.author.profileImg ? (
+                <AvatarImage
+                  src={comment.author.profileImg}
+                  alt="profile_image"
+                />
+              ) : (
+                <UserIcon50 />
+              )}
+            </FeedAvatar>
+          </LeftItem>
+          <RightItem>
+            <TopWrapper>
               <NickNameWrapper
                 onClick={() =>
                   history.push(`/user/${comment.author.nickname}/profile`)
@@ -57,17 +60,17 @@ export default function CommentSection({ comments, loading }: Props) {
               <PostTime>
                 <MomentDateChange time={comment.createdAt} />
               </PostTime>
-            </LeftItem>
-          </TopWrapper>
-          <MiddleWrapper>
-            <FeedBody body={comment.body} isDetail={true} />
-            {comment.commentImgs[0] && (
-              <ImageComponent url={comment.commentImgs[0].image.toString()} />
-            )}
-            {comment.gifImage?.gifUrl && (
-              <ImageComponent url={comment.gifImage.gifUrl} isGif={true} />
-            )}
-          </MiddleWrapper>
+            </TopWrapper>
+            <MiddleWrapper>
+              <FeedBody body={comment.body} isDetail={true} />
+              {comment.commentImgs[0] && (
+                <ImageComponent url={comment.commentImgs[0].image.toString()} />
+              )}
+              {comment.gifImage?.gifUrl && (
+                <ImageComponent url={comment.gifImage.gifUrl} isGif={true} />
+              )}
+            </MiddleWrapper>
+          </RightItem>
           <CommentBottom comment={comment} />
         </NewFeedWrapper>
       ))}

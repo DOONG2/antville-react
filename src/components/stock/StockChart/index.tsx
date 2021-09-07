@@ -15,6 +15,8 @@ import {
   grey020,
   grey030,
   grey050,
+  grey060,
+  grey080,
   red050,
 } from '../../../lib/styles/colors'
 import Loading from '../../common/Loading'
@@ -131,17 +133,12 @@ export default function StockChart({ symbol }: Props) {
   }, [data])
 
   return (
-    <div
-      style={{
-        marginBottom: '10px',
-        marginTop: '20px',
-      }}
-    >
+    <Wrapper>
       <div
         style={{
           position: 'relative',
           width: '100%',
-          height: '250px',
+          height: '255px',
           display: 'flex',
           justifyContent: 'center',
           alignItems: 'center',
@@ -152,8 +149,7 @@ export default function StockChart({ symbol }: Props) {
           ref={chartContainerRef}
           style={{
             width: '100%',
-            height: '250px',
-            marginBottom: '20px',
+            height: '255px',
             position: 'absolute',
           }}
         />
@@ -165,27 +161,34 @@ export default function StockChart({ symbol }: Props) {
           </TypeItem>
         ))}
       </TypeWrapper>
-    </div>
+    </Wrapper>
   )
 }
+
+const Wrapper = styled.div`
+  width: 673px;
+  margin-top: 20px;
+`
 
 export const TypeWrapper = styled.div`
   display: flex;
   align-items: center;
-  column-gap: 21px;
-  padding-top: 5px;
-  padding-bottom: 5px;
-  font-style: normal;
-  font-weight: normal;
-  font-size: 12px;
-  line-height: 20px;
-  color: #000000;
+  font-weight: 500;
+  font-size: 14px;
+  line-height: 18px;
+  margin-top: 12px;
+  color: ${grey060};
 `
 
 export const TypeItem = styled.div<{ isSelected: boolean }>`
   display: flex;
   align-items: center;
-  padding-bottom: 13px;
-  color: ${(props) => (props.isSelected ? '#000000' : grey030)};
+  padding: 6px 12px;
+
+  border-radius: 63px;
+  background: ${(p) => (p.isSelected ? grey020 : '#fff')};
+  font-weight: ${(p) => (p.isSelected ? 700 : 500)};
+
+  color: ${(props) => (props.isSelected ? grey080 : grey060)};
   cursor: pointer;
 `

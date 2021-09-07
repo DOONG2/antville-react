@@ -61,9 +61,10 @@ function PopularStock() {
 }
 
 const IconWrapper = styled.div`
-  margin-top: 2.9px;
+  margin-top: 1px;
   cursor: pointer;
   display: flex;
+  align-items: center;
 `
 
 const NewPauseIcon = styled(PauseIcon)`
@@ -87,14 +88,14 @@ const BarWrapper = styled.div`
 const Label = styled.div`
   color: rgba(117, 117, 117, 1);
   font-size: 16px;
-  font-weight: 500;
-  line-height: 22px;
+  font-weight: 700;
+  margin-top: 0.2px;
 `
 
 const LabelWrapper = styled.div<{ isPause: boolean }>`
   margin-right: ${(p) => (p.isPause ? '15px' : '30px')};
   display: flex;
-  column-gap: 9px;
+  column-gap: 14px;
   align-items: center;
   white-space: nowrap;
 `

@@ -1,4 +1,5 @@
 import styled from '@emotion/styled'
+import { antblue050 } from './colors'
 
 export const LoginButton = styled.button`
   padding: 9px 25px;
@@ -41,5 +42,32 @@ export const SocialStoreButton = styled.button`
   flex-wrap: wrap;
   gap: 0px 8px;
 
+  cursor: pointer;
+`
+
+export const WatchlistLoginButton = styled.button`
+  padding: 10px 25px;
+  font-weight: bold;
+  color: ${antblue050};
+  border-radius: 5px;
+  border: 1px solid ${antblue050};
+  background-color: #fff;
+  font-size: 16px;
+  font-weight: bold;
+  line-height: 20px;
+  cursor: pointer;
+`
+
+export const WatchlistSignUpButton = styled.button`
+  padding: 10px 18px;
+  font-weight: bold;
+  color: #fff;
+  border-radius: 5px;
+  border: 1px solid ${antblue050};
+  background-color: ${antblue050};
+
+  font-size: 16px;
+  font-weight: bold;
+  line-height: 20px;
   cursor: pointer;
 `

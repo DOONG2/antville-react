@@ -1,4 +1,8 @@
 import styled from '@emotion/styled'
+import {
+  WatchlistLoginButton,
+  WatchlistSignUpButton,
+} from '../../lib/styles/buttons'
 import { grey040, grey050, grey080 } from '../../lib/styles/colors'
 import { StockListWrapper, StockListHeader } from '../../lib/styles/stockList'
 import { document_privacy_url, document_rules_url } from '../../lib/variable'
@@ -14,13 +18,16 @@ function HomeWatchlist() {
       <>
         <Wrapper>
           <NewStockListWrapper>
-            <StockListHeader>관심 종목</StockListHeader>
             <Main>
               <MainLabel>
-                원하는 종목을 검색하고
+                관심 종목을 등록하고
                 <br />
-                관심 종목 리스트에 등록해보세요!
+                원하시는 정보를 공유해보세요!
               </MainLabel>
+              <ButtonWrapper>
+                <WatchlistLoginButton>로그인</WatchlistLoginButton>
+                <WatchlistSignUpButton>가입하기</WatchlistSignUpButton>
+              </ButtonWrapper>
             </Main>
           </NewStockListWrapper>
         </Wrapper>
@@ -42,13 +49,13 @@ function HomeWatchlist() {
               ))}
             </ScrollBar>
           ) : (
-            <Main>
+            <LoggedMain>
               <MainLabel>
                 원하는 종목을 검색하고
                 <br />
                 관심 종목 리스트에 등록해보세요!
               </MainLabel>
-            </Main>
+            </LoggedMain>
           )}
         </NewStockListWrapper>
         <Footer>
@@ -77,19 +84,30 @@ const Wrapper = styled.div`
 `
 
 const Main = styled.div`
+  height: 301px;
+  display: flex;
+  align-items: center;
+  flex-direction: column;
+`
+
+const ButtonWrapper = styled.div`
+  margin-top: 31px;
+  display: flex;
+  column-gap: 15px;
+`
+
+const LoggedMain = styled.div`
   height: 250px;
   display: flex;
   justify-content: center;
-  align-items: center;
 `
 
 const MainLabel = styled.div`
-  font-weight: 500;
+  font-weight: 400;
   font-size: 16px;
   line-height: 150%;
-
+  margin-top: 88px;
   text-align: center;
-
   color: #202020;
 `
 
@@ -119,11 +137,12 @@ const CursorItem = styled(Item)`
 
 const NewStockListWrapper = styled(StockListWrapper)`
   width: 297px;
+  border-radius: 8px;
 `
 
 const ScrollBar = styled.div`
-  overflow: auto;
-  height: 459px;
+  overflow: overlay;
+  height: 448px;
   ::-webkit-scrollbar {
     width: 5px; /*스크롤바의 너비*/
   }

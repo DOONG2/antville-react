@@ -1,6 +1,20 @@
 import styled from '@emotion/styled'
 import { grey020, grey030, grey060, grey080 } from './colors'
 
+export const Wrapper = styled.div`
+  background-color: #fff;
+  padding: 23px 29px 23px 29px;
+  margin-bottom: 29px;
+  box-shadow: 0px 2px 5px rgba(32, 32, 32, 0.15);
+  border-radius: 8px;
+`
+
+export const FeedWapper = styled.div`
+  background-color: #fff;
+  box-shadow: 0px 2px 5px rgba(32, 32, 32, 0.15);
+  border-radius: 8px;
+`
+
 export const GifImage = styled.img`
   margin: 0 auto;
   margin-top: 15px;
@@ -14,15 +28,18 @@ export const GifImage = styled.img`
 `
 
 export const FeedWrapper = styled.div`
-  border-top: 1px solid #ececec;
+  margin: 0 25px;
+  padding: 25px 5px 27px 5px;
+  border-bottom: 1px solid ${grey030};
+  display: flex;
 `
 
 export const TopWrapper = styled.div`
-  padding: 13px 24px 0 24px;
-
   display: flex;
   align-items: center;
   justify-content: space-between;
+
+  margin-top: 5px;
 `
 
 export const FeedAvatar = styled.div`
@@ -41,68 +58,69 @@ export const FeedAvatar = styled.div`
   cursor: pointer;
 `
 
+export const FeedTop = styled.div`
+  display: flex;
+  align-items: flex-end;
+`
+
 export const NickNameWrapper = styled.div`
-  font-weight: 600;
+  font-weight: 700;
   font-size: 16px;
-  line-height: 22px;
+  line-height: 20px;
 
   color: ${grey080};
-
-  margin-left: 20px;
-  padding-bottom: 5px;
-
   cursor: pointer;
 `
 
 export const PostTime = styled.div`
-  font-weight: 600;
+  font-weight: bold;
   font-size: 10px;
-  line-height: 14px;
+  line-height: 13px;
 
   color: ${grey060};
-
+  margin-bottom: 2.5px;
   margin-left: 7px;
+`
+
+export const RightItem = styled.div`
+  width: 100%;
+  display: flex;
+  margin-left: 19px;
+  flex-direction: column;
 `
 
 export const IconWrapper = styled.div`
   margin-left: 9px;
+  margin-bottom: 3px;
   display: flex;
   align-items: center;
 `
 
 export const LeftItem = styled.div`
   display: flex;
-  align-items: center;
 `
 
 export const MiddleWrapper = styled.div`
   width: 100%;
-  padding-left: 97px;
-  padding-right: 40px;
-
   font-size: 16px;
+  margin-top: 16px;
   line-height: 150%;
 `
 export const BottomWrapper = styled.div`
-  margin-top: 30px;
+  margin-top: 20px;
   display: flex;
   align-items: center;
-  padding-left: 97px;
   column-gap: 30px;
-
-  font-style: normal;
-  font-weight: normal;
-  font-size: 12px;
+  font-size: 14px;
   line-height: 20px;
 
-  color: #757575;
+  color: ${grey060};
 `
 
 export const BottomItem = styled.div`
   display: flex;
   align-items: center;
   column-gap: 6px;
-  padding-bottom: 13px;
 `
 
 export const Count = styled.div`

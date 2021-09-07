@@ -43,3 +43,6 @@ export const document_notice_url =
   'https://www.notion.so/vivaces/Antville-81d118b732ca449b8b7697a91ca9a3a7'
 
 export const TENOR_API_KEY = 'WUD6F5G7M1KQ'
+
+export const place_holder_post =
+  '내용을 입력해주세요. ($를 입력하여 종목을 태그해보세요.) '
