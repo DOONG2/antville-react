@@ -34,7 +34,7 @@ export default function usePostMutation({ callback }: Props) {
     {
       onMutate: async (variables: onMutateProps) => {},
       onSuccess: (res, variables, context) => {
-        const key = [post_query_key, user!.id, { page: activated_all }]
+        const key = [post_query_key, String(user!.id), { page: activated_all }]
         const previousQuery =
           queryClinet.getQueryData<InfiniteData<Post[]>>(key)
         if (previousQuery) {
