@@ -10,7 +10,7 @@ import Modal from '../common/FormModal'
 import FollowingList from './UserFollowingList'
 import UserFollowerList from './UserFollowerList'
 import { useRef } from 'react'
-import UserIcon133 from '../../static/svg/UserIcon133'
+import UserIcon100 from '../../static/svg/UserIcon100'
 import { User } from '../../lib/api/types'
 import optimizeImage from '../../lib/utils/optimizeImage'
 import { AvatarImage } from '../../lib/styles/post'
@@ -33,84 +33,100 @@ export default function UserInfo({ user }: Props) {
   return (
     <>
       <Wrapper>
-        <Info>
-          <UserAvatar>
-            {user.profileImg ? (
-              <AvatarImage
-                src={optimizeImage(user.profileImg, 120)}
-                alt="profile_image"
-              />
-            ) : (
-              <UserIcon133 />
-            )}
-          </UserAvatar>
-          <UserDetail>
-            <Nickname>{user.nickname}</Nickname>
-            <JoinDate>
-              <CalendarIcon />
-              <DateText>
-                <MonthDate time={user.createdAt} />
-                {`에 가입`}
-              </DateText>
-            </JoinDate>
-            <FollowWrapper>
-              <Following
-                onClick={() => {
-                  dispatch(setIsOpenFollowingModal(true))
-                }}
-              >
-                {`${user.userCount.following}  팔로잉`}
-              </Following>
-              <Modal
-                modalParentRef={modalParentRef}
-                shown={isOpenFollowingModal}
-                width="448px"
-                height="557px"
-                close={() => {
-                  dispatch(setIsOpenFollowingModal(false))
-                }}
-              >
-                <ModalTitle>팔로잉</ModalTitle>
-                <FollowingList user={user} modalParentRef={modalParentRef} />
-              </Modal>
-              <Follower
-                onClick={() => dispatch(setIsOpenFollwerModal(true))}
-              >{`${user.userCount.followers}  팔로워`}</Follower>
-              <Modal
-                modalParentRef={modalParentRef}
-                shown={isOpenFollwerModal}
-                width="448px"
-                height="557px"
-                close={() => {
-                  dispatch(setIsOpenFollwerModal(false))
-                }}
-              >
-                <ModalTitle>팔로워</ModalTitle>
-                <UserFollowerList user={user} modalParentRef={modalParentRef} />
-              </Modal>
-            </FollowWrapper>
-          </UserDetail>
-        </Info>
-        <UserTopRightButton user={user} />
+        <Inner>
+          <Info>
+            <UserAvatar>
+              {user.profileImg ? (
+                <AvatarImage
+                  src={optimizeImage(user.profileImg, 120)}
+                  alt="profile_image"
+                />
+              ) : (
+                <UserIcon100 />
+              )}
+            </UserAvatar>
+            <UserDetail>
+              <Nickname>{user.nickname}</Nickname>
+              <FollowWrapper>
+                <Following
+                  onClick={() => {
+                    dispatch(setIsOpenFollowingModal(true))
+                  }}
+                >
+                  <Bold>{user.userCount.following}</Bold>
+                  팔로잉
+                </Following>
+                <Modal
+                  modalParentRef={modalParentRef}
+                  shown={isOpenFollowingModal}
+                  width="448px"
+                  height="557px"
+                  close={() => {
+                    dispatch(setIsOpenFollowingModal(false))
+                  }}
+                >
+                  <ModalTitle>팔로잉</ModalTitle>
+                  <FollowingList user={user} modalParentRef={modalParentRef} />
+                </Modal>
+                <Follower onClick={() => dispatch(setIsOpenFollwerModal(true))}>
+                  <Bold>{user.userCount.followers}</Bold>
+                  팔로워
+                </Follower>
+                <Modal
+                  modalParentRef={modalParentRef}
+                  shown={isOpenFollwerModal}
+                  width="448px"
+                  height="557px"
+                  close={() => {
+                    dispatch(setIsOpenFollwerModal(false))
+                  }}
+                >
+                  <ModalTitle>팔로워</ModalTitle>
+                  <UserFollowerList
+                    user={user}
+                    modalParentRef={modalParentRef}
+                  />
+                </Modal>
+              </FollowWrapper>
+            </UserDetail>
+          </Info>
+          <UserTopRightButton user={user} />
+        </Inner>
+        <JoinDate>
+          <CalendarIcon />
+          <DateText>
+            <MonthDate time={user.createdAt} />
+            {`에 가입`}
+          </DateText>
+        </JoinDate>
+        <Introduction>{user.bio}</Introduction>
       </Wrapper>
-      <Introduction>{user.bio}</Introduction>
     </>
   )
 }
 
+const Bold = styled.div`
+  display: inline;
+  font-weight: bold;
+  margin-right: 6.5px;
+`
+
 const Wrapper = styled.div`
+  padding: 26px 33px 36px 33px;
+`
+
+const Inner = styled.div`
   display: flex;
-  justify-content: space-between;
 `
 
 const UserAvatar = styled.div`
-  width: 133px;
-  height: 133px;
+  width: 100px;
+  height: 100px;
   border-radius: 50%;
 
   img {
-    width: 133px;
-    height: 133px;
+    width: 100px;
+    height: 100px;
     border: 0.5px solid ${grey020};
     border-radius: 50%;
   }
@@ -118,6 +134,7 @@ const UserAvatar = styled.div`
 
 const Info = styled.div`
   display: flex;
+  width: 100%;
 `
 
 const UserDetail = styled.div`
@@ -136,8 +153,7 @@ const Nickname = styled.div`
 `
 
 const JoinDate = styled.div`
-  margin-top: 18px;
-
+  margin-top: 16px;
   display: flex;
   align-items: center;
 `
@@ -145,18 +161,17 @@ const JoinDate = styled.div`
 const FollowWrapper = styled.div`
   display: flex;
   column-gap: 14px;
-  margin-top: 10px;
+  margin-top: 16px;
 
-  font-weight: 500;
-  font-size: 16px;
-  line-height: 19px;
+  font-size: 20px;
+  line-height: 24px;
 
   color: ${grey080};
 `
 
 const DateText = styled.div`
   font-weight: 500;
-  font-size: 16px;
+  font-size: 14px;
   line-height: 19px;
 
   color: ${grey050};
@@ -176,11 +191,11 @@ const Follower = styled.div`
 
 const Introduction = styled.div`
   font-weight: 400;
-  font-size: 14px;
-  line-height: 140%;
+  font-size: 15px;
+  line-height: 160%;
 
   color: ${grey080};
-  margin-top: 15px;
+  margin-top: 12px;
 `
 
 const ModalTitle = styled.div`

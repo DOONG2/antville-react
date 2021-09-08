@@ -3,6 +3,7 @@ import { useHistory } from 'react-router'
 import { Comment } from '../../lib/api/comment/types'
 import {
   FeedAvatar,
+  FeedTop,
   FeedWrapper,
   LeftItem,
   MiddleWrapper,
@@ -50,16 +51,18 @@ export default function CommentSection({ comments, loading }: Props) {
           </LeftItem>
           <RightItem>
             <TopWrapper>
-              <NickNameWrapper
-                onClick={() =>
-                  history.push(`/user/${comment.author.nickname}/profile`)
-                }
-              >
-                {comment.author.nickname}
-              </NickNameWrapper>
-              <PostTime>
-                <MomentDateChange time={comment.createdAt} />
-              </PostTime>
+              <FeedTop>
+                <NickNameWrapper
+                  onClick={() =>
+                    history.push(`/user/${comment.author.nickname}/profile`)
+                  }
+                >
+                  {comment.author.nickname}
+                </NickNameWrapper>
+                <PostTime>
+                  <MomentDateChange time={comment.createdAt} />
+                </PostTime>
+              </FeedTop>
             </TopWrapper>
             <MiddleWrapper>
               <FeedBody body={comment.body} isDetail={true} />
@@ -70,8 +73,8 @@ export default function CommentSection({ comments, loading }: Props) {
                 <ImageComponent url={comment.gifImage.gifUrl} isGif={true} />
               )}
             </MiddleWrapper>
+            <CommentBottom comment={comment} />
           </RightItem>
-          <CommentBottom comment={comment} />
         </NewFeedWrapper>
       ))}
     </>
@@ -79,5 +82,5 @@ export default function CommentSection({ comments, loading }: Props) {
 }
 
 const NewFeedWrapper = styled(FeedWrapper)`
-  border: none;
+  display: flex;
 `
