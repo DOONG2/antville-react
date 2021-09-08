@@ -7,6 +7,7 @@ import getPostsByUrl from '../../lib/api/post/getPostsByUrl'
 import { HomePageProps } from './type'
 import { activated_all, post_query_key } from '../../lib/variable'
 import usePageView from '../../components/common/hooks/usePageView'
+import { Wrapper } from '../../lib/styles/feed'
 
 function AllFeedPage({ id }: HomePageProps) {
   const { isLoading, posts } = useInfinitePosts({
@@ -18,14 +19,18 @@ function AllFeedPage({ id }: HomePageProps) {
 
   return (
     <>
-      <PostForm />
-      <FeedTab />
-      <FeedSection
-        sectionKey={`all-${id}`}
-        posts={posts}
-        loading={isLoading}
-        emptyComponent={<FollowingEmpty />}
-      />
+      <Wrapper>
+        <PostForm extended={true} />
+      </Wrapper>
+      <Wrapper>
+        <FeedTab />
+        <FeedSection
+          sectionKey={`all-${id}`}
+          posts={posts}
+          loading={isLoading}
+          emptyComponent={<FollowingEmpty />}
+        />
+      </Wrapper>
     </>
   )
 }

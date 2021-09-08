@@ -3,14 +3,6 @@ import { grey020, grey030, grey060, grey080 } from './colors'
 
 export const Wrapper = styled.div`
   background-color: #fff;
-  padding: 23px 29px 23px 29px;
-  margin-bottom: 29px;
-  box-shadow: 0px 2px 5px rgba(32, 32, 32, 0.15);
-  border-radius: 8px;
-`
-
-export const FeedWapper = styled.div`
-  background-color: #fff;
   box-shadow: 0px 2px 5px rgba(32, 32, 32, 0.15);
   border-radius: 8px;
 `
@@ -29,9 +21,11 @@ export const GifImage = styled.img`
 
 export const FeedWrapper = styled.div`
   margin: 0 25px;
-  padding: 25px 5px 27px 5px;
+  padding: 25px 10px 27px 5px;
   border-bottom: 1px solid ${grey030};
-  display: flex;
+  :last-child {
+    border: none;
+  }
 `
 
 export const TopWrapper = styled.div`

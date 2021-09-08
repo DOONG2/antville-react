@@ -24,7 +24,8 @@ export const AvatarImage = styled.img`
 
 export const Image = styled.img`
   height: 270px;
-  margin: 15px auto;
+  margin: 0 auto;
+  margin-top: 18px;
   width: 100%;
   cursor: pointer;
 
@@ -35,29 +36,24 @@ export const Image = styled.img`
 
 export const Form = styled.form`
   position: relative;
-  padding: 17px 25px 17px 30px;
+  padding: 17px 20px 17px 30px;
   border-bottom: 1px solid ${grey030};
 `
 
 export const FormInner = styled.div`
   display: flex;
-  justify-content: space-between;
-  column-gap: 14px;
+  column-gap: 19px;
 `
 
 export const InputWrapper = styled.div<{ isFocus: boolean }>`
-  width: 561px;
-
-  padding: 10px 12px 0 12px;
-
+  width: 100%;
+  padding-top: ${(p) => (p.isFocus ? `6px` : '0')};
   background: #ffffff;
-
   box-sizing: border-box;
-
   display: flex;
   justify-content: space-between;
   flex-direction: ${(p) => (p.isFocus ? 'column' : 'row')};
-  min-height: ${(p) => (p.isFocus ? `114px` : '22px')};
+  min-height: ${(p) => (p.isFocus ? `95px` : '22px')};
 `
 
 export const PostInnerButtonsWrapper = styled.div`
@@ -95,8 +91,6 @@ export const SubmitButton = styled.button`
 `
 
 export const UserIconWrapper = styled.div`
-  margin-top: 7px;
-
   & > img {
     width: 50px;
     height: 50px;
@@ -219,6 +213,7 @@ export const UserAvatar = styled.div`
 export const Block = styled.div<{ isFocus: boolean }>`
   align-self: center;
   width: 100%;
+  padding-right: 15px;
   height: ${(p) => (p.isFocus ? '100%' : 'auto')};
 `
 
@@ -294,11 +289,11 @@ export const CustomQuill = styled(ReactQuill)`
   }
 `
 
-export const ButtonWrapper = styled.div`
+export const ButtonWrapper = styled.div<{ isFocusInput: boolean }>`
   display: flex;
   flex-direction: column;
   align-items: center;
-  justify-content: center;
+  justify-content: ${(p) => (p.isFocusInput ? 'flex-end' : 'center')};
 `
 
 export const BodyLengthView = styled.div<{ isLimited: boolean }>`

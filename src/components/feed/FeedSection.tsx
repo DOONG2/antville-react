@@ -27,6 +27,7 @@ import UserIcon50 from '../../static/svg/UserIcon50'
 import ImageComponent from './ImageComponent'
 import { post_query_key } from '../../lib/variable'
 import optimizeImage from '../../lib/utils/optimizeImage'
+import styled from '@emotion/styled'
 
 interface Props {
   posts: Post[]
@@ -36,13 +37,7 @@ interface Props {
   keyId?: number
 }
 
-const FeedSection = ({
-  posts,
-  loading,
-  emptyComponent,
-  sectionKey,
-  keyId,
-}: Props) => {
+const FeedSection = ({ posts, emptyComponent, sectionKey, keyId }: Props) => {
   const history = useHistory()
 
   if (posts.length < 1) return <>{emptyComponent}</>
@@ -50,7 +45,7 @@ const FeedSection = ({
   return (
     <>
       {posts?.map((post) => (
-        <FeedWrapper key={`${post.id}-feed-section-${sectionKey}`}>
+        <NewFeedWrapper key={`${post.id}-feed-section-${sectionKey}`}>
           <LeftItem>
             <FeedAvatar
               onClick={() =>
@@ -115,10 +110,14 @@ const FeedSection = ({
               </BottomItem>
             </BottomWrapper>
           </RightItem>
-        </FeedWrapper>
+        </NewFeedWrapper>
       ))}
     </>
   )
 }
+
+const NewFeedWrapper = styled(FeedWrapper)`
+  display: flex;
+`
 
 export default FeedSection

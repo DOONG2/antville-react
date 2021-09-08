@@ -45,4 +45,4 @@ export const document_notice_url =
 export const TENOR_API_KEY = 'WUD6F5G7M1KQ'
 
 export const place_holder_post =
-  '내용을 입력해주세요. ($를 입력하여 종목을 태그해보세요.) '
+  '당신의 생각을 공유해주세요! ($를 입력하여 종목을 태그해보세요.) '

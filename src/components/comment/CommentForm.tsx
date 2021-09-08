@@ -137,7 +137,7 @@ function CommentForm({ parentCommentId, inputRef }: Props) {
             </>
           )}
         </InputWrapper>
-        <ButtonWrapper>
+        <ButtonWrapper isFocusInput={isFocusInput}>
           <SubmitButton
             type="submit"
             disabled={

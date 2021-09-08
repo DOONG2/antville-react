@@ -157,6 +157,7 @@ function Header() {
 
 const Wrapper = styled.div`
   min-width: 1440px;
+  background-color: #fff;
   border-bottom: 0.5px solid #e0e0e0;
 `
 
