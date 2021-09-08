@@ -17,7 +17,7 @@ const AppleStoreButton = () => {
 const Wrapper = styled(SocialStoreButton)``
 
 const LogoWrapper = styled.div`
-  height: 2.4rem;
+  height: 24px;
 `
 
 export default AppleStoreButton

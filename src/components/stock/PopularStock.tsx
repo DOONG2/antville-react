@@ -78,15 +78,15 @@ const Wrapper = styled.div`
 const BarWrapper = styled.div`
   display: flex;
   width: 1440px;
-  padding: 0 2.4rem;
-  height: 5.6rem;
+  padding: 0 24px;
+  height: 56px;
   margin: 0 auto;
   align-items: center;
 `
 
 const Label = styled.div`
   color: rgba(117, 117, 117, 1);
-  font-size: 1.6rem;
+  font-size: 16px;
   font-weight: 500;
   line-height: 22px;
 `

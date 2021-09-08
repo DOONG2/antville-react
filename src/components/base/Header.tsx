@@ -156,18 +156,18 @@ function Header() {
 }
 
 const Wrapper = styled.div`
-  min-width: 144rem;
+  min-width: 1440px;
   border-bottom: 0.5px solid #e0e0e0;
 `
 
 const HeaderWrapper = styled.nav<{ isLoggedIn: boolean }>`
-  width: 144rem;
-  height: 11.7rem;
+  width: 1440px;
+  height: 117px;
   display: flex;
   justify-content: ${(props) =>
     props.isLoggedIn ? 'normal' : 'space-between'};
   align-items: center;
-  padding: 0 2.5rem;
+  padding: 0 25px;
   margin: 0 auto;
 `
 
@@ -180,11 +180,11 @@ const LogoWrapper = styled.div`
 const ButtonWrapper = styled.div``
 
 const NewLoginButton = styled(LoginButton)`
-  margin-left: 3.4rem;
+  margin-left: 34px;
 `
 
 const NewSignUpButton = styled(SignUpButton)`
-  margin-left: 1.6rem;
+  margin-left: 16px;
 `
 
 const IconWrapper = styled.div`
@@ -195,12 +195,12 @@ const IconWrapper = styled.div`
 `
 
 const NoticeWrapper = styled.div`
-  margin-left: 2.6rem;
+  margin-left: 26px;
   cursor: pointer;
 `
 
 const ProfileWrapper = styled.div`
-  margin-left: 2.6rem;
+  margin-left: 26px;
   cursor: pointer;
 `
 

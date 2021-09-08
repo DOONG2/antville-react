@@ -54,9 +54,9 @@ function Landing() {
 }
 
 const Wrapper = styled.div`
-  width: 144rem;
-  padding: 0 12rem;
-  margin: 10rem auto;
+  width: 1440px;
+  padding: 0 120px;
+  margin: 100px auto;
 
   display: flex;
   justify-content: space-between;
@@ -65,47 +65,47 @@ const Wrapper = styled.div`
 const ContentsWrapper = styled.div``
 
 const MockUpVideo = styled.video`
-  width: 39.53rem;
-  height: 82.56rem;
+  width: 395.3px;
+  height: 825.6px;
 `
 
 const Title = styled.div`
   font-weight: 700;
-  font-size: 4.8rem;
-  line-height: 5.6rem;
+  font-size: 48px;
+  line-height: 56px;
 
-  margin-top: 11rem;
+  margin-top: 110px;
 
   color: #202020;
 `
 
 const Description = styled.div`
   font-weight: bold;
-  font-size: 2rem;
-  line-height: 2.7rem;
+  font-size: 20px;
+  line-height: 27px;
 
   color: #202020;
-  margin-top: 4.5rem;
+  margin-top: 45px;
 `
 
 const NewSignUpButton = styled(SignUpButton)`
-  margin-top: 3rem;
+  margin-top: 30px;
 `
 
 const NewFontBlue = styled(FontBlue)`
-  font-size: 1.2rem;
+  font-size: 12px;
   cursor: pointer;
 `
 
 const BoldSubDescription = styled(SubDescription)`
   font-weight: 600;
-  margin-top: 1rem;
+  margin-top: 10px;
 `
 
 const StoreWrapper = styled.div`
-  margin-top: 6rem;
+  margin-top: 60px;
   display: flex;
-  column-gap: 0.8rem;
+  column-gap: 8px;
 `
 
 const NewAppleStoreButton = styled(AppleStoreButton)``
