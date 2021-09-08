@@ -4,6 +4,7 @@ export const postLimit = 15
 export const notificationLimit = 15
 export const cacheStableTime = 6 * 1000 * 5
 export const userFollowListLimit = 7
+export const gifLimit = '200'
 
 export const post_query_key = 'post'
 export const comment_query_key = 'comment'
