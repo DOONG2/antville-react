@@ -19,7 +19,7 @@ function UserLikeFeedPage({ user }: UserFeedPageProps) {
       posts={posts}
       loading={isLoading}
       emptyComponent={<UserLikeEmpty />}
-      keyId={user.id}
+      keyId={String(user.id)}
     />
   )
 }
