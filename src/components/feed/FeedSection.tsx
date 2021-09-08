@@ -31,7 +31,7 @@ interface Props {
   loading?: boolean
   emptyComponent: ReactNode
   sectionKey: string
-  keyId?: number
+  keyId?: string
 }
 
 const FeedSection = ({
