@@ -12,7 +12,7 @@ type StockPageProps = {
 
 function StockDetailFeed({ stock }: StockPageProps) {
   const { isLoading, posts } = useInfinitePosts({
-    key: [post_query_key, stock.cashTagName, { page: activated_stock }],
+    key: [post_query_key, stock.symbol, { page: activated_stock }],
     callback: (cursor) => getPostsByStock(stock.id, cursor),
   })
   useSubscribePost(stock.symbol)

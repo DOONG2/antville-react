@@ -34,7 +34,7 @@ jobs:
             --recursive \
             --region ap-northeast-2 \
             build s3://antville-web
-      # - name: Invalidate CloudFront Cache
-      #   run: |
-      #     aws cloudfront create-invalidation \
-      #       --distribution-id E2NOF2LA5XTVW1 --paths "/*"
+      - name: Invalidate CloudFront Cache
+        run: |
+          aws cloudfront create-invalidation \
+            --distribution-id E2NOF2LA5XTVW1 --paths "/*"

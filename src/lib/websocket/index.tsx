@@ -6,12 +6,14 @@ import stockSlice from '../../reducers/Slices/stock'
 import { Post, StockPriceInfo } from '../api/types'
 import { selectAllPriceSymbolList } from '../../selectors/stockSelectors'
 import { v4 as uuidv4 } from 'uuid'
-import useWebSocketMutation from './hooks/useWebSocketMutation'
+import usePostStream from './hooks/usePostStream'
+import { Observer, Subscription } from 'rxjs'
 
 export const WebsocketContext = createContext<{
   ws?: ReconnectingWebSocket
   open: boolean
   id?: string
+  getSubscription?: (observer: Partial<Observer<Post>>) => Subscription
 }>({ ws: undefined, open: false })
 
 interface Props {
@@ -19,7 +21,7 @@ interface Props {
 }
 
 export function WebsocketProvider({ children }: Props) {
-  const { setStockDetailPost } = useWebSocketMutation()
+  const { pushPost, getSubscription } = usePostStream()
   const uuid = useMemo(() => uuidv4(), [])
   const rws = useMemo(
     () =>
@@ -53,7 +55,7 @@ export function WebsocketProvider({ children }: Props) {
       if (isStockPriceInfo(data)) {
         dispatch(addOrReplaceStockPrice(data))
       } else if (isStockPost(data)) {
-        setStockDetailPost(data)
+        pushPost(data)
       }
     }
     return () => rws.close()
@@ -80,7 +82,14 @@ export function WebsocketProvider({ children }: Props) {
   }, [symbols])
 
   return (
-    <WebsocketContext.Provider value={{ ws: rws, open: open, id: uuid }}>
+    <WebsocketContext.Provider
+      value={{
+        ws: rws,
+        open: open,
+        id: uuid,
+        getSubscription: getSubscription,
+      }}
+    >
       {children}
     </WebsocketContext.Provider>
   )

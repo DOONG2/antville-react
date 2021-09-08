@@ -1,4 +1,3 @@
-import { useEffect, useState } from 'react'
 import { useInfiniteQuery } from 'react-query'
 import { useInfiniteScroll } from '../../../components/common/hooks/useInfiniteScroll'
 import { Post } from '../../../lib/api/types'
@@ -14,7 +13,6 @@ export interface Props {
 }
 
 export default function useInfinitePosts({ key, callback }: Props) {
-  const [posts, setPosts] = useState<Post[] | undefined>()
   const { isLoading, data, error, isFetching, fetchNextPage, hasNextPage } =
     useInfiniteQuery(key, ({ pageParam: cursor }) => callback(cursor), {
       staleTime: key[2].page === activated_stock ? undefined : cacheStableTime,
@@ -25,9 +23,7 @@ export default function useInfinitePosts({ key, callback }: Props) {
         pageParams: data.pageParams,
       }),
     })
-  useEffect(() => {
-    if (data) setPosts(data.pages)
-  }, [data])
+
   useInfiniteScroll({
     onLoadMore: () => {
       if (!isLoading && !isFetching && hasNextPage) {
@@ -38,9 +34,8 @@ export default function useInfinitePosts({ key, callback }: Props) {
 
   return {
     isLoading,
-    posts,
+    posts: data?.pages,
     error,
     isFetching,
-    setPosts,
   }
 }

@@ -1,10 +1,10 @@
 import { RefObject, useEffect } from 'react'
 import { useInfiniteQuery } from 'react-query'
 import { useInfiniteScroll } from '../../common/hooks/useInfiniteScroll'
-import { cacheStableTime } from '../../../lib/variable'
+import { cacheStableTime, gifLimit } from '../../../lib/variable'
 import { getSearchResponse } from '../../../lib/api/tenor/types'
 import formSlice from '../../../reducers/Slices/form'
-import { useRootState } from '../../common/hooks/useRootState'
+
 import { useDispatch } from 'react-redux'
 
 export interface Props {
@@ -13,26 +13,22 @@ export interface Props {
   ref?: RefObject<HTMLDivElement>
   query: string
 }
-
 export default function useInfiniteGif({ key, callback, ref, query }: Props) {
-  const { gifs } = useRootState((state) => state.form)
   const { setGifs } = formSlice.actions
   const dispatch = useDispatch()
-
   const { isLoading, data, error, isFetching, fetchNextPage, hasNextPage } =
     useInfiniteQuery(key, ({ pageParam: cursor }) => callback(cursor), {
       staleTime: cacheStableTime,
-      getNextPageParam: (lastPage) => lastPage.next,
+      getNextPageParam: (lastPage) =>
+        lastPage.next !== gifLimit && lastPage.next,
       enabled: query !== '',
+      select: (data) => ({
+        pages: data.pages.map((page) => page.results).flat(),
+        pageParams: data.pageParams,
+      }),
     })
   useEffect(() => {
-    if (data) {
-      if (!gifs) {
-        dispatch(setGifs(data.pages[0].results))
-        return
-      }
-      dispatch(setGifs([...gifs, ...data.pages[data.pages.length - 1].results]))
-    } else dispatch(setGifs(undefined))
+    if (data) dispatch(setGifs(data.pages))
   }, [data])
   useInfiniteScroll({
     onLoadMore: () => {
@@ -42,7 +38,6 @@ export default function useInfiniteGif({ key, callback, ref, query }: Props) {
     },
     ref,
   })
-
   return {
     isLoading,
     error,

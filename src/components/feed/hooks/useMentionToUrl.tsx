@@ -22,7 +22,7 @@ export default function MentionToUrl() {
   }
 
   const mentionToUrl = (value: string) => {
-    const stock_reg = /\$([a-zA-Z가-힣]{2,})/g
+    const stock_reg = /\$([a-zA-Z가-힣-&0-9]{2,})/g
     const user_reg = /@([a-zA-Z가-힣0-9_.]{2,})/g
     const linkValue = autolinker.link(value)
     const result = linkValue
