@@ -22,8 +22,8 @@ export default function MentionToUrl() {
   }
 
   const mentionToUrl = (value: string) => {
-    const stock_reg = /\$([a-zA-Z가-힣-&0-9]{2,})/g
-    const user_reg = /@([a-zA-Z가-힣0-9_.]{2,})/g
+    const stock_reg = /\$([a-zA-Z가-힣-&0-9]{1,30})/g
+    const user_reg = /@([a-zA-Z가-힣0-9_.]{2,30})/g
     const linkValue = autolinker.link(value)
     const result = linkValue
       .replace(user_reg, (value) => `<a id="atSign">${value}</a>`)
