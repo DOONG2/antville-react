@@ -24,7 +24,7 @@ function StockDetailFeed({ stock }: StockPageProps) {
       posts={posts}
       loading={isLoading}
       emptyComponent={<NomalEmpty />}
-      keyId={stock.id}
+      keyId={stock.cashTagName}
     />
   )
 }

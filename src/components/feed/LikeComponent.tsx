@@ -18,7 +18,7 @@ interface Props {
   id: number
   parentId?: number
   queryKey: string
-  keyId?: number
+  keyId?: string
 }
 
 export default function LikeComponent({
