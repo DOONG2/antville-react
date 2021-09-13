@@ -18,7 +18,7 @@ type Props = {
 
 type MutationProps = {
   id: number
-  parentId?: number
+  parentId?: string
 }
 
 export default function useMutationLike({ callback, queryKey, keyId }: Props) {
@@ -54,7 +54,8 @@ export default function useMutationLike({ callback, queryKey, keyId }: Props) {
           }
           break
         case comment_query_key:
-          key = [comment_query_key, Number(commentKeyId)]
+          key = [comment_query_key, commentKeyId]
+          console.log(key)
           await queryClient.cancelQueries(key)
           previousQuery = queryClient.getQueryData<InfiniteData<Comment[]>>(key)
           if (previousQuery) {
@@ -77,6 +78,7 @@ export default function useMutationLike({ callback, queryKey, keyId }: Props) {
           break
         case sub_comment_query_key:
           key = [sub_comment_query_key, parentId]
+          console.log(key)
           await queryClient.cancelQueries(key)
           previousQuery = queryClient.getQueryData<InfiniteData<Comment[]>>(key)
           if (previousQuery) {
