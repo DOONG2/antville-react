@@ -14,7 +14,7 @@ export const WebsocketContext = createContext<{
   open: boolean
   id?: string
   getSubscription?: (observer: Partial<Observer<Post>>) => Subscription
-}>({ ws: undefined, open: false })
+}>({ open: false })
 
 interface Props {
   children: React.ReactNode

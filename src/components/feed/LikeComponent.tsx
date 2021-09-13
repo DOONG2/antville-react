@@ -16,7 +16,7 @@ interface Props {
   isLiked: boolean
   count: number
   id: number
-  parentId?: number
+  parentId?: string
   queryKey: string
   keyId?: string
 }

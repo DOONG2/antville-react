@@ -92,7 +92,7 @@ export default function SubCommentSection({
                 isLiked={comment.isLikedSelf}
                 id={comment.id}
                 queryKey={sub_comment_query_key}
-                parentId={comment.parentCommentId}
+                parentId={String(comment.parentCommentId)}
               />
             </BottomItem>
             <BottomItem

@@ -13,7 +13,7 @@ export default function usePatchNotice({ id }: Props) {
 
   const mutation = useMutation(() => patchNotification(id), {
     onMutate: async () => {
-      const key = ['notification', user!.id]
+      const key = ['notification', String(user!.id)]
       await queryClient.cancelQueries(key)
       const previousQuery =
         queryClient.getQueryData<InfiniteData<NoticeObject[]>>(key)

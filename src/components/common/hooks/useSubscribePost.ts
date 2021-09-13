@@ -1,5 +1,4 @@
-import { Subscription } from 'rxjs'
-import { useCallback, useContext, useEffect, useState } from 'react'
+import { useCallback, useContext, useEffect } from 'react'
 import { InfiniteData, useQueryClient } from 'react-query'
 import { Post } from '../../../lib/api/types'
 import { activated_stock, post_query_key } from '../../../lib/variable'
@@ -8,7 +7,6 @@ import { WebsocketContext } from '../../../lib/websocket'
 export default function useSubscribePost(symbol: string) {
   const { ws, open, id, getSubscription } = useContext(WebsocketContext)
   const queryClient = useQueryClient()
-  const [subscription, setSubscription] = useState<Subscription | undefined>()
 
   const mutatePost = useCallback(
     (post: Post) => {
@@ -28,28 +26,25 @@ export default function useSubscribePost(symbol: string) {
   )
 
   useEffect(() => {
-    if (subscription) {
-      subscription.unsubscribe()
-    }
-    setSubscription(
-      getSubscription!({
-        next: (post) => {
-          mutatePost(post)
-        },
-      })
-    )
-
+    const tempSubscription = getSubscription!({
+      next: (post) => {
+        mutatePost(post)
+      },
+    })
     return () => {
-      subscription?.unsubscribe()
+      if (tempSubscription && !tempSubscription?.closed) {
+        tempSubscription.unsubscribe()
+      }
     }
   }, [symbol])
 
   useEffect(() => {
+    return () => sendStockDetailSymbol()
+  }, [])
+
+  useEffect(() => {
     if (open) {
       sendStockDetailSymbol(symbol)
-    }
-    return () => {
-      sendStockDetailSymbol()
     }
   }, [symbol, open])
 

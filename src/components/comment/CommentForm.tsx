@@ -55,20 +55,30 @@ function CommentForm({ parentCommentId, inputRef }: Props) {
     callback: (formData: FormData) => postCommentFormData(formData),
   })
 
-  useEffect(() => {
-    if (previewUrl !== undefined) dispatch(setIsFocusInput(true))
-  }, [previewUrl])
-
-  const onSubmit = (e: React.FormEvent<HTMLFormElement>) => {
-    e.preventDefault()
-    mutation.mutate({ body, postId, gifDto, uploadImage, parentCommentId })
+  const reset = () => {
     setUploadImage(undefined)
     dispatch(setIsFocusInput(false))
     setGifDto(undefined)
     dispatch(setBody(''))
     setPreviewUrl(undefined)
+  }
+
+  const onSubmit = (e: React.FormEvent<HTMLFormElement>) => {
+    e.preventDefault()
+    mutation.mutate({ body, postId, gifDto, uploadImage, parentCommentId })
+    reset()
     commentEvent()
   }
+
+  useEffect(() => {
+    return () => {
+      reset()
+    }
+  }, [])
+
+  useEffect(() => {
+    if (previewUrl !== undefined) dispatch(setIsFocusInput(true))
+  }, [previewUrl])
 
   return (
     <Form onSubmit={onSubmit}>
