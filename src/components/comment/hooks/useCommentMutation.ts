@@ -39,8 +39,8 @@ export default function useCommentMutation({ callback }: Props) {
         const parentCommentId = variables.parentCommentId
         let key
         parentCommentId
-          ? (key = [sub_comment_query_key, parentCommentId])
-          : (key = [comment_query_key, Number(commentId)])
+          ? (key = [sub_comment_query_key, String(parentCommentId)])
+          : (key = [comment_query_key, String(commentId)])
         const previousQuery =
           queryClinet.getQueryData<InfiniteData<Comment[]>>(key)
         if (previousQuery) {

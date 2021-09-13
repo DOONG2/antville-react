@@ -50,6 +50,28 @@ export default function PostEditor() {
   const modules = useMemo(() => {
     return {
       toolbar: false,
+      clipboard: {
+        matchers: [
+          [
+            Node.ELEMENT_NODE,
+            function (node: any, delta: any) {
+              let ops: any = []
+              delta.ops.forEach((op: any) => {
+                if (
+                  op.insert &&
+                  (typeof op.insert === 'string' || op.insert['mention'])
+                ) {
+                  ops.push({
+                    insert: op.insert,
+                  })
+                }
+              })
+              delta.ops = ops
+              return delta
+            },
+          ],
+        ],
+      },
       mention: {
         minChars: 1,
         maxChars: 20,
@@ -102,8 +124,8 @@ export default function PostEditor() {
         placeholder={place_holder_post}
         onFocus={(range, source, editor) => {
           dispatch(setIsFocusInput(true))
-          if (body === '' || body === '<p><br></p>') {
-            ticker && dispatch(setBody(getCacheTagHtml(ticker)))
+          if (ticker && (body === '' || body === '<p><br></p>')) {
+            dispatch(setBody(getCacheTagHtml(ticker)))
             if (!inputRef.current?.editor) return
             setTimeout(
               () =>

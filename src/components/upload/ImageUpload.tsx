@@ -37,7 +37,7 @@ export default function ImageUpload({
         type="file"
         ref={hiddenFileInput}
         onChange={handleChange}
-        accept=".png, .jpg, .jpeg, .gif"
+        accept=".png, .jpg, .jpeg"
       />
       <PictureUploadIcon onClick={handleClick} />
     </>

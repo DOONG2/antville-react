@@ -98,7 +98,7 @@ export default function UserEdit({ user }: Props) {
               id="editFile"
               type="file"
               onChange={onChangeUpload}
-              accept=".png, .jpg, .jpeg, .gif"
+              accept=".png, .jpg, .jpeg"
             />
             <Item>
               <Span>닉네임</Span>

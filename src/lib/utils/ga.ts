@@ -15,9 +15,12 @@ export function gaSetUserInfo({
       debug_mode: process.env.NODE_ENV !== 'production',
       send_page_view: process.env.NODE_ENV === 'production',
     })
-    ga4React.initialize().then((ga4) => {
-      ga4.gtag('set', 'user_properties', { id, nickname })
-    })
+    ga4React
+      .initialize()
+      .then((ga4) => {
+        ga4.gtag('set', 'user_properties', { id, nickname })
+      })
+      .catch((_) => {})
   }
 }
 

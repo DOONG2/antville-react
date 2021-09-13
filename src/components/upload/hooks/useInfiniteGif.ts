@@ -12,11 +12,9 @@ export interface Props {
   ref?: RefObject<HTMLDivElement>
   query: string
 }
-
 export default function useInfiniteGif({ key, callback, ref, query }: Props) {
   const { setGifs } = formSlice.actions
   const dispatch = useDispatch()
-
   const { isLoading, data, error, isFetching, fetchNextPage, hasNextPage } =
     useInfiniteQuery(key, ({ pageParam: cursor }) => callback(cursor), {
       staleTime: cacheStableTime,
@@ -41,7 +39,6 @@ export default function useInfiniteGif({ key, callback, ref, query }: Props) {
     },
     ref,
   })
-
   return {
     isLoading,
     error,
