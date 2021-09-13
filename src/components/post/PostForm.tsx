@@ -62,13 +62,7 @@ const PostForm = ({ extended }: Props) => {
     callback: (formData: FormData) => postFormData(formData),
   })
 
-  useEffect(() => {
-    if (previewUrl !== undefined) dispatch(setIsFocusInput(true))
-  }, [previewUrl])
-
-  const onSubmit = (e: React.FormEvent<HTMLFormElement>) => {
-    e.preventDefault()
-    mutation.mutate({ body, sentiment, gifDto, uploadImage })
+  const reset = () => {
     setUploadImage(undefined)
     dispatch(setIsFocusInput(false))
     setGifDto(undefined)
@@ -76,12 +70,21 @@ const PostForm = ({ extended }: Props) => {
     dispatch(setPreviewUrl(undefined))
     setIsOnUp(false)
     setIsOnDown(false)
+  }
+
+  const onSubmit = (e: React.FormEvent<HTMLFormElement>) => {
+    e.preventDefault()
+    mutation.mutate({ body, sentiment, gifDto, uploadImage })
+    reset()
     postEvent()
   }
 
   useEffect(() => {
-    dispatch(setBody(''))
-    dispatch(setIsFocusInput(false))
+    if (previewUrl !== undefined) dispatch(setIsFocusInput(true))
+  }, [previewUrl])
+
+  useEffect(() => {
+    reset()
   }, [ticker])
 
   useEffect(() => {
