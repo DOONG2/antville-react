@@ -64,7 +64,7 @@ export default function UserEdit({ user }: Props) {
 
   return (
     <Block>
-      <FeedTitle>
+      <NewFeedTitle>
         <TitleIconWrapper
           onClick={() => {
             history.goBack()
@@ -73,7 +73,7 @@ export default function UserEdit({ user }: Props) {
           <LeftArrow />
         </TitleIconWrapper>
         <FeedText>프로필 편집</FeedText>
-      </FeedTitle>
+      </NewFeedTitle>
       <Main>
         <Profile>
           <ProfileAvatar>
@@ -173,6 +173,10 @@ export default function UserEdit({ user }: Props) {
     </Block>
   )
 }
+
+const NewFeedTitle = styled(FeedTitle)`
+  padding: 28px 24px 17px 24px;
+`
 
 const NicknameWrapper = styled.div`
   display: flex;
@@ -291,9 +295,8 @@ const IntroductionInput = styled.textarea`
 const Block = styled.div``
 
 const Main = styled.div`
-  padding-left: 19px;
   border-top: 1px solid ${grey020};
-  padding-top: 39px;
+  padding: 39px 0 36px 19px;
   display: flex;
 `
 

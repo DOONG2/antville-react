@@ -83,4 +83,5 @@ export default function CommentSection({ comments, loading }: Props) {
 
 const NewFeedWrapper = styled(FeedWrapper)`
   display: flex;
+  padding-bottom: 0;
 `

@@ -77,7 +77,6 @@ export default function useMutationLike({ callback, queryKey, keyId }: Props) {
           break
         case sub_comment_query_key:
           key = [sub_comment_query_key, parentId]
-          console.log(key)
           await queryClient.cancelQueries(key)
           previousQuery = queryClient.getQueryData<InfiniteData<Comment[]>>(key)
           if (previousQuery) {

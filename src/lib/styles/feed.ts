@@ -22,7 +22,7 @@ export const GifImage = styled.img`
 export const FeedWrapper = styled.div`
   margin: 0 25px;
   padding: 25px 10px 27px 5px;
-  border-bottom: 1px solid ${grey030};
+
   :last-child {
     border: none;
   }
@@ -124,7 +124,6 @@ export const Count = styled.div`
 export const FeedTitle = styled.div`
   display: flex;
   align-items: center;
-  padding: 10px 0;
 `
 
 export const TitleIconWrapper = styled.div`
@@ -135,9 +134,9 @@ export const TitleIconWrapper = styled.div`
 export const FeedText = styled.div`
   text-align: center;
   margin-left: 23px;
-  font-weight: 400;
+  font-weight: 500;
   font-size: 22px;
-  line-height: 30px;
+  line-height: 28px;
 
   color: #000000;
 `

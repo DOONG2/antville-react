@@ -47,7 +47,6 @@ const Indicator = styled.div`
   height: 3px;
   background-color: ${antblue050};
   border-radius: 3px;
-  height: 2px;
   position: absolute;
   bottom: 0px;
   transition: 0.25s left ease-in-out;

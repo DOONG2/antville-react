@@ -33,6 +33,7 @@ import ImageComponent from '../ImageComponent'
 import { post_query_key } from '../../../lib/variable'
 import optimizeImage from '../../../lib/utils/optimizeImage'
 import { AvatarImage } from '../../../lib/styles/post'
+import { grey020 } from '../../../lib/styles/colors'
 
 type FeedDetailInfoProps = {
   post: Post
@@ -49,7 +50,7 @@ export default function FeedDetailInfo({
 
   return (
     <Wrapper>
-      <FeedTitle>
+      <NewFeedTitle>
         <TitleIconWrapper
           onClick={() => {
             history.goBack()
@@ -58,11 +59,11 @@ export default function FeedDetailInfo({
           <LeftArrow />
         </TitleIconWrapper>
         <FeedText>게시글</FeedText>
-      </FeedTitle>
+      </NewFeedTitle>
       {post && (
-        <FeedWrapper key={`${post.id}-feed-detail`}>
-          <TopWrapper>
-            <LeftItem>
+        <NewFeedWrapper key={`${post.id}-feed-detail`}>
+          <NewTopWrapper>
+            <NewLeftItem>
               <FeedAvatar
                 onClick={() =>
                   history.push(`/user/${post.author.nickname}/profile`)
@@ -77,23 +78,23 @@ export default function FeedDetailInfo({
                   <UserIcon50 />
                 )}
               </FeedAvatar>
-              <NickNameWrapper
+              <NewNicknameWrapper
                 onClick={() =>
                   history.push(`/user/${post.author.nickname}/profile`)
                 }
               >
                 {post.author.nickname}
-              </NickNameWrapper>
-              <PostTime>
+              </NewNicknameWrapper>
+              <NewPostTime>
                 <MomentDateChange time={post.createdAt} />
-              </PostTime>
+              </NewPostTime>
               <IconWrapper>
                 {post.sentiment === 'UP' && <StockUpIcon />}
                 {post.sentiment === 'DOWN' && <StockDownIcon />}
               </IconWrapper>
-            </LeftItem>
+            </NewLeftItem>
             <FeedOption />
-          </TopWrapper>
+          </NewTopWrapper>
           <NewMiddleWrapper>
             <FeedBody body={post.body} isDetail={true} />
             {post.postImgs[0] && (
@@ -102,64 +103,82 @@ export default function FeedDetailInfo({
             {post.gifImage?.gifUrl && (
               <ImageComponent url={post.gifImage.gifUrl} isGif={true} />
             )}
-          </NewMiddleWrapper>
-          <SubWrapper>
-            {post.postStockPrice && (
-              <SubWrapper>
-                <FeedHistoryComponent
-                  postStock={new PostStock(post.postStockPrice)}
+            <NewButtonWrapper>
+              <BottomItem
+                onClick={() => {
+                  if (isLiked) setCount(count - 1)
+                  else setCount(count + 1)
+                  setIsLiked(!isLiked)
+                }}
+              >
+                <LikeComponent
+                  count={count}
+                  isLiked={isLiked}
+                  id={post.id}
+                  queryKey={post_query_key}
                 />
-              </SubWrapper>
-            )}
-          </SubWrapper>
-          <NewBottomWrapper>
-            <BottomItem
-              onClick={() => {
-                if (isLiked) setCount(count - 1)
-                else setCount(count + 1)
-                setIsLiked(!isLiked)
-              }}
-            >
-              <LikeComponent
-                count={count}
-                isLiked={isLiked}
-                id={post.id}
-                queryKey={post_query_key}
+              </BottomItem>
+              <BottomItem onClick={() => inputRef?.current.focus()}>
+                <TalkIcon cursor={'pointer'} />
+                <Count>댓글 {post.postCount.commentCount}</Count>
+              </BottomItem>
+            </NewButtonWrapper>
+          </NewMiddleWrapper>
+          {post.postStockPrice && (
+            <SubWrapper>
+              <FeedHistoryComponent
+                postStock={new PostStock(post.postStockPrice)}
               />
-            </BottomItem>
-            <BottomItem onClick={() => inputRef?.current.focus()}>
-              <TalkIcon cursor={'pointer'} />
-              <Count>댓글 {post.postCount.commentCount}</Count>
-            </BottomItem>
-          </NewBottomWrapper>
-        </FeedWrapper>
+            </SubWrapper>
+          )}
+        </NewFeedWrapper>
       )}
-      <HorizontalLine />
     </Wrapper>
   )
 }
 
-const Wrapper = styled.div``
+const NewNicknameWrapper = styled(NickNameWrapper)`
+  margin-left: 19px;
+`
+
+const NewFeedTitle = styled(FeedTitle)`
+  padding-bottom: 17px;
+  border-bottom: 1px solid ${grey020};
+`
+
+const NewTopWrapper = styled(TopWrapper)`
+  padding: 0 6px;
+`
+
+const NewPostTime = styled(PostTime)`
+  margin-top: 3px;
+`
+
+const NewFeedWrapper = styled(FeedWrapper)`
+  margin: 0;
+  padding: 0;
+  padding-top: 17px;
+`
+
+const Wrapper = styled.div`
+  margin-bottom: 12px;
+  padding: 28px 24px 32px 24px;
+`
 
 const NewMiddleWrapper = styled(MiddleWrapper)`
-  padding: 0 22px;
+  padding: 0 16px;
   margin-top: 15px;
 `
 
 const SubWrapper = styled.div`
-  padding: 22px 0;
+  margin-top: 39px;
 `
 
-const NewBottomWrapper = styled(BottomWrapper)`
+const NewLeftItem = styled(LeftItem)`
+  align-items: center;
+`
+
+const NewButtonWrapper = styled(BottomWrapper)`
   margin: 0;
-  padding: 0 22px;
-`
-const HorizontalLine = styled.div`
-  margin-top: 9px;
-  height: 7px;
-  width: 100%;
-  margin-bottom: 24px;
-
-  background: #fafafa;
-  box-shadow: inset 0px 1px 4px rgba(0, 0, 0, 0.04);
+  padding-top: 25px;
 `

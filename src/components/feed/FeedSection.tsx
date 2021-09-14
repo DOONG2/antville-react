@@ -28,6 +28,7 @@ import ImageComponent from './ImageComponent'
 import { post_query_key } from '../../lib/variable'
 import optimizeImage from '../../lib/utils/optimizeImage'
 import styled from '@emotion/styled'
+import { grey030 } from '../../lib/styles/colors'
 
 interface Props {
   posts: Post[]
@@ -118,6 +119,7 @@ const FeedSection = ({ posts, emptyComponent, sectionKey, keyId }: Props) => {
 
 const NewFeedWrapper = styled(FeedWrapper)`
   display: flex;
+  border-bottom: 1px solid ${grey030};
 `
 
 export default FeedSection

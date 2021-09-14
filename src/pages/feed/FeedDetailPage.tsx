@@ -19,7 +19,9 @@ export default function FeedDetailPage({ id, post }: FeedPageProps) {
 
   return (
     <>
-      <FeedDetailInfo post={post} inputRef={inputRef} />
+      <Wrapper>
+        <FeedDetailInfo post={post} inputRef={inputRef} />
+      </Wrapper>
       <Wrapper>
         <CommentForm inputRef={inputRef} />
         <CommentSection comments={comments} loading={isLoading} />
