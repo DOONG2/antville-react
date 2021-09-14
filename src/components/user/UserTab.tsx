@@ -1,6 +1,6 @@
 import styled from '@emotion/styled'
 import { User } from '../../lib/api/types'
-import { activated_user, activated_user_like } from '../../lib/variable'
+import { activated_user_like } from '../../lib/variable'
 import { antblue050, grey030, grey080 } from '../../lib/styles/colors'
 import { useHistory } from 'react-router-dom'
 import useGetRoutePath from '../feed/hooks/useGetPath'
@@ -13,39 +13,48 @@ export default function UserTab({ user }: Prop) {
   const pathname = useGetRoutePath()
   const history = useHistory()
 
+  const isLikeFeed = pathname === activated_user_like
+
   return (
     <Wrapper>
       <Inner>
         <Group
-          isClicked={pathname === activated_user}
+          isClicked={!isLikeFeed}
           onClick={() => history.push(`/user/${user.nickname}/profile`)}
         >
           <Count>{user.userCount.postCount}</Count>
           <Title>활동내역</Title>
-          <Line isClicked={pathname === activated_user} />
         </Group>
         <Group
-          isClicked={pathname === activated_user_like}
+          isClicked={isLikeFeed}
           onClick={() => history.push(`/user/${user.nickname}/profile/like`)}
         >
           <Count>{user.userCount.postLikeCount}</Count>
           <Title>좋아하는 게시물</Title>
-          <Line isClicked={pathname === activated_user_like} />
         </Group>
+        <Indicator
+          style={{
+            left: `${isLikeFeed ? `calc(100% - 197px)` : `0%`}`,
+          }}
+        />
       </Inner>
     </Wrapper>
   )
 }
 
-const Line = styled.div<{ isClicked: boolean }>`
-  visibility: ${(p) => (p.isClicked ? 'visible' : 'hidden')};
-  width: 189px;
+const Indicator = styled.div`
+  width: 197px;
   height: 3px;
   background-color: ${antblue050};
   border-radius: 3px;
+  height: 2px;
+  position: absolute;
+  bottom: 0px;
+  transition: 0.25s left ease-in-out;
 `
 
 const Inner = styled.div`
+  position: relative;
   display: flex;
   margin: 25px 90px 0 90px;
   padding-top: 22px;

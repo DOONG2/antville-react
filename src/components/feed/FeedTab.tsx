@@ -9,9 +9,25 @@ import {
 } from '../../lib/variable'
 import { antblue050, grey060 } from '../../lib/styles/colors'
 
+type MapType = {
+  [index: string]: number
+  recommend: number
+  following: number
+  watchlist: number
+  all: number
+}
+
+const tabIndexMap: MapType = {
+  recommend: 0,
+  following: 1,
+  watchlist: 2,
+  all: 3,
+}
+
 export default function FeedTab() {
   const pathname = useGetRoutePath()
   const history = useHistory()
+  const tabIndex = tabIndexMap[pathname]
 
   return (
     <>
@@ -21,29 +37,30 @@ export default function FeedTab() {
           onClick={() => history.push('/')}
         >
           <Text>추천</Text>
-          <Line isClicked={pathname === activated_recommend} />
         </TabItem>
         <TabItem
           isClicked={pathname === activated_following}
           onClick={() => history.push('/following')}
         >
           <Text>팔로잉</Text>
-          <Line isClicked={pathname === activated_following} />
         </TabItem>
         <TabItem
           isClicked={pathname === activated_watchlist}
           onClick={() => history.push('/watchlist')}
         >
           <Text>관심종목</Text>
-          <Line isClicked={pathname === activated_watchlist} />
         </TabItem>
         <TabItem
           isClicked={pathname === activated_all}
           onClick={() => history.push('/all')}
         >
           <Text>전체</Text>
-          <Line isClicked={pathname === activated_all} />
         </TabItem>
+        <Indicator
+          style={{
+            left: `${tabIndex * 25}%`,
+          }}
+        />
       </FeedTabWraaper>
     </>
   )
@@ -54,16 +71,16 @@ const Text = styled.div`
 `
 
 const FeedTabWraaper = styled.div`
-  margin-top: 23px;
-  padding: 22px 84px 0 84px;
+  position: relative;
+  margin: 23px 50px 0 50px;
+  padding-top: 22px;
   display: flex;
-  justify-content: center;
-  column-gap: 38px;
   color: ${grey060};
   border-bottom: 1px solid #ececec;
 `
 
 const TabItem = styled.div<{ isClicked: boolean }>`
+  width: 100%;
   font-size: 18px;
   line-height: 23px;
   color: ${(p) => (p.isClicked ? antblue050 : grey060)};
@@ -72,14 +89,15 @@ const TabItem = styled.div<{ isClicked: boolean }>`
   display: flex;
   flex-direction: column;
   justify-content: space-between;
-
   cursor: pointer;
 `
 
-const Line = styled.div<{ isClicked: boolean }>`
-  visibility: ${(p) => (p.isClicked ? 'visible' : 'hidden')};
-  width: 102px;
+const Indicator = styled.div`
+  position: absolute;
+  bottom: 0;
+  width: 158px;
   height: 3px;
   background-color: ${antblue050};
   border-radius: 3px;
+  transition: 0.25s left ease-in-out;
 `
