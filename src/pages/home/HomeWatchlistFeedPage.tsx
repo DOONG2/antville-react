@@ -5,6 +5,7 @@ import getPostsByUrl from '../../lib/api/post/getPostsByUrl'
 import { HomePageProps } from './type'
 import { activated_watchlist, post_query_key } from '../../lib/variable'
 import usePageView from '../../components/common/hooks/usePageView'
+import HomeLoading from '../../components/home/HomeLoading'
 
 function WatchlistFeedPage({ id }: HomePageProps) {
   const { isLoading, posts } = useInfinitePosts({
@@ -12,7 +13,7 @@ function WatchlistFeedPage({ id }: HomePageProps) {
     callback: (cursor) => getPostsByUrl(activated_watchlist, cursor),
   })
   usePageView('홈/관심종목')
-  if (!posts) return <></>
+  if (!posts) return <HomeLoading />
   return (
     <>
       <FeedSection
