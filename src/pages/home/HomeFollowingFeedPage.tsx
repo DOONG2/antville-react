@@ -5,6 +5,7 @@ import getPostsByUrl from '../../lib/api/post/getPostsByUrl'
 import { HomePageProps } from './type'
 import { activated_following, post_query_key } from '../../lib/variable'
 import usePageView from '../../components/common/hooks/usePageView'
+import HomeLoading from '../../components/home/HomeLoading'
 
 function FollowingFeedPage({ id }: HomePageProps) {
   const { isLoading, posts } = useInfinitePosts({
@@ -12,7 +13,7 @@ function FollowingFeedPage({ id }: HomePageProps) {
     callback: (cursor) => getPostsByUrl(activated_following, cursor),
   })
   usePageView('홈/팔로잉')
-  if (!posts) return <></>
+  if (!posts) return <HomeLoading />
   return (
     <>
       <FeedSection

@@ -5,6 +5,7 @@ import getPostsByUser from '../../lib/api/post/getPostsByUser'
 import { UserFeedPageProps } from './type'
 import { activated_user, post_query_key } from '../../lib/variable'
 import usePageView from '../../components/common/hooks/usePageView'
+import HomeLoading from '../../components/home/HomeLoading'
 
 function UserAllFeedPage({ user }: UserFeedPageProps) {
   const { isLoading, posts } = useInfinitePosts({
@@ -12,7 +13,7 @@ function UserAllFeedPage({ user }: UserFeedPageProps) {
     callback: (cursor) => getPostsByUser(user.id, cursor),
   })
   usePageView('프로필/활동_내역')
-  if (!posts) return <></>
+  if (!posts) return <HomeLoading />
   return (
     <FeedSection
       sectionKey={`user-all-${user.id}`}
