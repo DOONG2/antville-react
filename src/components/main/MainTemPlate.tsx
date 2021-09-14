@@ -24,7 +24,7 @@ function MainTemplate({ children }: MainTemplateProps) {
 }
 
 const Block = styled.div`
-  height: 100%;
+  height: 100vh;
   background-color: #f2f5f8;
 `
 

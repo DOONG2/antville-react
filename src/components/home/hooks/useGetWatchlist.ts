@@ -14,6 +14,7 @@ export default function useGetWatchlist() {
 
   const getWatchlistApi = async () => {
     try {
+      setIsLoading(true)
       const watchlist = await getWatchList()
       if (watchlist?.stocks) {
         dispatch(setWatchlistState(watchlist.stocks))
@@ -30,8 +31,7 @@ export default function useGetWatchlist() {
     if (!user) {
       dispatch(setWatchlistState(null))
     } else {
-      if (!watchlist) {
-        setIsLoading(true)
+      if (!isLoading && !watchlist) {
         getWatchlistApi()
       }
     }
