@@ -5,6 +5,7 @@ import getPostsByUrl from '../../lib/api/post/getPostsByUrl'
 import { HomePageProps } from './type'
 import { activated_all, post_query_key } from '../../lib/variable'
 import usePageView from '../../components/common/hooks/usePageView'
+import HomeLoading from '../../components/home/HomeLoading'
 
 function AllFeedPage({ id }: HomePageProps) {
   const { isLoading, posts } = useInfinitePosts({
@@ -12,7 +13,7 @@ function AllFeedPage({ id }: HomePageProps) {
     callback: (cursor) => getPostsByUrl('all', cursor),
   })
   usePageView('홈/전체')
-  if (!posts) return <></>
+  if (!posts) return <HomeLoading />
 
   return (
     <>
