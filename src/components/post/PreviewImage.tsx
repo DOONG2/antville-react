@@ -51,7 +51,7 @@ const Wrapper = styled.div`
 
 const CloseButton = styled.div`
   position: absolute;
-  margin: 15px;
+  margin: 30px 15px;
   padding: 3px;
   right: 0;
   top: 0;

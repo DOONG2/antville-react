@@ -47,6 +47,7 @@ export function WatchListStockGroup({ stock }: StockListGroupProps) {
 }
 
 const NewStockListGroup = styled(StockListGroup)`
+  row-gap: 4px;
   cursor: pointer;
   :hover {
     background-color: ${sky010};

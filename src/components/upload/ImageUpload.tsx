@@ -1,7 +1,7 @@
 import styled from '@emotion/styled'
 import { ChangeEvent, useRef } from 'react'
 import { gifDto } from '../../lib/api/post/types'
-import PictureUploadButton from '../../static/svg/PictureUploadButton'
+import PictureUploadIcon from '../../static/svg/PictureUploadIcon'
 
 interface Props {
   setUploadImage(value: File | undefined): void
@@ -39,7 +39,7 @@ export default function ImageUpload({
         onChange={handleChange}
         accept=".png, .jpg, .jpeg"
       />
-      <PictureUploadButton onClick={handleClick} />
+      <PictureUploadIcon onClick={handleClick} />
     </>
   )
 }

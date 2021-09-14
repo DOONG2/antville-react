@@ -4,7 +4,6 @@ import { useInfiniteScroll } from '../../common/hooks/useInfiniteScroll'
 import { cacheStableTime, gifLimit } from '../../../lib/variable'
 import { getSearchResponse } from '../../../lib/api/tenor/types'
 import formSlice from '../../../reducers/Slices/form'
-
 import { useDispatch } from 'react-redux'
 
 export interface Props {
@@ -27,9 +26,11 @@ export default function useInfiniteGif({ key, callback, ref, query }: Props) {
         pageParams: data.pageParams,
       }),
     })
+
   useEffect(() => {
     if (data) dispatch(setGifs(data.pages))
   }, [data])
+
   useInfiniteScroll({
     onLoadMore: () => {
       if (!isLoading && !isFetching && hasNextPage) {

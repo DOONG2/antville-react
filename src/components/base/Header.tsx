@@ -112,8 +112,8 @@ function Header() {
               <Modal
                 modalParentRef={modalParentRef}
                 shown={isOpenLoginForm}
-                width="44.7rem"
-                height="54.1rem"
+                width="447px"
+                height="541px"
                 close={() => {
                   dispatch(setIsOpenLoginForm(false))
                 }}
@@ -128,8 +128,8 @@ function Header() {
               <Modal
                 modalParentRef={modalParentRef}
                 shown={isOpenSignUpForm}
-                width="44.7rem"
-                height="77.4rem"
+                width="447px"
+                height="774px"
                 close={() => {
                   dispatch(setIsOpenSignUpForm(false))
                 }}
@@ -139,8 +139,8 @@ function Header() {
               {/* <Modal
                 modalParentRef={modalParentRef}
                 shown={isOpenFindPasswordForm}
-                width="44.7rem"
-                height="46.8rem"
+                width="447px"
+                height="468px"
                 close={() => {
                   dispatch(setIsOpenFindPasswordForm(false))
                 }}
@@ -157,6 +157,7 @@ function Header() {
 
 const Wrapper = styled.div`
   min-width: 1440px;
+  background-color: #fff;
   border-bottom: 0.5px solid #e0e0e0;
 `
 

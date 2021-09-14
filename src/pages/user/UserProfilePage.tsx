@@ -7,6 +7,7 @@ import useGetUserProfile from './hooks/useGetUserProfile'
 import ProfileUserInfo from '../../components/user/UserInfo'
 import ProfileTab from '../../components/user/UserTab'
 import UserNotFound from './UserNotFound'
+import { Wrapper } from '../../lib/styles/feed'
 
 export default function UserProfilePage() {
   const { nickname } = useParams<{ nickname: string }>()
@@ -18,20 +19,29 @@ export default function UserProfilePage() {
         !isLoading &&
         (user ? (
           <>
-            <ProfileUserInfo user={user} />
-            <ProfileTab user={user} />
-            <Route
-              path={['/user/:nickname/profile', '/user/:nickname/profile/all']}
-              component={() => <UserAllFeedPage user={user} />}
-              exact
-            />
-            <Route
-              path={['/user/:nickname/profile/like']}
-              component={() => <UserLikeFeedPage user={user} />}
-            />
+            <Wrapper>
+              <ProfileUserInfo user={user} />
+            </Wrapper>
+            <Wrapper>
+              <ProfileTab user={user} />
+              <Route
+                path={[
+                  '/user/:nickname/profile',
+                  '/user/:nickname/profile/all',
+                ]}
+                component={() => <UserAllFeedPage user={user} />}
+                exact
+              />
+              <Route
+                path={['/user/:nickname/profile/like']}
+                component={() => <UserLikeFeedPage user={user} />}
+              />
+            </Wrapper>
           </>
         ) : (
-          <UserNotFound />
+          <Wrapper>
+            <UserNotFound />
+          </Wrapper>
         ))
       }
     />

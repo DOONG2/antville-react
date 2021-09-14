@@ -3,6 +3,7 @@ import usePageView from '../../components/common/hooks/usePageView'
 import { useRootState } from '../../components/common/hooks/useRootState'
 import MainTemplate from '../../components/main/MainTemPlate'
 import UserEdit from '../../components/user/UserEdit'
+import { Wrapper } from '../../lib/styles/feed'
 
 export default function UserEditPage() {
   const user = useRootState((state) => state.user)
@@ -13,7 +14,9 @@ export default function UserEditPage() {
     <MainTemplate
       children={
         <>
-          <UserEdit user={user} />
+          <Wrapper>
+            <UserEdit user={user} />
+          </Wrapper>
         </>
       }
     />

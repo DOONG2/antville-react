@@ -1,4 +1,5 @@
 import styled from '@emotion/styled'
+import { grey060, grey070, sky050 } from './colors'
 
 export const StockListWrapper = styled.div`
   display: flex;
@@ -11,13 +12,14 @@ export const StockListWrapper = styled.div`
     0px 0.500862px 1.75302px rgba(32, 32, 32, 0.06),
     0px 0.266004px 0.931014px rgba(32, 32, 32, 0.0484671),
     0px 0.11069px 0.387416px rgba(32, 32, 32, 0.0337375);
+  overflow: hidden;
 `
 export const StockListHeader = styled.div`
   color: #202020;
   font-weight: bold;
-  font-size: 13px;
-  line-height: 18px;
-  padding: 10px;
+  font-size: 15px;
+  line-height: 19px;
+  padding: 16px 16px 7px 16px;
 
   display: flex;
   justify-content: space-between;
@@ -25,7 +27,7 @@ export const StockListHeader = styled.div`
 
 export const StockListGroup = styled.div`
   display: grid;
-  padding: 11px;
+  padding: 11px 18px;
 `
 
 export const StockListItem = styled.div`
@@ -48,27 +50,26 @@ export const StockPrice = styled.div`
   line-height: 15px;
   text-align: right;
 
-  color: #424242;
+  color: ${grey070};
 `
 
 export const CompanyName = styled.div`
-  font-weight: normal;
-  font-size: 10px;
-  line-height: 12px;
-
-  color: #757575;
+  font-size: 12px;
+  line-height: 15px;
+  padding-right: 5px;
+  color: ${grey060};
 `
 
 export const UpDownRate = styled.div`
   font-weight: 500;
-  font-size: 10px;
-  line-height: 12px;
+  font-size: 12px;
+  line-height: 15px;
 
-  color: #3082f5;
+  color: ${sky050};
 
   display: flex;
   align-items: center;
-  column-gap: 3.7px;
+  column-gap: 4px;
 `
 
 export const UpDownIcon = styled.div`

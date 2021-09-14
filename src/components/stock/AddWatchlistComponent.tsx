@@ -1,11 +1,11 @@
 import styled from '@emotion/styled'
-import PeopleIcon from '../../static/svg/PeopleIcon'
-import { antblue050, grey080 } from '../../lib/styles/colors'
+import { antblue050 } from '../../lib/styles/colors'
 import AuthComponent from '../common/AuthComponent'
 import AVStock from '../../lib/models/av_stock'
 import { useStockInfo } from './hooks/useStockInfo'
 import WatchlistLimitAlert from './WatchlistLimitAlert'
 import Alert from '../common/Alert'
+import PlusIcon from '../../static/svg/PlusIcon'
 
 type Props = {
   avStock: AVStock
@@ -14,7 +14,6 @@ type Props = {
 export default function AddWatchlistComponent({ avStock }: Props) {
   const {
     isWatchlist,
-    watchUserCount,
     clickAddWatchlistButton,
     isWatchlistLimit,
     setIsWatchlistLimit,
@@ -23,13 +22,19 @@ export default function AddWatchlistComponent({ avStock }: Props) {
   return (
     <>
       <Wrapper>
-        <WatchWrapper>
-          <PeopleIcon />
-          <WatchListCount>{watchUserCount.toLocaleString()}</WatchListCount>
-        </WatchWrapper>
         <AuthComponent callback={clickAddWatchlistButton}>
           <WatchButton isWatching={isWatchlist}>
-            {isWatchlist ? '관심 종목 삭제' : '관심 종목 등록'}
+            {isWatchlist ? (
+              <>
+                <Line />
+                관심 종목 삭제
+              </>
+            ) : (
+              <>
+                <PlusIcon />
+                관심 종목 추가
+              </>
+            )}
           </WatchButton>
         </AuthComponent>
       </Wrapper>
@@ -44,35 +49,28 @@ export default function AddWatchlistComponent({ avStock }: Props) {
 
 const Wrapper = styled.div`
   display: flex;
-  flex-direction: column;
-  justify-content: space-between;
+  padding-top: 6px;
 `
 
 const WatchButton = styled.div<{ isWatching: boolean }>`
-  padding: 9px;
+  display: flex;
+  align-items: center;
+  column-gap: 5px;
+  padding: 8px 11px;
   background-color: ${(props) => (props.isWatching ? '#fffff' : antblue050)};
 
-  font-size: 11px;
-  border-radius: 3px;
+  font-weight: 500;
+  font-size: 13px;
+  line-height: 16px;
+  border-radius: 5px;
   border: 1px solid ${antblue050};
   color: ${(props) => (props.isWatching ? antblue050 : '#ededed')};
-  margin-top: 3px;
   white-space: nowrap;
   cursor: pointer;
 `
 
-const WatchListCount = styled.div`
-  font-weight: bold;
-  font-size: 14px;
-  line-height: 16px;
-  text-align: center;
-
-  color: ${grey080};
-`
-
-const WatchWrapper = styled.div`
-  display: flex;
-  align-items: center;
-  justify-content: flex-end;
-  column-gap: 6px;
+const Line = styled.div`
+  width: 10px;
+  height: 0px;
+  border: 1px solid ${antblue050};
 `

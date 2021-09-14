@@ -7,10 +7,27 @@ import {
   activated_recommend,
   activated_watchlist,
 } from '../../lib/variable'
+import { antblue050, grey060 } from '../../lib/styles/colors'
+
+type MapType = {
+  [index: string]: number
+  recommend: number
+  following: number
+  watchlist: number
+  all: number
+}
+
+const tabIndexMap: MapType = {
+  recommend: 0,
+  following: 1,
+  watchlist: 2,
+  all: 3,
+}
 
 export default function FeedTab() {
   const pathname = useGetRoutePath()
   const history = useHistory()
+  const tabIndex = tabIndexMap[pathname]
 
   return (
     <>
@@ -19,49 +36,68 @@ export default function FeedTab() {
           isClicked={pathname === activated_recommend}
           onClick={() => history.push('/')}
         >
-          추천
+          <Text>추천</Text>
         </TabItem>
         <TabItem
           isClicked={pathname === activated_following}
           onClick={() => history.push('/following')}
         >
-          팔로잉
+          <Text>팔로잉</Text>
         </TabItem>
         <TabItem
           isClicked={pathname === activated_watchlist}
           onClick={() => history.push('/watchlist')}
         >
-          관심종목
+          <Text>관심종목</Text>
         </TabItem>
         <TabItem
           isClicked={pathname === activated_all}
           onClick={() => history.push('/all')}
         >
-          전체
+          <Text>전체</Text>
         </TabItem>
+        <Indicator
+          style={{
+            left: `${tabIndex * 25}%`,
+          }}
+        />
       </FeedTabWraaper>
     </>
   )
 }
 
-const FeedTabWraaper = styled.div`
-  margin-top: 23px;
-  padding: 15px 21px;
-  display: flex;
-  column-gap: 44px;
+const Text = styled.div`
+  margin-bottom: 14px;
+`
 
+const FeedTabWraaper = styled.div`
+  position: relative;
+  margin: 23px 50px 0 50px;
+  padding-top: 22px;
+  display: flex;
+  color: ${grey060};
   border-bottom: 1px solid #ececec;
 `
 
 const TabItem = styled.div<{ isClicked: boolean }>`
-  font-weight: 400;
-  font-size: 13px;
-  line-height: 18px;
-  padding-bottom: 3px;
-
-  color: #000000;
-
+  width: 100%;
+  font-size: 18px;
+  line-height: 23px;
+  color: ${(p) => (p.isClicked ? antblue050 : grey060)};
+  font-weight: ${(p) => (p.isClicked ? 700 : 400)};
+  text-align: center;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
   cursor: pointer;
+`
 
-  border-bottom: ${(p) => (p.isClicked ? '1px solid #1942e0' : 'none')};
+const Indicator = styled.div`
+  position: absolute;
+  bottom: 0;
+  width: 158px;
+  height: 3px;
+  background-color: ${antblue050};
+  border-radius: 3px;
+  transition: 0.25s left ease-in-out;
 `

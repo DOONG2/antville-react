@@ -1,12 +1,12 @@
 import * as React from 'react'
 
-function PolygonUpTest(props: any) {
+function PolygonUpSmall(props: any) {
   return (
-    <svg width={7} height={7} fill="none" {...props}>
-      <path d="M3.15 0L6.3 6.82H0L3.15 0z" fill="#FF3F3E" />
+    <svg width={10} height={8} fill="none" {...props}>
+      <path d="M5 0l5 8H0l5-8z" fill="#FF3F3E" />
     </svg>
   )
 }
 
-const MemoPolygonUpTest = React.memo(PolygonUpTest)
-export default MemoPolygonUpTest
+const MemoPolygonUpSmall = React.memo(PolygonUpSmall)
+export default MemoPolygonUpSmall

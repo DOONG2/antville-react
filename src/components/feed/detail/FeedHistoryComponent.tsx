@@ -30,7 +30,6 @@ export default function FeedHistoryComponent({ postStock }: Props) {
 }
 
 const PaddingWrapper = styled.div`
-  padding: 0 22px;
   width: 100%;
 `
 

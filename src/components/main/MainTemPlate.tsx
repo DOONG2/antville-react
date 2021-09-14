@@ -23,6 +23,9 @@ function MainTemplate({ children }: MainTemplateProps) {
   )
 }
 
-const Block = styled.div``
+const Block = styled.div`
+  height: 100%;
+  background-color: #f2f5f8;
+`
 
 export default MainTemplate

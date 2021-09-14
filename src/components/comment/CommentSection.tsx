@@ -3,11 +3,13 @@ import { useHistory } from 'react-router'
 import { Comment } from '../../lib/api/comment/types'
 import {
   FeedAvatar,
+  FeedTop,
   FeedWrapper,
   LeftItem,
   MiddleWrapper,
   NickNameWrapper,
   PostTime,
+  RightItem,
   TopWrapper,
 } from '../../lib/styles/feed'
 import { AvatarImage } from '../../lib/styles/post'
@@ -31,44 +33,48 @@ export default function CommentSection({ comments, loading }: Props) {
     <>
       {comments?.map((comment) => (
         <NewFeedWrapper key={`${comment.id}-feed-comment`}>
-          <TopWrapper>
-            <LeftItem>
-              <FeedAvatar
-                onClick={() =>
-                  history.push(`/user/${comment.author.nickname}/profile`)
-                }
-              >
-                {comment.author.profileImg ? (
-                  <AvatarImage
-                    src={comment.author.profileImg}
-                    alt="profile_image"
-                  />
-                ) : (
-                  <UserIcon50 />
-                )}
-              </FeedAvatar>
-              <NickNameWrapper
-                onClick={() =>
-                  history.push(`/user/${comment.author.nickname}/profile`)
-                }
-              >
-                {comment.author.nickname}
-              </NickNameWrapper>
-              <PostTime>
-                <MomentDateChange time={comment.createdAt} />
-              </PostTime>
-            </LeftItem>
-          </TopWrapper>
-          <MiddleWrapper>
-            <FeedBody body={comment.body} isDetail={true} />
-            {comment.commentImgs[0] && (
-              <ImageComponent url={comment.commentImgs[0].image.toString()} />
-            )}
-            {comment.gifImage?.gifUrl && (
-              <ImageComponent url={comment.gifImage.gifUrl} isGif={true} />
-            )}
-          </MiddleWrapper>
-          <CommentBottom comment={comment} />
+          <LeftItem>
+            <FeedAvatar
+              onClick={() =>
+                history.push(`/user/${comment.author.nickname}/profile`)
+              }
+            >
+              {comment.author.profileImg ? (
+                <AvatarImage
+                  src={comment.author.profileImg}
+                  alt="profile_image"
+                />
+              ) : (
+                <UserIcon50 />
+              )}
+            </FeedAvatar>
+          </LeftItem>
+          <RightItem>
+            <TopWrapper>
+              <FeedTop>
+                <NickNameWrapper
+                  onClick={() =>
+                    history.push(`/user/${comment.author.nickname}/profile`)
+                  }
+                >
+                  {comment.author.nickname}
+                </NickNameWrapper>
+                <PostTime>
+                  <MomentDateChange time={comment.createdAt} />
+                </PostTime>
+              </FeedTop>
+            </TopWrapper>
+            <MiddleWrapper>
+              <FeedBody body={comment.body} isDetail={true} />
+              {comment.commentImgs[0] && (
+                <ImageComponent url={comment.commentImgs[0].image.toString()} />
+              )}
+              {comment.gifImage?.gifUrl && (
+                <ImageComponent url={comment.gifImage.gifUrl} isGif={true} />
+              )}
+            </MiddleWrapper>
+            <CommentBottom comment={comment} />
+          </RightItem>
         </NewFeedWrapper>
       ))}
     </>
@@ -76,5 +82,6 @@ export default function CommentSection({ comments, loading }: Props) {
 }
 
 const NewFeedWrapper = styled(FeedWrapper)`
-  border: none;
+  display: flex;
+  padding-bottom: 0;
 `

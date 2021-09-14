@@ -1,8 +1,6 @@
 import useInfinitePosts from './hooks/useInfinitePosts'
 import FollowingEmpty from '../../components/feed/empty/FollowingEmpty'
 import FeedSection from '../../components/feed/FeedSection'
-import FeedTab from '../../components/feed/FeedTab'
-import PostForm from '../../components/post/PostForm'
 import getPostsByUrl from '../../lib/api/post/getPostsByUrl'
 import { HomePageProps } from './type'
 import { activated_recommend, post_query_key } from '../../lib/variable'
@@ -17,8 +15,6 @@ function HomeRecomendFeedPage({ id }: HomePageProps) {
   if (!posts) return <></>
   return (
     <>
-      <PostForm />
-      <FeedTab />
       <FeedSection
         sectionKey={`recommend-${id}`}
         posts={posts}

@@ -81,12 +81,10 @@ export default function SubCommentComponent({
   )
 }
 
-const BottomWrapper = styled.div`
-  margin-left: 97px;
-`
+const BottomWrapper = styled.div``
 
 const SubCommentWrapper = styled.div`
-  margin-left: 97px;
+  margin-top: 20px;
 `
 
 const IsLoadedWrapper = styled.div<{ isLoaded: boolean }>`

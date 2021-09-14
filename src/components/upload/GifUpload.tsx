@@ -2,7 +2,7 @@ import styled from '@emotion/styled'
 import { useRef } from 'react'
 import { useDispatch } from 'react-redux'
 import { gifDto } from '../../lib/api/post/types'
-import GifUploadButton from '../../static/svg/GifUploadButton'
+import GifUploadIcon from '../../static/svg/GifUploadIcon'
 import { useRootState } from '../common/hooks/useRootState'
 import viewSlice from '../../reducers/Slices/view'
 import GifForm from './GifForm'
@@ -34,14 +34,14 @@ const GifUpload = ({ setUploadImage, setGifDto, setPreviewUrl }: Props) => {
           dispatch(setQuery(''))
         }}
       >
-        <GifUploadButton />
+        <GifUploadIcon />
       </Wrapper>
       <DefaultCursor>
         <Modal
           modalParentRef={modalParentRef}
           shown={isOpenGifForm}
-          width="66rem"
-          height="66rem"
+          width="660px"
+          height="660px"
           close={() => {
             dispatch(setIsOpenGifForm(false))
           }}
@@ -59,7 +59,10 @@ const GifUpload = ({ setUploadImage, setGifDto, setPreviewUrl }: Props) => {
   )
 }
 
-const Wrapper = styled.div``
+const Wrapper = styled.div`
+  display: flex;
+  align-items: center;
+`
 
 const DefaultCursor = styled.div`
   cursor: default;

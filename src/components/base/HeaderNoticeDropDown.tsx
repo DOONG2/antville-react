@@ -69,7 +69,7 @@ const NoticeHeader = styled.div`
 
 const ScrollWrapper = styled.div`
   height: 425px;
-  overflow: auto;
+  overflow: overlay;
   ::-webkit-scrollbar {
     width: 5px; /*스크롤바의 너비*/
   }

@@ -1,6 +1,6 @@
 import styled from '@emotion/styled'
 import { User } from '../../lib/api/types'
-import { activated_user, activated_user_like } from '../../lib/variable'
+import { activated_user_like } from '../../lib/variable'
 import { antblue050, grey030, grey080 } from '../../lib/styles/colors'
 import { useHistory } from 'react-router-dom'
 import useGetRoutePath from '../feed/hooks/useGetPath'
@@ -13,36 +13,59 @@ export default function UserTab({ user }: Prop) {
   const pathname = useGetRoutePath()
   const history = useHistory()
 
+  const isLikeFeed = pathname === activated_user_like
+
   return (
     <Wrapper>
-      <Group
-        isClicked={pathname === activated_user}
-        onClick={() => history.push(`/user/${user.nickname}/profile`)}
-      >
-        <Count>{user.userCount.postCount}</Count>
-        <Title>활동내역</Title>
-      </Group>
-      <Group
-        isClicked={pathname === activated_user_like}
-        onClick={() => history.push(`/user/${user.nickname}/profile/like`)}
-      >
-        <Count>{user.userCount.postLikeCount}</Count>
-        <Title>좋아하는 게시물</Title>
-      </Group>
+      <Inner>
+        <Group
+          isClicked={!isLikeFeed}
+          onClick={() => history.push(`/user/${user.nickname}/profile`)}
+        >
+          <Count>{user.userCount.postCount}</Count>
+          <Title>활동내역</Title>
+        </Group>
+        <Group
+          isClicked={isLikeFeed}
+          onClick={() => history.push(`/user/${user.nickname}/profile/like`)}
+        >
+          <Count>{user.userCount.postLikeCount}</Count>
+          <Title>좋아하는 게시물</Title>
+        </Group>
+        <Indicator
+          style={{
+            left: `${isLikeFeed ? `calc(100% - 197px)` : `0%`}`,
+          }}
+        />
+      </Inner>
     </Wrapper>
   )
 }
 
-const Wrapper = styled.div`
+const Indicator = styled.div`
+  width: 197px;
+  height: 3px;
+  background-color: ${antblue050};
+  border-radius: 3px;
+  position: absolute;
+  bottom: 0px;
+  transition: 0.25s left ease-in-out;
+`
+
+const Inner = styled.div`
+  position: relative;
   display: flex;
-  margin-top: 25px;
+  margin: 25px 90px 0 90px;
+  padding-top: 22px;
+  column-gap: 158px;
+`
+
+const Wrapper = styled.div`
+  border-bottom: 1px solid ${grey030};
 `
 
 const Group = styled.div<{ isClicked: boolean }>`
   width: 100%;
-  border-bottom: ${(p) =>
-    p.isClicked ? `2px solid ${antblue050}` : `1px solid ${grey030}`};
-
   display: flex;
   flex-direction: column;
   justify-content: center;
@@ -53,13 +76,19 @@ const Group = styled.div<{ isClicked: boolean }>`
   font-size: 16px;
   line-height: 19px;
 
-  color: ${grey080};
+  color: ${(p) => (p.isClicked ? grey080 : grey030)};
   cursor: pointer;
 `
-const Count = styled.div``
+const Count = styled.div`
+  font-weight: bold;
+  font-size: 20px;
+  line-height: 19px;
+`
 
 const Title = styled.div`
-  font-weight: 400;
-  padding-top: 1px;
-  padding-bottom: 11px;
+  font-weight: 500;
+  font-size: 16px;
+  line-height: 19px;
+  margin-top: 7px;
+  padding-bottom: 15px;
 `

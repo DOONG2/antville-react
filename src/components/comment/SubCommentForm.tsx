@@ -30,6 +30,7 @@ import postCommentFormData from '../../lib/api/comment/postCommentFormData'
 import useCommentMutation from './hooks/useCommentMutation'
 import ReactQuill from 'react-quill'
 import optimizeImage from '../../lib/utils/optimizeImage'
+import { grey040 } from '../../lib/styles/colors'
 
 interface Props {
   parentCommentId?: number
@@ -70,7 +71,7 @@ function SubCommentForm({ parentCommentId, inputRef, setBody, body }: Props) {
   }
 
   return (
-    <Form onSubmit={onSubmit}>
+    <NewForm onSubmit={onSubmit}>
       <FormInner>
         <UserIconWrapper>
           {user?.profileImg ? (
@@ -82,89 +83,103 @@ function SubCommentForm({ parentCommentId, inputRef, setBody, body }: Props) {
             <UserIcon />
           )}
         </UserIconWrapper>
-        <InputWrapper isFocus={isFocusInput}>
-          {user ? (
-            <>
-              {/* {user.isEmailVerified ? (
-                <> */}
-              <SubCommentEditor
-                body={body}
-                setBody={setBody}
-                isFocusInput={isFocusInput}
-                setIsFocusInput={setIsFocusInput}
-                setBodyLength={setBodyLength}
-                inputRef={inputRef}
-              />
-              <PreviewImage
-                previewUrl={previewUrl}
-                setPreviewUrl={setPreviewUrl}
-                setUploadImage={setUploadImage}
-                setGifDto={setGifDto}
-              />
-              <NewPostInnerButtonsWrapper>
-                <PostItem>
-                  <ImageUpload
-                    setUploadImage={setUploadImage}
-                    setGifDto={setGifDto}
-                    setPreviewUrl={setPreviewUrl}
-                  />
-                </PostItem>
-                <PostItem>
-                  <GifUpload
-                    setUploadImage={setUploadImage}
-                    setGifDto={setGifDto}
-                    setPreviewUrl={setPreviewUrl}
-                  />
-                </PostItem>
-              </NewPostInnerButtonsWrapper>
-            </>
-          ) : (
-            //   ) : (
-            //     <EmailCheck>
-            //       게시글 작성을 위해 이메일 인증을 완료해주세요.{' '}
-            //       <NewFontBlue>이메일 인증 요청하기</NewFontBlue>
-            //     </EmailCheck>
-            //   )}
-            // </>
-            <>
-              <LockedLabel onClick={() => dispatch(setIsOpenLoginForm(true))}>
-                댓글을 입력해주세요.
-              </LockedLabel>
-              <NewPostInnerButtonsWrapper
-                onClick={() => dispatch(setIsOpenLoginForm(true))}
-              >
-                <PostItem>
-                  <PictureUploadButton />
-                </PostItem>
-                <PostItem>
-                  <GifUploadButton />
-                </PostItem>
-              </NewPostInnerButtonsWrapper>
-            </>
-          )}
-        </InputWrapper>
-        <ButtonWrapper>
-          <SubmitButton
-            type="submit"
-            disabled={
-              body.length < 1 || body === '<p><br></p>' || bodyLength > 1000
-            }
-          >
-            게시
-          </SubmitButton>
-          {isFocusInput && (
-            <BodyLengthView isLimited={bodyLength > 1000}>
-              {1000 - bodyLength}
-            </BodyLengthView>
-          )}
-        </ButtonWrapper>
+        <BorderWrapper>
+          <InputWrapper isFocus={isFocusInput}>
+            {user ? (
+              <>
+                <SubCommentEditor
+                  body={body}
+                  setBody={setBody}
+                  isFocusInput={isFocusInput}
+                  setIsFocusInput={setIsFocusInput}
+                  setBodyLength={setBodyLength}
+                  inputRef={inputRef}
+                />
+                <PreviewImage
+                  previewUrl={previewUrl}
+                  setPreviewUrl={setPreviewUrl}
+                  setUploadImage={setUploadImage}
+                  setGifDto={setGifDto}
+                />
+
+                <NewPostInnerButtonsWrapper>
+                  {isFocusInput && (
+                    <>
+                      <BodyLengthView isLimited={bodyLength > 1000}>
+                        {1000 - bodyLength}
+                      </BodyLengthView>
+                      <PostItem>
+                        <ImageUpload
+                          setUploadImage={setUploadImage}
+                          setGifDto={setGifDto}
+                          setPreviewUrl={setPreviewUrl}
+                        />
+                      </PostItem>
+                      <PostItem>
+                        <GifUpload
+                          setUploadImage={setUploadImage}
+                          setGifDto={setGifDto}
+                          setPreviewUrl={setPreviewUrl}
+                        />
+                      </PostItem>
+                    </>
+                  )}
+                  <ButtonWrapper isFocusInput={isFocusInput}>
+                    <SubmitButton
+                      type="submit"
+                      disabled={
+                        body.length < 1 ||
+                        body === '<p><br></p>' ||
+                        bodyLength > 1000
+                      }
+                    >
+                      게시
+                    </SubmitButton>
+                  </ButtonWrapper>
+                </NewPostInnerButtonsWrapper>
+              </>
+            ) : (
+              <>
+                <LockedLabel onClick={() => dispatch(setIsOpenLoginForm(true))}>
+                  댓글을 입력해주세요.
+                </LockedLabel>
+                <NewPostInnerButtonsWrapper
+                  onClick={() => dispatch(setIsOpenLoginForm(true))}
+                >
+                  <PostItem>
+                    <PictureUploadButton />
+                  </PostItem>
+                  <PostItem>
+                    <GifUploadButton />
+                  </PostItem>
+                </NewPostInnerButtonsWrapper>
+              </>
+            )}
+          </InputWrapper>
+        </BorderWrapper>
       </FormInner>
-    </Form>
+    </NewForm>
   )
 }
 
 const NewPostInnerButtonsWrapper = styled(PostInnerButtonsWrapper)`
   column-gap: 12px;
+  justify-content: right;
+`
+
+const NewForm = styled(Form)`
+  border-bottom: none;
+`
+
+const BorderWrapper = styled.div`
+  display: flex;
+  width: 100%;
+  column-gap: 19px;
+  padding: 10px;
+
+  border: 1px solid ${grey040};
+  box-sizing: border-box;
+  border-radius: 10px;
 `
 
 export default SubCommentForm
