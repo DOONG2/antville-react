@@ -5,7 +5,7 @@ import {
   ValidatorLabel,
 } from '../../../lib/styles/texts'
 import { SignUpButton } from '../../../lib/styles/buttons'
-import { grey050, navy040 } from '../../../lib/styles/colors'
+import { grey050, grey080, navy040 } from '../../../lib/styles/colors'
 import CompleteCheckIcon from '../../../static/svg/CompleteCheckIcon'
 import useSignUpFormik from './hooks/useSignUpFormik'
 import { useRootState } from '../../common/hooks/useRootState'
@@ -138,16 +138,18 @@ function AuthSignUpForm() {
           />
           <CheckBoxLabel>앤트빌 뉴스레터 수신 동의 (선택)</CheckBoxLabel>
         </CheckBoxWrapper>
-        <NewSignUpButton
-          type="submit"
-          disabled={
-            !(dirty && isValid) ||
-            isSubmitting ||
-            !(isEmailValid && isNicknameValid)
-          }
-        >
-          가입하기
-        </NewSignUpButton>
+        <ButtonWrapper>
+          <NewSignUpButton
+            type="submit"
+            disabled={
+              !(dirty && isValid) ||
+              isSubmitting ||
+              !(isEmailValid && isNicknameValid)
+            }
+          >
+            가입하기
+          </NewSignUpButton>
+        </ButtonWrapper>
       </form>
       <NewSubDescription>
         이미 계정이 있으신가요?{' '}
@@ -156,18 +158,30 @@ function AuthSignUpForm() {
         </NewFontBlue>
       </NewSubDescription>
       <WarningLabel>
-        회원가입 시, 앤트빌 <FontBlue>운영정책</FontBlue>과{' '}
-        <FontBlue>개인정보처리방침</FontBlue>에 동의한 것으로 간주합니다.
+        회원가입 시, 앤트빌 <FontBlack>운영정책</FontBlack>과{' '}
+        <FontBlack>개인정보처리방침</FontBlack>에 동의한 것으로 간주합니다.
       </WarningLabel>
     </Wrapper>
   )
 }
+
+const ButtonWrapper = styled.div`
+  display: flex;
+  justify-content: center;
+`
+
+const FontBlack = styled.div`
+  display: inline;
+  color: ${grey080};
+  font-weight: 500;
+`
 
 const Wrapper = styled.div`
   height: 100%;
   display: flex;
   flex-direction: column;
   padding: 25px;
+  margin-top: 47px;
 `
 
 const Title = styled.div`
@@ -175,7 +189,6 @@ const Title = styled.div`
   font-size: 20px;
   line-height: 27px;
   text-align: left;
-  margin-top: 65px;
 
   color: #202020;
 `
@@ -196,16 +209,17 @@ const CheckBoxWrapper = styled.div`
 `
 
 const NewSignUpButton = styled(SignUpButton)<{ disabled: boolean }>`
-  margin-top: 14px;
   border: ${(props) =>
     props.disabled ? `1px solid ${grey050}` : '1px solid #1942e0'};
   background: ${(props) => (props.disabled ? `${grey050}` : '#1942e0')};
   cursor: ${(props) => (props.disabled ? 'default' : 'pointer')};
   color: #fff;
+  padding: 10px 131px;
+  margin: 30px auto 0 auto;
+  align-self: center;
 `
 
 const NewFontBlue = styled(FontBlue)`
-  font-size: 12px;
   cursor: pointer;
 `
 
@@ -219,7 +233,10 @@ const CheckBoxLabel = styled.div`
 `
 
 const NewSubDescription = styled(SubDescription)`
-  margin-top: 15px;
+  margin-top: 24px;
+  font-size: 14px;
+  line-height: 18px;
+  align-self: center;
 `
 
 const Input = styled.input`
@@ -252,7 +269,11 @@ const SaveIdCheckBox = styled.input`
 const WarningLabel = styled(SubDescription)`
   align-self: center;
   margin-top: auto;
-  font-weight: 400;
+
+  font-weight: 500;
+  font-size: 12px;
+  line-height: 15px;
+  color: ${grey050};
 `
 
 const NewCompleteCheckIcon = styled(CompleteCheckIcon)`

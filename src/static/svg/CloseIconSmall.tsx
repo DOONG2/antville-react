@@ -1,6 +1,6 @@
 import * as React from 'react'
 
-function CloseIconSmall(props: any) {
+function CloseIconSmall(props: React.SVGProps<SVGSVGElement>) {
   return (
     <svg width={23} height={23} fill="none" {...props}>
       <path
