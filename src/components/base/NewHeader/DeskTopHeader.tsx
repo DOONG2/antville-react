@@ -1,6 +1,4 @@
 import styled from '@emotion/styled'
-import AuthSignUpForm from '../../auth/AuthSignUpForm'
-import AuthLoginForm from '../../auth/AuthLoginForm'
 import { useRootState } from '../../common/hooks/useRootState'
 import viewSlice from '../../../reducers/Slices/view'
 import { useDispatch } from 'react-redux'
@@ -16,7 +14,7 @@ import HeaderUserDropDown from '../HeaderUserDropDown'
 import HeaderNoticeDropDown from '../HeaderNoticeDropDown'
 import DropdownIcon from '../../../static/svg/DropdownIcon'
 import DropDown from '../../common/DropDown'
-import Modal from '../../common/FormModal'
+
 import { antblue050, grey080 } from '../../../lib/styles/colors'
 
 function DeskTopHeader() {
@@ -27,12 +25,9 @@ function DeskTopHeader() {
     setIsOpenProfileDropDown,
     setIsOpenNoticeDropDown,
   } = viewSlice.actions
-  const {
-    isOpenLoginForm,
-    isOpenSignUpForm,
-    isOpenProfileDropDown,
-    isOpenNoticeDropDown,
-  } = useRootState((state) => state.view)
+  const { isOpenProfileDropDown, isOpenNoticeDropDown } = useRootState(
+    (state) => state.view
+  )
   const dispatch = useDispatch()
   const history = useHistory()
 
@@ -50,7 +45,6 @@ function DeskTopHeader() {
   })
 
   const IconWrapperRef = useRef<HTMLDivElement>(null)
-  const modalParentRef = useRef<HTMLDivElement>(null)
 
   const { height } = useElementSize(IconWrapperRef)
 
@@ -120,41 +114,6 @@ function DeskTopHeader() {
               >
                 가입하기
               </SignUpTextButton>
-
-              <Modal
-                modalParentRef={modalParentRef}
-                shown={isOpenLoginForm}
-                width="447px"
-                height="541px"
-                close={() => {
-                  dispatch(setIsOpenLoginForm(false))
-                }}
-              >
-                <AuthLoginForm />
-              </Modal>
-
-              <Modal
-                modalParentRef={modalParentRef}
-                shown={isOpenSignUpForm}
-                width="447px"
-                height="774px"
-                close={() => {
-                  dispatch(setIsOpenSignUpForm(false))
-                }}
-              >
-                <AuthSignUpForm />
-              </Modal>
-              {/* <Modal
-                modalParentRef={modalParentRef}
-                shown={isOpenFindPasswordForm}
-                width="447px"
-                height="468px"
-                close={() => {
-                  dispatch(setIsOpenFindPasswordForm(false))
-                }}
-              >
-                <FindPasswordForm />
-              </Modal> */}
             </>
           )}
         </ButtonWrapper>

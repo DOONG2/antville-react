@@ -100,6 +100,10 @@ const Wrapper = styled.div<{ shown: boolean }>`
     0px 0.11069px 0.387416px rgba(32, 32, 32, 0.0337375);
 
   border-radius: 10px;
+  ${media.medium} {
+    border-radius: 0;
+    box-shadow: none;
+  }
 
   display: ${(props) => (props.shown ? 'block' : 'none')};
 `
