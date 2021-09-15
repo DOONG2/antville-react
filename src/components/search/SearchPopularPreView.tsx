@@ -1,9 +1,10 @@
 import styled from '@emotion/styled'
 import useStockPopularQuery from '../stock/hooks/useStockPopularQuery'
-import { StockListHeader, StockListWrapper } from '../../lib/styles/stockList'
+import { StockListHeader } from '../../lib/styles/stockList'
 import { WatchListStockGroup } from '../stock/WatchlistStockGroup'
 import viewSlice from '../../reducers/Slices/view'
 import { useDispatch } from 'react-redux'
+import { HotStockListWrapper } from '../../lib/styles/search'
 
 export default function PopularPreView() {
   const { setIsOpenSearchBar } = viewSlice.actions
@@ -28,14 +29,5 @@ export default function PopularPreView() {
     </>
   )
 }
-
-const HotStockListWrapper = styled(StockListWrapper)`
-  position: absolute;
-
-  width: 328px;
-  top: 52px;
-
-  z-index: 1001;
-`
 
 const CloseWrapper = styled.div``

@@ -1,5 +1,6 @@
 import Footer from '../../components/base/Footer'
-import Header from '../../components/base/Header'
+import Header from '../../components/base/NewHeader'
+
 import usePageView from '../../components/common/hooks/usePageView'
 import Landing from '../../components/landing/Landing'
 

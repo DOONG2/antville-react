@@ -3,7 +3,7 @@ import { RefObject } from 'react'
 import { gifDto } from '../../lib/api/post/types'
 import getSearch from '../../lib/api/tenor/getSearch'
 import SearchIcon from '../../static/svg/SearchIcon'
-import { IconWrapper, SearchInput, SerchBar } from '../../lib/styles/search'
+import { SearchInput, SerchBar } from '../../lib/styles/search'
 import { getCategoriesResponse } from '../../lib/api/tenor/types'
 import GifView from './GifView'
 import useInfiniteGif from './hooks/useInfiniteGif'
@@ -44,10 +44,9 @@ function GifForm({
     <>
       <Group>
         <SearchBarWrapper>
-          <NewSerchBar isLoggedIn={true}>
-            <IconWrapper>
-              <SearchIcon />
-            </IconWrapper>
+          <NewSerchBar>
+            <SearchIcon />
+
             <SearchInput
               type="search"
               placeholder=""

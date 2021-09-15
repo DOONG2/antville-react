@@ -1,47 +1,55 @@
 import styled from '@emotion/styled'
-import { grey020, grey040, grey080, sky010 } from './colors'
+import { grey020, grey040, grey080, grey050, sky010 } from './colors'
 import { StockListGroup, StockListWrapper } from './stockList'
 
-export const SerchBar = styled.div<{ isLoggedIn: boolean }>`
-  width: 330px;
-  height: 40px;
+export const SerchBar = styled.div`
+  width: 49.2rem;
+  height: 4.9rem;
   position: relative;
-  margin-left: ${(props) => (props.isLoggedIn ? 'auto' : '0')};
+  padding: 0 3.3rem;
+  align-self: center;
+  display: flex;
+  align-items: center;
+  justify-content: flex-start;
+  border-radius: 47px;
+  background-color: ${grey020};
+  border-radius: 47px;
 `
 
 export const IconWrapper = styled.div`
   position: absolute;
   z-index: 2;
-  top: 12px;
-  left: 14px;
+  top: 1.1rem;
+  left: 3.3rem;
 `
 
 export const SearchInput = styled.input`
-  position: absolute;
-  top: 0;
-  left: 0;
   width: 100%;
-  padding: 11px 20px 9px 38px;
-  font-size: 16px;
+  padding: 1.1rem 2rem 0.9rem 2.2rem;
+  font-size: 1.6rem;
   font-weight: 500;
+  border: none;
 
-  background: #ffffff;
-  border: 1px solid #bbbbbb;
+  background: ${grey020};
   box-sizing: border-box;
-  border-radius: 3px;
 
-  color: #202020;
+  color: ${grey080};
 
+  :focus {
+    outline: none;
+  }
   &::placeholder {
-    color: #aeaeae;
+    color: ${grey050};
   }
 `
 
 export const HotStockListWrapper = styled(StockListWrapper)`
   position: absolute;
 
-  width: 328px;
-  top: 52px;
+  width: 40.1rem;
+  top: 5.9rem;
+  left: 50%;
+  transform: translate(-50%, 0);
 
   z-index: 1000;
 `

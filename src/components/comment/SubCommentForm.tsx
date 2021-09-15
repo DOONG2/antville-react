@@ -173,10 +173,9 @@ const NewForm = styled(Form)`
 
 const BorderWrapper = styled.div`
   display: flex;
-  width: 100%;
   column-gap: 19px;
   padding: 10px;
-
+  width: 530px;
   border: 1px solid ${grey040};
   box-sizing: border-box;
   border-radius: 10px;

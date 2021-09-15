@@ -1,6 +1,6 @@
 import styled from '@emotion/styled'
 import React from 'react'
-import Header from '../base/Header'
+import Header from '../base/NewHeader'
 import HomeLayout from '../home/HomeLayout'
 import PopularStock from '../stock/PopularStock'
 import MainResponsive from './MainResponsive'

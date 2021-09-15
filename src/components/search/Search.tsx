@@ -1,9 +1,8 @@
 import { useDispatch } from 'react-redux'
-import SearchIcon from '../../static/svg/SearchIcon'
-import useCheckLogin from '../common/hooks/useCheckLogin'
+import HeaderSearchIcon from '../../static/svg/HeaderSearchIcon'
 import useOnClickOutside from '../common/hooks/useOnClickOutside'
 import { useRootState } from '../common/hooks/useRootState'
-import { IconWrapper, SearchInput, SerchBar } from '../../lib/styles/search'
+import { SearchInput, SerchBar } from '../../lib/styles/search'
 import viewSlice from '../../reducers/Slices/view'
 import SearchPreView from './SearchPreView'
 import searchSlice from '../../reducers/Slices/search'
@@ -15,8 +14,6 @@ function Search() {
   const { setQuery } = searchSlice.actions
   const dispatch = useDispatch()
 
-  const isLoggedIn = useCheckLogin()
-
   const outSideClickRef = useOnClickOutside({
     close: () => {
       dispatch(setIsOpenSearchBar(false))
@@ -25,13 +22,11 @@ function Search() {
   })
 
   return (
-    <SerchBar isLoggedIn={isLoggedIn} ref={outSideClickRef}>
-      <IconWrapper>
-        <SearchIcon />
-      </IconWrapper>
+    <SerchBar ref={outSideClickRef}>
+      <HeaderSearchIcon />
       <SearchInput
         type="search"
-        placeholder="종목명 혹은 닉네임을 입력해주세요."
+        placeholder="찾으시는 종목명 혹은 닉네임을 검색해보세요!"
         onFocus={() => {
           dispatch(setIsFocusSearchBar(true))
           dispatch(setIsOpenSearchBar(true))

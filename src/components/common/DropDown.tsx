@@ -1,3 +1,4 @@
+import { css } from '@emotion/react'
 import styled from '@emotion/styled'
 
 interface DropDownProps {
@@ -17,7 +18,12 @@ const Wrapper = styled.div<{
   left: ${(p) => (p.placement === 'Left' ? 0 : '')};
   top: ${(p) => `${p.parentHeight + 10}px`};
   display: ${(props) => (props.shown ? 'block' : 'none')};
-
+  ${(props) =>
+    props.placement === 'Center' &&
+    css`
+      left: 50%;
+      transform: translate(-50%, 0);
+    `}
   background: #fafafa;
 
   z-index: 999;
