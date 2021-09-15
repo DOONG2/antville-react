@@ -1,7 +1,11 @@
 import styled from '@emotion/styled'
 import { RefObject, useEffect } from 'react'
-import { grey050 } from '../../lib/styles/colors'
+import { useMediaQuery } from 'react-responsive'
+import { grey030, grey050 } from '../../lib/styles/colors'
+import media from '../../lib/styles/media'
 import CloseIcon from '../../static/svg/CloseIcon'
+import CloseIconSmall from '../../static/svg/CloseIconSmall'
+import HeaderLogo from '../../static/svg/HeaderLogo'
 
 interface ModalProps {
   children: React.ReactNode
@@ -20,6 +24,8 @@ const Modal = ({
   close,
   modalParentRef,
 }: ModalProps) => {
+  const isMobile = useMediaQuery({ maxWidth: 1024 })
+
   useEffect(() => {
     modalParentRef.current?.scrollTo(0, 0)
   }, [shown])
@@ -35,10 +41,18 @@ const Modal = ({
             tabIndex={-1}
             onClick={(e) => e.stopPropagation()}
           >
-            <ModalInner width={width} height={height}>
-              <LeftItem>
-                <NewCloseIcon onClick={close} />
-              </LeftItem>
+            <ModalInner
+              width={isMobile ? '100vw' : width}
+              height={isMobile ? '100vh' : height}
+            >
+              <Header>
+                <LogoWrapper>
+                  {isMobile && <HeaderLogo width={81} height={15} />}
+                </LogoWrapper>
+                <RightItem onClick={close}>
+                  {isMobile ? <CloseIconSmall /> : <CloseIcon />}
+                </RightItem>
+              </Header>
               {children}
             </ModalInner>
           </Wrapper>
@@ -90,24 +104,43 @@ const Wrapper = styled.div<{ shown: boolean }>`
   display: ${(props) => (props.shown ? 'block' : 'none')};
 `
 
-const ModalInner = styled.div<{ width: string; height: string }>`
+const ModalInner = styled.div<{
+  width: string
+  height: string
+}>`
   width: ${(props) => props.width};
   height: ${(props) => props.height};
   position: relative;
   margin: 0 auto;
   padding-top: 25px;
+  ${media.medium} {
+    padding-top: 0;
+  }
 
   display: flex;
   flex-direction: column;
 `
 
-const LeftItem = styled.div`
-  text-align: right;
+const Header = styled.div`
+  ${media.medium} {
+    border-top: 0.5px solid ${grey030};
+    border-bottom: 0.5px solid ${grey030};
+  }
+
+  height: 45px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  position: relative;
 `
 
-const NewCloseIcon = styled(CloseIcon)`
+const RightItem = styled.div`
+  position: absolute;
+  right: 0;
   cursor: pointer;
   margin-right: 25px;
 `
+
+const LogoWrapper = styled.div``
 
 export default Modal

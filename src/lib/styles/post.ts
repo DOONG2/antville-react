@@ -48,6 +48,7 @@ export const FormInner = styled.div`
 export const InputWrapper = styled.div<{ isFocus: boolean }>`
   overflow: auto;
   width: 100%;
+  height: 100%;
   padding-top: ${(p) => (p.isFocus ? `6px` : '0')};
   background: #ffffff;
   box-sizing: border-box;

@@ -1,5 +1,5 @@
 import styled from '@emotion/styled'
-import { red050 } from './colors'
+import { grey070, red050 } from './colors'
 
 export const FontBlue = styled.div`
   display: inline;
@@ -12,6 +12,12 @@ export const SubDescription = styled.div`
   font-weight: 400;
 
   color: #202020;
+`
+
+export const FormFooterText = styled.div`
+  font-size: 14px;
+  line-height: 18px;
+  color: ${grey070};
 `
 
 export const ValidatorLabel = styled.div`

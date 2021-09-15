@@ -2,8 +2,8 @@ import React from 'react'
 import styled from '@emotion/styled'
 import { LoginButton } from '../../lib/styles/buttons'
 import {
-  // FontBlue,
-  // SubDescription,
+  FontBlue,
+  FormFooterText,
   ValidatorLabel,
 } from '../../lib/styles/texts'
 import { grey050, navy040 } from '../../lib/styles/colors'
@@ -108,18 +108,19 @@ function AuthLoginForm() {
           )}
         </ButtonWrapper>
       </form>
-      {/* <NewSubDescription>
-        비밀번호를 잊으셨나요?{' '}
-        <NewFontBlue onClick={() => dispatch(setIsOpenFindPasswordForm(true))}>
-          비밀번호 찾기
-        </NewFontBlue>
-      </NewSubDescription> */}
+      <NewFormFooterText>
+        <Text>비밀번호 찾기</Text>
+        <NewFontBlue>회원가입</NewFontBlue>
+      </NewFormFooterText>
     </Wrapper>
   )
 }
 
+const Text = styled.div``
+
 const Wrapper = styled.div`
   padding: 25px;
+  margin-top: 22px;
 `
 
 const Title = styled.div`
@@ -127,7 +128,6 @@ const Title = styled.div`
   font-size: 20px;
   line-height: 27px;
   text-align: left;
-  margin-top: 39px;
 
   color: #202020;
 `
@@ -148,7 +148,7 @@ const CheckBoxWrapper = styled.div`
 `
 
 const NewLoginButton = styled(LoginButton)`
-  margin-top: 14px;
+  padding: 10px 138px;
   border: ${(props) =>
     props.disabled ? `1px solid ${grey050}` : '1px solid #1942e0'};
   background: ${(props) => (props.disabled ? `${grey050}` : '#1942e0')};
@@ -156,10 +156,9 @@ const NewLoginButton = styled(LoginButton)`
   color: #fff;
 `
 
-// const NewFontBlue = styled(FontBlue)`
-//   font-size: 12px;
-//   cursor: pointer;
-// `
+const NewFontBlue = styled(FontBlue)`
+  cursor: pointer;
+`
 
 const CheckBoxLabel = styled.div`
   font-size: 12px;
@@ -170,9 +169,13 @@ const CheckBoxLabel = styled.div`
   display: inline;
 `
 
-// const NewSubDescription = styled(SubDescription)`
-//   margin-top: 15px;
-// `
+const NewFormFooterText = styled(FormFooterText)`
+  margin-top: 27px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  column-gap: 20px;
+`
 
 const Input = styled.input`
   width: 100%;
@@ -214,6 +217,9 @@ const NewValidatorLabel = styled(ValidatorLabel)`
 
 const ButtonWrapper = styled.div`
   position: relative;
+  display: flex;
+  justify-content: center;
+  margin-top: 40px;
 `
 
 export default AuthLoginForm

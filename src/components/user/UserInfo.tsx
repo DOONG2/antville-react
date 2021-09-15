@@ -65,7 +65,6 @@ export default function UserInfo({ user }: Props) {
                     dispatch(setIsOpenFollowingModal(false))
                   }}
                 >
-                  <ModalTitle>팔로잉</ModalTitle>
                   <FollowingList user={user} modalParentRef={modalParentRef} />
                 </Modal>
                 <Follower onClick={() => dispatch(setIsOpenFollwerModal(true))}>
@@ -81,7 +80,6 @@ export default function UserInfo({ user }: Props) {
                     dispatch(setIsOpenFollwerModal(false))
                   }}
                 >
-                  <ModalTitle>팔로워</ModalTitle>
                   <UserFollowerList
                     user={user}
                     modalParentRef={modalParentRef}
@@ -196,17 +194,4 @@ const Introduction = styled.div`
 
   color: ${grey080};
   margin-top: 12px;
-`
-
-const ModalTitle = styled.div`
-  position: absolute;
-  top: 27px;
-  left: 196px;
-
-  font-weight: 600;
-  font-size: 20px;
-  line-height: 27px;
-  text-align: center;
-
-  color: ${grey080};
 `

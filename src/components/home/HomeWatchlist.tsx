@@ -1,4 +1,5 @@
 import styled from '@emotion/styled'
+import { useDispatch } from 'react-redux'
 import {
   WatchlistLoginButton,
   WatchlistSignUpButton,
@@ -6,11 +7,16 @@ import {
 import { grey040, grey050, grey080 } from '../../lib/styles/colors'
 import { StockListWrapper, StockListHeader } from '../../lib/styles/stockList'
 import { document_privacy_url, document_rules_url } from '../../lib/variable'
+import viewSlice from '../../reducers/Slices/view'
 import { WatchListStockGroup } from '../stock/WatchlistStockGroup'
 import useGetWatchlist from './hooks/useGetWatchlist'
 
 function HomeWatchlist() {
   const { isLoading, watchlist } = useGetWatchlist()
+  const dispatch = useDispatch()
+
+  const { setIsOpenLoginForm, setIsOpenSignUpForm } = viewSlice.actions
+
   if (isLoading) return <></>
 
   if (watchlist === null)
@@ -25,8 +31,16 @@ function HomeWatchlist() {
                 원하시는 정보를 공유해보세요!
               </MainLabel>
               <ButtonWrapper>
-                <WatchlistLoginButton>로그인</WatchlistLoginButton>
-                <WatchlistSignUpButton>가입하기</WatchlistSignUpButton>
+                <WatchlistLoginButton
+                  onClick={() => dispatch(setIsOpenLoginForm(true))}
+                >
+                  로그인
+                </WatchlistLoginButton>
+                <WatchlistSignUpButton
+                  onClick={() => dispatch(setIsOpenSignUpForm(true))}
+                >
+                  가입하기
+                </WatchlistSignUpButton>
               </ButtonWrapper>
             </Main>
           </NewStockListWrapper>
