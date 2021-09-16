@@ -57,6 +57,7 @@ function DeskTopHeader() {
   const IconWrapperRef = useRef<HTMLDivElement>(null)
 
   const { height } = useElementSize(IconWrapperRef)
+  const { height: downloadHeight } = useElementSize(DownloadRef)
 
   return (
     <Wrapper>
@@ -78,7 +79,7 @@ function DeskTopHeader() {
           >
             <DropDown
               shown={isOpenDownloadDropDown}
-              parentHeight={height}
+              parentHeight={downloadHeight}
               placement={'Center'}
             >
               <HeaderDownloadDropDown />
