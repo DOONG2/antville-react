@@ -2,7 +2,7 @@ import styled from '@emotion/styled'
 import { grey020, grey040, grey080, grey050, sky010 } from './colors'
 import { StockListGroup, StockListWrapper } from './stockList'
 
-export const SerchBar = styled.div`
+export const SearchBar = styled.div`
   width: 49.2rem;
   height: 4.9rem;
   position: relative;

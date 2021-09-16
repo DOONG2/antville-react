@@ -1,4 +1,5 @@
 import styled from '@emotion/styled'
+import { ModalOverlay } from '../../lib/styles/buttons'
 import { grey050 } from '../../lib/styles/colors'
 
 interface ModalProps {
@@ -12,7 +13,7 @@ const Modal = ({ children, shown, close }: ModalProps) => {
     <>
       {shown && (
         <>
-          <ModalOverlay shown={shown} onClick={close} />
+          <ModalOverlay onClick={close} />
           <Wrapper
             shown={shown}
             tabIndex={-1}
@@ -25,18 +26,6 @@ const Modal = ({ children, shown, close }: ModalProps) => {
     </>
   )
 }
-
-const ModalOverlay = styled.div<{ shown: boolean }>`
-  display: ${(props) => (props.shown ? 'block' : 'none')};
-  position: fixed;
-  top: 0;
-  left: 0;
-  bottom: 0;
-  right: 0;
-  background-color: #424242;
-  opacity: 0.4;
-  z-index: 999;
-`
 
 const Wrapper = styled.div<{ shown: boolean }>`
   position: fixed;

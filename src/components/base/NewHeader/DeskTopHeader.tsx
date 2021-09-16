@@ -16,6 +16,7 @@ import DropdownIcon from '../../../static/svg/DropdownIcon'
 import DropDown from '../../common/DropDown'
 
 import { antblue050, grey080 } from '../../../lib/styles/colors'
+import HeaderDownloadDropDown from './HeaderDownloadDropDown'
 
 function DeskTopHeader() {
   const user = useRootState((state) => state.user)
@@ -24,13 +25,22 @@ function DeskTopHeader() {
     setIsOpenSignUpForm,
     setIsOpenProfileDropDown,
     setIsOpenNoticeDropDown,
+    setIsOpenDownloadDropDown,
   } = viewSlice.actions
-  const { isOpenProfileDropDown, isOpenNoticeDropDown } = useRootState(
-    (state) => state.view
-  )
+  const {
+    isOpenProfileDropDown,
+    isOpenNoticeDropDown,
+    isOpenDownloadDropDown,
+  } = useRootState((state) => state.view)
   const dispatch = useDispatch()
   const history = useHistory()
 
+  const DownloadRef = useOnClickOutside({
+    close: () => {
+      dispatch(setIsOpenDownloadDropDown(false))
+    },
+    isOpen: isOpenDownloadDropDown,
+  })
   const ProfileRef = useOnClickOutside({
     close: () => {
       dispatch(setIsOpenProfileDropDown(false))
@@ -47,6 +57,7 @@ function DeskTopHeader() {
   const IconWrapperRef = useRef<HTMLDivElement>(null)
 
   const { height } = useElementSize(IconWrapperRef)
+  const { height: downloadHeight } = useElementSize(DownloadRef)
 
   return (
     <Wrapper>
@@ -60,7 +71,19 @@ function DeskTopHeader() {
         </LogoWrapper>
         <SearchBar />
         <ButtonWrapper>
-          <DownLoadButtonWrapper>
+          <DownLoadButtonWrapper
+            onClick={() => {
+              dispatch(setIsOpenDownloadDropDown(!isOpenDownloadDropDown))
+            }}
+            ref={DownloadRef}
+          >
+            <DropDown
+              shown={isOpenDownloadDropDown}
+              parentHeight={downloadHeight}
+              placement={'Center'}
+            >
+              <HeaderDownloadDropDown />
+            </DropDown>
             <p>다운로드</p>
             <DropdownIcon />
           </DownLoadButtonWrapper>
@@ -165,6 +188,7 @@ const ProfileWrapper = styled.div`
 `
 
 const DownLoadButtonWrapper = styled.div`
+  position: relative;
   display: flex;
   align-items: center;
   font-size: 1.8rem;

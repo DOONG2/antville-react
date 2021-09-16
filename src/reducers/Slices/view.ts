@@ -4,6 +4,7 @@ interface ViewState {
   isOpenLoginForm: boolean
   isOpenSignUpForm: boolean
   isOpenFindPasswordForm: boolean
+  isOpenDownloadDropDown: boolean
   isOpenProfileDropDown: boolean
   isOpenNoticeDropDown: boolean
   isOpenFollowingModal: boolean
@@ -19,6 +20,7 @@ const initialState: ViewState = {
   isOpenLoginForm: false,
   isOpenSignUpForm: false,
   isOpenFindPasswordForm: false,
+  isOpenDownloadDropDown: false,
   isOpenProfileDropDown: false,
   isOpenNoticeDropDown: false,
   isOpenFollowingModal: false,
@@ -48,6 +50,9 @@ const viewSlice = createSlice({
       state.isOpenLoginForm = false
       state.isOpenSignUpForm = false
       state.isOpenFindPasswordForm = action.payload
+    },
+    setIsOpenDownloadDropDown(state, action: PayloadAction<boolean>) {
+      state.isOpenDownloadDropDown = action.payload
     },
     setIsOpenProfileDropDown(state, action: PayloadAction<boolean>) {
       state.isOpenProfileDropDown = action.payload

@@ -2,12 +2,29 @@ import styled from '@emotion/styled'
 import MoblieSearchIcon from '../../../static/svg/MoblieSearchIcon'
 import HeaderLogo from '../../../static/svg/HeaderLogo'
 import { useHistory } from 'react-router-dom'
+import DrawerIcon from '../../../static/svg/DrawerIcon'
+import { useState } from 'react'
+import Drawer from '../../common/Drawer'
+import useOnClickOutside from '../../common/hooks/useOnClickOutside'
+import DrawerSideBar from './DrawerSideBar'
 
 function MobileHeader() {
   const history = useHistory()
+  const [isOpenDrawer, setIsOpenDrawer] = useState(false)
+  const drawerRef = useOnClickOutside({
+    close: () => {
+      setIsOpenDrawer(false)
+    },
+    isOpen: isOpenDrawer,
+  })
   return (
     <Wrapper>
-      <IconWrapper />
+      <IconWrapper ref={drawerRef}>
+        <DrawerIcon onClick={() => setIsOpenDrawer(true)} cursor={'pointer'} />
+        <Drawer shown={isOpenDrawer} close={() => setIsOpenDrawer(false)}>
+          <DrawerSideBar />
+        </Drawer>
+      </IconWrapper>
       <LogoWrapper
         onClick={() => {
           history.push('/')

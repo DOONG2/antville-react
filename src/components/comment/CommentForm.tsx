@@ -1,10 +1,7 @@
 import React, { RefObject, useEffect, useState } from 'react'
 import { useDispatch } from 'react-redux'
-import GifUploadButton from '../../static/svg/GifUploadButton'
-import PictureUploadButton from '../../static/svg/PictureUploadButton'
 import UserIcon50 from '../../static/svg/UserIcon50'
 import { useRootState } from '../common/hooks/useRootState'
-import viewSlice from '../../reducers/Slices/view'
 import ImageUpload from '../upload/ImageUpload'
 import GifUpload from '../upload/GifUpload'
 import {
@@ -14,7 +11,7 @@ import {
   Form,
   FormInner,
   InputWrapper,
-  LockedLabel,
+  LoginBlock,
   PostInner,
   PostInnerButtonsWrapper,
   PostItem,
@@ -30,6 +27,7 @@ import useCommentMutation from './hooks/useCommentMutation'
 import postCommentFormData from '../../lib/api/comment/postCommentFormData'
 import { commentEvent } from '../../lib/utils/ga'
 import optimizeImage from '../../lib/utils/optimizeImage'
+import viewSlice from '../../reducers/Slices/view'
 
 interface Props {
   parentCommentId?: number
@@ -82,6 +80,13 @@ function CommentForm({ parentCommentId, inputRef }: Props) {
 
   return (
     <Form onSubmit={onSubmit}>
+      {!user && (
+        <LoginBlock
+          onClick={() => {
+            dispatch(setIsOpenLoginForm(true))
+          }}
+        />
+      )}
       <FormInner>
         <UserIconWrapper>
           {user?.profileImg ? (
@@ -94,76 +99,56 @@ function CommentForm({ parentCommentId, inputRef }: Props) {
           )}
         </UserIconWrapper>
         <InputWrapper isFocus={isFocusInput}>
-          {user ? (
-            <>
-              <CommentEditor inputRef={inputRef} />
-              <PreviewImage
-                previewUrl={previewUrl}
-                setPreviewUrl={setPreviewUrl}
-                setUploadImage={setUploadImage}
-                setGifDto={setGifDto}
-              />
-              <PostInner>
-                {isFocusInput && (
-                  <>
-                    <PostInnerButtonsWrapper>
-                      <BodyLengthView isLimited={bodyLength > 1000}>
-                        {1000 - bodyLength}
-                      </BodyLengthView>
-                    </PostInnerButtonsWrapper>
-                    <PostInnerButtonsWrapper>
-                      <PostItem>
-                        <ImageUpload
-                          setUploadImage={setUploadImage}
-                          setGifDto={setGifDto}
-                          setPreviewUrl={setPreviewUrl}
-                        />
-                      </PostItem>
-                    </PostInnerButtonsWrapper>
-                    <PostInnerButtonsWrapper>
-                      <PostItem>
-                        <GifUpload
-                          setUploadImage={setUploadImage}
-                          setGifDto={setGifDto}
-                          setPreviewUrl={setPreviewUrl}
-                        />
-                      </PostItem>
-                    </PostInnerButtonsWrapper>
-                  </>
-                )}
+          <CommentEditor inputRef={inputRef} />
+          <PreviewImage
+            previewUrl={previewUrl}
+            setPreviewUrl={setPreviewUrl}
+            setUploadImage={setUploadImage}
+            setGifDto={setGifDto}
+          />
+          <PostInner>
+            {isFocusInput && (
+              <>
                 <PostInnerButtonsWrapper>
-                  <ButtonWrapper isFocusInput={isFocusInput}>
-                    <SubmitButton
-                      type="submit"
-                      disabled={
-                        body.length < 1 ||
-                        body === '<p><br></p>' ||
-                        bodyLength > 1000
-                      }
-                    >
-                      게시
-                    </SubmitButton>
-                  </ButtonWrapper>
+                  <BodyLengthView isLimited={bodyLength > 1000}>
+                    {1000 - bodyLength}
+                  </BodyLengthView>
                 </PostInnerButtonsWrapper>
-              </PostInner>
-            </>
-          ) : (
-            <>
-              <LockedLabel onClick={() => dispatch(setIsOpenLoginForm(true))}>
-                댓글을 입력해주세요.
-              </LockedLabel>
-              <PostInnerButtonsWrapper
-                onClick={() => dispatch(setIsOpenLoginForm(true))}
-              >
-                <PostItem>
-                  <PictureUploadButton />
-                </PostItem>
-                <PostItem>
-                  <GifUploadButton />
-                </PostItem>
-              </PostInnerButtonsWrapper>
-            </>
-          )}
+                <PostInnerButtonsWrapper>
+                  <PostItem>
+                    <ImageUpload
+                      setUploadImage={setUploadImage}
+                      setGifDto={setGifDto}
+                      setPreviewUrl={setPreviewUrl}
+                    />
+                  </PostItem>
+                </PostInnerButtonsWrapper>
+                <PostInnerButtonsWrapper>
+                  <PostItem>
+                    <GifUpload
+                      setUploadImage={setUploadImage}
+                      setGifDto={setGifDto}
+                      setPreviewUrl={setPreviewUrl}
+                    />
+                  </PostItem>
+                </PostInnerButtonsWrapper>
+              </>
+            )}
+            <PostInnerButtonsWrapper>
+              <ButtonWrapper isFocusInput={isFocusInput}>
+                <SubmitButton
+                  type="submit"
+                  disabled={
+                    body.length < 1 ||
+                    body === '<p><br></p>' ||
+                    bodyLength > 1000
+                  }
+                >
+                  게시
+                </SubmitButton>
+              </ButtonWrapper>
+            </PostInnerButtonsWrapper>
+          </PostInner>
         </InputWrapper>
       </FormInner>
     </Form>

@@ -2,7 +2,7 @@ import { useDispatch } from 'react-redux'
 import HeaderSearchIcon from '../../static/svg/HeaderSearchIcon'
 import useOnClickOutside from '../common/hooks/useOnClickOutside'
 import { useRootState } from '../common/hooks/useRootState'
-import { SearchInput, SerchBar } from '../../lib/styles/search'
+import { SearchInput, SearchBar } from '../../lib/styles/search'
 import viewSlice from '../../reducers/Slices/view'
 import SearchPreView from './SearchPreView'
 import searchSlice from '../../reducers/Slices/search'
@@ -22,7 +22,7 @@ function Search() {
   })
 
   return (
-    <SerchBar ref={outSideClickRef}>
+    <SearchBar ref={outSideClickRef}>
       <HeaderSearchIcon />
       <SearchInput
         type="search"
@@ -38,7 +38,7 @@ function Search() {
         value={query}
       />
       {isOpenSearchBar && <SearchPreView />}
-    </SerchBar>
+    </SearchBar>
   )
 }
 
