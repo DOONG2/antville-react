@@ -18,6 +18,14 @@ import 'quill-mention'
 import 'quill-mention/dist/quill.mention.css'
 import 'react-quill/dist/quill.snow.css'
 
+export const LoginBlock = styled.div`
+  position: absolute;
+  width: 100%;
+  height: 100%;
+  z-index: 999999;
+  cursor: pointer;
+`
+
 export const AvatarImage = styled.img`
   object-fit: cover;
 `
@@ -48,7 +56,6 @@ export const FormInner = styled.div`
 export const InputWrapper = styled.div<{ isFocus: boolean }>`
   overflow: auto;
   width: 100%;
-  height: 100%;
   padding-top: ${(p) => (p.isFocus ? `6px` : '0')};
   background: #ffffff;
   box-sizing: border-box;
@@ -117,16 +124,6 @@ export const EmailCheck = styled.div`
 
 export const NewFontBlue = styled(FontBlue)`
   cursor: pointer;
-`
-
-export const LockedLabel = styled.div`
-  align-self: center;
-  width: 100%;
-  font-weight: 400;
-  font-size: 16px;
-  line-height: 22px;
-
-  color: ${grey050};
 `
 
 export const dynamicStyle = (props: {
