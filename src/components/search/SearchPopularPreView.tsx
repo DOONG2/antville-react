@@ -5,6 +5,7 @@ import { WatchListStockGroup } from '../stock/WatchlistStockGroup'
 import viewSlice from '../../reducers/Slices/view'
 import { useDispatch } from 'react-redux'
 import { HotStockListWrapper } from '../../lib/styles/search'
+import { Desktop } from '../common/Responsive'
 
 export default function PopularPreView() {
   const { setIsOpenSearchBar } = viewSlice.actions
@@ -16,7 +17,9 @@ export default function PopularPreView() {
   return (
     <>
       <HotStockListWrapper>
-        <StockListHeader>실시간 인기 종목</StockListHeader>
+        <Desktop>
+          <StockListHeader>실시간 인기 종목</StockListHeader>
+        </Desktop>
         <CloseWrapper onClick={() => dispatch(setIsOpenSearchBar(false))}>
           {stocks?.map((stock) => (
             <WatchListStockGroup

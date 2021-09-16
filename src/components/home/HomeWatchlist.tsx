@@ -5,9 +5,11 @@ import {
   WatchlistSignUpButton,
 } from '../../lib/styles/buttons'
 import { grey040, grey050, grey080 } from '../../lib/styles/colors'
+import media from '../../lib/styles/media'
 import { StockListWrapper, StockListHeader } from '../../lib/styles/stockList'
 import { document_privacy_url, document_rules_url } from '../../lib/variable'
 import viewSlice from '../../reducers/Slices/view'
+import { Desktop } from '../common/Responsive'
 import { WatchListStockGroup } from '../stock/WatchlistStockGroup'
 import useGetWatchlist from './hooks/useGetWatchlist'
 
@@ -52,7 +54,9 @@ function HomeWatchlist() {
     <>
       <Wrapper>
         <NewStockListWrapper>
-          <StockListHeader>관심 종목</StockListHeader>
+          <Desktop>
+            <StockListHeader>관심 종목</StockListHeader>
+          </Desktop>
           {watchlist.length > 0 ? (
             <ScrollBar>
               {watchlist.map((stock) => (
@@ -72,21 +76,23 @@ function HomeWatchlist() {
             </LoggedMain>
           )}
         </NewStockListWrapper>
-        <Footer>
-          <Group>
-            <CursorItem
-              onClick={() => window.open(document_rules_url, '_black')}
-            >
-              약관
-            </CursorItem>
-            <CursorItem
-              onClick={() => window.open(document_privacy_url, '_black')}
-            >
-              개인정보 처리방침
-            </CursorItem>
-            <Item>© 2021 Vivaces, Inc.</Item>
-          </Group>
-        </Footer>
+        <Desktop>
+          <Footer>
+            <Group>
+              <CursorItem
+                onClick={() => window.open(document_rules_url, '_black')}
+              >
+                약관
+              </CursorItem>
+              <CursorItem
+                onClick={() => window.open(document_privacy_url, '_black')}
+              >
+                개인정보 처리방침
+              </CursorItem>
+              <Item>© 2021 Vivaces, Inc.</Item>
+            </Group>
+          </Footer>
+        </Desktop>
       </Wrapper>
     </>
   )
@@ -95,51 +101,60 @@ function HomeWatchlist() {
 const Wrapper = styled.div`
   position: absolute;
   left: 24px;
+
+  ${media.medium} {
+    width: 100%;
+    left: 0;
+    position: static;
+  }
 `
 
 const Main = styled.div`
-  height: 301px;
+  height: 30.1rem;
   display: flex;
   align-items: center;
   flex-direction: column;
 `
 
 const ButtonWrapper = styled.div`
-  margin-top: 31px;
+  margin-top: 3.1rem;
   display: flex;
-  column-gap: 15px;
+  column-gap: 1.5rem;
 `
 
 const LoggedMain = styled.div`
-  height: 250px;
+  height: 25rem;
   display: flex;
   justify-content: center;
+  ${media.medium} {
+    height: auto;
+  }
 `
 
 const MainLabel = styled.div`
   font-weight: 400;
-  font-size: 16px;
+  font-size: 1.6rem;
   line-height: 150%;
-  margin-top: 88px;
+  margin-top: 8.8rem;
   text-align: center;
   color: #202020;
 `
 
 const Footer = styled.div`
-  margin-top: 20px;
+  margin-top: 2rem;
 `
 
 const Group = styled.div`
   display: flex;
-  column-gap: 10px;
+  column-gap: 1rem;
 `
 
 const Item = styled.div`
   color: ${grey040};
 
   font-weight: 500;
-  font-size: 13px;
-  line-height: 18px;
+  font-size: 1.3rem;
+  line-height: 1.8rem;
 `
 
 const CursorItem = styled(Item)`
@@ -150,13 +165,20 @@ const CursorItem = styled(Item)`
 `
 
 const NewStockListWrapper = styled(StockListWrapper)`
-  width: 297px;
+  width: 29.7rem;
   border-radius: 8px;
+  ${media.medium} {
+    width: 100%;
+    border-radius: 0;
+  }
 `
 
 const ScrollBar = styled.div`
   overflow: overlay;
-  height: 448px;
+  height: 44.8rem;
+  ${media.medium} {
+    height: auto;
+  }
   ::-webkit-scrollbar {
     width: 5px; /*스크롤바의 너비*/
   }

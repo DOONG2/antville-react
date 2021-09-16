@@ -1,5 +1,6 @@
 import styled from '@emotion/styled'
 import { grey060, grey070, sky050 } from './colors'
+import media from './media'
 
 export const StockListWrapper = styled.div`
   display: flex;
@@ -13,6 +14,9 @@ export const StockListWrapper = styled.div`
     0px 0.266004px 0.931014px rgba(32, 32, 32, 0.0484671),
     0px 0.11069px 0.387416px rgba(32, 32, 32, 0.0337375);
   overflow: hidden;
+  ${media.medium} {
+    box-shadow: none;
+  }
 `
 export const StockListHeader = styled.div`
   color: #202020;

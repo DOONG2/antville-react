@@ -29,6 +29,8 @@ import { post_query_key } from '../../lib/variable'
 import optimizeImage from '../../lib/utils/optimizeImage'
 import styled from '@emotion/styled'
 import { grey030 } from '../../lib/styles/colors'
+import { useMediaQuery } from 'react-responsive'
+import UserIcon30 from '../../static/svg/UserIcon30'
 
 interface Props {
   posts: Post[]
@@ -40,7 +42,7 @@ interface Props {
 
 const FeedSection = ({ posts, emptyComponent, sectionKey, keyId }: Props) => {
   const history = useHistory()
-
+  const isMobile = useMediaQuery({ maxWidth: 1025 })
   if (posts.length < 1) return <>{emptyComponent}</>
 
   return (
@@ -58,6 +60,8 @@ const FeedSection = ({ posts, emptyComponent, sectionKey, keyId }: Props) => {
                   src={optimizeImage(post.author.profileImg, 120)}
                   alt="profile_image"
                 />
+              ) : isMobile ? (
+                <UserIcon30 />
               ) : (
                 <UserIcon50 />
               )}

@@ -79,7 +79,7 @@ const FeedTabWraaper = styled.div`
   color: ${grey060};
   border-bottom: 1px solid #ececec;
   ${media.medium} {
-    margin: 0 5rem;
+    margin: 0;
   }
 `
 
@@ -94,12 +94,16 @@ const TabItem = styled.div<{ isClicked: boolean }>`
   flex-direction: column;
   justify-content: space-between;
   cursor: pointer;
+  ${media.medium} {
+    font-size: 1.4rem;
+    line-height: 1.9rem;
+  }
 `
 
 const Indicator = styled.div`
   position: absolute;
   bottom: 0;
-  width: 15.8rem;
+  width: calc(25%);
   height: 0.3rem;
   background-color: ${antblue050};
   border-radius: 3px;

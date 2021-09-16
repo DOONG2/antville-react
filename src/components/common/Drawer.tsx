@@ -8,18 +8,12 @@ type Props = {
 }
 
 export default function Drawer({ shown, children, close }: Props) {
-  return (
+  return shown ? (
     <>
-      <Block
-        style={{
-          left: shown ? '0vw' : '-70vw',
-        }}
-      >
-        {children}
-      </Block>
+      <Block>{children}</Block>
       {shown && <ModalOverlay onClick={close} />}
     </>
-  )
+  ) : null
 }
 
 const Block = styled.div`

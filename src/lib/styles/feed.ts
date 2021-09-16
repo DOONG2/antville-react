@@ -54,8 +54,8 @@ export const FeedAvatar = styled.div`
   }
 
   ${media.medium} {
-    width: 2.9rem;
-    height: 2.9rem;
+    width: 3rem;
+    height: 3rem;
   }
 
   cursor: pointer;
