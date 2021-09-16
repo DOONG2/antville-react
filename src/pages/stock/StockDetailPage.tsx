@@ -4,6 +4,8 @@ import StockDetailFeed from '../../components/stock/StockDetailFeed'
 import { Stock } from '../../lib/api/types'
 import StockChart from '../../components/stock/StockChart'
 import styled from '@emotion/styled'
+import media from '../../lib/styles/media'
+import { Desktop } from '../../components/common/Responsive'
 
 type StockPageProps = {
   stock: Stock
@@ -17,7 +19,9 @@ function StockDetailPage({ stock }: StockPageProps) {
         <StockChart symbol={stock.symbol} />
       </Wrapper>
       <FeedWapper>
-        <PostForm />
+        <Desktop>
+          <PostForm />
+        </Desktop>
         <StockDetailFeed stock={stock} />
       </FeedWapper>
     </>
@@ -26,10 +30,14 @@ function StockDetailPage({ stock }: StockPageProps) {
 
 const Wrapper = styled.div`
   background-color: #fff;
-  padding: 23px 29px 23px 29px;
-  margin-bottom: 29px;
+  padding: 2.3rem 2.9rem 2.3rem 2.9rem;
+  margin-bottom: 2.9rem;
   box-shadow: 0px 2px 5px rgba(32, 32, 32, 0.15);
   border-radius: 8px;
+  ${media.medium} {
+    margin-bottom: 0;
+    padding: 0;
+  }
 `
 
 const FeedWapper = styled.div`

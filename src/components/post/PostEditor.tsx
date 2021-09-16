@@ -115,6 +115,7 @@ export default function PostEditor() {
   return (
     <Block isFocus={isFocusInput}>
       <CustomQuill
+        formats={['mention']}
         modules={modules}
         onChange={(value, delta, source, editor) => {
           dispatch(setBody(value))

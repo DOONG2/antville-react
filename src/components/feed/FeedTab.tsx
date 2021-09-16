@@ -8,6 +8,7 @@ import {
   activated_watchlist,
 } from '../../lib/variable'
 import { antblue050, grey060 } from '../../lib/styles/colors'
+import media from '../../lib/styles/media'
 
 type MapType = {
   [index: string]: number
@@ -67,22 +68,25 @@ export default function FeedTab() {
 }
 
 const Text = styled.div`
-  margin-bottom: 14px;
+  margin-bottom: 1.4rem;
 `
 
 const FeedTabWraaper = styled.div`
   position: relative;
-  margin: 23px 50px 0 50px;
-  padding-top: 22px;
+  margin: 2.3rem 5rem 0 5rem;
+  padding-top: 2.2rem;
   display: flex;
   color: ${grey060};
   border-bottom: 1px solid #ececec;
+  ${media.medium} {
+    margin: 0 5rem;
+  }
 `
 
 const TabItem = styled.div<{ isClicked: boolean }>`
   width: 100%;
-  font-size: 18px;
-  line-height: 23px;
+  font-size: 1.8rem;
+  line-height: 2.3rem;
   color: ${(p) => (p.isClicked ? antblue050 : grey060)};
   font-weight: ${(p) => (p.isClicked ? 700 : 400)};
   text-align: center;
@@ -95,8 +99,8 @@ const TabItem = styled.div<{ isClicked: boolean }>`
 const Indicator = styled.div`
   position: absolute;
   bottom: 0;
-  width: 158px;
-  height: 3px;
+  width: 15.8rem;
+  height: 0.3rem;
   background-color: ${antblue050};
   border-radius: 3px;
   transition: 0.25s left ease-in-out;

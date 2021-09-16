@@ -1,5 +1,8 @@
 import styled from '@emotion/styled'
 import React from 'react'
+import media from '../../lib/styles/media'
+import { Desktop } from '../common/Responsive'
+
 import HomeWatchlist from '../home/HomeWatchlist'
 
 export type MainResponsiveProps = {
@@ -11,7 +14,9 @@ function MainResponsive({ className, children }: MainResponsiveProps) {
   return (
     <Block className={className}>
       <Inner>
-        <HomeWatchlist />
+        <Desktop>
+          <HomeWatchlist />
+        </Desktop>
         <Wrapper>{children}</Wrapper>
       </Inner>
     </Block>
@@ -19,22 +24,28 @@ function MainResponsive({ className, children }: MainResponsiveProps) {
 }
 
 const Wrapper = styled.div`
-  width: 732px;
+  width: 73.2rem;
   margin: 0 auto;
   position: relative;
+  ${media.medium} {
+    width: 100%;
+  }
 `
 
 const Inner = styled.div`
-  width: 1440px;
-  padding: 30px 0 0 0;
+  max-width: 144rem;
+  padding: 3rem 0 0 0;
   margin: 0 auto;
   position: relative;
+  ${media.medium} {
+    padding: 0;
+  }
 `
 
 const Block = styled.div`
   width: 100%;
   background-color: #f2f5f8;
-  padding-bottom: 25px;
+  padding-bottom: 2.5rem;
 `
 
 export default MainResponsive

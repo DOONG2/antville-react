@@ -21,6 +21,7 @@ import {
 } from '../../../lib/styles/colors'
 import Loading from '../../common/Loading'
 import { useStockChart } from '../hooks/useStockChart'
+import media from '../../../lib/styles/media'
 
 type Props = {
   symbol: string
@@ -38,6 +39,7 @@ const chartTypes = [
 export default function StockChart({ symbol }: Props) {
   const chartContainerRef = useRef<HTMLDivElement>(null)
   const chart = useRef<IChartApi>()
+  const resizeObserver = useRef<ResizeObserver>()
   const [volumeSeries, setVolumeSeries] =
     useState<ISeriesApi<'Histogram'> | null>(null)
   const [candleSeries, setCandleSeries] =
@@ -77,6 +79,20 @@ export default function StockChart({ symbol }: Props) {
         },
       })
     }
+
+    resizeObserver.current = new ResizeObserver((entries) => {
+      const { width, height } = entries[0].contentRect
+      chart?.current?.applyOptions({ width, height })
+      setTimeout(() => {
+        chart?.current?.timeScale().fitContent()
+      }, 0)
+    })
+
+    if (chartContainerRef.current) {
+      resizeObserver.current.observe(chartContainerRef.current)
+    }
+
+    return () => resizeObserver?.current?.disconnect()
   }, [])
 
   useEffect(() => {
@@ -134,26 +150,10 @@ export default function StockChart({ symbol }: Props) {
 
   return (
     <Wrapper>
-      <div
-        style={{
-          position: 'relative',
-          width: '100%',
-          height: '255px',
-          display: 'flex',
-          justifyContent: 'center',
-          alignItems: 'center',
-        }}
-      >
+      <InnerWrapper>
         {isLoading && <Loading width={60} />}
-        <div
-          ref={chartContainerRef}
-          style={{
-            width: '100%',
-            height: '255px',
-            position: 'absolute',
-          }}
-        />
-      </div>
+        <ChartWrapper ref={chartContainerRef} />
+      </InnerWrapper>
       <TypeWrapper>
         {chartTypes.map((t) => (
           <TypeItem key={t} isSelected={type === t} onClick={() => setType(t)}>
@@ -166,24 +166,50 @@ export default function StockChart({ symbol }: Props) {
 }
 
 const Wrapper = styled.div`
-  width: 673px;
-  margin-top: 20px;
+  width: 100%;
+  margin-top: 2rem;
+  ${media.medium} {
+    padding-bottom: 1rem;
+  }
+`
+
+const InnerWrapper = styled.div`
+  position: relative;
+  width: 100%;
+  height: 25.5rem;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  ${media.medium} {
+    height: calc(100vw * 0.4);
+  }
+`
+
+const ChartWrapper = styled.div`
+  width: 100%;
+  height: 25.5rem;
+  ${media.medium} {
+    height: calc(100vw * 0.4);
+  }
 `
 
 export const TypeWrapper = styled.div`
   display: flex;
   align-items: center;
   font-weight: 500;
-  font-size: 14px;
-  line-height: 18px;
-  margin-top: 12px;
+  font-size: 1.4rem;
+  margin-top: 1.2rem;
   color: ${grey060};
+  ${media.medium} {
+    justify-content: center;
+    font-size: 1rem;
+  }
 `
 
 export const TypeItem = styled.div<{ isSelected: boolean }>`
   display: flex;
   align-items: center;
-  padding: 6px 12px;
+  padding: 0.6rem 1.2rem;
 
   border-radius: 63px;
   background: ${(p) => (p.isSelected ? grey020 : '#fff')};

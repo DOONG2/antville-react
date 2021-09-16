@@ -29,13 +29,13 @@ const Spinner = styled.div<{
   width: number
 }>`
   z-index: 100;
-  position: relative;
+  position: absolute;
   width: ${(props) => props.width}px;
   height: ${(props) => props.width}px;
   & > div {
     box-sizing: border-box;
-    display: block;
     position: absolute;
+    display: block;
     width: ${(props) => props.width * 0.9}px;
     height: ${(props) => props.width * 0.9}px;
     margin: 8px;

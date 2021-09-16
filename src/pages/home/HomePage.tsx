@@ -9,6 +9,7 @@ import HomeRecomendFeedPage from './HomeRecomendFeedPage'
 import { Wrapper } from '../../lib/styles/feed'
 import PostForm from '../../components/post/PostForm'
 import FeedTab from '../../components/feed/FeedTab'
+import { Desktop } from '../../components/common/Responsive'
 
 function HomePage() {
   const user = useRootState((state) => state.user)
@@ -19,9 +20,11 @@ function HomePage() {
     <MainTemplate
       children={
         <>
-          <Wrapper>
-            <PostForm extended={true} />
-          </Wrapper>
+          <Desktop>
+            <Wrapper>
+              <PostForm extended={true} />
+            </Wrapper>
+          </Desktop>
           <Wrapper>
             <FeedTab />
             <Route

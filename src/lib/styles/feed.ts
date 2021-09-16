@@ -1,5 +1,6 @@
 import styled from '@emotion/styled'
 import { grey020, grey030, grey060, grey080 } from './colors'
+import media from './media'
 
 export const Wrapper = styled.div`
   background-color: #fff;
@@ -11,7 +12,7 @@ export const GifImage = styled.img`
   margin: 0 auto;
   margin-top: 15px;
 
-  height: 270px;
+  height: 27rem;
 
   border: 1px solid ${grey030};
   border-radius: 8px;
@@ -20,11 +21,14 @@ export const GifImage = styled.img`
 `
 
 export const FeedWrapper = styled.div`
-  margin: 0 25px;
-  padding: 25px 10px 27px 5px;
-
+  margin: 0 2.5rem;
+  padding: 2.5rem 1rem 2.7rem 0.5rem;
   :last-child {
     border: none;
+  }
+  ${media.medium} {
+    margin: 0 1.5rem;
+    padding: 1.5rem 0.5rem 1.7rem 0.25rem;
   }
 `
 
@@ -37,16 +41,21 @@ export const TopWrapper = styled.div`
 `
 
 export const FeedAvatar = styled.div`
-  width: 50px;
-  height: 50px;
+  width: 5rem;
+  height: 5rem;
 
   border-radius: 50px;
 
   img {
-    width: 50px;
-    height: 50px;
+    width: 100%;
+    height: 100%;
     border-radius: 50px;
     border: 0.5px solid ${grey020};
+  }
+
+  ${media.medium} {
+    width: 2.9rem;
+    height: 2.9rem;
   }
 
   cursor: pointer;
@@ -59,21 +68,24 @@ export const FeedTop = styled.div`
 
 export const NickNameWrapper = styled.div`
   font-weight: 700;
-  font-size: 16px;
-  line-height: 20px;
+  font-size: 1.6rem;
+  line-height: 2rem;
 
   color: ${grey080};
   cursor: pointer;
+  ${media.medium} {
+    font-size: 1.4rem;
+  }
 `
 
 export const PostTime = styled.div`
   font-weight: bold;
-  font-size: 10px;
-  line-height: 13px;
+  font-size: 1rem;
+  line-height: 1.3rem;
 
   color: ${grey060};
-  margin-bottom: 2.5px;
-  margin-left: 7px;
+  margin-bottom: 0.25rem;
+  margin-left: 0.7rem;
 `
 
 export const RightItem = styled.div`
@@ -96,17 +108,26 @@ export const LeftItem = styled.div`
 
 export const MiddleWrapper = styled.div`
   width: 100%;
-  font-size: 16px;
-  margin-top: 16px;
-  line-height: 150%;
+  font-size: 1.6rem;
+  margin-top: 1.6rem;
+  line-height: 2rem;
+  ${media.medium} {
+    font-size: 1.4rem;
+    line-height: 2rem;
+  }
 `
 export const BottomWrapper = styled.div`
-  margin-top: 20px;
+  margin-top: 2rem;
   display: flex;
   align-items: center;
-  column-gap: 30px;
-  font-size: 14px;
-  line-height: 20px;
+  column-gap: 3rem;
+  font-size: 1.4rem;
+  line-height: 2rem;
+
+  ${media.medium} {
+    font-size: 1.3rem;
+    line-height: 1.8rem;
+  }
 
   color: ${grey060};
 `
@@ -114,7 +135,7 @@ export const BottomWrapper = styled.div`
 export const BottomItem = styled.div`
   display: flex;
   align-items: center;
-  column-gap: 6px;
+  column-gap: 0.6rem;
 `
 
 export const Count = styled.div`

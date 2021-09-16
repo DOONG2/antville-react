@@ -1,6 +1,7 @@
 import styled from '@emotion/styled'
 import React from 'react'
 import Header from '../base/NewHeader'
+import { Desktop } from '../common/Responsive'
 import HomeLayout from '../home/HomeLayout'
 import PopularStock from '../stock/PopularStock'
 import MainResponsive from './MainResponsive'
@@ -14,7 +15,9 @@ function MainTemplate({ children }: MainTemplateProps) {
     <>
       <Block>
         <Header />
-        <PopularStock />
+        <Desktop>
+          <PopularStock />
+        </Desktop>
         <MainResponsive>
           <HomeLayout main={children}></HomeLayout>
         </MainResponsive>
