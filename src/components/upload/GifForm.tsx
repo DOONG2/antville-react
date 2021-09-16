@@ -3,7 +3,7 @@ import { RefObject } from 'react'
 import { gifDto } from '../../lib/api/post/types'
 import getSearch from '../../lib/api/tenor/getSearch'
 import SearchIcon from '../../static/svg/SearchIcon'
-import { SearchInput, SerchBar } from '../../lib/styles/search'
+import { SearchInput, SearchBar } from '../../lib/styles/search'
 import { getCategoriesResponse } from '../../lib/api/tenor/types'
 import GifView from './GifView'
 import useInfiniteGif from './hooks/useInfiniteGif'
@@ -44,7 +44,7 @@ function GifForm({
     <>
       <Group>
         <SearchBarWrapper>
-          <NewSerchBar>
+          <NewSearchBar>
             <SearchIcon />
 
             <SearchInput
@@ -56,7 +56,7 @@ function GifForm({
               }}
               value={query}
             />
-          </NewSerchBar>
+          </NewSearchBar>
         </SearchBarWrapper>
         <GifView
           query={debouncedQuery}
@@ -86,7 +86,7 @@ const SearchBarWrapper = styled.div`
   left: 85px;
 `
 
-const NewSerchBar = styled(SerchBar)`
+const NewSearchBar = styled(SearchBar)`
   width: 475px;
 `
 
