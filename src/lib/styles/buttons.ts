@@ -1,6 +1,17 @@
 import styled from '@emotion/styled'
 import { antblue050 } from './colors'
 
+export const ModalOverlay = styled.div`
+  position: fixed;
+  top: 0;
+  left: 0;
+  bottom: 0;
+  right: 0;
+  background-color: #424242;
+  opacity: 0.4;
+  z-index: 999;
+`
+
 export const LoginButton = styled.button`
   padding: 9px 25px;
 
