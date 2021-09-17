@@ -7,10 +7,14 @@ import { useState } from 'react'
 import Drawer from '../../common/Drawer'
 import useOnClickOutside from '../../common/hooks/useOnClickOutside'
 import DrawerSideBar from './DrawerSideBar'
+import HamburgerIcon from '../../../static/svg/HamburgerIcon'
+import DrawerHamburger from './DrawerHamburger'
 
 function MobileHeader() {
   const history = useHistory()
   const [isOpenDrawer, setIsOpenDrawer] = useState(false)
+  const [isOpenHamburgerDrawer, setIsOpenHamburgerDrawer] = useState(false)
+
   const drawerRef = useOnClickOutside({
     close: () => {
       setIsOpenDrawer(false)
@@ -21,7 +25,11 @@ function MobileHeader() {
     <Wrapper>
       <IconWrapper ref={drawerRef}>
         <DrawerIcon onClick={() => setIsOpenDrawer(true)} cursor={'pointer'} />
-        <Drawer shown={isOpenDrawer} close={() => setIsOpenDrawer(false)}>
+        <Drawer
+          side="left"
+          shown={isOpenDrawer}
+          close={() => setIsOpenDrawer(false)}
+        >
           <DrawerSideBar />
         </Drawer>
       </IconWrapper>
@@ -32,12 +40,31 @@ function MobileHeader() {
       >
         <HeaderLogo width={'8.1rem'} height={'1.5rem'} />
       </LogoWrapper>
-      <IconWrapper>
-        <MoblieSearchIcon />
-      </IconWrapper>
+      <RightItem>
+        <IconWrapper>
+          <MoblieSearchIcon />
+        </IconWrapper>
+        <IconWrapper>
+          <HamburgerIcon
+            onClick={() => setIsOpenHamburgerDrawer(true)}
+            cursor={'pointer'}
+          />
+          <Drawer
+            side="right"
+            shown={isOpenHamburgerDrawer}
+            close={() => setIsOpenHamburgerDrawer(false)}
+          >
+            <DrawerHamburger />
+          </Drawer>
+        </IconWrapper>
+      </RightItem>
     </Wrapper>
   )
 }
+
+const RightItem = styled.div`
+  display: flex;
+`
 
 const Wrapper = styled.div`
   width: 100%;

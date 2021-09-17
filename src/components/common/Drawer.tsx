@@ -4,13 +4,19 @@ import { ModalOverlay } from '../../lib/styles/buttons'
 type Props = {
   shown: boolean
   children: React.ReactNode
+  side: string
   close: () => void
 }
 
-export default function Drawer({ shown, children, close }: Props) {
+export default function Drawer({ shown, children, side, close }: Props) {
+  const isLeft = 'left' === side
   return shown ? (
     <>
-      <Block>{children}</Block>
+      <Block
+        style={{ left: isLeft ? '0' : 'auto', right: isLeft ? 'auto' : '0' }}
+      >
+        {children}
+      </Block>
       {shown && <ModalOverlay onClick={close} />}
     </>
   ) : null
