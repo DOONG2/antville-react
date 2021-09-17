@@ -7,7 +7,7 @@ import MonthDate from '../common/MomentMonthDate'
 import UserTopRightButton from './UserTopRightButton'
 import { grey020, grey050, grey080 } from '../../lib/styles/colors'
 import Modal from '../common/FormModal'
-import FollowingList from './UserFollowingList'
+import UserFollowingList from './UserFollowingList'
 import UserFollowerList from './UserFollowerList'
 import { useRef } from 'react'
 import UserIcon100 from '../../static/svg/UserIcon100'
@@ -65,7 +65,10 @@ export default function UserInfo({ user }: Props) {
                     dispatch(setIsOpenFollowingModal(false))
                   }}
                 >
-                  <FollowingList user={user} modalParentRef={modalParentRef} />
+                  <UserFollowingList
+                    user={user}
+                    modalParentRef={modalParentRef}
+                  />
                 </Modal>
                 <Follower onClick={() => dispatch(setIsOpenFollwerModal(true))}>
                   <Bold>{user.userCount.followers}</Bold>

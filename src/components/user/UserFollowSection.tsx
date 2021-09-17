@@ -7,6 +7,9 @@ import { useDispatch } from 'react-redux'
 import viewSlice from '../../reducers/Slices/view'
 import optimizeImage from '../../lib/utils/optimizeImage'
 import { AvatarImage } from '../../lib/styles/post'
+import { grey030 } from '../../lib/styles/colors'
+import { useMediaQuery } from 'react-responsive'
+import UserIcon30 from '../../static/svg/UserIcon30'
 
 type Prop = {
   users: User[]
@@ -27,8 +30,10 @@ export default function UserFollowSection({
   const history = useHistory()
   const dispatch = useDispatch()
 
+  const isMobile = useMediaQuery({ maxWidth: 1024 })
+
   return (
-    <Wrapper>
+    <Wrapper style={{ borderTop: isMobile ? '' : `0.5px solid ${grey030}` }}>
       {users.map((user) => (
         <Item
           key={elementKey + user.id}
@@ -52,6 +57,8 @@ export default function UserFollowSection({
                 src={optimizeImage(user.profileImg, 120)}
                 alt="profile_image"
               />
+            ) : isMobile ? (
+              <UserIcon30 />
             ) : (
               <UserIcon50 />
             )}

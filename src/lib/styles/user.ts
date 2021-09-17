@@ -1,11 +1,10 @@
 import styled from '@emotion/styled'
-import { grey030, grey080 } from './colors'
+import { grey080 } from './colors'
 
 export const Wrapper = styled.div`
   display: flex;
   flex-direction: column;
   margin-top: 15px;
-  border-top: 0.5px solid ${grey030};
 `
 
 export const Item = styled.div`
@@ -13,8 +12,6 @@ export const Item = styled.div`
   padding: 10px 20px;
   align-items: center;
   cursor: pointer;
-
-  border-bottom: 0.5px solid ${grey030};
 `
 
 export const UserItem = styled(Item)`
@@ -29,6 +26,9 @@ export const Avatar = styled.div`
 `
 
 export const Nickname = styled.div`
+  font-weight: 500;
+  font-size: 16px;
+  line-height: 20px;
   margin-left: 15px;
   cursor: pointer;
 `
