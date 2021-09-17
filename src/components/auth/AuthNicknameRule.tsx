@@ -38,8 +38,10 @@ function AuthNicknameRule() {
 const HiddenAnswerForm = styled.div`
   visibility: hidden;
   position: absolute;
+  bottom: 0;
   right: 0;
-  top: 30px;
+  transform: translate3d(0, 100%, 0);
+
   padding: 13px;
 
   font-size: 13px;

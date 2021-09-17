@@ -91,19 +91,17 @@ const FollowButton = styled.div<{ isFollowing: boolean }>`
 
 const EditButton = styled.div`
   margin-top: 24px;
-  padding: 4px 10px;
+  padding: 10px 20px;
 
-  background: #fafafa;
+  border-radius: 7px;
 
-  border: 1px solid ${antblue050};
-  border-radius: 3px;
-
-  font-weight: 400;
-  font-size: 12px;
-  line-height: 16px;
+  font-weight: bold;
+  font-size: 14px;
+  line-height: 18px;
   text-align: center;
 
-  color: ${antblue050};
+  color: #ffffff;
+  background-color: ${antblue050};
 
   cursor: pointer;
   white-space: nowrap;

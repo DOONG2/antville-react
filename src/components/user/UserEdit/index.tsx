@@ -5,9 +5,10 @@ import {
   grey010,
   grey020,
   grey030,
-  grey040,
   grey050,
   grey060,
+  grey080,
+  red050,
 } from '../../../lib/styles/colors'
 import { FeedText, FeedTitle, TitleIconWrapper } from '../../../lib/styles/feed'
 import LeftArrow from '../../../static/svg/LeftArrow'
@@ -87,7 +88,7 @@ export default function UserEdit({ user }: Props) {
             )}
           </ProfileAvatar>
           <EditButton onClick={handleClick}>
-            프로필 사진 변경하기
+            프로필 사진 변경
             <NewWarningLabel>{uploadFileError}</NewWarningLabel>
           </EditButton>
         </Profile>
@@ -101,30 +102,36 @@ export default function UserEdit({ user }: Props) {
               accept=".png, .jpg, .jpeg"
             />
             <Item>
-              <Span>닉네임</Span>
-              <NicknameWrapper>
-                <NonBorderInput
-                  id="editNickname"
-                  type="text"
-                  {...getFieldProps('editNickname')}
-                  onChange={onChangeNickanme}
-                  placeholder={user.nickname}
-                />
-                <NickNameRuleLabel />
-                {(touched.editNickname ||
-                  values.editNickname !== initialValues.editNickname) && (
-                  <>
-                    {nicknameError ? (
-                      <WarningLabel>{nicknameError}</WarningLabel>
-                    ) : (
-                      values.editNickname !== initialValues.editNickname &&
-                      isNicknameValid && (
-                        <CompleteLabel>올바른 닉네임입니다</CompleteLabel>
-                      )
-                    )}
-                  </>
-                )}
-              </NicknameWrapper>
+              <Span>
+                <TitleLabel>닉네임</TitleLabel>
+                <WarningWrapper>
+                  {(touched.editNickname ||
+                    values.editNickname !== initialValues.editNickname) && (
+                    <>
+                      {nicknameError ? (
+                        <WarningLabel>{nicknameError}</WarningLabel>
+                      ) : (
+                        values.editNickname !== initialValues.editNickname &&
+                        isNicknameValid && (
+                          <CompleteLabel>올바른 닉네임입니다</CompleteLabel>
+                        )
+                      )}
+                    </>
+                  )}
+                </WarningWrapper>
+              </Span>
+              <RuleWrapper>
+                <NicknameWrapper>
+                  <NonBorderInput
+                    id="editNickname"
+                    type="text"
+                    {...getFieldProps('editNickname')}
+                    onChange={onChangeNickanme}
+                    placeholder={user.nickname}
+                  />
+                  <NickNameRuleLabel />
+                </NicknameWrapper>
+              </RuleWrapper>
             </Item>
             {/* <Item>
               <Span>웹사이트</Span>
@@ -141,16 +148,15 @@ export default function UserEdit({ user }: Props) {
                 : ''}
             </Item> */}
             <Item>
-              <Span>자기소개</Span>
+              <Span>
+                <TitleLabel>자기소개 (200자 제한)</TitleLabel>
+                <BioDescription>*사이트 링크 추가 가능</BioDescription>
+              </Span>
               <IntroductionInput
                 id="editIntroduction"
                 {...getFieldProps('editIntroduction')}
                 placeholder={user.bio}
               />
-              <Description>
-                자기소개는 200자까지 가능합니다. 못다한 이야기는 타임라인에서
-                해주세요 :)
-              </Description>
             </Item>
             <ButtonWrapper>
               <Button
@@ -174,6 +180,22 @@ export default function UserEdit({ user }: Props) {
   )
 }
 
+const BioDescription = styled.div`
+  font-size: 14px;
+
+  font-weight: normal;
+  line-height: 160%;
+  color: ${grey060};
+`
+
+const TitleLabel = styled.div``
+
+const WarningWrapper = styled.div``
+
+const RuleWrapper = styled.div`
+  position: relative;
+`
+
 const NewFeedTitle = styled(FeedTitle)`
   padding: 28px 24px 17px 24px;
 `
@@ -181,18 +203,19 @@ const NewFeedTitle = styled(FeedTitle)`
 const NicknameWrapper = styled.div`
   display: flex;
   align-items: center;
-  border: 1px solid ${grey040};
-  border-radius: 3px;
+
+  border: 1px solid ${grey030};
+  border-radius: 8px;
+
+  overflow: hidden;
 `
 
 const Input = styled.input`
   background: #ffffff;
-  width: 386px;
+  width: 100%;
+  height: 45px;
 
-  border: 1px solid ${grey040};
-  box-sizing: border-box;
-  border-radius: 3px;
-  padding: 4px 10px;
+  padding: 10px 22px;
 
   font-weight: 400;
   font-size: 15px;
@@ -207,25 +230,22 @@ const Input = styled.input`
 
 const NonBorderInput = styled(Input)`
   border: none;
-  width: 357px;
+  width: 100%;
 `
 
 const Item = styled.div`
   position: relative;
   display: flex;
-  column-gap: 24px;
-  justify-content: flex-end;
+  flex-direction: column;
+  row-gap: 10px;
 `
 
 const WarningLabel = styled.div`
-  position: absolute;
-  font-size: 11px;
-  line-height: 15px;
+  font-weight: normal;
+  font-size: 14px;
+  line-height: 160%;
 
-  left: 94px;
-  bottom: -15px;
-
-  color: #fa4a61;
+  color: ${red050};
 `
 
 const NewWarningLabel = styled(WarningLabel)`
@@ -243,44 +263,29 @@ const ButtonWrapper = styled.div`
 `
 
 const Button = styled.button`
-  margin-top: 13px;
-  padding: 5px 23px;
-  font-weight: 600;
-  font-size: 16px;
-  line-height: 22px;
+  padding: 14px 42px;
+  font-weight: bold;
+  font-size: 20px;
+  line-height: 25px;
+  border-radius: 7px;
 
   background: ${(p) => (p.disabled ? grey050 : antblue050)};
   color: ${grey010};
   border: ${(props) =>
     props.disabled ? `1px solid ${grey050}` : `1px solid ${antblue050}`};
   cursor: ${(props) => (props.disabled ? 'default' : 'pointer')};
-  border-radius: 5px;
-`
-
-const Description = styled.div`
-  position: absolute;
-  left: 82px;
-  bottom: -23px;
-  font-style: normal;
-  font-weight: 400;
-  font-size: 11px;
-  line-height: 15px;
-
-  color: ${grey060};
 `
 
 const IntroductionInput = styled.textarea`
-  width: 386px;
-  height: 152px;
+  width: 100%;
+  height: 170px;
   background: #ffffff;
 
-  border: 1px solid ${grey040};
-  box-sizing: border-box;
-  border-radius: 3px;
+  border: 1px solid ${grey030};
+  border-radius: 8px;
   resize: none;
   outline: none;
-  padding: 10px;
-
+  padding: 14px 22px;
   font-weight: 400;
   font-size: 15px;
   line-height: 20px;
@@ -292,47 +297,54 @@ const IntroductionInput = styled.textarea`
   }
 `
 
-const Block = styled.div``
+const Block = styled.div`
+  padding-bottom: 30px;
+`
 
 const Main = styled.div`
-  border-top: 1px solid ${grey020};
-  padding: 39px 0 36px 19px;
   display: flex;
+  flex-direction: column;
+  margin: 0 24px;
+  padding: 0 14px;
+  border-top: 1px solid ${grey020};
 `
 
 const Profile = styled.div`
   display: flex;
   flex-direction: column;
-  row-gap: 10px;
+  row-gap: 14px;
+  margin-top: 19px;
 `
 
 const Span = styled.span`
-  font-size: 16px;
-  line-height: 22px;
+  display: flex;
+  align-items: center;
+  column-gap: 12px;
+  font-weight: bold;
+  font-size: 18px;
+  line-height: 160%;
 
-  color: #000000;
+  color: ${grey080};
 `
 
 const FormWrapper = styled.div`
-  margin-left: 60px;
-
   & > form {
     display: flex;
     flex-direction: column;
-    row-gap: 48px;
+    row-gap: 34px;
   }
 `
 
 const ProfileAvatar = styled.div`
   margin: 0 auto;
-  width: 66px;
-  height: 66px;
+  width: 150px;
+  height: 150px;
   border-radius: 50%;
   border: 1px solid ${grey030};
 
   img {
-    width: 66px;
-    height: 66px;
+    width: 150px;
+    height: 150px;
     border-radius: 50%;
   }
 
@@ -340,15 +352,16 @@ const ProfileAvatar = styled.div`
 `
 
 const EditButton = styled.div`
-  padding: 11px;
+  padding: 6px 11px;
   position: relative;
-  background: ${grey010};
 
-  font-size: 12px;
-  line-height: 16px;
+  margin: 0 auto;
+  font-weight: 500;
+  font-size: 14px;
+  line-height: 18px;
   text-align: center;
-  color: ${antblue050};
-  border: 1px solid ${antblue050};
+  color: ${grey050};
+  border: 1px solid ${grey050};
   box-sizing: border-box;
   border-radius: 3px;
 
