@@ -154,6 +154,8 @@ const NewPostInnerButtonsWrapper = styled(PostInnerButtonsWrapper)`
 
 const NewForm = styled(Form)`
   border-bottom: none;
+
+  padding: 17px 0 17px 0;
 `
 
 const BorderWrapper = styled.div`
