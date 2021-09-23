@@ -16,6 +16,7 @@ import Modal from '../../common/FormModal'
 import { useRef } from 'react'
 
 function MobileHeader() {
+  const user = useRootState((state) => state.user)
   const history = useHistory()
   const dispatch = useDispatch()
   const { openLeftDrawer, openRightDrawer, openSearchModal, closeMoblieModal } =
@@ -57,7 +58,7 @@ function MobileHeader() {
             <DrawerSideBar />
           </Drawer>
         </IconWrapper>
-        <IconWrapper />
+        {user && <IconWrapper />}
       </IconGroup>
       <LogoWrapper
         onClick={() => {
@@ -70,19 +71,22 @@ function MobileHeader() {
         <IconWrapper>
           <MoblieSearchIcon onClick={() => dispatch(openSearchModal())} />
         </IconWrapper>
-        <IconWrapper>
-          <HamburgerIcon
-            onClick={() => dispatch(openRightDrawer())}
-            cursor={'pointer'}
-          />
-          <Drawer
-            side="right"
-            shown={isOpenRightDrawer}
-            close={() => dispatch(closeMoblieModal())}
-          >
-            <DrawerHamburger />
-          </Drawer>
-        </IconWrapper>
+        {user && (
+          <IconWrapper>
+            <HamburgerIcon
+              onClick={() => dispatch(openRightDrawer())}
+              cursor={'pointer'}
+            />
+
+            <Drawer
+              side="right"
+              shown={isOpenRightDrawer}
+              close={() => dispatch(closeMoblieModal())}
+            >
+              <DrawerHamburger />
+            </Drawer>
+          </IconWrapper>
+        )}
       </IconGroup>
     </Wrapper>
   )

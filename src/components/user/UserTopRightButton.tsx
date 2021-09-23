@@ -46,7 +46,7 @@ export default function UserTopRightButton({ user }: Prop) {
             <IconWrapper color={isFollowing ? antblue050 : '#fff'}>
               <PeopleIcon />
             </IconWrapper>
-            {isFollowing ? '팔로잉' : '팔로우'}
+            {isFollowing ? '팔로잉' : '팔로우하기'}
           </FollowButton>
         )}
       </ButtonWrapper>
@@ -85,6 +85,7 @@ const FollowButton = styled.div<{ isFollowing: boolean }>`
 
   cursor: pointer;
   display: flex;
+  justify-content: center;
   align-items: center;
   column-gap: 5px;
 `

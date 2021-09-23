@@ -34,7 +34,7 @@ export default function UserTab({ user }: Prop) {
         </Group>
         <Indicator
           style={{
-            left: `${isLikeFeed ? `calc(100% - 197px)` : `0%`}`,
+            left: `${isLikeFeed ? `50%` : 0}`,
           }}
         />
       </Inner>
@@ -43,7 +43,7 @@ export default function UserTab({ user }: Prop) {
 }
 
 const Indicator = styled.div`
-  width: 197px;
+  width: 50%;
   height: 3px;
   background-color: ${antblue050};
   border-radius: 3px;
@@ -55,9 +55,8 @@ const Indicator = styled.div`
 const Inner = styled.div`
   position: relative;
   display: flex;
-  margin: 25px 90px 0 90px;
+  margin: 25px 0 0 0;
   padding-top: 22px;
-  column-gap: 158px;
 `
 
 const Wrapper = styled.div`

@@ -1,8 +1,10 @@
 import styled from '@emotion/styled'
+import { useDispatch } from 'react-redux'
 import { useHistory } from 'react-router'
 import { grey020, grey080, sky010 } from '../../../lib/styles/colors'
 import { AvatarImage } from '../../../lib/styles/post'
 import optimizeImage from '../../../lib/utils/optimizeImage'
+import mobileViewSlice from '../../../reducers/Slices/mobileView'
 import UserIcon79 from '../../../static/svg/UserIcon79'
 import useAuth from '../../auth/hooks/useAuth'
 import { useRootState } from '../../common/hooks/useRootState'
@@ -10,6 +12,8 @@ import { useRootState } from '../../common/hooks/useRootState'
 export default function DrawerHamburger() {
   const user = useRootState((state) => state.user)
   const { logout } = useAuth()
+  const dispatch = useDispatch()
+  const { closeMoblieModal } = mobileViewSlice.actions
   const history = useHistory()
 
   if (!user) return <></>
@@ -33,15 +37,24 @@ export default function DrawerHamburger() {
         <Item>알림</Item>
         <Item
           onClick={() => {
+            dispatch(closeMoblieModal())
             history.push(`/user/${user.nickname}/profile`)
           }}
         >
           프로필 보기
         </Item>
-        <Item onClick={() => history.push('/user/edit')}>프로필 편집</Item>
+        <Item
+          onClick={() => {
+            dispatch(closeMoblieModal())
+            history.push('/user/edit')
+          }}
+        >
+          프로필 편집
+        </Item>
         <Item
           style={{ color: '#FA4A61' }}
           onClick={() => {
+            dispatch(closeMoblieModal())
             logout()
           }}
         >
@@ -53,7 +66,7 @@ export default function DrawerHamburger() {
 }
 
 const Block = styled.div`
-  padding: 25px;
+  padding-top: 2.5rem;
 `
 
 const UserWrapper = styled.div`
@@ -87,7 +100,7 @@ const UserName = styled.div`
 
 const Item = styled.div`
   font-size: 16px;
-  padding: 15px 0;
+  padding: 1.5rem 2.5rem;
   line-height: 170%;
   cursor: pointer;
 

@@ -14,6 +14,7 @@ import UserIcon100 from '../../static/svg/UserIcon100'
 import { User } from '../../lib/api/types'
 import optimizeImage from '../../lib/utils/optimizeImage'
 import { AvatarImage } from '../../lib/styles/post'
+import media from '../../lib/styles/media'
 
 type Props = {
   user: User
@@ -118,6 +119,9 @@ const Wrapper = styled.div`
 
 const Inner = styled.div`
   display: flex;
+  ${media.medium} {
+    flex-direction: column;
+  }
 `
 
 const UserAvatar = styled.div`
