@@ -14,6 +14,8 @@ import { useRootState } from '../common/hooks/useRootState'
 import { selectAvStock } from '../../selectors/stockSelectors'
 import { SignIcon } from './SignIcon'
 import { useMemo } from 'react'
+import mobileViewSlice from '../../reducers/Slices/mobileView'
+import { useDispatch } from 'react-redux'
 
 interface StockListGroupProps {
   stock: Stock
@@ -23,9 +25,14 @@ export function WatchListStockGroup({ stock }: StockListGroupProps) {
   const history = useHistory()
   const memoizeSelectAvStock = useMemo(selectAvStock, [])
   const avStock = useRootState((state) => memoizeSelectAvStock(state, stock))
+  const dispatch = useDispatch()
+  const { closeMoblieModal } = mobileViewSlice.actions
   return (
     <NewStockListGroup
-      onClick={() => history.push(`/stock/${avStock.stock.cashTagName}`)}
+      onClick={() => {
+        dispatch(closeMoblieModal())
+        history.push(`/stock/${avStock.stock.cashTagName}`)
+      }}
     >
       <StockListItem>
         <StockName>{avStock.title}</StockName>

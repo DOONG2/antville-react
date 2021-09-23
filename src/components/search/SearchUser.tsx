@@ -10,6 +10,7 @@ import {
   Wrapper,
 } from '../../lib/styles/search'
 import optimizeImage from '../../lib/utils/optimizeImage'
+import mobileViewSlice from '../../reducers/Slices/mobileView'
 import searchSlice from '../../reducers/Slices/search'
 import viewSlice from '../../reducers/Slices/view'
 import UserIcon30 from '../../static/svg/UserIcon30'
@@ -22,6 +23,7 @@ export default function SearchUser() {
   const { setQuery } = searchSlice.actions
   const { setIsOpenSearchBar } = viewSlice.actions
   const dispatch = useDispatch()
+  const { closeMoblieModal } = mobileViewSlice.actions
   const history = useHistory()
 
   if (!users) return <></>
@@ -36,6 +38,7 @@ export default function SearchUser() {
                 onClick={() => {
                   dispatch(setIsOpenSearchBar(false))
                   dispatch(setQuery(''))
+                  dispatch(closeMoblieModal())
                   history.push(`/user/${user.nickname}/profile`)
                 }}
               >

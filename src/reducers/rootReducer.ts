@@ -8,6 +8,7 @@ import profileSlice from './Slices/profile'
 import userEditSlice from './Slices/userEdit'
 import formSlice from './Slices/form'
 import stockSlice from './Slices/stock'
+import mobileViewSlice from './Slices/mobileView'
 
 const rootReducer = combineReducers({
   view: viewSlice.reducer,
@@ -19,6 +20,7 @@ const rootReducer = combineReducers({
   profile: profileSlice.reducer,
   stock: stockSlice.reducer,
   userEdit: userEditSlice.reducer,
+  mobileView: mobileViewSlice.reducer,
 })
 
 export default rootReducer

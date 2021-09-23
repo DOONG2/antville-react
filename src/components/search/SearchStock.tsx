@@ -11,6 +11,7 @@ import {
   StockListItem,
   StockName,
 } from '../../lib/styles/stockList'
+import mobileViewSlice from '../../reducers/Slices/mobileView'
 import searchSlice from '../../reducers/Slices/search'
 import viewSlice from '../../reducers/Slices/view'
 import { useRootState } from '../common/hooks/useRootState'
@@ -23,6 +24,7 @@ export default function SearchStock() {
   const { setQuery } = searchSlice.actions
   const dispatch = useDispatch()
   const history = useHistory()
+  const { closeMoblieModal } = mobileViewSlice.actions
 
   if (!stocks) return <></>
 
@@ -37,6 +39,7 @@ export default function SearchStock() {
               onClick={() => {
                 dispatch(setIsOpenSearchBar(false))
                 dispatch(setQuery(''))
+                dispatch(closeMoblieModal())
                 history.push(`/stock/${avStock.stock.cashTagName}`)
               }}
             >

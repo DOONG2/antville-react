@@ -12,7 +12,7 @@ export default function useSubscribePost(symbol: string) {
     (post: Post) => {
       const key = [post_query_key, symbol, { page: activated_stock }]
       const previousQuery = queryClient.getQueryData<InfiniteData<Post[]>>(key)
-      if (previousQuery) {
+      if (previousQuery?.pages[0]) {
         previousQuery.pages[0].unshift(post)
 
         let data = {

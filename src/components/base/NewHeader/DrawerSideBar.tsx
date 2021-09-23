@@ -2,7 +2,7 @@ import styled from '@emotion/styled'
 import { useState } from 'react'
 import { grey080 } from '../../../lib/styles/colors'
 import HomeWatchlist from '../../home/HomeWatchlist'
-import PopularPreView from '../../search/SearchPopularPreView'
+import MobilePopularList from './MobilePopularList'
 
 export default function DrawerSideBar() {
   const [isFirst, setIsFirst] = useState<boolean>(true)
@@ -17,7 +17,7 @@ export default function DrawerSideBar() {
           }}
         />
       </TabBlock>
-      <>{isFirst ? <HomeWatchlist /> : <PopularPreView />}</>
+      <>{isFirst ? <HomeWatchlist /> : <MobilePopularList />}</>
     </Block>
   )
 }

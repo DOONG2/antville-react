@@ -1,5 +1,6 @@
 import styled from '@emotion/styled'
 import { grey020, grey040, grey080, grey050, sky010 } from './colors'
+import media from './media'
 import { StockListGroup, StockListWrapper } from './stockList'
 
 export const SearchBar = styled.div`
@@ -52,6 +53,13 @@ export const HotStockListWrapper = styled(StockListWrapper)`
   transform: translate(-50%, 0);
 
   z-index: 1000;
+  ${media.medium} {
+    position: static;
+    width: 100%;
+    top: 0;
+    left: 0;
+    transform: none;
+  }
 `
 
 export const Title = styled.div``

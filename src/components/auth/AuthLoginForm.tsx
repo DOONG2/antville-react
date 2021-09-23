@@ -37,10 +37,6 @@ function AuthLoginForm() {
   )
 
   useEffect(() => {
-    return () => {}
-  }, [])
-
-  useEffect(() => {
     if (isValidating && submitCount > 0) {
       dispatch(setIsFailLoginSubmit(false))
     }

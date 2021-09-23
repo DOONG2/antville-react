@@ -6,6 +6,7 @@ import { SearchInput, SearchBar } from '../../lib/styles/search'
 import viewSlice from '../../reducers/Slices/view'
 import SearchPreView from './SearchPreView'
 import searchSlice from '../../reducers/Slices/search'
+import { useMediaQuery } from 'react-responsive'
 
 function Search() {
   const { setIsFocusSearchBar, setIsOpenSearchBar } = viewSlice.actions
@@ -13,6 +14,7 @@ function Search() {
   const { query } = useRootState((state) => state.search)
   const { setQuery } = searchSlice.actions
   const dispatch = useDispatch()
+  const isMobile = useMediaQuery({ maxWidth: 1024 })
 
   const outSideClickRef = useOnClickOutside({
     close: () => {
@@ -37,7 +39,7 @@ function Search() {
         onBlur={() => dispatch(setIsFocusSearchBar(false))}
         value={query}
       />
-      {isOpenSearchBar && <SearchPreView />}
+      {isOpenSearchBar && !isMobile && <SearchPreView />}
     </SearchBar>
   )
 }

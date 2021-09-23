@@ -29,7 +29,6 @@ const Modal = ({
   useEffect(() => {
     modalParentRef.current?.scrollTo(0, 0)
   }, [shown])
-
   return (
     <>
       {shown && (

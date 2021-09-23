@@ -3,36 +3,62 @@ import MoblieSearchIcon from '../../../static/svg/MoblieSearchIcon'
 import HeaderLogo from '../../../static/svg/HeaderLogo'
 import { useHistory } from 'react-router-dom'
 import DrawerIcon from '../../../static/svg/DrawerIcon'
-import { useState } from 'react'
 import Drawer from '../../common/Drawer'
 import useOnClickOutside from '../../common/hooks/useOnClickOutside'
 import DrawerSideBar from './DrawerSideBar'
 import HamburgerIcon from '../../../static/svg/HamburgerIcon'
 import DrawerHamburger from './DrawerHamburger'
+import { useDispatch } from 'react-redux'
+import mobileViewSlice from '../../../reducers/Slices/mobileView'
+import { useRootState } from '../../common/hooks/useRootState'
+import SearchModal from '../../search/MobileSearchModal'
+import Modal from '../../common/FormModal'
+import { useRef } from 'react'
 
 function MobileHeader() {
   const history = useHistory()
-  const [isOpenDrawer, setIsOpenDrawer] = useState(false)
-  const [isOpenHamburgerDrawer, setIsOpenHamburgerDrawer] = useState(false)
+  const dispatch = useDispatch()
+  const { openLeftDrawer, openRightDrawer, openSearchModal, closeMoblieModal } =
+    mobileViewSlice.actions
+  const { isOpenLeftDrawer, isOpenRightDrawer, isOpenSearchModal } =
+    useRootState((state) => state.mobileView)
 
   const drawerRef = useOnClickOutside({
     close: () => {
-      setIsOpenDrawer(false)
+      dispatch(closeMoblieModal())
     },
-    isOpen: isOpenDrawer,
+    isOpen: isOpenLeftDrawer,
   })
+  const modalParentRef = useRef<HTMLDivElement>(null)
   return (
     <Wrapper>
-      <IconWrapper ref={drawerRef}>
-        <DrawerIcon onClick={() => setIsOpenDrawer(true)} cursor={'pointer'} />
-        <Drawer
-          side="left"
-          shown={isOpenDrawer}
-          close={() => setIsOpenDrawer(false)}
-        >
-          <DrawerSideBar />
-        </Drawer>
-      </IconWrapper>
+      <Modal
+        modalParentRef={modalParentRef}
+        shown={isOpenSearchModal}
+        width="447px"
+        height="541px"
+        close={() => {
+          dispatch(closeMoblieModal())
+        }}
+      >
+        <SearchModal />
+      </Modal>
+      <IconGroup>
+        <IconWrapper ref={drawerRef}>
+          <DrawerIcon
+            onClick={() => dispatch(openLeftDrawer())}
+            cursor={'pointer'}
+          />
+          <Drawer
+            side="left"
+            shown={isOpenLeftDrawer}
+            close={() => dispatch(closeMoblieModal())}
+          >
+            <DrawerSideBar />
+          </Drawer>
+        </IconWrapper>
+        <IconWrapper />
+      </IconGroup>
       <LogoWrapper
         onClick={() => {
           history.push('/')
@@ -40,29 +66,29 @@ function MobileHeader() {
       >
         <HeaderLogo width={'8.1rem'} height={'1.5rem'} />
       </LogoWrapper>
-      <RightItem>
+      <IconGroup>
         <IconWrapper>
-          <MoblieSearchIcon />
+          <MoblieSearchIcon onClick={() => dispatch(openSearchModal())} />
         </IconWrapper>
         <IconWrapper>
           <HamburgerIcon
-            onClick={() => setIsOpenHamburgerDrawer(true)}
+            onClick={() => dispatch(openRightDrawer())}
             cursor={'pointer'}
           />
           <Drawer
             side="right"
-            shown={isOpenHamburgerDrawer}
-            close={() => setIsOpenHamburgerDrawer(false)}
+            shown={isOpenRightDrawer}
+            close={() => dispatch(closeMoblieModal())}
           >
             <DrawerHamburger />
           </Drawer>
         </IconWrapper>
-      </RightItem>
+      </IconGroup>
     </Wrapper>
   )
 }
 
-const RightItem = styled.div`
+const IconGroup = styled.div`
   display: flex;
 `
 

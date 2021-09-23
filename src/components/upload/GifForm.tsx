@@ -42,22 +42,21 @@ function GifForm({
 
   return (
     <>
+      <SearchBarWrapper>
+        <SearchBar>
+          <SearchIcon />
+          <SearchInput
+            type="search"
+            placeholder="Tener에서 검색하기"
+            onChange={(e) => {
+              dispatch(setQuery(e.target.value))
+              if (e.target.value === '') dispatch(setGifs(undefined))
+            }}
+            value={query}
+          />
+        </SearchBar>
+      </SearchBarWrapper>
       <Group>
-        <SearchBarWrapper>
-          <NewSearchBar>
-            <SearchIcon />
-
-            <SearchInput
-              type="search"
-              placeholder=""
-              onChange={(e) => {
-                dispatch(setQuery(e.target.value))
-                if (e.target.value === '') dispatch(setGifs(undefined))
-              }}
-              value={query}
-            />
-          </NewSearchBar>
-        </SearchBarWrapper>
         <GifView
           query={debouncedQuery}
           isFetching={isFetching}
@@ -75,19 +74,10 @@ function GifForm({
 const Group = styled.div`
   display: grid;
   grid-template-columns: 1fr 1fr 1fr;
-
-  position: relative;
-  padding-top: 25px;
 `
 
 const SearchBarWrapper = styled.div`
-  position: absolute;
-  top: -37px;
-  left: 85px;
-`
-
-const NewSearchBar = styled(SearchBar)`
-  width: 475px;
+  margin: 2.5rem auto 1rem auto;
 `
 
 export default GifForm
