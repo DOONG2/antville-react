@@ -1,7 +1,7 @@
 import styled from '@emotion/styled/macro'
-import NoticeGridIcons from '../../static/svg/NoticeGridIcons'
+import WarningIcon from '../../static/svg/WarningIcon'
 import QuestionIcon from '../../static/svg/QuestionIcon'
-import { grey010, grey060 } from '../../lib/styles/colors'
+import { grey070 } from '../../lib/styles/colors'
 
 function AuthNicknameRule() {
   return (
@@ -44,10 +44,10 @@ const HiddenAnswerForm = styled.div`
 
   padding: 13px;
 
-  font-size: 13px;
-  line-height: 15px;
-  color: ${grey060};
-  background-color: ${grey010};
+  font-size: 10px;
+  line-height: 13px;
+  color: #ffffff;
+  background: ${grey070};
   border: 1px solid #bdbdbd;
   border-radius: 8px;
 
@@ -64,7 +64,7 @@ const Row = styled.div`
   align-items: center;
 `
 
-const NewNoticeGridIcons = styled(NoticeGridIcons)`
+const NewNoticeGridIcons = styled(WarningIcon)`
   margin-right: 7px;
 `
 
