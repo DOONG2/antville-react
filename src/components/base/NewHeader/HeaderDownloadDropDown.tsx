@@ -26,6 +26,7 @@ const Block = styled.div`
   display: flex;
   flex-direction: column;
   align-items: center;
+  justify-content: space-between;
   column-gap: 12px;
   width: 232px;
   height: 273px;
