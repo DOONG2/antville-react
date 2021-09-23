@@ -74,7 +74,6 @@ const Text = styled.div`
 const FeedTabWraaper = styled.div`
   position: relative;
   margin: 2.3rem 5rem 0 5rem;
-  padding-top: 2.2rem;
   display: flex;
   color: ${grey060};
   border-bottom: 1px solid #ececec;
@@ -86,6 +85,7 @@ const FeedTabWraaper = styled.div`
 const TabItem = styled.div<{ isClicked: boolean }>`
   width: 100%;
   font-size: 1.8rem;
+  padding-top: 2.2rem;
   line-height: 2.3rem;
   color: ${(p) => (p.isClicked ? antblue050 : grey060)};
   font-weight: ${(p) => (p.isClicked ? 700 : 400)};

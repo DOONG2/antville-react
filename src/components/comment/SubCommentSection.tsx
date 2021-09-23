@@ -135,4 +135,10 @@ export default function SubCommentSection({
 const NewFeedWrapper = styled(FeedWrapper)<{ isOpen: boolean }>`
   display: ${(p) => (p.isOpen ? 'flex' : 'none')};
   padding-bottom: 0;
+
+  margin: 0;
+  padding: 2.5rem 0 2.7rem 0;
+  :last-child {
+    border: none;
+  }
 `
