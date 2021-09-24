@@ -5,7 +5,13 @@ import {
   ValidatorLabel,
 } from '../../../lib/styles/texts'
 import { SignUpButton } from '../../../lib/styles/buttons'
-import { grey050, grey080, navy040 } from '../../../lib/styles/colors'
+import {
+  grey030,
+  grey050,
+  grey080,
+  navy040,
+  red050,
+} from '../../../lib/styles/colors'
 import CompleteCheckIcon from '../../../static/svg/CompleteCheckIcon'
 import useSignUpFormik from './hooks/useSignUpFormik'
 import { useRootState } from '../../common/hooks/useRootState'
@@ -50,7 +56,16 @@ function AuthSignUpForm() {
     <Wrapper>
       <Title>회원가입</Title>
       <form onSubmit={handleSubmit}>
-        <Item>
+        <Item
+          style={{
+            borderBottomColor:
+              (touched.emailSignup ||
+                values.emailSignup !== initialValues.emailSignup) &&
+              emailError
+                ? red050
+                : grey030,
+          }}
+        >
           <Input
             id="emailSignup"
             type="email"
@@ -61,14 +76,29 @@ function AuthSignUpForm() {
           />
           {(touched.emailSignup ||
             values.emailSignup !== initialValues.emailSignup) && (
-            <ValidatorLabel>
-              {emailError
-                ? emailError
-                : isEmailValid && <NewCompleteCheckIcon />}
-            </ValidatorLabel>
+            <>
+              {emailError ? (
+                <NewValidatorLabel>{emailError}</NewValidatorLabel>
+              ) : (
+                isEmailValid && (
+                  <ValidatorLabel>
+                    <NewCompleteCheckIcon />
+                  </ValidatorLabel>
+                )
+              )}
+            </>
           )}
         </Item>
-        <Item>
+        <Item
+          style={{
+            borderBottomColor:
+              (touched.passwordSignup ||
+                values.passwordSignup !== initialValues.passwordSignup) &&
+              errors.passwordSignup
+                ? red050
+                : grey030,
+          }}
+        >
           <Input
             id="passwordSignup"
             type="password"
@@ -77,36 +107,61 @@ function AuthSignUpForm() {
           />
           {(touched.passwordSignup ||
             values.passwordSignup !== initialValues.passwordSignup) && (
-            <ValidatorLabel>
+            <>
               {errors.passwordSignup ? (
-                errors.passwordSignup
+                <NewValidatorLabel>{errors.passwordSignup}</NewValidatorLabel>
               ) : (
-                <NewCompleteCheckIcon />
+                <ValidatorLabel>
+                  <NewCompleteCheckIcon />
+                </ValidatorLabel>
               )}
-            </ValidatorLabel>
+            </>
           )}
         </Item>
-        <Item>
+        <Item
+          style={{
+            borderBottomColor:
+              (touched.passwordCheckSignup ||
+                values.passwordCheckSignup !==
+                  initialValues.passwordCheckSignup) &&
+              errors.passwordCheckSignup
+                ? red050
+                : grey030,
+          }}
+        >
           <Input
             id="passwordCheckSignup"
             type="password"
             {...getFieldProps('passwordCheckSignup')}
             placeholder={'비밀번호 확인'}
           />
-
           {(touched.passwordCheckSignup ||
             values.passwordCheckSignup !==
               initialValues.passwordCheckSignup) && (
-            <ValidatorLabel>
+            <>
               {errors.passwordCheckSignup ? (
-                errors.passwordCheckSignup
+                <NewValidatorLabel>
+                  {errors.passwordCheckSignup}
+                </NewValidatorLabel>
               ) : (
-                <NewCompleteCheckIcon />
+                <ValidatorLabel>
+                  <NewCompleteCheckIcon />
+                </ValidatorLabel>
               )}
-            </ValidatorLabel>
+            </>
           )}
         </Item>
-        <Item>
+        <Item
+          style={{
+            borderBottomColor:
+              (touched.nicknameSignup ||
+                values.nicknameSignup !== initialValues.nicknameSignup) &&
+              nicknameError &&
+              isNicknameValid
+                ? red050
+                : grey030,
+          }}
+        >
           <Input
             id="nicknameSignup"
             type="text"
@@ -114,18 +169,21 @@ function AuthSignUpForm() {
             onChange={onChangeNickname}
             placeholder={'닉네임'}
           />
-
           {(touched.nicknameSignup ||
             values.nicknameSignup !== initialValues.nicknameSignup) && (
             <>
-              <ValidatorLabel>
-                {nicknameError ? (
+              {nicknameError ? (
+                <>
                   <NickNameRuleLabel />
-                ) : (
-                  isNicknameValid && <NewCompleteCheckIcon />
-                )}
-              </ValidatorLabel>
-              <NewValidatorLabel>{nicknameError}</NewValidatorLabel>{' '}
+                  <NewValidatorLabel>{nicknameError}</NewValidatorLabel>
+                </>
+              ) : (
+                isNicknameValid && (
+                  <ValidatorLabel>
+                    <NewCompleteCheckIcon />
+                  </ValidatorLabel>
+                )
+              )}
             </>
           )}
         </Item>
@@ -199,7 +257,7 @@ const Item = styled.div`
   display: flex;
   align-items: center;
   justify-content: space-between;
-  border-bottom: 0.5px solid #e0e0e0;
+  border-bottom: 0.5px solid ${grey030};
 `
 
 const CheckBoxWrapper = styled.div`
@@ -282,8 +340,9 @@ const NewCompleteCheckIcon = styled(CompleteCheckIcon)`
 
 const NewValidatorLabel = styled(ValidatorLabel)`
   position: absolute;
-  right: 0;
-  top: 30px;
+  left: 0;
+  bottom: -5px;
+  transform: translate3d(0, 100%, 0);
 `
 
 export default AuthSignUpForm
