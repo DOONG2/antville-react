@@ -1,6 +1,6 @@
 import { useDispatch } from 'react-redux'
 import viewSlice from '../../reducers/Slices/view'
-import useCheckLogin from './hooks/useCheckLogin'
+import { useRootState } from './hooks/useRootState'
 
 interface AuthComponentProps {
   children: React.ReactNode
@@ -11,11 +11,11 @@ export default function AuthComponent({
   children,
   callback,
 }: AuthComponentProps) {
-  const isLoggedIn = useCheckLogin()
+  const user = useRootState((state) => state.user)
   const { setIsOpenLoginForm } = viewSlice.actions
   const dispatch = useDispatch()
   const showLoginModal = () => {
-    if (!isLoggedIn) dispatch(setIsOpenLoginForm(true))
+    if (!user) dispatch(setIsOpenLoginForm(true))
     else callback()
   }
   return <div onClick={showLoginModal}>{children}</div>

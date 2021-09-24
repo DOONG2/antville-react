@@ -9,14 +9,14 @@ import Core from './lib/base/Core'
 import HomePage from './pages/home/HomePage'
 import AuthRoute from './lib/routes/AuthRoute'
 import LandingPage from './pages/landing/LandingPage'
-import useCheckLogin from './components/common/hooks/useCheckLogin'
 import NotFoundPage from './pages/NotFoundPage'
 import ErrorBoundary from './components/error/ErrorBoundary'
 import NoticePage from './pages/notice/NoticePage'
+import { useRootState } from './components/common/hooks/useRootState'
 
 function App() {
+  const user = useRootState((state) => state.user)
   useCheckUserEffect()
-  const authenticated = useCheckLogin()
   return (
     <>
       <Helmet>
@@ -31,14 +31,14 @@ function App() {
         <Switch>
           <AuthRoute
             path={['/', '/:mode(all|watchlist|following)']}
-            authenticated={authenticated}
+            authenticated={user !== null}
             component={HomePage}
             redirect={LandingPage}
             exact
           />
           <AuthRoute
             path="/notice"
-            authenticated={authenticated}
+            authenticated={user !== null}
             component={NoticePage}
             redirect={LandingPage}
             exact
@@ -52,7 +52,6 @@ function App() {
             component={UserProfilePage}
             exact
           />
-
           <Route path="/user/edit" component={UserEditPage} exact />
           <Route path="/stock/:ticker" component={StockPage} exact />
           <Route component={NotFoundPage} />

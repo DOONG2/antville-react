@@ -1,6 +1,6 @@
 import * as React from 'react'
 
-function ProfileLikeEmpty(props: any) {
+function ProfileLikeEmptyIcon(props: any) {
   return (
     <svg width={200} height={184} fill="none" {...props}>
       <path
@@ -11,5 +11,5 @@ function ProfileLikeEmpty(props: any) {
   )
 }
 
-const MemoProfileLikeEmpty = React.memo(ProfileLikeEmpty)
-export default MemoProfileLikeEmpty
+const MemoProfileLikeEmptyIcon = React.memo(ProfileLikeEmptyIcon)
+export default MemoProfileLikeEmptyIcon

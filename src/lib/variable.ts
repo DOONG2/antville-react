@@ -29,11 +29,6 @@ export const S3_HOST_URL = 'antville-s3.s3.ap-northeast-2.amazonaws.com'
 export const SENTRY_DNS =
   'https://1e1826dc59fb42118cfe9b47c4fd7a7c@o876495.ingest.sentry.io/5924983'
 
-export const GOOGLE_PLAYSTORE_LINK =
-  'https://play.google.com/store/apps/details?id=com.antville'
-
-export const APPLE_STORE_LINK = 'https://apps.apple.com/app/id1564378681?l=ko'
-
 export const popularStockCountLimit = 9
 
 export const document_rules_url =
