@@ -15,6 +15,9 @@ export const SearchBar = styled.div`
   border-radius: 47px;
   background-color: ${grey020};
   border-radius: 47px;
+  ${media.medium} {
+    width: 90%;
+  }
 `
 
 export const IconWrapper = styled.div`

@@ -14,7 +14,9 @@ function SearchModal() {
 }
 
 const SearchBarWrapper = styled.div`
-  margin: 3rem auto;
+  margin: 3rem 0;
+  display: flex;
+  justify-content: center;
 `
 
 export default SearchModal
