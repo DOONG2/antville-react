@@ -18,6 +18,8 @@ import MomentDateChange from '../common/MomentDateChange'
 import UserIcon50 from '../../static/svg/UserIcon50'
 import ImageComponent from '../feed/ImageComponent'
 import CommentBottom from './CommentBottom'
+import UserIcon30 from '../../static/svg/UserIcon30'
+import { useMediaQuery } from 'react-responsive'
 
 interface Props {
   comments: Comment[]
@@ -26,6 +28,7 @@ interface Props {
 
 export default function CommentSection({ comments, loading }: Props) {
   const history = useHistory()
+  const isMobile = useMediaQuery({ maxWidth: 1025 })
 
   if (!comments) return <></>
 
@@ -44,6 +47,8 @@ export default function CommentSection({ comments, loading }: Props) {
                   src={comment.author.profileImg}
                   alt="profile_image"
                 />
+              ) : isMobile ? (
+                <UserIcon30 />
               ) : (
                 <UserIcon50 />
               )}

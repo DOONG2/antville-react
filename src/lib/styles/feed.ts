@@ -91,7 +91,7 @@ export const PostTime = styled.div`
 export const RightItem = styled.div`
   width: 100%;
   display: flex;
-  margin-left: 19px;
+  margin-left: 1.9rem;
   flex-direction: column;
 `
 

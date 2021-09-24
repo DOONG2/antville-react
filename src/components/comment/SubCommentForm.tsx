@@ -29,6 +29,8 @@ import optimizeImage from '../../lib/utils/optimizeImage'
 import { grey040 } from '../../lib/styles/colors'
 import viewSlice from '../../reducers/Slices/view'
 import { useDispatch } from 'react-redux'
+import UserIcon30 from '../../static/svg/UserIcon30'
+import { useMediaQuery } from 'react-responsive'
 
 interface Props {
   parentCommentId?: number
@@ -47,6 +49,7 @@ function SubCommentForm({ parentCommentId, inputRef, setBody, body }: Props) {
   const [previewUrl, setPreviewUrl] = useState<string | ArrayBuffer>()
 
   const dispatch = useDispatch()
+  const isMobile = useMediaQuery({ maxWidth: 1025 })
 
   const { id: postId } = useParams<{ id: string }>()
 
@@ -84,6 +87,8 @@ function SubCommentForm({ parentCommentId, inputRef, setBody, body }: Props) {
               src={optimizeImage(user.profileImg, 120)}
               alt="post_form_avatar"
             />
+          ) : isMobile ? (
+            <UserIcon30 />
           ) : (
             <UserIcon />
           )}
@@ -162,7 +167,7 @@ const BorderWrapper = styled.div`
   display: flex;
   column-gap: 19px;
   padding: 10px;
-  width: 530px;
+  width: 100%;
   border: 1px solid ${grey040};
   box-sizing: border-box;
   border-radius: 10px;

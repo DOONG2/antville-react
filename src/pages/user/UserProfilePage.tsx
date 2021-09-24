@@ -8,6 +8,7 @@ import ProfileUserInfo from '../../components/user/UserInfo'
 import ProfileTab from '../../components/user/UserTab'
 import UserNotFound from './UserNotFound'
 import { Wrapper } from '../../lib/styles/feed'
+import WriteButton from '../../components/common/WriteButton'
 
 export default function UserProfilePage() {
   const { nickname } = useParams<{ nickname: string }>()
@@ -37,6 +38,7 @@ export default function UserProfilePage() {
                 component={() => <UserLikeFeedPage user={user} />}
               />
             </Wrapper>
+            <WriteButton />
           </>
         ) : (
           <Wrapper>

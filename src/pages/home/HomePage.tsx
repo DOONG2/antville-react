@@ -10,6 +10,7 @@ import { Wrapper } from '../../lib/styles/feed'
 import PostForm from '../../components/post/PostForm'
 import FeedTab from '../../components/feed/FeedTab'
 import { Desktop } from '../../components/common/Responsive'
+import WriteButton from '../../components/common/WriteButton'
 
 function HomePage() {
   const user = useRootState((state) => state.user)
@@ -46,6 +47,7 @@ function HomePage() {
               exact
             />
           </Wrapper>
+          <WriteButton />
         </>
       }
     />

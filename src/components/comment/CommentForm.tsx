@@ -8,7 +8,7 @@ import {
   AvatarImage,
   BodyLengthView,
   ButtonWrapper,
-  Form,
+  StyledCommentForm,
   FormInner,
   InputWrapper,
   LoginBlock,
@@ -79,7 +79,7 @@ function CommentForm({ parentCommentId, inputRef }: Props) {
   }, [previewUrl])
 
   return (
-    <Form onSubmit={onSubmit}>
+    <StyledCommentForm onSubmit={onSubmit}>
       {!user && (
         <LoginBlock
           onClick={() => {
@@ -151,7 +151,7 @@ function CommentForm({ parentCommentId, inputRef }: Props) {
           </PostInner>
         </InputWrapper>
       </FormInner>
-    </Form>
+    </StyledCommentForm>
   )
 }
 

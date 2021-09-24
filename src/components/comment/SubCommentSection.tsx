@@ -26,6 +26,8 @@ import ImageComponent from '../feed/ImageComponent'
 import { sub_comment_query_key } from '../../lib/variable'
 import ReactQuill from 'react-quill'
 import useGetTagHtml from '../post/hooks/useGetTagHtml'
+import { useMediaQuery } from 'react-responsive'
+import UserIcon30 from '../../static/svg/UserIcon30'
 
 type Props = {
   subComments?: Comment[]
@@ -43,6 +45,7 @@ export default function SubCommentSection({
   body,
 }: Props) {
   const history = useHistory()
+  const isMobile = useMediaQuery({ maxWidth: 1025 })
   const { getMentionTagHtml } = useGetTagHtml()
 
   if (!subComments) return <></>
@@ -62,6 +65,8 @@ export default function SubCommentSection({
                   src={comment.author.profileImg}
                   alt="profile_image"
                 />
+              ) : isMobile ? (
+                <UserIcon30 />
               ) : (
                 <UserIcon50 />
               )}

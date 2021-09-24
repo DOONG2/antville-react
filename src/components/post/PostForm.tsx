@@ -116,76 +116,70 @@ const PostForm = ({ extended }: Props) => {
             setGifDto={setGifDto}
             setUploadImage={setUploadImage}
           />
-          <PostInner>
-            {isFocusInput && (
-              <>
-                <PostInnerButtonsWrapper>
-                  <BodyLengthView isLimited={bodyLength > 1000}>
-                    {1000 - bodyLength}
-                  </BodyLengthView>
-                </PostInnerButtonsWrapper>
-                <PostInnerButtonsWrapper>
-                  <PostItem>
-                    <ImageUpload
-                      setUploadImage={setUploadImage}
-                      setGifDto={setGifDto}
-                      setPreviewUrl={(value) => dispatch(setPreviewUrl(value))}
-                    />
-                  </PostItem>
-                  <PostItem>
-                    <GifUpload
-                      setUploadImage={setUploadImage}
-                      setGifDto={setGifDto}
-                      setPreviewUrl={(value) => dispatch(setPreviewUrl(value))}
-                    />
-                  </PostItem>
-                </PostInnerButtonsWrapper>
-                <PostInnerButtonsWrapper>
-                  <PostItem
-                    onClick={() => {
-                      setIsOnUp(!isOnUp)
-                      if (!isOnUp) {
-                        setIsOnDown(false)
-                        setSentiment('UP')
-                      }
-                    }}
-                  >
-                    {isOnUp ? <StockUpButtonClicked /> : <StockUpButton />}
-                  </PostItem>
-                  <PostItem
-                    onClick={() => {
-                      setIsOnDown(!isOnDown)
-                      if (!isOnDown) {
-                        setIsOnUp(false)
-                        setSentiment('DOWN')
-                      }
-                    }}
-                  >
-                    {isOnDown ? (
-                      <StockDownButtonClicked />
-                    ) : (
-                      <StockDownButton />
-                    )}
-                  </PostItem>
-                </PostInnerButtonsWrapper>
-              </>
-            )}
-            <PostInnerButtonsWrapper>
-              <ButtonWrapper isFocusInput={isFocusInput}>
-                <SubmitButton
-                  type="submit"
-                  disabled={
-                    body.length < 1 ||
-                    body === '<p><br></p>' ||
-                    bodyLength > 1000
-                  }
-                >
-                  게시
-                </SubmitButton>
-              </ButtonWrapper>
-            </PostInnerButtonsWrapper>
-          </PostInner>
         </InputWrapper>
+        <PostInner>
+          {isFocusInput && (
+            <>
+              <PostInnerButtonsWrapper>
+                <BodyLengthView isLimited={bodyLength > 1000}>
+                  {1000 - bodyLength}
+                </BodyLengthView>
+              </PostInnerButtonsWrapper>
+              <PostInnerButtonsWrapper>
+                <PostItem>
+                  <ImageUpload
+                    setUploadImage={setUploadImage}
+                    setGifDto={setGifDto}
+                    setPreviewUrl={(value) => dispatch(setPreviewUrl(value))}
+                  />
+                </PostItem>
+                <PostItem>
+                  <GifUpload
+                    setUploadImage={setUploadImage}
+                    setGifDto={setGifDto}
+                    setPreviewUrl={(value) => dispatch(setPreviewUrl(value))}
+                  />
+                </PostItem>
+              </PostInnerButtonsWrapper>
+              <PostInnerButtonsWrapper>
+                <PostItem
+                  onClick={() => {
+                    setIsOnUp(!isOnUp)
+                    if (!isOnUp) {
+                      setIsOnDown(false)
+                      setSentiment('UP')
+                    }
+                  }}
+                >
+                  {isOnUp ? <StockUpButtonClicked /> : <StockUpButton />}
+                </PostItem>
+                <PostItem
+                  onClick={() => {
+                    setIsOnDown(!isOnDown)
+                    if (!isOnDown) {
+                      setIsOnUp(false)
+                      setSentiment('DOWN')
+                    }
+                  }}
+                >
+                  {isOnDown ? <StockDownButtonClicked /> : <StockDownButton />}
+                </PostItem>
+              </PostInnerButtonsWrapper>
+            </>
+          )}
+          <PostInnerButtonsWrapper>
+            <ButtonWrapper isFocusInput={isFocusInput}>
+              <SubmitButton
+                type="submit"
+                disabled={
+                  body.length < 1 || body === '<p><br></p>' || bodyLength > 1000
+                }
+              >
+                게시
+              </SubmitButton>
+            </ButtonWrapper>
+          </PostInnerButtonsWrapper>
+        </PostInner>
       </FormInner>
     </Form>
   )

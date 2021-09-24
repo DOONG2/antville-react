@@ -1,6 +1,7 @@
 import React from 'react'
 import { useParams } from 'react-router-dom'
 import usePageView from '../../components/common/hooks/usePageView'
+import WriteButton from '../../components/common/WriteButton'
 import MainTemplate from '../../components/main/MainTemPlate'
 import useGetStock from './hooks/useGetStock'
 import StockDetailPage from './StockDetailPage'
@@ -17,6 +18,7 @@ export default function StockPage() {
           <>
             {!loading &&
               (stock ? <StockDetailPage stock={stock} /> : <StockNotFound />)}
+            <WriteButton />
           </>
         }
       ></MainTemplate>

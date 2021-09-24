@@ -17,6 +17,7 @@ import { FontBlue } from './texts'
 import 'quill-mention'
 import 'quill-mention/dist/quill.mention.css'
 import 'react-quill/dist/quill.snow.css'
+import media from './media'
 
 export const LoginBlock = styled.div`
   position: absolute;
@@ -40,12 +41,26 @@ export const Image = styled.img`
   border: 1px solid ${grey030};
   border-radius: 8px;
   object-fit: cover;
+  ${media.medium} {
+    height: 13.5rem;
+  }
 `
 
 export const Form = styled.form`
   position: relative;
   padding: 17px 20px 17px 30px;
   border-bottom: 1px solid ${grey030};
+  ${media.medium} {
+    height: 20rem;
+  }
+`
+export const StyledCommentForm = styled(Form)`
+  position: relative;
+  padding: 17px 20px 17px 30px;
+  border-bottom: 1px solid ${grey030};
+  ${media.medium} {
+    height: auto;
+  }
 `
 
 export const FormInner = styled.div`
@@ -54,7 +69,7 @@ export const FormInner = styled.div`
 `
 
 export const InputWrapper = styled.div<{ isFocus: boolean }>`
-  width: 611px;
+  width: 100%;
   padding-top: ${(p) => (p.isFocus ? `6px` : '0')};
   background: #ffffff;
   box-sizing: border-box;
@@ -62,6 +77,9 @@ export const InputWrapper = styled.div<{ isFocus: boolean }>`
   justify-content: space-between;
   flex-direction: ${(p) => (p.isFocus ? 'column' : 'row')};
   min-height: ${(p) => (p.isFocus ? `95px` : '22px')};
+  ${media.medium} {
+    min-height: ${(p) => (p.isFocus ? `17rem` : '5rem')};
+  }
 `
 
 export const PostInnerButtonsWrapper = styled.div`
@@ -110,7 +128,9 @@ export const UserIconWrapper = styled.div`
 export const PostInner = styled.div`
   display: flex;
   column-gap: 20px;
-  justify-content: flex-end;
+  position: absolute;
+  bottom: 1rem;
+  right: 1rem;
 `
 
 export const EmailCheck = styled.div`

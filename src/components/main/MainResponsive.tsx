@@ -46,6 +46,9 @@ const Block = styled.div`
   width: 100%;
   background-color: #f2f5f8;
   padding-bottom: 2.5rem;
+  ${media.medium} {
+    background-color: #ffffff;
+  }
 `
 
 export default MainResponsive
