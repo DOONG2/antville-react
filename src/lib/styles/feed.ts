@@ -11,8 +11,7 @@ export const Wrapper = styled.div`
 export const GifImage = styled.img`
   margin: 0 auto;
   margin-top: 15px;
-
-  height: 27rem;
+  width: 100%;
 
   border: 1px solid ${grey030};
   border-radius: 8px;
