@@ -6,7 +6,7 @@ import {
   FormFooterText,
   ValidatorLabel,
 } from '../../lib/styles/texts'
-import { grey050, navy040 } from '../../lib/styles/colors'
+import { grey030, grey050, navy040, red050 } from '../../lib/styles/colors'
 import CompleteCheckIcon from '../../static/svg/CompleteCheckIcon'
 import useLoginFormik from './hooks/useLoginFormik'
 import { useEffect } from 'react'
@@ -30,7 +30,7 @@ function AuthLoginForm() {
   } = useLoginFormik()
   const dispatch = useDispatch()
   const { isFailFindPasswordSubmit } = useRootState((state) => state.view)
-  const { setIsFailLoginSubmit } = viewSlice.actions
+  const { setIsFailLoginSubmit, setIsOpenFindPasswordForm } = viewSlice.actions
 
   const { isOpenLoginForm, isFailLoginSubmit } = useRootState(
     (state) => state.view
@@ -52,7 +52,16 @@ function AuthLoginForm() {
     <Wrapper>
       <Title>로그인</Title>
       <form onSubmit={handleSubmit}>
-        <Item>
+        <Item
+          style={{
+            borderBottomColor:
+              (touched.emailLogin ||
+                values.emailLogin !== initialValues.emailLogin) &&
+              errors.emailLogin
+                ? red050
+                : grey030,
+          }}
+        >
           <Input
             id="emailLogin"
             type="email"
@@ -62,12 +71,27 @@ function AuthLoginForm() {
           />
           {(touched.emailLogin ||
             values.emailLogin !== initialValues.emailLogin) && (
-            <ValidatorLabel>
-              {errors.emailLogin ? errors.emailLogin : <NewCompleteCheckIcon />}
-            </ValidatorLabel>
+            <>
+              {errors.emailLogin ? (
+                <NewValidatorLabel>{errors.emailLogin}</NewValidatorLabel>
+              ) : (
+                <ValidatorLabel>
+                  <NewCompleteCheckIcon />
+                </ValidatorLabel>
+              )}
+            </>
           )}
         </Item>
-        <Item>
+        <Item
+          style={{
+            borderBottomColor:
+              (touched.passwordLogin ||
+                values.passwordLogin !== initialValues.passwordLogin) &&
+              errors.passwordLogin
+                ? red050
+                : grey030,
+          }}
+        >
           <Input
             id="passwordLogin"
             type="password"
@@ -76,13 +100,20 @@ function AuthLoginForm() {
           />
           {(touched.passwordLogin ||
             values.passwordLogin !== initialValues.passwordLogin) && (
-            <ValidatorLabel>
+            <>
               {errors.passwordLogin ? (
-                errors.passwordLogin
+                <NewValidatorLabel>{errors.passwordLogin}</NewValidatorLabel>
               ) : (
-                <NewCompleteCheckIcon />
+                <ValidatorLabel>
+                  <NewCompleteCheckIcon />
+                </ValidatorLabel>
               )}
-            </ValidatorLabel>
+            </>
+          )}
+          {isFailLoginSubmit && (
+            <NewValidatorLabel>
+              가입되지 않은 아이디거나, 잘못된 비밀번호 입니다.
+            </NewValidatorLabel>
           )}
         </Item>
         <CheckBoxWrapper>
@@ -93,7 +124,6 @@ function AuthLoginForm() {
           />
           <CheckBoxLabel>계정 정보 기억하기</CheckBoxLabel>
         </CheckBoxWrapper>
-
         <ButtonWrapper>
           <NewLoginButton
             type="submit"
@@ -101,22 +131,21 @@ function AuthLoginForm() {
           >
             로그인
           </NewLoginButton>
-          {isFailLoginSubmit && (
-            <NewValidatorLabel>
-              가입되지 않은 아이디거나, 잘못된 비밀번호 입니다.
-            </NewValidatorLabel>
-          )}
         </ButtonWrapper>
       </form>
       <NewFormFooterText>
-        <Text>비밀번호 찾기</Text>
+        <Text onClick={() => dispatch(setIsOpenFindPasswordForm(true))}>
+          비밀번호 찾기
+        </Text>
         <NewFontBlue>회원가입</NewFontBlue>
       </NewFormFooterText>
     </Wrapper>
   )
 }
 
-const Text = styled.div``
+const Text = styled.div`
+  cursor: pointer;
+`
 
 const Wrapper = styled.div`
   padding: 25px;
@@ -133,6 +162,7 @@ const Title = styled.div`
 `
 
 const Item = styled.div`
+  position: relative;
   display: flex;
   align-items: center;
   justify-content: space-between;
@@ -211,8 +241,9 @@ const NewCompleteCheckIcon = styled(CompleteCheckIcon)`
 
 const NewValidatorLabel = styled(ValidatorLabel)`
   position: absolute;
-  top: 14px;
-  left: 102px;
+  bottom: -5px;
+  left: 0;
+  transform: translate3d(0, 100%, 0);
 `
 
 const ButtonWrapper = styled.div`
