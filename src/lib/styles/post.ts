@@ -49,10 +49,10 @@ export const Image = styled.img`
 export const Form = styled.form`
   position: relative;
   padding: 17px 20px 17px 30px;
-  border-bottom: 1px solid ${grey030};
   ${media.medium} {
-    height: 20rem;
+    border-bottom: none;
   }
+  border-bottom: 1px solid ${grey030};
 `
 export const StyledCommentForm = styled(Form)`
   position: relative;
@@ -87,6 +87,9 @@ export const PostInnerButtonsWrapper = styled.div`
   justify-content: center;
   align-items: center;
   column-gap: 10px;
+  ${media.medium} {
+    column-gap: 7px;
+  }
 `
 
 export const PostItem = styled.div`
@@ -108,6 +111,11 @@ export const SubmitButton = styled.button`
   font-size: 12px;
   line-height: 16px;
 
+  ${media.medium} {
+    width: 50px;
+    height: 25px;
+  }
+
   border: ${(props) =>
     props.disabled ? `1px solid ${grey030}` : '1px solid #1942e0'};
   background: ${(props) => (props.disabled ? `${grey030}` : '#1942e0')};
@@ -122,15 +130,25 @@ export const UserIconWrapper = styled.div`
     height: 50px;
     border-radius: 50px;
     border: 0.5px solid ${grey020};
+
+    ${media.medium} {
+      width: 30px;
+      height: 30px;
+    }
+  }
+  ${media.medium} {
+    margin-top: 10px;
   }
 `
 
 export const PostInner = styled.div`
   display: flex;
   column-gap: 20px;
-  position: absolute;
   bottom: 1rem;
   right: 1rem;
+  ${media.medium} {
+    column-gap: 15px;
+  }
 `
 
 export const EmailCheck = styled.div`

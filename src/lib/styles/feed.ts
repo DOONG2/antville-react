@@ -35,7 +35,6 @@ export const TopWrapper = styled.div`
   display: flex;
   align-items: center;
   justify-content: space-between;
-
   margin-top: 5px;
 `
 
@@ -65,7 +64,7 @@ export const FeedTop = styled.div`
   align-items: flex-end;
 `
 
-export const NickNameWrapper = styled.div`
+export const NickNameWrapper = styled.div<{ long?: boolean }>`
   font-weight: 700;
   font-size: 1.6rem;
   line-height: 2rem;
@@ -73,7 +72,7 @@ export const NickNameWrapper = styled.div`
   color: ${grey080};
   cursor: pointer;
   ${media.medium} {
-    font-size: 1.4rem;
+    font-size: ${(p) => (p.long ? '1rem' : '1.4rem')};
   }
 `
 
@@ -92,6 +91,9 @@ export const RightItem = styled.div`
   display: flex;
   margin-left: 1.9rem;
   flex-direction: column;
+  ${media.medium} {
+    margin-left: 1.5rem;
+  }
 `
 
 export const IconWrapper = styled.div`

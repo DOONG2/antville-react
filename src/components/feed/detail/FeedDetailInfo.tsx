@@ -34,6 +34,8 @@ import { post_query_key } from '../../../lib/variable'
 import optimizeImage from '../../../lib/utils/optimizeImage'
 import { AvatarImage } from '../../../lib/styles/post'
 import { grey020 } from '../../../lib/styles/colors'
+import { useMediaQuery } from 'react-responsive'
+import UserIcon30 from '../../../static/svg/UserIcon30'
 
 type FeedDetailInfoProps = {
   post: Post
@@ -47,6 +49,7 @@ export default function FeedDetailInfo({
   const history = useHistory()
   const [isLiked, setIsLiked] = useState(post.isLikedSelf)
   const [count, setCount] = useState(post.postCount.likeCount)
+  const isMobile = useMediaQuery({ maxWidth: 1025 })
 
   return (
     <Wrapper>
@@ -74,6 +77,8 @@ export default function FeedDetailInfo({
                     src={optimizeImage(post.author.profileImg, 120)}
                     alt="profile_image"
                   />
+                ) : isMobile ? (
+                  <UserIcon30 />
                 ) : (
                   <UserIcon50 />
                 )}

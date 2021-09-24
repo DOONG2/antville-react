@@ -61,6 +61,7 @@ export default function CommentSection({ comments, loading }: Props) {
                   onClick={() =>
                     history.push(`/user/${comment.author.nickname}/profile`)
                   }
+                  long={comment.author.nickname.length > 10}
                 >
                   {comment.author.nickname}
                 </NickNameWrapper>

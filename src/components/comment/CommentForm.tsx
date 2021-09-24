@@ -28,6 +28,8 @@ import postCommentFormData from '../../lib/api/comment/postCommentFormData'
 import { commentEvent } from '../../lib/utils/ga'
 import optimizeImage from '../../lib/utils/optimizeImage'
 import viewSlice from '../../reducers/Slices/view'
+import UserIcon30 from '../../static/svg/UserIcon30'
+import { useMediaQuery } from 'react-responsive'
 
 interface Props {
   parentCommentId?: number
@@ -48,6 +50,7 @@ function CommentForm({ parentCommentId, inputRef }: Props) {
   const { id: postId } = useParams<{ id: string }>()
 
   const dispatch = useDispatch()
+  const isMobile = useMediaQuery({ maxWidth: 1025 })
 
   const { mutation } = useCommentMutation({
     callback: (formData: FormData) => postCommentFormData(formData),
@@ -94,6 +97,8 @@ function CommentForm({ parentCommentId, inputRef }: Props) {
               src={optimizeImage(user.profileImg, 120)}
               alt="comment_form_avatar"
             />
+          ) : isMobile ? (
+            <UserIcon30 />
           ) : (
             <UserIcon50 />
           )}

@@ -28,6 +28,7 @@ import ReactQuill from 'react-quill'
 import useGetTagHtml from '../post/hooks/useGetTagHtml'
 import { useMediaQuery } from 'react-responsive'
 import UserIcon30 from '../../static/svg/UserIcon30'
+import media from '../../lib/styles/media'
 
 type Props = {
   subComments?: Comment[]
@@ -79,6 +80,7 @@ export default function SubCommentSection({
                   onClick={() =>
                     history.push(`/user/${comment.author.nickname}/profile`)
                   }
+                  long={comment.author.nickname.length > 10}
                 >
                   {comment.author.nickname}
                 </NickNameWrapper>
@@ -139,10 +141,12 @@ export default function SubCommentSection({
 
 const NewFeedWrapper = styled(FeedWrapper)<{ isOpen: boolean }>`
   display: ${(p) => (p.isOpen ? 'flex' : 'none')};
-  padding-bottom: 0;
-
-  margin: 0;
   padding: 2.5rem 0 2.7rem 0;
+  margin: 0;
+  ${media.medium} {
+    padding: 1.5rem 0 1.7rem 0;
+    margin: 0;
+  }
   :last-child {
     border: none;
   }
