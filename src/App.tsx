@@ -12,6 +12,7 @@ import LandingPage from './pages/landing/LandingPage'
 import useCheckLogin from './components/common/hooks/useCheckLogin'
 import NotFoundPage from './pages/NotFoundPage'
 import ErrorBoundary from './components/error/ErrorBoundary'
+import NoticePage from './pages/notice/NoticePage'
 
 function App() {
   useCheckUserEffect()
@@ -35,6 +36,13 @@ function App() {
             redirect={LandingPage}
             exact
           />
+          <AuthRoute
+            path="/notice"
+            authenticated={authenticated}
+            component={NoticePage}
+            redirect={LandingPage}
+            exact
+          />
           <Route path="/feed/detail/:id" component={FeedPage} exact />
           <Route
             path={[
@@ -44,6 +52,7 @@ function App() {
             component={UserProfilePage}
             exact
           />
+
           <Route path="/user/edit" component={UserEditPage} exact />
           <Route path="/stock/:ticker" component={StockPage} exact />
           <Route component={NotFoundPage} />
