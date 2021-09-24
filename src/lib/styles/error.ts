@@ -2,6 +2,7 @@ import styled from '@emotion/styled'
 import { antblue050, grey050 } from './colors'
 
 export const Block = styled.div``
+
 export const Inner = styled.div`
   display: flex;
   flex-direction: column;

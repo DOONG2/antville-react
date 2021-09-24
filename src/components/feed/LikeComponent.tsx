@@ -4,13 +4,13 @@ import deleteUnLikeComment from '../../lib/api/comment/deleteUnLikeComment'
 import putLikeComment from '../../lib/api/comment/putLikeComment'
 import deleteUnLikePost from '../../lib/api/post/deleteUnLikePost'
 import HeartIcon from '../../static/svg/HeartIcon'
-import useCheckLogin from '../common/hooks/useCheckLogin'
 import viewSlice from '../../reducers/Slices/view'
 import putLikePost from '../../lib/api/post/putLikePost'
 import useMutationLike from './hooks/useMutationLike'
 import useMutationUnlike from './hooks/useMutationUnlike'
 import { post_query_key } from '../../lib/variable'
 import { likeEvent } from '../../lib/utils/ga'
+import { useRootState } from '../common/hooks/useRootState'
 
 interface Props {
   isLiked: boolean
@@ -29,8 +29,8 @@ export default function LikeComponent({
   parentId,
   keyId,
 }: Props) {
+  const user = useRootState((state) => state.user)
   const { setIsOpenLoginForm } = viewSlice.actions
-  const isLoggedIn = useCheckLogin()
   const dispatch = useDispatch()
 
   const { mutation: likeMutation } = useMutationLike({
@@ -53,7 +53,7 @@ export default function LikeComponent({
   return (
     <Wrapper
       onClick={() => {
-        if (!isLoggedIn) return dispatch(setIsOpenLoginForm(true))
+        if (!user) return dispatch(setIsOpenLoginForm(true))
         if (isLiked) unLikeMutation.mutate({ id, parentId })
         else {
           likeMutation.mutate({ id, parentId })
@@ -63,8 +63,8 @@ export default function LikeComponent({
     >
       <HeartIcon
         cursor={'pointer'}
-        color={isLiked && isLoggedIn ? '#FA1D65' : ''}
-        stroke={isLiked && isLoggedIn ? '' : '#9E9E9E'}
+        color={isLiked && user ? '#FA1D65' : ''}
+        stroke={isLiked && user ? '' : '#9E9E9E'}
       />
       <Count>좋아요 {count}</Count>
     </Wrapper>

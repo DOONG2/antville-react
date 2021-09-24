@@ -4,7 +4,7 @@ import { useMemo } from 'react'
 import { Element } from 'domhandler/lib/node'
 import { Link } from 'react-router-dom'
 
-export default function MentionToUrl() {
+export default function useMentionToUrl() {
   const autolinker = useMemo(() => new Autolinker(), [])
 
   const options: HTMLReactParserOptions = {

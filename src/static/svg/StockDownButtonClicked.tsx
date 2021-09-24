@@ -1,6 +1,6 @@
 import * as React from 'react'
 
-function StockDownIconClicked(props: any) {
+function StockDownButtonClicked(props: any) {
   return (
     <svg width={35} height={18} fill="none" {...props}>
       <path
@@ -15,5 +15,5 @@ function StockDownIconClicked(props: any) {
   )
 }
 
-const MemoStockDownIconClicked = React.memo(StockDownIconClicked)
-export default MemoStockDownIconClicked
+const MemoStockDownButtonClicked = React.memo(StockDownButtonClicked)
+export default MemoStockDownButtonClicked

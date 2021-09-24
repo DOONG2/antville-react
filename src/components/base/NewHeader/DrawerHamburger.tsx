@@ -66,7 +66,7 @@ export default function DrawerHamburger() {
 }
 
 const Block = styled.div`
-  padding-top: 2.5rem;
+  padding: 25px 0;
 `
 
 const UserWrapper = styled.div`
@@ -100,7 +100,7 @@ const UserName = styled.div`
 
 const Item = styled.div`
   font-size: 16px;
-  padding: 1.5rem 2.5rem;
+  padding: 15px 25px;
   line-height: 170%;
   cursor: pointer;
 

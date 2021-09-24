@@ -10,9 +10,10 @@ import HeaderNotice from './HeaderNotice'
 
 type Props = {
   id: number
+  isNotDropDown?: boolean
 }
 
-export default function HeaderNoticeDropDown({ id }: Props) {
+export default function HeaderNoticeDropDown({ id, isNotDropDown }: Props) {
   const scrollRef = useRef<HTMLDivElement>(null)
 
   const { isLoading, notices } = useInfiniteNotices({
@@ -30,12 +31,19 @@ export default function HeaderNoticeDropDown({ id }: Props) {
   if (notices.length < 1) return <HeaderNoticeEmpty />
 
   return (
-    <Block>
+    <Block
+      style={{
+        width: isNotDropDown ? '100%' : '337px',
+      }}
+    >
       <NoticeHeader>
         <div>최근 알림</div>
         {/* <Button onClick={() => {}}>전체삭제</Button> */}
       </NoticeHeader>
-      <ScrollWrapper ref={scrollRef}>
+      <ScrollWrapper
+        ref={scrollRef}
+        style={{ height: isNotDropDown ? '100vh' : '425px' }}
+      >
         {notices.map((notice) => (
           <HeaderNotice key={'notice-' + notice.id} notice={notice} />
         ))}
@@ -45,7 +53,6 @@ export default function HeaderNoticeDropDown({ id }: Props) {
 }
 
 const Block = styled.div`
-  width: 337px;
   display: grid;
 
   background: #ffffff;
@@ -68,7 +75,6 @@ const NoticeHeader = styled.div`
 `
 
 const ScrollWrapper = styled.div`
-  height: 425px;
   overflow: auto;
   ::-webkit-scrollbar {
     width: 5px; /*스크롤바의 너비*/

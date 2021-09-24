@@ -1,6 +1,6 @@
 import * as React from 'react'
 
-function Search(props: any) {
+function SearchIcon(props: any) {
   return (
     <svg width={16} height={16} fill="none" {...props}>
       <path
@@ -11,5 +11,5 @@ function Search(props: any) {
   )
 }
 
-const MemoSearch = React.memo(Search)
-export default MemoSearch
+const MemoSearchIcon = React.memo(SearchIcon)
+export default MemoSearchIcon
