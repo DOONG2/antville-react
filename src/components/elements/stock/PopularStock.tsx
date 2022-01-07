@@ -23,9 +23,9 @@ function PopularStock() {
           <Group>
             <LeftSpan isPause={isPause} />
             <Inner isPause={isPause} length={stocks.length}>
-              {[...stocks, ...stocks].map((stock) => (
+              {[...stocks, ...stocks].map((stock, index) => (
                 <PopularStockGroup
-                  key={`${stock.id}-stock-bar-popular`}
+                  key={`${index}-stock-bar-popular`}
                   stock={stock}
                 />
               ))}

@@ -2,6 +2,7 @@ import React from 'react'
 import ReactDOM from 'react-dom'
 import App from './App'
 import { Provider } from 'react-redux'
+import { BrowserRouter } from 'react-router-dom'
 import { QueryClient, QueryClientProvider } from 'react-query'
 import store from './features/store'
 import * as dotenv from 'dotenv'
@@ -22,11 +23,13 @@ const queryClient = new QueryClient({
 ReactDOM.render(
   <React.StrictMode>
     <Provider store={store}>
-      <QueryClientProvider client={queryClient}>
-        <WebsocketProvider>
-          <App />
-        </WebsocketProvider>
-      </QueryClientProvider>
+      <BrowserRouter>
+        <QueryClientProvider client={queryClient}>
+          <WebsocketProvider>
+            <App />
+          </WebsocketProvider>
+        </QueryClientProvider>
+      </BrowserRouter>
     </Provider>
   </React.StrictMode>,
   document.getElementById('root')

@@ -1,11 +1,23 @@
-import React from 'react'
+import { Route, Switch } from 'react-router-dom'
 import Core from './components/base/Core'
-import PopularStock from './components/elements/stock/PopularStock'
+import MainPage from './components/elements/main/MainPage'
 
 function App() {
   return (
     <>
-      <PopularStock />
+      <Switch>
+        <Route path="/" exact component={MainPage} />
+        <Route
+          path={[
+            '/user/:nickname/profile',
+            '/user/:nickname/profile/:mode(all|like)',
+          ]}
+          component={() => <></>}
+          exact
+        />
+        <Route path="/stock/:ticker" component={() => <></>} exact />
+      </Switch>
+
       <Core />
     </>
   )
