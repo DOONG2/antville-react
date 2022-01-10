@@ -12,11 +12,12 @@ export default function useMentionToUrl() {
       if (domNode instanceof Element && domNode.attribs) {
         if (domNode.attribs.id === 'cashTag') {
           const text = (domNode.children[0] as Text).data
-          console.log(text)
-          return <Link to={`/stock/${text.substr(1)}`}>{text}</Link>
+          return <Link to={`/stock/${text.replace('$', '')}`}>{text}</Link>
         } else if (domNode.attribs.id === 'atSign') {
           const text = (domNode.children[0] as Text).data
-          return <Link to={`/user/${text.substr(1)}/profile`}>{text}</Link>
+          return (
+            <Link to={`/user/${text.replace('@', '')}/profile`}>{text}</Link>
+          )
         }
       }
     },

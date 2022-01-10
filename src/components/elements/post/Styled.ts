@@ -10,7 +10,7 @@ import {
   grey060,
   grey080,
   red050,
-  sky010,
+  sky020,
   sky040,
 } from 'src/styles/colors'
 
@@ -252,7 +252,7 @@ export const CustomQuill = styled(ReactQuill)`
   }
 
   .ql-mention-list-item.selected {
-    background-color: ${sky010};
+    background-color: ${sky020};
   }
 
   .ql-mention-list-item {
@@ -260,9 +260,6 @@ export const CustomQuill = styled(ReactQuill)`
     padding: 9px 12px 7px 12px;
     grid-row-gap: 3px;
     border-bottom: 0.225872px solid #e0e0e0;
-
-    span {
-    }
 
     img {
       width: 25px;

@@ -3,13 +3,25 @@ import { useDispatch } from 'react-redux'
 import { useRootState } from 'src/components/common/hooks/useRootState'
 import { setFeedBody } from 'src/features/Feed/FeedSlice'
 import { setPostBody } from 'src/features/Post/PostSlice'
+import useParsePost from './hooks/useParsePost'
 import PostEditor from './PostEditor'
 
 import * as Styled from './Styled'
 
 export default function PostForm() {
   const { body } = useRootState((state) => state.Post)
+
+  const { getBodyOnlyText } = useParsePost()
+
+  const onClick = (e: React.MouseEvent<HTMLButtonElement>) => {
+    e.preventDefault()
+    const bodyOnlyText = getBodyOnlyText(body)
+    dispatch(setFeedBody(bodyOnlyText))
+    dispatch(setPostBody(''))
+  }
+
   const dispatch = useDispatch()
+
   return (
     <Styled.Form>
       <Styled.FormInner>
@@ -18,24 +30,7 @@ export default function PostForm() {
           <Styled.PostInner>
             <Styled.PostInnerButtonsWrapper>
               <Styled.ButtonWrapper>
-                <Styled.SubmitButton
-                  onClick={(e) => {
-                    e.preventDefault()
-
-                    const parser = new DOMParser()
-                    const doc = parser.parseFromString(body, 'text/html')
-                    const elements = doc.querySelectorAll('p')
-                    let bodyOnlyText = ''
-                    elements.forEach((el, index) => {
-                      if (index === elements.length - 1)
-                        return (bodyOnlyText = bodyOnlyText + el.innerText)
-                      bodyOnlyText = bodyOnlyText + el.innerText + '\n'
-                    })
-
-                    dispatch(setFeedBody(bodyOnlyText))
-                    dispatch(setPostBody(''))
-                  }}
-                >
+                <Styled.SubmitButton onClick={onClick}>
                   게시
                 </Styled.SubmitButton>
               </Styled.ButtonWrapper>

@@ -21,7 +21,13 @@ interface Props {
 }
 
 export function WebsocketProvider({ children }: Props) {
+  const [open, setOpen] = useState<boolean>(false)
+  const symbols = useRootState((state) => selectAllPriceSymbolList(state))
+
   const { pushPost, getSubscription } = usePostStream()
+
+  const dispatch = useDispatch()
+
   const uuid = useMemo(() => uuidv4(), [])
   const rws = useMemo(
     () =>
@@ -38,36 +44,9 @@ export function WebsocketProvider({ children }: Props) {
       }),
     []
   )
-  const [open, setOpen] = useState<boolean>(false)
-  const symbols = useRootState((state) => selectAllPriceSymbolList(state))
-  const dispatch = useDispatch()
-
-  useEffect(() => {
-    rws.addEventListener('open', (_) => {
-      setOpen(true)
-    })
-    rws.addEventListener('close', (_) => {
-      setOpen(false)
-    })
-    rws.onmessage = (event) => {
-      const data = JSON.parse(event.data)
-      if (isStockPriceInfo(data)) {
-        dispatch(addOrReplaceStockPrice(data))
-      } else if (isStockPost(data)) {
-        pushPost(data)
-      }
-    }
-    return () => rws.close()
-  }, [])
-
-  useEffect(() => {
-    if (open && symbols.length > 0) {
-      sendStockSymbols()
-    }
-  }, [open, symbols])
 
   const sendStockSymbols = useCallback(() => {
-    if (symbols) {
+    if (symbols)
       rws.send(
         JSON.stringify({
           event: 'CHANGE_STOCK_PRICE_INFO',
@@ -77,8 +56,22 @@ export function WebsocketProvider({ children }: Props) {
           },
         })
       )
-    }
   }, [symbols])
+
+  useEffect(() => {
+    rws.addEventListener('open', (_) => setOpen(true))
+    rws.addEventListener('close', (_) => setOpen(false))
+    rws.onmessage = (event) => {
+      const data = JSON.parse(event.data)
+      if (isStockPriceInfo(data)) dispatch(addOrReplaceStockPrice(data))
+      else if (isStockPost(data)) pushPost(data)
+    }
+    return () => rws.close()
+  }, [])
+
+  useEffect(() => {
+    if (open && symbols.length > 0) sendStockSymbols()
+  }, [open, symbols])
 
   return (
     <WebsocketContext.Provider

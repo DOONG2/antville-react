@@ -3,36 +3,31 @@ import useStockPopularQuery from './hooks/useStockPopularQuery'
 import { PopularStockGroup } from './PopularStockGroup'
 
 function PopularStock() {
-  const { isLoading, stocks } = useStockPopularQuery()
+  const { data } = useStockPopularQuery()
 
-  const isPause = false
+  if (data === undefined) return <></>
 
-  if (!stocks) return <></>
+  const { stocks } = data
 
   return (
     <Wrapper>
       <BarWrapper>
-        <LabelWrapper isPause={isPause}>
+        <LabelWrapper>
           <Label>실시간 인기 종목</Label>
           <IconWrapper></IconWrapper>
         </LabelWrapper>
-
-        {isLoading ? (
-          ''
-        ) : (
-          <Group>
-            <LeftSpan isPause={isPause} />
-            <Inner isPause={isPause} length={stocks.length}>
-              {[...stocks, ...stocks].map((stock, index) => (
-                <PopularStockGroup
-                  key={`${index}-stock-bar-popular`}
-                  stock={stock}
-                />
-              ))}
-            </Inner>
-            <RightSpan isPause={isPause} />
-          </Group>
-        )}
+        <Group>
+          <LeftSpan />
+          <Inner length={stocks.length}>
+            {[...stocks, ...stocks].map((stock, index) => (
+              <PopularStockGroup
+                key={`${index}-stock-bar-popular`}
+                stock={stock}
+              />
+            ))}
+          </Inner>
+          <RightSpan />
+        </Group>
       </BarWrapper>
     </Wrapper>
   )
@@ -67,8 +62,8 @@ const Label = styled.div`
   margin-top: 0.02rem;
 `
 
-const LabelWrapper = styled.div<{ isPause: boolean }>`
-  margin-right: ${(p) => (p.isPause ? '1.5rem' : '3rem')};
+const LabelWrapper = styled.div`
+  margin-right: 3rem;
   display: flex;
   column-gap: 1.4rem;
   align-items: center;
@@ -83,13 +78,12 @@ const Group = styled.div`
   overflow: hidden;
 `
 
-const Inner = styled.div<{ isPause: boolean; length: number }>`
+const Inner = styled.div<{ length: number }>`
   position: relative;
   z-index: 1;
   display: flex;
 
   ${(p) =>
-    !p.isPause &&
     `transition: transform ${p.length * 6}s linear 0s, -webkit-transform ${
       p.length * 6
     }s linear 0s;
@@ -110,8 +104,8 @@ const Inner = styled.div<{ isPause: boolean; length: number }>`
   }`}
 `
 
-const RightSpan = styled.div<{ isPause: boolean }>`
-  display: ${(p) => (p.isPause ? 'none' : '')};
+const RightSpan = styled.div`
+  display: none;
   position: absolute;
   height: 100%;
   z-index: 2;

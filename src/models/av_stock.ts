@@ -22,9 +22,7 @@ class AVStock {
     this.stock = stock
     this.priceInfo = priceInfo
     this.setStock()
-    if (this.hasPrice) {
-      this.setPriceInfo()
-    }
+    if (this.hasPrice) this.setPriceInfo()
   }
 
   get hasPrice(): boolean {
@@ -34,9 +32,9 @@ class AVStock {
       this.priceInfo.changePercentage !== undefined &&
       this.priceInfo.latest &&
       this.priceInfo.volume
-    ) {
+    )
       return true
-    }
+
     return false
   }
 

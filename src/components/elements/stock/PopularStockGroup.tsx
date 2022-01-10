@@ -10,19 +10,17 @@ interface StockListGroupProps {
 }
 
 export function PopularStockGroup({ stock }: StockListGroupProps) {
-  const history = useHistory()
   const memoizeSelectAvStock = useMemo(selectAvStock, [])
   const avStock = useRootState((state) => memoizeSelectAvStock(state, stock))
+  const history = useHistory()
 
   return (
     <Item onClick={() => history.push(`/stock/${avStock.stock.cashTagName}`)}>
       <TickerLabel>{avStock.title}</TickerLabel>
       {avStock.hasPrice && (
-        <>
-          <RateLabel color={avStock.textColor}>
-            {avStock.changePercent}%
-          </RateLabel>
-        </>
+        <RateLabel color={avStock.textColor}>
+          {avStock.changePercent}%
+        </RateLabel>
       )}
     </Item>
   )

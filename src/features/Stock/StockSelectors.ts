@@ -15,17 +15,6 @@ export const selectAvStock = () => {
   return avStockSelector
 }
 
-export const selectIsWatchlist = createDraftSafeSelector(
-  (state: RootState) => state.stock.watchlist,
-  (_: RootState, title: string) => title,
-  (watchlist, title) => {
-    const isWatchlist =
-      watchlist?.some((w) => w.symbol === title || w.cashTagName === title) ??
-      false
-    return isWatchlist
-  }
-)
-
 export const selectAllPriceSymbolList = createDraftSafeSelector(
   (state: RootState) => state.stock.watchlist,
   (state: RootState) => state.stock.popularList,
