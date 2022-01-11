@@ -3,33 +3,32 @@ import Autolinker from 'autolinker'
 import { useMemo } from 'react'
 import { Element } from 'domhandler/lib/node'
 import { Link } from 'react-router-dom'
+import { STOCK_REGEX, USER_REGEX } from 'src/constants/regex'
+import { AT_SIGN, CASH_TAG } from 'src/constants/post'
 
 export default function useMentionToUrl() {
   const autolinker = useMemo(() => new Autolinker(), [])
 
   const options: HTMLReactParserOptions = {
     replace: (domNode) => {
-      if (domNode instanceof Element && domNode.attribs) {
-        if (domNode.attribs.id === 'cashTag') {
-          const text = (domNode.children[0] as Text).data
-          return <Link to={`/stock/${text.replace('$', '')}`}>{text}</Link>
-        } else if (domNode.attribs.id === 'atSign') {
-          const text = (domNode.children[0] as Text).data
-          return (
-            <Link to={`/user/${text.replace('@', '')}/profile`}>{text}</Link>
-          )
-        }
-      }
+      if (!(domNode instanceof Element && domNode.attribs)) return
+
+      const text = (domNode.children[0] as Text).data
+      const id = domNode.attribs.id
+
+      let path = ''
+      if (id === CASH_TAG) path = `/stock/${text.replace('$', '')}`
+      if (id === AT_SIGN) path = `/user/${text.replace('@', '')}/profile`
+
+      return <Link to={path}>{text}</Link>
     },
   }
 
   const mentionToUrl = (value: string) => {
-    const stock_reg = /\$([a-zA-Z가-힣-&0-9]{1,30})/g
-    const user_reg = /@([a-zA-Z가-힣0-9_.]{2,30})/g
     const linkValue = autolinker.link(value)
     const result = linkValue
-      .replace(user_reg, (value) => `<a id="atSign">${value}</a>`)
-      .replace(stock_reg, (value) => `<a id="cashTag">${value}</a>`)
+      .replace(USER_REGEX, (value) => `<a id=${AT_SIGN}>${value}</a>`)
+      .replace(STOCK_REGEX, (value) => `<a id=${CASH_TAG}>${value}</a>`)
 
     return parse(result, options)
   }

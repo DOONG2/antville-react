@@ -5,3 +5,6 @@ export const MENTION_ALLOWED_CHAR = /^[a-zA-Z0-9_.ㄱ-ㅎㅏ-ㅜ가-힣]*$/
 
 export const MENTION_MAX_CHAR = 20
 export const MENTION_MIN_CHAR = 1
+
+export const AT_SIGN = 'atSign'
+export const CASH_TAG = 'cashTag'

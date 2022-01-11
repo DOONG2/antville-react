@@ -16,6 +16,7 @@ export const selectAvStock = () => {
 }
 
 export const selectAllPriceSymbolList = createDraftSafeSelector(
+  // DraftSafe 배열 내부 값 트레킹
   (state: RootState) => state.stock.watchlist,
   (state: RootState) => state.stock.popularList,
   (watchlist, popularList) => {
