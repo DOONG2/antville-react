@@ -4,8 +4,6 @@
 
 ## [Product](https://antville.kr/)
 
-![](src/images/web_mockup.gif)
-
 ## 0. 팀원
 
 - 강중석
