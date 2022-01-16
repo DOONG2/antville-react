@@ -16,15 +16,19 @@ type DataType = {
 export default function useReactQuill() {
   const { getQueryUser, postQueryStock } = useSearchData()
 
+  // 유저 프로필 아이템
   const getAvartarUserItem = (value: string, avartar: string) =>
     `<div><img src=${ImageOptimizer(avartar, 120)} />${value}</div><div></div>`
 
+  // 기본 프로필 아이템
   const getNormalUserItem = (value: string) =>
     `<div><img src=${UserIcon} />${value}</div><div></div>`
 
+  // 종목 프로필 아이템
   const getStockItem = (value: string, subTitle?: string) =>
     `<div>${value}</div><div>${subTitle ? subTitle : ''}</div>`
 
+  // clipboard matcher 함수
   const pushMatchers = (node: any, delta: any) => {
     let ops: any = []
     delta.ops.forEach(({ insert }: any) => {
@@ -38,6 +42,7 @@ export default function useReactQuill() {
     return delta
   }
 
+  // 태그에 따른 이미지 분기처리 렌더 함수
   const renderItem = (
     { avartar, value, subTitle }: DataType,
     mentionChar: string
@@ -48,6 +53,7 @@ export default function useReactQuill() {
         : getNormalUserItem(value)
       : getStockItem(value, subTitle)
 
+  // 태그에 따른 데이터 리스트 분기처리 함수
   const getSource = async (
     searchTerm: string,
     renderItem: any,
@@ -59,11 +65,13 @@ export default function useReactQuill() {
     renderItem(values, mentionChar)
   }
 
+  // 미리보기 리스트 선택 함수
   const onSelect = (data: DataType, insertItem: any) => {
     if (data.renderString) insertItem({ ...data, value: data.renderString })
     else insertItem(data)
   }
 
+  // modules 호환을 위한 useMemo 처리
   const modules = useMemo(() => {
     return {
       toolbar: false,

@@ -2,7 +2,10 @@ import { useEffect } from 'react'
 import { useQuery } from 'react-query'
 import { useDispatch } from 'react-redux'
 import getStockPopular from 'src/api/stock/getStockPopular'
-import { addMultiStockPrice } from 'src/features/Stock/StockSlice'
+import {
+  addMultiStockPrice,
+  setPopularlistState,
+} from 'src/features/Stock/StockSlice'
 
 const useStockPopularQuery = () => {
   const queryClient = useQuery('stockPopular', () => getStockPopular())
@@ -10,7 +13,10 @@ const useStockPopularQuery = () => {
   const dispatch = useDispatch()
 
   useEffect(() => {
-    data && dispatch(addMultiStockPrice(data.stockPriceInfos))
+    if (data) {
+      dispatch(addMultiStockPrice(data.stockPriceInfos))
+      dispatch(setPopularlistState(data.stocks))
+    }
   }, [data])
 
   return { ...queryClient }

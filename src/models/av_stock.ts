@@ -2,6 +2,7 @@ import { Stock, StockPriceInfo } from 'src/api/types'
 import { blue050, grey060, red050 } from 'src/styles/colors'
 import NumberFormatUtil from 'src/utils/NumberFormatter'
 
+// 앤트빌 주식 종목 클래스
 class AVStock {
   stock: Stock
   priceInfo?: StockPriceInfo
@@ -38,6 +39,7 @@ class AVStock {
     return false
   }
 
+  // 종목 저장 함수
   setStock() {
     this.id = this.stock.id
     if (this.stock.exchange.countryCode === 'US') {
@@ -51,6 +53,7 @@ class AVStock {
     }
   }
 
+  // 종목 데이터 저장 함수
   setPriceInfo() {
     let isUSD: boolean
     if (this.stock.exchange.countryCode !== 'KR') {

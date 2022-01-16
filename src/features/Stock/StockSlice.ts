@@ -19,13 +19,16 @@ const StockSlice = createSlice({
   name: 'stock',
   initialState,
   reducers: {
+    // 실시간 인기종목 상태 변경 리듀서
     setPopularlistState(state, action: PayloadAction<StockState>) {
       state.popularList = action.payload
     },
+    // socket에 의한 가격 데이터 변경 리듀서
     addOrReplaceStockPrice(state, action: PayloadAction<StockPriceInfo>) {
       const payload = action.payload
       if (payload) state.priceState[payload.symbol] = payload
     },
+    // API 에 의한 가격 데이터 변경 리듀서
     addMultiStockPrice(state, action: PayloadAction<[StockPriceInfo?]>) {
       action.payload.forEach((sp) => (state.priceState[sp!.symbol] = sp!))
     },

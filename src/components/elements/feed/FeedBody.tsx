@@ -5,6 +5,7 @@ import useMentionToUrl from './hooks/useMentionToUrl'
 export default function FeedBody() {
   const { body } = useRootState((state) => state.Feed)
 
+  // body의 멘션데이터 파싱
   const { mentionToUrl } = useMentionToUrl()
 
   return (
