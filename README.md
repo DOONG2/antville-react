@@ -1,46 +1,40 @@
-# Getting Started with Create React App
+# 실시간 거래소 레벨의 WebSocket 통신과 피드 및 멘션 기능 구현하기
 
-This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
+> `2021. 06. 01 ~ 2021. 06. 12 / 1주 반 / (주)비바체스`
 
-## Available Scripts
+## [Product](https://antville.kr/)
 
-In the project directory, you can run:
+![](src/images/web_mockup.gif)
 
-### `yarn start`
+## 0. 팀원
 
-Runs the app in the development mode.\
-Open [http://localhost:3000](http://localhost:3000) to view it in the browser.
+- 강중석
 
-The page will reload if you make edits.\
-You will also see any lint errors in the console.
+## 1. 직면한 문제
 
-### `yarn test`
+- 촉박한 일정으로 빠르게 쳐내야하는 상황
+- 정적 데이터와 동적 웹소켓 데이터의 상태관리
+- 특정 종목이 렌더링되면 모든 종목이 렌더링 되는 이슈
+- textarea 구조로 구현할 수 없는 멘션 기능
 
-Launches the test runner in the interactive watch mode.\
-See the section about [running tests](https://facebook.github.io/create-react-app/docs/running-tests) for more information.
+## 2. 주요 기능
 
-### `yarn build`
+![](src/images/websocket.gif)
 
-Builds the app for production to the `build` folder.\
-It correctly bundles React in production mode and optimizes the build for the best performance.
+![](src/images/mention.gif)
 
-The build is minified and the filenames include the hashes.\
-Your app is ready to be deployed!
+- 국내/해외 주식, 비트코인의 가격을 웹소켓으로 제공
 
-See the section about [deployment](https://facebook.github.io/create-react-app/docs/deployment) for more information.
+- redux-toolkit 파편화로 렌더링을 최적화
 
-### `yarn eject`
+- 태그와 피드기능
 
-**Note: this is a one-way operation. Once you `eject`, you can’t go back!**
+- API 요청 최적화
 
-If you aren’t satisfied with the build tool and configuration choices, you can `eject` at any time. This command will remove the single build dependency from your project.
+## 4. 사용 스택
 
-Instead, it will copy all the configuration files and the transitive dependencies (webpack, Babel, ESLint, etc) right into your project so you have full control over them. All of the commands except `eject` will still work, but they will point to the copied scripts so you can tweak them. At this point you’re on your own.
-
-You don’t have to ever use `eject`. The curated feature set is suitable for small and middle deployments, and you shouldn’t feel obligated to use this feature. However we understand that this tool wouldn’t be useful if you couldn’t customize it when you are ready for it.
-
-## Learn More
-
-You can learn more in the [Create React App documentation](https://facebook.github.io/create-react-app/docs/getting-started).
-
-To learn React, check out the [React documentation](https://reactjs.org/).
+- React.js
+- TypeScript
+- redux-toolkit
+- react-query
+- emotion
