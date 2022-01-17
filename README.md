@@ -1,4 +1,4 @@
-# 실시간 거래소 레벨의 WebSocket 통신과 Feed & Mention 구현하기
+# 거래소 레벨의 WebSocket 통신과 Feed & Mention 구현하기
 
 > `2021. 06. 01 ~ 2021. 06. 15 / workday 11 / (주)비바체스`
 
